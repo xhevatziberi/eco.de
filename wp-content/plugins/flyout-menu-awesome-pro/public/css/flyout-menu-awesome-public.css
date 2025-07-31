@@ -1,0 +1,1159 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+body {
+    height: 100%;
+}
+
+.btn-activate-flyout-tgt,
+.btn-activate-flyout-tgt:hover {
+    outline: none;
+    text-decoration: none;
+}
+
+.btn-activate-flyout-tgt {
+    padding: 10px 10px;
+    background: transparent;
+    color: #333333;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+
+/* flyout */
+
+.flyout-container,
+.scroller {
+    height: 100%;
+}
+
+
+/*.scroller {
+	overflow-y: scroll;
+}*/
+
+.scroller,
+.scroller-inner {
+    position: relative;
+}
+
+.flyout-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-trigger {
+    position: relative;
+}
+
+.mp-pusher {
+    position: relative;
+    left: 0;
+    height: 100%;
+}
+
+.mp-menu {
+    position: absolute;
+    /* we can't use fixed here :( */
+    top: 0;
+    left: 0;
+    z-index: 4;
+    width: 300px;
+    height: 100%;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    -moz-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+}
+
+.mp-level {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #336ca6;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    -moz-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    z-index: 1;
+}
+
+
+/* overlays for pusher and for level that gets covered */
+
+.mp-pusher::after,
+.mp-level::after,
+.mp-level::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    content: '';
+    opacity: 0;
+}
+
+.mp-pusher::after,
+.mp-level::after {
+    background: rgba(0, 0, 0, 0.3);
+    -webkit-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+    -moz-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+    transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+}
+
+.mp-level::after {
+    z-index: -1;
+}
+
+.mp-pusher.mp-pushed::after,
+.mp-level.mp-level-overlay::after {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+}
+
+.mp-level.mp-level-overlay {
+    cursor: pointer;
+}
+
+.mp-level.mp-level-overlay.mp-level::before {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 1;
+}
+
+.mp-pusher,
+.mp-level {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+
+/* overlap */
+
+.mp-overlap .mp-level.mp-level-open {
+    box-shadow: 1px 0 2px rgba(0, 0, 0, 0.2);
+    -webkit-transform: translate3d(-40px, 0, 0);
+    -moz-transform: translate3d(-40px, 0, 0);
+    transform: translate3d(-40px, 0, 0);
+}
+
+
+/* First level */
+
+.mp-menu>.mp-level,
+.mp-menu>.mp-level.mp-level-open,
+.mp-menu.mp-overlap>.mp-level,
+.mp-menu.mp-overlap>.mp-level.mp-level-open {
+    box-shadow: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+
+/* cover */
+
+.mp-cover .mp-level.mp-level-open {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.mp-cover .mp-level.mp-level-open>ul>.low>.mp-level:not(.mp-level-open) {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    -moz-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+}
+
+
+/* content style */
+
+.mp-menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mp-menu h2 {
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.mp-menu.mp-overlap .icon-display {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    margin-right: 8px;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.1s 0.3s;
+    -moz-transition: opacity 0.3s, -moz-transform 0.1s 0.3s;
+    transition: opacity 0.3s, transform 0.1s 0.3s;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+
+.mp-menu.mp-cover h2 {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 1em;
+}
+
+.mp-overlap .mp-level.mp-level-overlay .icon-display {
+    opacity: 1;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.mp-menu ul .low a {
+    display: block;
+    padding: 15px 20px 15px 40px;
+    outline: none;
+    box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+    font-size: 1.4em;
+    -webkit-transition: background 0.3s, box-shadow 0.3s;
+    -moz-transition: background 0.3s, box-shadow 0.3s;
+    transition: background 0.3s, box-shadow 0.3s;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.mp-menu ul .low::before {
+    position: absolute;
+    left: 10px;
+    z-index: -1;
+    color: rgba(0, 0, 0, 0.2);
+    line-height: 3.5;
+}
+
+.mp-level>ul>.low:first-child>a {
+    box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2), inset 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.mp-menu ul .low a:hover,
+.mp-level>ul>.low:first-child>a:hover {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 -1px rgba(0, 0, 0, 0);
+}
+
+.mp-menu .mp-level.mp-level-overlay>ul>.low>a,
+.mp-level.mp-level-overlay>ul>.low:first-child>a {
+    box-shadow: inset 0 -1px rgba(0, 0, 0, 0);
+}
+
+.mp-level>ul>.low:first-child>a:hover,
+.mp-level.mp-level-overlay>ul>.low:first-child>a {
+    box-shadow: inset 0 -1px rgba(0, 0, 0, 0), inset 0 1px rgba(0, 0, 0, 0);
+}
+
+
+/* seems like Chrome 34.0.1847.131 needs the second shadow otherwise the transition breaks */
+
+.mp-back {
+    background: rgba(0, 0, 0, 0.3);
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    display: block;
+    font-size: 14px !important;
+    padding: 1em;
+    position: relative;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.3);
+    -webkit-transition: background 0.3s;
+    -moz-transition: background 0.3s;
+    transition: background 0.3s;
+}
+
+.mp-back::after {
+    font-family: 'linecons';
+    position: absolute;
+    content: "\e037";
+    right: 10px;
+    font-size: 1.3em;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.mp-menu .mp-level.mp-level-overlay>.mp-back,
+.mp-menu .mp-level.mp-level-overlay>.mp-back::after {
+    background: transparent;
+    box-shadow: none;
+    color: transparent;
+}
+
+
+/* Fallback example for browsers that don't support 3D transforms (and no JS fallback) */
+
+
+/* We'll show the first level only */
+
+.no-csstransforms3d .mp-pusher,
+.no-js .mp-pusher {
+    padding-left: 300px;
+}
+
+.no-csstransforms3d .mp-menu .mp-level,
+.no-js .mp-menu .mp-level {
+    display: none;
+}
+
+.no-csstransforms3d .mp-menu>.mp-level,
+.no-js .mp-menu>.mp-level {
+    display: block;
+}
+
+
+/* start custom css */
+
+.menu-item.icon-left i {
+    margin-right: 5px;
+}
+
+.menu-item.icon-right i {
+    margin-left: 5px;
+}
+
+.btn-activate-flyout-tgt .icon-left {
+    margin-right: 5px;
+}
+
+.btn-activate-flyout-tgt .icon-right {
+    margin-left: 5px;
+}
+
+.container-flyout-menu {
+    -webkit-transform: none;
+    transform: none;
+}
+
+.btn-activate-flyout-tgt.top-left {
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+}
+
+.btn-activate-flyout-tgt.center-left {
+    position: fixed;
+    z-index: 4;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.btn-activate-flyout-tgt.bottom-left {
+    position: fixed;
+    z-index: 4;
+    bottom: 0;
+    left: 0;
+}
+
+.btn-activate-flyout-tgt.top-right {
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: auto;
+    right: 0;
+}
+
+.btn-activate-flyout-tgt.center-right {
+    position: fixed;
+    z-index: 4;
+    top: 50%;
+    left: auto;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.btn-activate-flyout-tgt.bottom-right {
+    position: fixed;
+    z-index: 4;
+    bottom: 0;
+    left: auto;
+    right: 0;
+}
+
+.btn-activate-flyout-tgt.center-top {
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.btn-activate-flyout-tgt.center-bottom {
+    position: fixed;
+    z-index: 4;
+    top: auto;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.text-btn-klas {
+    display: inline-block;
+}
+
+
+/* Custom CSS Start */
+
+
+/*.mp-menu ul .low {
+	padding: 0.7em 1em 0.7em 1.8em;
+}
+.mp-menu ul .low a {
+	padding: 0;
+}*/
+
+.mp-menu .flyout-menus .low a {
+    display: block;
+    padding: 15px 20px 15px 50px;
+    outline: none;
+    box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+    font-size: 18px;
+    -webkit-transition: all 0.3s, box-shadow 0.3s;
+    -moz-transition: all 0.3s, box-shadow 0.3s;
+    transition: all 0.3s, box-shadow 0.3s;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mp-menu .flyout-menus .low a:hover {
+    -webkit-transition: all 0.3s, box-shadow 0.3s;
+    -moz-transition: all 0.3s, box-shadow 0.3s;
+    transition: all 0.3s, box-shadow 0.3s;
+}
+
+.mp-menu .flyout-menus .low a i {
+    margin-right: 20px;
+}
+
+.mp-level.mp-level-overlay>.flyout-menus>.low>.djan>a,
+.mp-level.mp-level-overlay>.flyout-menus>.menu>.low>.djan>a {
+    box-shadow: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.mp-menu .flyout-menus .low.has-sub-menu .djan a,
+.mp-menu .flyout-menus .low.menu-item-has-children .djan a {
+    position: relative;
+}
+
+.mp-menu .flyout-menus .low.has-sub-menu .djan a:before,
+.mp-menu .flyout-menus .low.menu-item-has-children .djan a:before {
+    content: "\f053";
+    position: absolute;
+    left: 15px;
+    vertical-align: middle;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 18px;
+}
+
+.mp-menu .flyout-menus .low.has-sub-menu .low:not(.has-sub-menu) a:before,
+.mp-menu .flyout-menus .low.menu-item-has-children .low:not(.menu-item-has-children) a:before {
+    display: none;
+}
+
+.mp-menu .flyout-menus a.mp-back {
+    padding: 10px 20px 10px 40px;
+    font-size: 16px;
+    position: relative;
+}
+
+.mp-menu .flyout-menus .mp-back::after {
+    font-family: "Font Awesome 5 Free";
+    position: absolute;
+    font-weight: 900;
+    content: "\f054";
+    right: 10px;
+    font-size: inherit;
+    color: rgba(0, 0, 0, 0.4);
+    line-height: 1.9;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.flyout-menus .sub-menu-toggle,
+.flyout-menus .btn-activate-flyout-tgt {
+    display: none;
+}
+
+.flyout-logo-head {
+    padding: 3em 1.5em;
+    text-align: center;
+}
+
+.flyout-logo-head img {
+    margin: auto;
+}
+
+.mp-level::before {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 9;
+    opacity: 1;
+}
+
+.flyout-menus {
+    position: relative;
+    z-index: 99;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.icon.icon-display i {
+    font-size: 18px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.icon.icon-display i > img {
+    height: 20px;
+    width: 20px;
+}
+
+.flyout-logo-head.logo-img {
+    padding: 8em 3em;
+}
+
+.mp-pushed .scroller {
+    height: 100vh;
+}
+
+
+/* STYLE OPAT */
+
+.fly-style-opat .mp-level .mp-level {
+    transform: translate3d(0, 0, 0)!important;
+    z-index: -1;
+    opacity: 0;
+}
+
+.fly-style-opat .mp-level .mp-level.mp-level-open {
+    transform: translate3d(100%, 0, 0)!important;
+    z-index: 3;
+    opacity: 1;
+}
+
+.fly-style-opat .mp-level .mp-level .flyout-logo-head {
+    opacity: 0;
+}
+
+.fly-style-opat .mp-level .low a {
+    box-shadow: none;
+    transition: all .3s;
+}
+
+.fly-style-opat .mp-level a:hover {
+    background-color: rgba(255, 255, 255, 20%);
+    transition: all .3s;
+}
+
+.fly-style-opat .mp-menu .flyout-menus .low.has-sub-menu .djan a:before,
+.fly-style-opat .mp-menu .flyout-menus .low.menu-item-has-children .djan a:before {
+    content: "\f054";
+    color: #ffffff;
+    left: unset;
+    right: 20px;
+    font-size: 16px;
+}
+
+.fly-style-opat .flyout-logo-head.logo-img {
+    padding: 5em 3em 3em;
+}
+
+.fly-style-opat .mp-menu a.mp-back {
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    background-color: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.fly-style-opat .mp-menu a.mp-back:before {
+    content: "";
+    position: unset;
+    transform: none;
+    width: 2px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.7);
+    transform: rotate(-45deg);
+    border-radius: 2px;
+}
+
+.fly-style-opat .mp-menu a.mp-back:after {
+    content: "";
+    position: unset;
+    transform: none;
+    width: 2px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.7);
+    transform: rotate(45deg);
+    position: absolute;
+    left: 19px;
+    right: unset;
+    top: 7px;
+    border-radius: 2px;
+}
+
+
+/* STYLE GENEP */
+
+.fly-style-genep .mp-level .low {
+    overflow: hidden;
+}
+
+.fly-style-genep .flyout-menus {
+    flex-wrap: unset;
+    overflow: auto;
+}
+
+.fly-style-genep .mp-level .mp-level {
+    position: unset;
+    transform: translate3d(0, 0, 0)!important;
+    max-height: 0;
+    transition: all .3s;
+}
+
+.fly-style-genep .mp-level .mp-level.mp-level-open {
+    max-height: 100vh;
+    transition: all .3s;
+}
+
+.fly-style-genep .mp-menu .flyout-menus .low.has-sub-menu .djan a:before,
+.fly-style-genep .mp-menu .flyout-menus .low.menu-item-has-children .djan a:before {
+    content: "\f078";
+    color: #ffffff;
+    left: unset;
+    right: 25px;
+    font-size: 16px;
+}
+
+.fly-style-genep .mp-menu .flyout-menus .low.has-sub-menu.active-menu .djan a:before,
+.fly-style-genep .mp-menu .flyout-menus .low.menu-item-has-children.active-menu .djan a:before {
+    content: "\f077";
+}
+
+.fly-style-genep .mp-menu .flyout-menus .low.has-sub-menu:not(.active-menu) .djan a:before,
+.fly-style-genep .mp-menu .flyout-menus .low.menu-item-has-children:not(.active-menu) .djan a:before {
+    content: "\f078";
+}
+
+.fly-style-genep .mp-level .mp-level {
+    background-color: rebeccapurple;
+}
+
+.fly-style-genep .flyout-menus .flyout-menus .low a span {
+    padding: 0 20px;
+}
+
+.fly-style-genep .mp-menu .low a {
+    box-shadow: none;
+}
+
+.fly-style-genep .mp-menu .low a i {
+    width: 30px;
+    height: 30px;
+    display: flex!important;
+    align-items: center;
+    justify-content: center;
+    background: #484889;
+    border-radius: 50%;
+}
+
+.fly-style-genep .mp-menu .low.active-menu > .djan a {
+    background-color: #4242CE;
+}
+
+.fly-style-genep .flyout-menus::-webkit-scrollbar {
+    width: 0;
+}
+
+.fly-style-genep .flyout-menus .low a:hover {
+    background-color: #4242CE;
+}
+
+html.js {
+    margin-top: 0!important;
+}
+
+#wpadminbar {
+    display: none;
+}
+
+.fly-style-lima .mp-menu>.mp-level.mp-level-open>.flyout-menus:before {
+    content: "";
+    position: absolute;
+    top: -140px;
+    bottom: 0;
+    height: 140%;
+    width: 410px;
+    background: #2f3130;
+    z-index: -1;
+    right: 0px;
+    transform: rotate(-15deg) translate3d(0, 0, 0);
+    transition: all .5s ease;
+}
+
+.fly-style-lima .mp-menu>.mp-level>.flyout-menus:before {
+    content: "";
+    position: absolute;
+    top: -140px;
+    bottom: 0;
+    height: 140%;
+    width: 410px;
+    background: #2f3130;
+    z-index: -1;
+    right: 0px;
+    transform: rotate(-15deg) translate3d(-100%, 0, 0);
+    transition: all .5s ease;
+}
+
+.fly-style-lima .mp-menu>.mp-level.mp-level-open>.flyout-menus:after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: 0;
+    height: 140%;
+    width: 600px;
+    background: rgb(45, 158, 188);
+    background: linear-gradient(64deg, rgba(45, 158, 188, 1) 40%, rgba(211, 164, 74, 1) 96%);
+    z-index: -1;
+    right: -30px;
+    transform: rotate(15deg) translate3d(0, 0, 0);
+    transition: all .5s ease;
+}
+
+.fly-style-lima .mp-menu>.mp-level>.flyout-menus:after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: 0;
+    height: 140%;
+    width: 600px;
+    background: rgb(45, 158, 188);
+    background: linear-gradient(64deg, rgba(45, 158, 188, 1) 40%, rgba(211, 164, 74, 1) 96%);
+    z-index: -1;
+    right: -30px;
+    transform: rotate(15deg) translate3d(-100%, 0, 0);
+    transition: all .5s ease;
+}
+
+.fly-style-lima .mp-menu .flyout-menus .low a {
+    box-shadow: none;
+}
+
+.fly-style-lima .mp-level {
+    background-color: transparent;
+}
+
+.fly-style-lima .mp-menu .flyout-menus .low.has-sub-menu .djan a:before,
+.fly-style-lima .mp-menu .flyout-menus .low.menu-item-has-children .djan a:before {
+    content: "\f054";
+    right: 15px;
+    left: unset;
+    color: #fff;
+}
+
+.flyout-container .info-web-wrap {
+    margin-top: auto;
+    padding-bottom: 50px;
+    padding-top: 30px;
+}
+
+.info-web-wrap .social-wrap-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-web-wrap .social-wrap-menu .social-item {
+    margin-right: 10px;
+}
+
+.info-web-wrap .social-wrap-menu .social-item:last-child {
+    margin-right: 0;
+}
+
+.info-web-wrap .social-wrap-menu .social-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 20%);
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    color: #ffffff;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.info-web-wrap .social-wrap-menu .social-item a:hover {
+    background-color: #044542;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.info-web-wrap .copyright-text {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.info-web-wrap .copyright-text,
+.info-web-wrap .copyright-text span {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.5;
+    display: block;
+}
+
+.flyout-style5 {
+    transform: translateX(-600px);
+    width: 500px;
+    position: fixed;
+    height: 100%;
+    -webkit-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    z-index: 9999999!important;
+}
+
+.flyout-style5.active {
+    transform: translateX(0px);
+    -webkit-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+.flyout-style5 .flyout-menus {
+    max-width: 60%;
+    flex-wrap: unset;
+    overflow: auto;
+}
+
+.flyout-style5 .flyout-menus::-webkit-scrollbar {
+    width: 0;
+}
+
+.flyout-style5 .flyout-logo-head {
+    text-align: left;
+    bottom: 30% 12% 15%;
+}
+
+.flyout-style5 .info-web-wrap {
+    margin-top: auto;
+    padding-bottom: 50px;
+    padding-top: 30px;
+}
+
+.flyout-style5 .low {
+    margin-bottom: 0;
+    display: block;
+    height: auto;
+    line-height: 0;
+}
+
+.flyout-style5 .low a {
+    padding-top: 15px;
+    padding-left: 12%;
+    padding-bottom: 15px;
+    text-decoration: none;
+    display: block;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.flyout-style5 .low a i {
+    width: 35px;
+    height: 35px;
+    display: flex!important;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    margin-right: 20px;
+    font-size: 15px;
+}
+
+.flyout-style5 .low a i img {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+}
+
+.flyout-style5 .low a span {
+    display: flex;
+    align-items: center;
+}
+
+.flyout-style5 .flyout-logo-head.logo-img {
+    padding: 5em 3em;
+}
+
+.flyout-style5 .mp-level .low a span {
+    padding: 0 20px;
+    line-height: 1.5;
+}
+
+.flyout-style5 .low a:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.flyout5-pattern {
+    -webkit-transform-origin: 100% 0;
+    transform-origin: 100% 0;
+    -webkit-transform: skewX( -12.5deg);
+    transform: skewX( -12.5deg);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #aaa;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.flyout5-pattern .pattern-bg-menu {
+    -webkit-transform-origin: 100% 0;
+    transform-origin: 100% 0;
+    -webkit-transform: skewX( 12.5deg);
+    transform: skewX( 12.5deg);
+    z-index: 1;
+    height: 100%;
+    position: relative;
+    left: 0;
+    background-position: -100px 0px;
+}
+
+.flyout-style5 .pattern-bg-menu-after {
+    -webkit-transform-origin: 100% 0;
+    transform-origin: 100% 0;
+    -webkit-transform: skewX( 12.5deg);
+    transform: skewX( 12.5deg);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: -40%;
+    top: 0;
+    background-color: #333;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.mp-menu .flyout-menus .low a span {
+    display: flex;
+}
+
+.mp-menu .flyout-menus .low a i {
+    display: block;
+    align-self: center;
+}
+
+.mp-menu .flyout-menus .low a i img {
+    display: block;
+    height: 100%;
+}
+
+#flyout-overlay, #flyout-overlay-wrap {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    -webkit-backface-visibility: hidden;
+}
+
+#flyout-overlay-wrap {
+    left: 0;
+    right: 0;
+    z-index: 999999;
+    visibility: hidden;
+}
+
+#flyout-overlay {
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: #333;
+    left: -500px;
+    right: -500px;
+    cursor: pointer;
+    -webkit-transition: opacity .4s cubic-bezier(.215,.061,.355,1);
+    transition: opacity .4s cubic-bezier(.215,.061,.355,1);
+    -webkit-transition-delay: .05s;
+    transition-delay: .05s;
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.flyout-style5.active ~ #flyout-overlay-wrap #flyout-overlay {
+    opacity: 0.6;
+}
+
+.flyout-style5 .close-menu-wrapper {
+    position: absolute;
+    right: 40px;
+    top: 25px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.flyout-style5 .low {
+    overflow: hidden;
+}
+
+.flyout-style5 .close-menu-wrapper span {
+    position: absolute;
+    right: 19px;
+    top: 0;
+    width: 3px;
+    height: 40px;
+    background: #fff;
+    transform: rotateZ(45deg);
+}
+
+.flyout-style5 .close-menu-wrapper span:before {
+    content: "";
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 3px;
+    height: 40px;
+    background: #fff;
+    transform: rotateZ(90deg);
+}
+
+.flyout-style5 .flyout-menus .low.has-sub-menu .djan a, 
+.flyout-style5 .flyout-menus .low.menu-item-has-children .djan a {
+    position: relative;
+}
+
+.flyout-style5 .flyout-menus .low.has-sub-menu .djan a:before, 
+.flyout-style5 .flyout-menus .low.menu-item-has-children .djan a:before {
+    content: "\f053";
+    position: absolute;
+    left: 15px;
+    vertical-align: middle;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 18px;
+}
+
+.flyout-style5 .flyout-menus .low.has-sub-menu .djan a:before,
+.flyout-style5 .flyout-menus .low.menu-item-has-children .djan a:before {
+    content: "\f078";
+    color: #ffffff;
+    left: unset;
+    right: 25px;
+    font-size: 16px;
+}
+
+.flyout-style5 .flyout-menus .low.has-sub-menu.active-menu .djan a:before,
+.flyout-style5 .flyout-menus .low.menu-item-has-children.active-menu .djan a:before {
+    content: "\f077";
+}
+
+.flyout-style5 .flyout-menus .low.has-sub-menu:not(.active-menu) .djan a:before,
+.flyout-style5 .flyout-menus .low.menu-item-has-children:not(.active-menu) .djan a:before {
+    content: "\f078";
+}
+
+.flyout-style5 .low .mp-level .mp-level .djan a:before {
+    display: none;
+}
+
+.flyout-style5 .low .mp-level .low:not(.has-sub-menu) > .djan a:before,
+.flyout-style5 .low .mp-level .low:not(.menu-item-has-children) > .djan a:before {
+    display: none;
+}
+
+.flyout-style5 .flyout-menus .low.has-sub-menu.active-menu > .djan a,
+.flyout-style5 .flyout-menus .low.menu-item-has-children.active-menu > .djan a {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.flyout-style5 .low .mp-level {
+    position: unset;
+    transform: translate3d(0, 0, 0)!important;
+    max-height: 0;
+    transition: all .3s;
+}
+
+.flyout-style5 .low .mp-level .flyout-menus {
+    max-width: 100%;
+}
+
+.flyout-style5 .low .mp-level::before {
+    display: none;
+}
+
+.flyout-style5 .low .mp-level.active {
+    max-height: 100vh;
+    transition: all .3s;
+}
+
+.flyout-style5 .mp-level {
+    background-color: transparent;
+}

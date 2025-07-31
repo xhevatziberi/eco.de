@@ -1,0 +1,78 @@
+.elementor-widget-container .qodef-custom-list .qodef-custom-list-items {
+    padding: 15px 5px;
+    gap: 1rem;
+}
+.elementor-widget-container .qodef-custom-list .qodef-custom-list-title {
+    padding: 30px 10px 18px;
+}
+
+.qodef-custom-list .qodef-custom-list-item span.qodef-m-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+    color: gray;
+}
+
+.copy-text {
+	/* position: relative;
+	padding: 10px;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 10px; */
+	display: flex;
+    column-gap: 1rem;
+    position: relative;
+    padding: 10px !important;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+.copy-text input {
+    font-size: 21px !important;
+    line-height: 1.2381em;
+    font-weight: 600 !important;
+	padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    outline: none !important;
+}
+.copy-text button {
+	padding: 10px;
+	background: #f01a1a;
+	color: #fff;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.copy-text button:active {
+	background: #f01a1a;
+}
+.copy-text button:before {
+	content: "Copied";
+	position: absolute;
+	top: -45px;
+	right: 0px;
+	background: #f01a1a;
+	padding: 8px 10px;
+	border-radius: 20px;
+	font-size: 15px;
+	display: none;
+}
+.copy-text button:after {
+	content: "";
+	position: absolute;
+	top: -20px;
+	right: 25px;
+	width: 10px;
+	height: 10px;
+	background: #f01a1a;
+	transform: rotate(45deg);
+	display: none;
+}
+.copy-text.active button:before,
+.copy-text.active button:after {
+	display: block;
+}

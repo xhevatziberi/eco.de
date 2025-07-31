@@ -1,0 +1,113 @@
+.eco-person {
+	display: flex;
+	align-items: center;
+	background: #d6001c;
+	color: #fff;
+	/* padding: 20px; */
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+}
+
+.eco-person-photo {
+	width: 150px;
+	flex-shrink: 0;
+}
+
+.eco-person-photo img {
+	width: 150px;
+	height: auto;
+	display: block;
+	border-radius: 4px;
+}
+
+.eco-person-content {
+	flex: 1;
+	padding-left: 20px;
+}
+
+.eco-person-content h3 {
+	margin-top: 0;
+	margin-bottom: 5px;
+	font-size: 20px;
+	color: #fff;
+}
+
+.eco-person-content p {
+	margin: 5px 0;
+}
+
+.eco-social a {
+	color: #fff;
+	margin-right: 10px;
+	font-size: 18px;
+}
+
+.eco-social a:hover {
+	color: #000;
+}
+
+.eco-person .eco-biography-link {
+	color: #fff;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.eco-person .eco-biography-link:hover {
+	text-decoration: none;
+	color: #000;
+}
+
+@media (max-width: 768px) {
+	.eco-person {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.eco-person-photo {
+		padding-bottom: 15px;
+	}
+
+	.eco-person-content {
+		padding-left: 0;
+	}
+}
+
+/* Modal */
+.eco-modal {
+	display: none;
+	position: fixed;
+	z-index: 9999;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.eco-modal-content {
+	background-color: #fff;
+	margin: 10% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	max-width: 600px;
+	color: #333;
+	border-radius: 4px;
+	position: relative;
+}
+
+.eco-modal-close {
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	color: #aaa;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.eco-modal-close:hover {
+	color: #000;
+}

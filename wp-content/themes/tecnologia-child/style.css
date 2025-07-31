@@ -1,0 +1,66 @@
+/*
+Theme Name: Tecnologia Child
+Author: VamTam
+Author URI: https://vamtam.com
+Template: tecnologia
+Version: 1.0.1
+*/
+
+/* define colors */
+:root {
+    --eco-color: #E2001A;
+}
+
+::marker {
+    color: var(--eco-color);
+}
+
+#wpadminbar {
+    display: block !important;
+}
+
+.single-event #sub-header {
+    display: none !important;
+}
+
+.two-columns > ul {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+}
+
+/* .flyout-menus {
+    background-color: #fff;
+}
+
+.flyout-menus .flyout-logo-head,
+.menu-trigger,
+[data-elementor-type="header"] .elementor-nav-menu .menu-item {
+    display: none !important;
+}
+
+[data-elementor-type="header"] .menu-trigger {
+    display: block !important;
+    position: relative;
+    z-index: 9999;
+}
+
+[data-elementor-type="header"] .elementor-nav-menu .menu-item:last-child {
+    display: block !important;
+} */
+
+#the-menu-trigger .elementor-icon-wrapper {
+    line-height: 0;
+}
+
+#sfm-sidebar.sfm-hl-line .sfm-menu li.sfm-submenu-visible>a,
+#sfm-sidebar.sfm-hl-line .sfm-menu li:hover>a,
+#sfm-sidebar.sfm-hl-line .sfm-menu li>a:focus,
+#sfm-sidebar.sfm-hl-line .sfm-menu li.sfm-active-class > a {
+    background: none !important;
+}
+
+.sfm-view {
+    border-right: 1px solid #d1d1d1;
+    border-left: 1px solid #d1d1d1;
+}
