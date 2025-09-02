@@ -23,35 +23,6 @@ let calendar = () => {
 	let selectedTag = '';
 	loadEvents();
 
-	// function renderCalendar() {
-	// 	const baseDate = new Date();
-	// 	baseDate.setMonth(baseDate.getMonth() + currentMonthOffset);
-	// 	const year = baseDate.getFullYear();
-	// 	const month = baseDate.getMonth();
-
-	// 	calendarMonthYear.textContent = `${baseDate.toLocaleString('default', { month: 'long' })} ${year}`;
-
-	// 	const daysInMonth = new Date(year, month + 1, 0).getDate();
-	// 	calendarDays.innerHTML = '';
-
-	// 	for (let day = 1; day <= daysInMonth; day++) {
-	// 		const dayDiv = document.createElement('div');
-	// 		dayDiv.textContent = day;
-	// 		// add 'active' class if this day is today
-	// 		dayDiv.classList.toggle('active', day === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear());
-
-	// 		dayDiv.dataset.date = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-	// 		dayDiv.addEventListener('click', () => {
-	// 			selectedDate = dayDiv.dataset.date;
-	// 			// add 'active' class to the clicked day and remove from others
-	// 			document.querySelectorAll('#calendar-days div').forEach(d => d.classList.remove('active'));
-	// 			dayDiv.classList.add('active');
-	// 			loadEvents();
-	// 		});
-	// 		calendarDays.appendChild(dayDiv);
-	// 	}
-	// }
-
 	function renderCalendar() {
 		const baseDate = new Date();
 		baseDate.setMonth(baseDate.getMonth() + currentMonthOffset);
