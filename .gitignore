@@ -39,10 +39,13 @@ wp-config.php
 #
 # Note: If you wish to whitelist plugins,
 # uncomment the next line
-/wp-content/plugins2
+/wp-content/plugins
 
 # All themes
 #
 # Note: If you wish to whitelist themes,
 # uncomment the next line
 #/wp-content/themes
+
+!/wp-content/plugins/elementor-eco/
+!/wp-content/plugins/elementor-eco/**
