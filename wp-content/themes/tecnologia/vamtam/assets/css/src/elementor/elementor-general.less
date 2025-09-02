@@ -405,6 +405,14 @@ input:is([type="submit"]) {
 		}
 	}
 }
+// Dialog close button to not show outline on focus on Safari.
+body.e--ua-safari .dialog-close-button {
+	outline: 0;
+}
+// Dialog close button to not show outline on focus on Safari.
+body.e--ua-safari .dialog-close-button {
+	outline: 0;
+}
 
 /* Flatpickr fix*/
 body {
@@ -488,13 +496,18 @@ body {
 }
 
 // Fix for blink-based browsers so the scrollbar is not included in the calculation (like in max-width:100%).
-body.e--ua-blink .elementor-popup-modal .dialog-widget-content {
-	max-width: 100vw;
+body.e--ua-blink .elementor-popup-modal :is(.dialog-widget-content, .dialog-message) {
+	max-width: calc(100vw - var(--vamtam-scrollbar-width, 0) );
 }
 
 // WOO Extra Product Options Override.
 .ui-widget-content {
 	z-index: auto !important;
+}
+
+// Override overlay option pointer-events: all
+.elementor-popup-modal.vamtam-header-mega-menu {
+	pointer-events: none !important;
 }
 
 // iOS - Safari Disable Link Preview.

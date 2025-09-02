@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to load config files
  *
@@ -18,73 +19,87 @@ class PMXI_Config implements IteratorAggregate {
 
 	/**
 	 * Static method to create config instance from file on disc
+	 *
 	 * @param string $filePath
 	 * @param string[optional] $section
+	 *
 	 * @return PMXI_Config
 	 */
-	public static function createFromFile($filePath, $section = NULL) {
+	public static function createFromFile( $filePath, $section = null ) {
 		$config = new self();
-		return $config->loadFromFile($filePath, $section);
+
+		return $config->loadFromFile( $filePath, $section );
 	}
 
 	/**
 	 * Load config file
+	 *
 	 * @param string $filePath
 	 * @param string[optional] $section
+	 *
 	 * @return PMXI_Config
 	 */
-	public function loadFromFile($filePath, $section = NULL) {
-		if ( ! is_null($section)) {
-			$this->config[$section] = self::createFromFile($filePath);
+	public function loadFromFile( $filePath, $section = null ) {
+		if ( ! is_null( $section ) ) {
+			$this->config[ $section ] = self::createFromFile( $filePath );
 		} else {
-			$filePath = realpath($filePath);
-			if ($filePath and ! in_array($filePath, $this->loaded)) {
+			$filePath = realpath( $filePath );
+			if ( $filePath and ! in_array( $filePath, $this->loaded ) ) {
 				require $filePath;
-				$config = (!isset($config)) ? array() : $config;
+				$config         = ( ! isset( $config ) ) ? array() : $config;
 				$this->loaded[] = $filePath;
-				$this->config = array_merge($this->config, $config);
+				$this->config   = array_merge( $this->config, $config );
 			}
 		}
+
 		return $this;
 	}
+
 	/**
 	 * Return value of setting with specified name
+	 *
 	 * @param string $field Setting name
 	 * @param string[optional] $section Section name to look setting in
+	 *
 	 * @return mixed
 	 */
-	public function get($field, $section = NULL) {
-		return ! is_null($section) ? $this->config[$section]->get($field) : $this->config[$field];
+	public function get( $field, $section = null ) {
+		return ! is_null( $section ) ? $this->config[ $section ]->get( $field ) : $this->config[ $field ];
 	}
 
 	/**
 	 * Magic method for checking whether some config option are set
+	 *
 	 * @param string $field
+	 *
 	 * @return bool
 	 */
-	public function __isset($field) {
-		return isset($this->config[$field]);
+	public function __isset( $field ) {
+		return isset( $this->config[ $field ] );
 	}
+
 	/**
 	 * Magic method to implement object-like access to config parameters
+	 *
 	 * @param string $field
+	 *
 	 * @return mixed
 	 */
-	public function __get($field) {
-		return $this->config[$field];
+	public function __get( $field ) {
+		return $this->config[ $field ];
 	}
 
 	/**
 	 * Return all config options as array
 	 * @return array
 	 */
-	public function toArray($section = NULL) {
-		return ! is_null($section) ? $this->config[$section]->toArray() : $this->config;
+	public function toArray( $section = null ) {
+		return ! is_null( $section ) ? $this->config[ $section ]->toArray() : $this->config;
 	}
 
-    #[\ReturnTypeWillChange]
+	#[\ReturnTypeWillChange]
 	public function getIterator() {
-		return new ArrayIterator($this->config);
+		return new ArrayIterator( $this->config );
 	}
 
 }

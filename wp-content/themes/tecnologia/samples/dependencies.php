@@ -45,6 +45,15 @@ function vamtam_register_required_plugins() {
 		),
 
 		array(
+			'name'     => esc_html__( 'Ally - Web Accessibility & Usability', 'tecnologia' ),
+			'slug'     => 'pojo-accessibility',
+			'source'   => VAMTAM_PLUGINS . 'pojo-accessibility.zip',
+			'required' => false,
+			'category' => 'recommended',
+			'version'  => '3.3.0'
+		),
+
+		array(
 			'name'     => esc_html__( 'Wordpress SEO', 'tecnologia' ),
 			'slug'     => 'wordpress-seo',
 			'required' => false,

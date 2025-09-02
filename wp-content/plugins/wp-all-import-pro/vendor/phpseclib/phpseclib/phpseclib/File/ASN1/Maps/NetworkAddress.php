@@ -20,7 +20,6 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class NetworkAddress
-{
-    const MAP = ['type' => ASN1::TYPE_NUMERIC_STRING];
+abstract class NetworkAddress {
+	const MAP = [ 'type' => ASN1::TYPE_NUMERIC_STRING ];
 }

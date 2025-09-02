@@ -2,6 +2,5 @@
 
 namespace League\Flysystem\Sftp;
 
-interface SftpAdapterException
-{
+interface SftpAdapterException {
 }

@@ -4,7 +4,6 @@ namespace League\Flysystem;
 
 use LogicException;
 
-class RootViolationException extends LogicException implements FilesystemException
-{
-    //
+class RootViolationException extends LogicException implements FilesystemException {
+	//
 }

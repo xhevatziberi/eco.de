@@ -20,14 +20,13 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class CertificationRequest
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'certificationRequestInfo' => CertificationRequestInfo::MAP,
-            'signatureAlgorithm' => AlgorithmIdentifier::MAP,
-            'signature' => ['type' => ASN1::TYPE_BIT_STRING]
-        ]
-    ];
+abstract class CertificationRequest {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'certificationRequestInfo' => CertificationRequestInfo::MAP,
+			'signatureAlgorithm'       => AlgorithmIdentifier::MAP,
+			'signature'                => [ 'type' => ASN1::TYPE_BIT_STRING ],
+		],
+	];
 }

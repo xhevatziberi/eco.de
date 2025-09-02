@@ -1,55 +1,60 @@
 <div id="post-preview" class="wpallimport-preview_images">
 
 	<div class="title">
-		<div class="navigation">			
-			<?php if ($tagno > 1): ?><a href="#prev" class="previous_element">&nbsp;</a><?php else: ?><span class="previous_element">&nbsp;</span><?php endif ?>
-			<?php printf(__('<strong><input type="text" value="%s" name="tagno" class="tagno"/></strong><span class="out_of"> of <strong class="pmxi_count">%s</strong></span>', 'wp-all-import-pro'), $tagno, PMXI_Plugin::$session->count); ?>
-			<?php if ($tagno < PMXI_Plugin::$session->count): ?><a href="#next" class="next_element">&nbsp;</a><?php else: ?><span class="next_element">&nbsp;</span><?php endif ?>			
+		<div class="navigation">
+			<?php if ( $tagno > 1 ): ?><a href="#prev" class="previous_element">&nbsp;</a><?php else: ?><span
+				class="previous_element">&nbsp;</span><?php endif ?>
+			<?php printf( __( '<strong><input type="text" value="%s" name="tagno" class="tagno"/></strong><span class="out_of"> of <strong class="pmxi_count">%s</strong></span>', 'wp-all-import-pro' ), $tagno, PMXI_Plugin::$session->count ); ?>
+			<?php if ( $tagno < PMXI_Plugin::$session->count ): ?><a href="#next"
+			                                                         class="next_element">&nbsp;</a><?php else: ?><span
+				class="next_element">&nbsp;</span><?php endif ?>
 		</div>
 	</div>
 
 	<div class="wpallimport-preview-content">
 
-		<?php if ($this->errors->get_error_codes()): ?>
+		<?php if ( $this->errors->get_error_codes() ): ?>
 			<?php $this->error() ?>
 		<?php endif ?>
 
-		<h3><?php _e('Test Images', 'wp-all-import-pro'); ?></h3>	
+		<h3><?php _e( 'Test Images', 'wp-all-import-pro' ); ?></h3>
 
-		<?php 
+		<?php
 
-		if ( ! empty($featured_images) ){		
+		if ( ! empty( $featured_images ) ) {
 
 			?>
-			<p><?php _e('Click to test that your images are able to be accessed by WP All Import.', 'wp-all-import-pro'); ?></p>
+			<p><?php _e( 'Click to test that your images are able to be accessed by WP All Import.', 'wp-all-import-pro' ); ?></p>
 
-			<a class="test_images" href="javascript:void(0);" style="margin-left:0;" rel="<?php echo $post[$get['slug'] . 'download_images']; ?>"><?php _e('Run Test', 'wp-all-import-pro'); ?></a>
-					
-			<?php			
+			<a class="test_images" href="javascript:void(0);" style="margin-left:0;"
+			   rel="<?php echo $post[ $get['slug'] . 'download_images' ]; ?>"><?php _e( 'Run Test', 'wp-all-import-pro' ); ?></a>
 
-			switch ($post[$get['slug'] . 'download_images']) {
+			<?php
+
+			switch ( $post[ $get['slug'] . 'download_images' ] ) {
 				case 'no':
-					$featured_delim = $post[$get['slug'] . 'featured_delim'];
+					$featured_delim = $post[ $get['slug'] . 'featured_delim' ];
 					break;
 				case 'gallery':
-					$featured_delim = $post[$get['slug'] . 'gallery_featured_delim'];
-					break;											
+					$featured_delim = $post[ $get['slug'] . 'gallery_featured_delim' ];
+					break;
 				default: // yes
-					$featured_delim = $post[$get['slug'] . 'download_featured_delim'];
+					$featured_delim = $post[ $get['slug'] . 'download_featured_delim' ];
 					break;
 			}
 
 			$imgs = array();
 
-			$line_imgs = explode("\n", $featured_images);
-			if ( ! empty($line_imgs) )
-				foreach ($line_imgs as $line_img)
-					$imgs = array_merge($imgs, ( ! empty($featured_delim) ) ? str_getcsv($line_img, $featured_delim) : array($line_img) );					
+			$line_imgs = explode( "\n", $featured_images );
+			if ( ! empty( $line_imgs ) ) {
+				foreach ( $line_imgs as $line_img ) {
+					$imgs = array_merge( $imgs, ( ! empty( $featured_delim ) ) ? str_getcsv( $line_img, $featured_delim ) : array( $line_img ) );
+				}
+			}
 
-			$imgs = array_filter($imgs);
+			$imgs = array_filter( $imgs );
 			
-			switch ( $post[$get['slug'] . 'download_images'] ) 
-			{
+			switch ( $post[ $get['slug'] . 'download_images' ] ) {
 				// Use images currently uploaded in wp-content/uploads/wpallimport/files/
 				case 'no':
 					
@@ -57,30 +62,31 @@
 
 					?>
 					<div class="test_progress">
-						<div class="img_preloader"><?php _e('Retrieving images...', 'wp-all-import-pro'); ?></div>
+						<div class="img_preloader"><?php _e( 'Retrieving images...', 'wp-all-import-pro' ); ?></div>
 						<div class="img_success"></div>
 						<div class="img_failed"></div>
 					</div>
-					<h4><?php _e('WP All Import will import images from the following file paths:', 'wp-all-import-pro'); ?></h4>
-					<p><?php _e('Please ensure the images exists at these file paths', 'wp-all-import-pro'); ?></p>
+					<h4><?php _e( 'WP All Import will import images from the following file paths:', 'wp-all-import-pro' ); ?></h4>
+					<p><?php _e( 'Please ensure the images exists at these file paths', 'wp-all-import-pro' ); ?></p>
 					<ul class="images_list">
-						<?php foreach ($imgs as $img) :
-							$img = wp_all_import_filter_html_kses($img);
-                            ?>
+						<?php foreach ( $imgs as $img ) :
+							$img = wp_all_import_filter_html_kses( $img );
+							?>
 
-							<li rel="<?php echo trim($img);?>"><?php echo trim(preg_replace('%.*/wp-content%', '/wp-content', $wp_uploads['basedir']) . DIRECTORY_SEPARATOR . PMXI_Plugin::FILES_DIRECTORY . DIRECTORY_SEPARATOR . trim($img)); ?></li>
+							<li rel="<?php echo trim( $img ); ?>"><?php echo trim( preg_replace( '%.*/wp-content%', '/wp-content', $wp_uploads['basedir'] ) . DIRECTORY_SEPARATOR . PMXI_Plugin::FILES_DIRECTORY . DIRECTORY_SEPARATOR . trim( $img ) ); ?></li>
 						
-						<?php endforeach; ?> 					
+						<?php endforeach; ?>
 					</ul>
-					<h4><?php _e('Here are the above URLs, in &lt;img&gt; tags. ', 'wp-all-import-pro'); ?></h4>
+					<h4><?php _e( 'Here are the above URLs, in &lt;img&gt; tags. ', 'wp-all-import-pro' ); ?></h4>
 					
-					<?php 
-					foreach ($imgs as $img) {
-						$img = wp_all_import_filter_html_kses($img);
+					<?php
+					foreach ( $imgs as $img ) {
+						$img = wp_all_import_filter_html_kses( $img );
 
-						$img_url = site_url() . preg_replace('%.*/wp-content%', '/wp-content', $wp_uploads['basedir']) . DIRECTORY_SEPARATOR . PMXI_Plugin::FILES_DIRECTORY . DIRECTORY_SEPARATOR . trim($img);
+						$img_url = site_url() . preg_replace( '%.*/wp-content%', '/wp-content', $wp_uploads['basedir'] ) . DIRECTORY_SEPARATOR . PMXI_Plugin::FILES_DIRECTORY . DIRECTORY_SEPARATOR . trim( $img );
 						?>
-						<img src="<?php echo trim($img_url);?>" style="width:64px; margin:5px; vertical-align:top;"/>
+						<img src="<?php echo trim( $img_url ); ?>"
+						     style="width:64px; margin:5px; vertical-align:top;" />
 						<?php
 					}
 
@@ -93,48 +99,48 @@
 
 					?>
 					<div class="test_progress">
-						<div class="img_preloader"><?php _e('Searching images...', 'wp-all-import-pro'); ?></div>
+						<div class="img_preloader"><?php _e( 'Searching images...', 'wp-all-import-pro' ); ?></div>
 						<div class="img_success"></div>
 						<div class="img_failed"></div>
 					</div>
-					<h4><?php _e('WP All Import will import images from the media library', 'wp-all-import-pro'); ?></h4>
-					<p><?php _e('Please ensure the images exists at media library', 'wp-all-import-pro'); ?></p>
+					<h4><?php _e( 'WP All Import will import images from the media library', 'wp-all-import-pro' ); ?></h4>
+					<p><?php _e( 'Please ensure the images exists at media library', 'wp-all-import-pro' ); ?></p>
 					<ul class="images_list">
-						<?php foreach ($imgs as $img) : ?>
+						<?php foreach ( $imgs as $img ) : ?>
 
 							<?php
-							$img = wp_all_import_filter_html_kses($img);
+							$img = wp_all_import_filter_html_kses( $img );
 
-							$bn      = wp_all_import_sanitize_filename(basename($img));
-							$img_ext = pmxi_getExtensionFromStr($img);									
-							$default_extension = pmxi_getExtension($bn);																									
+							$bn                = wp_all_import_sanitize_filename( basename( $img ) );
+							$img_ext           = pmxi_getExtensionFromStr( $img );
+							$default_extension = pmxi_getExtension( $bn );
 
-							$image_name = apply_filters("wp_all_import_image_filename", urldecode((($img_ext) ? str_replace("." . $default_extension, "", $bn) : $bn)) . (("" != $img_ext) ? '.' . $img_ext : ''));
+							$image_name = apply_filters( "wp_all_import_image_filename", urldecode( ( ( $img_ext ) ? str_replace( "." . $default_extension, "", $bn ) : $bn ) ) . ( ( "" != $img_ext ) ? '.' . $img_ext : '' ) );
 
 							?>
 
-							<li rel="<?php echo $image_name;?>"><?php echo $image_name; ?></li>
+							<li rel="<?php echo $image_name; ?>"><?php echo $image_name; ?></li>
 						
-						<?php endforeach; ?> 					
+						<?php endforeach; ?>
 					</ul>
-					<h4><?php _e('Here are the above URLs, in &lt;img&gt; tags. ', 'wp-all-import-pro'); ?></h4>
+					<h4><?php _e( 'Here are the above URLs, in &lt;img&gt; tags. ', 'wp-all-import-pro' ); ?></h4>
 					
-					<?php 
-					foreach ($imgs as $img) 
-					{
-						$img = wp_all_import_filter_html_kses($img);
+					<?php
+					foreach ( $imgs as $img ) {
+						$img = wp_all_import_filter_html_kses( $img );
 
-					    $bn      = wp_all_import_sanitize_filename(basename($img));
-						$img_ext = pmxi_getExtensionFromStr($img);									
-						$default_extension = pmxi_getExtension($bn);																									
+						$bn                = wp_all_import_sanitize_filename( basename( $img ) );
+						$img_ext           = pmxi_getExtensionFromStr( $img );
+						$default_extension = pmxi_getExtension( $bn );
 
-						$image_name = apply_filters("wp_all_import_image_filename", urldecode((($img_ext) ? str_replace("." . $default_extension, "", $bn) : $bn)) . (("" != $img_ext) ? '.' . $img_ext : ''));
+						$image_name = apply_filters( "wp_all_import_image_filename", urldecode( ( ( $img_ext ) ? str_replace( "." . $default_extension, "", $bn ) : $bn ) ) . ( ( "" != $img_ext ) ? '.' . $img_ext : '' ) );
 
-						$attch   = wp_all_import_get_image_from_gallery($image_name);
+						$attch = wp_all_import_get_image_from_gallery( $image_name );
 						
-						$img_url = (empty($attch)) ? '' : trim(wp_get_attachment_url($attch->ID));
+						$img_url = ( empty( $attch ) ) ? '' : trim( wp_get_attachment_url( $attch->ID ) );
 						?>
-						<img src="<?php echo trim($img_url);?>" style="width:64px; margin:5px; vertical-align:top;"/>
+						<img src="<?php echo trim( $img_url ); ?>"
+						     style="width:64px; margin:5px; vertical-align:top;" />
 						<?php
 					}
 
@@ -144,41 +150,41 @@
 				default:
 					
 					?>
-						<div class="test_progress">
-							<div class="img_preloader"><?php _e('Download in progress...', 'wp-all-import-pro'); ?></div>
-							<div class="img_success"></div>
-							<div class="img_failed"></div>
-						</div>
-						<h4><?php _e('WP All Import will attempt to import images from the following URLs:', 'wp-all-import-pro'); ?></h4>
-						<p><?php _e('Please check the URLs to ensure they point to valid images', 'wp-all-import-pro'); ?></p>
-						<ul class="images_list">
-							<?php foreach ($imgs as $img):
-								$img = wp_all_import_filter_html_kses($img);
-                                ?>
-								
-								<li rel="<?php echo trim($img); ?>"><a href="<?php echo trim($img); ?>" target="_blank"><?php echo trim($img); ?></a></li>
-							
-							<?php endforeach; ?>					
-						</ul>
-						<h4><?php _e('Here are the above URLs, in &lt;img&gt; tags. ', 'wp-all-import-pro'); ?></h4>
-						<?php foreach ($imgs as $img) :
-					        $img = wp_all_import_filter_html_kses($img);
+					<div class="test_progress">
+						<div class="img_preloader"><?php _e( 'Download in progress...', 'wp-all-import-pro' ); ?></div>
+						<div class="img_success"></div>
+						<div class="img_failed"></div>
+					</div>
+					<h4><?php _e( 'WP All Import will attempt to import images from the following URLs:', 'wp-all-import-pro' ); ?></h4>
+					<p><?php _e( 'Please check the URLs to ensure they point to valid images', 'wp-all-import-pro' ); ?></p>
+					<ul class="images_list">
+						<?php foreach ( $imgs as $img ):
+							$img = wp_all_import_filter_html_kses( $img );
+							?>
 
-                        ?>
+							<li rel="<?php echo trim( $img ); ?>"><a href="<?php echo trim( $img ); ?>"
+							                                         target="_blank"><?php echo trim( $img ); ?></a>
+							</li>
 
-							<img src="<?php echo trim($img);?>" style="width:64px; margin:5px; vertical-align:top;"/>
-						
 						<?php endforeach; ?>
-							
+					</ul>
+					<h4><?php _e( 'Here are the above URLs, in &lt;img&gt; tags. ', 'wp-all-import-pro' ); ?></h4>
+					<?php foreach ( $imgs as $img ) :
+					$img = wp_all_import_filter_html_kses( $img );
+
+					?>
+
+					<img src="<?php echo trim( $img ); ?>" style="width:64px; margin:5px; vertical-align:top;" />
+
+				<?php endforeach; ?>
+
 					<?php
 
 					break;
-			}			
-		}
-		else
-		{
+			}
+		} else {
 			?>
-			<p><?php _e('Images not found for current record.', 'wp-all-import-pro'); ?></p>
+			<p><?php _e( 'Images not found for current record.', 'wp-all-import-pro' ); ?></p>
 			<?php
 		}
 		?>

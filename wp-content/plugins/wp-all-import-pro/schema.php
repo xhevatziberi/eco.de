@@ -17,11 +17,11 @@ $charset_collate = '';
 // Declare these as global in case schema.php is included from a function.
 global $wpdb, $plugin_queries;
 
-if (!empty($wpdb->charset)) {
-    $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+if ( ! empty( $wpdb->charset ) ) {
+	$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
 }
-if (!empty($wpdb->collate)) {
-    $charset_collate .= " COLLATE $wpdb->collate";
+if ( ! empty( $wpdb->collate ) ) {
+	$charset_collate .= " COLLATE $wpdb->collate";
 }
 
 $table_prefix = PMXI_Plugin::getInstance()->getTablePrefix();

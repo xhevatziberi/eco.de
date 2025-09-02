@@ -20,12 +20,11 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class ExtensionAttributes
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SET,
-        'min' => 1,
-        'max' => 256, // ub-extension-attributes
-        'children' => ExtensionAttribute::MAP
-    ];
+abstract class ExtensionAttributes {
+	const MAP = [
+		'type'     => ASN1::TYPE_SET,
+		'min'      => 1,
+		'max'      => 256, // ub-extension-attributes
+		'children' => ExtensionAttribute::MAP,
+	];
 }

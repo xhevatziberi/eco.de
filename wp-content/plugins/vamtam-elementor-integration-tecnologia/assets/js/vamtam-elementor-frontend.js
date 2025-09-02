@@ -206,6 +206,21 @@
 								}
 							},
 							hidePopup: function() {
+								const self = this.modal;
+								// Call the original hide() but bypass the topmost check
+								// We do this by temporarily modifying the openDialogs array
+								if ( self.parent?.openDialogs && self.isVisible() ) {
+									const widgetId = self.getElements( 'widget' )?.attr( 'id' );
+									const openDialogs = self.parent.openDialogs;
+									const index = openDialogs.indexOf( widgetId );
+
+									if ( index !== -1 ) {
+										openDialogs.splice( index, 1 );
+									}
+
+									openDialogs.push( widgetId ); // Make this dialog the topmost
+								}
+
 								this.modal.hide();
 							},
 							isVisible: function() {
@@ -794,7 +809,7 @@
 
 		elementorFrontend.hooks.addAction( 'frontend/element_ready/global', addHandler );
 
-		elementorFrontend.on( 'components:init', overrideInitializeStickyAndAnchorTrackingMethod );
+		// elementorFrontend.on( 'components:init', overrideInitializeStickyAndAnchorTrackingMethod );
 	});
 
 	// Override anchor_scroll_margin.initializeStickyAndAnchorTracking method to imitate previous (<3.25.0) behavior (jQuery's animate()).

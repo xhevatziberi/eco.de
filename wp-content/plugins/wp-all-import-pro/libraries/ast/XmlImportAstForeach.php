@@ -4,11 +4,10 @@
  * @package AST
  */
 
-require_once dirname(__FILE__) . '/XmlImportAstXpathClause.php';
+require_once dirname( __FILE__ ) . '/XmlImportAstXpathClause.php';
 
 /**
  * Represents a FOREACH clause
  */
-class XmlImportAstForeach extends XmlImportAstXPathClause
-{
+class XmlImportAstForeach extends XmlImportAstXPathClause {
 }

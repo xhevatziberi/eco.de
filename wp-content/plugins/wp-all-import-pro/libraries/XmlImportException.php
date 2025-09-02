@@ -7,4 +7,5 @@
 /**
  * XmlImport library exception
  */
-class XmlImportException extends Exception {}
+class XmlImportException extends Exception {
+}

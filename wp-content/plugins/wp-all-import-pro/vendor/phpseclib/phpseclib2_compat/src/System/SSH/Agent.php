@@ -42,6 +42,5 @@ namespace phpseclib\System\SSH;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class Agent extends \phpseclib3\System\SSH\Agent
-{
+class Agent extends \phpseclib3\System\SSH\Agent {
 }

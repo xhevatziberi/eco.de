@@ -976,9 +976,16 @@ class VamtamElementorBridge {
 		}
 
 		// Button Opts.
-		foreach ( [ 'button_text_color', 'button_hover_text_color', 'button_background_color', 'button_hover_background_color' ] as $opt_name ) {
+		foreach ( [ 'button_text_color', 'button_hover_text_color', 'button_background_color', 'button_hover_background_color', 'button_border_radius', 'button_hover_border_radius' ] as $opt_name ) {
 			if ( isset( $kit[ $opt_name ] ) ) {
-				$opts[ str_replace( [ '_', 'button', 'background' ], [ '-', 'btn', 'bg' ], $opt_name ) ] = $kit[ $opt_name ];
+				if ( in_array( $opt_name, [ 'button_border_radius', 'button_hover_border_radius' ] ) ) {
+					$br = $kit[ $opt_name ];
+					if ( '' !== $br['top'] && '' !== $br['right'] && '' !== $br['bottom'] && '' !== $br['left'] ) {
+						$opts[ str_replace([ '_', 'button' ], [ '-', 'btn', 'bg' ], $opt_name) ] = $br['top'] . $br['unit'] . ' ' . $br['right'] . $br['unit'] . ' ' . $br['bottom'] . $br['unit'] . ' ' . $br['left'] . $br['unit'];
+					}
+				} else {
+					$opts[ str_replace( [ '_', 'button', 'background' ], [ '-', 'btn', 'bg' ], $opt_name ) ] = $kit[ $opt_name ];
+				}
 			}
 		}
 

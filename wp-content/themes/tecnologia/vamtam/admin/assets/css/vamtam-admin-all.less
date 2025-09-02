@@ -61,7 +61,7 @@ body {
 		}
 	}
 
-	.notice:is(.vamtam-license-notice, .vamtam-services-notice, .vamtam-diagnostics-notice) {
+	.notice:is(.vamtam-license-notice, .vamtam-services-notice, .vamtam-diagnostics-notice, .vamtam-notice) {
 		display: flex;
 		position: relative;
 		padding: 0;
@@ -87,6 +87,12 @@ body {
 
 			.vamtam-notice-aside {
 				background-color: #FFEAEB;
+			}
+		}
+
+		&.success {
+			&::before {
+				background-color: #00a32a;
 			}
 		}
 
@@ -139,7 +145,28 @@ body {
 			}
 		}
 
+		.notice-dismiss::before {
+			content: "\f335";
+			font-size: 24px;
+		}
+
+		.notice-dismiss {
+			&::before {
+				content: "";
+				mask-image: data-uri('../images/icon-dismiss.svg');
+				mask-type: alpha;
+				background: var(--e-notice-dismiss-color, currentColor);
+				width: 24px;
+				height: 24px;
+				transform: scale(calc(13/24));
+			}
+
+			&:hover::before {
+				background: #000;
+			}
+		}
 	}
+
 	#vamtam-check-license-result .vamtam-notice-content {
 		flex: 1;
 	}

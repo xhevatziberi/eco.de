@@ -39,13 +39,13 @@ function wp_all_import_get_pmxi_post_query( array $args, $return_as_array = true
 	}
 
 	$prepared_query = $wpdb->prepare( $query, ...$params );
-	
+
 	if ( $return_data ) {
 		return $wpdb->get_results( $prepared_query, ARRAY_A );
 	}
 
 	if ( $return_as_array ) {
-		return [$prepared_query];
+		return [ $prepared_query ];
 	}
 
 	return $prepared_query;

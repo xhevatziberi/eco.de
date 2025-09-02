@@ -4,7 +4,7 @@
  * Plugin Name: VamTam Elementor Integration (Tecnologia)
  * Plugin URI: http://vamtam.com
  * Description: Extend the Elementor plugin with widgets and template builder.
- * Version: 1.1.4
+ * Version: 1.1.9
  * Author: VamTam
  * Text Domain: vamtam-elementor-integration
  * Author URI: http://vamtam.com
@@ -170,7 +170,7 @@ if ( ! class_exists( 'VamtamElementorIntregration' ) ) {
 
 	class VamtamElementorIntregration {
 
-		const PLUGIN_VERSION            = '1.1.4';
+		const PLUGIN_VERSION            = '1.1.9';
 		const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
 		const MINIMUM_PHP_VERSION       = '7.0';
 

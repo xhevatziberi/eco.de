@@ -66,14 +66,13 @@ class VamtamAdmin {
 
 	public static function update_warning() {
 		if ( did_action( 'load-update-core.php' ) ) {
-			echo '<div class="updated notice fade is-dismissible"><p><strong>';
+			echo '<div class="vamtam-notice updated notice success fade is-dismissible"><div class="vamtam-notice-content">';
 			esc_html_e( 'Hey, just a polite reminder that if you update WordPress you will also need to update your theme and plugins.', 'tecnologia' );
-			echo '</strong>';
-			echo '</p></div>';
+			echo '</div></div>';
 		}
 
 		if ( did_action( 'load-update-core.php' ) || did_action( 'load-themes.php' ) ) {
-			echo '<div class="notice notice-success is-dismissible"><p><strong>';
+			echo '<div class="vamtam-notice notice success is-dismissible"><div class="vamtam-notice-content"><strong>';
 			esc_html_e( 'VamTam theme resources: ', 'tecnologia' );
 			echo '</strong>';
 			echo '<a href="https://vamtam.com/child-themes" target="_blank">';
@@ -82,7 +81,7 @@ class VamtamAdmin {
 			echo '<a href="https://vamtam.com/changelog" target="_blank">';
 			esc_html_e( 'Changelog', 'tecnologia' );
 			echo '</a>';
-			echo '</p></div>';
+			echo '</div></div>';
 		}
 	}
 

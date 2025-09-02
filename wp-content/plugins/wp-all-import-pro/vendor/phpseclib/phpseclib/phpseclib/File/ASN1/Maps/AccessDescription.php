@@ -20,13 +20,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class AccessDescription
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'accessMethod' => ['type' => ASN1::TYPE_OBJECT_IDENTIFIER],
-            'accessLocation' => GeneralName::MAP
-        ]
-    ];
+abstract class AccessDescription {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'accessMethod'   => [ 'type' => ASN1::TYPE_OBJECT_IDENTIFIER ],
+			'accessLocation' => GeneralName::MAP,
+		],
+	];
 }

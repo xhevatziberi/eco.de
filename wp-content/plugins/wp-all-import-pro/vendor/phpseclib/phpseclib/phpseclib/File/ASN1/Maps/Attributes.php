@@ -20,12 +20,11 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class Attributes
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SET,
-        'min' => 1,
-        'max' => -1,
-        'children' => Attribute::MAP
-    ];
+abstract class Attributes {
+	const MAP = [
+		'type'     => ASN1::TYPE_SET,
+		'min'      => 1,
+		'max'      => - 1,
+		'children' => Attribute::MAP,
+	];
 }

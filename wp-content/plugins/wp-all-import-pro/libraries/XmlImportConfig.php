@@ -8,10 +8,8 @@
 /**
  * This class is used for different XmlImport settings
  */
-if (!class_exists('XmlImportConfig'))
-{
-	final class XmlImportConfig
-	{
+if ( ! class_exists( 'XmlImportConfig' ) ) {
+	final class XmlImportConfig {
 		/**
 		 * Singleton instance
 		 * @var XmlImportConfig
@@ -31,21 +29,20 @@ if (!class_exists('XmlImportConfig'))
 		/**
 		 * Initial settings
 		 */
-		private function init()
-		{
-			$this->setCacheDirectory(dirname(__FILE__) . '/cache');
-			$this->setMultiGlue( apply_filters('wp_all_import_multi_glue', ', ') );
+		private function init() {
+			$this->setCacheDirectory( dirname( __FILE__ ) . '/cache' );
+			$this->setMultiGlue( apply_filters( 'wp_all_import_multi_glue', ', ' ) );
 		}
 
 		/**
 		 * Gets instance of a singleton class
 		 * @return XmlImportConfig
 		 */
-		public static function getInstance()
-		{
+		public static function getInstance() {
 			//if (is_null(self::$instance)) {
-				self::$instance = new self;
-				self::$instance->init();
+			self::$instance = new self;
+			self::$instance->init();
+
 			//}
 			return self::$instance;
 		}
@@ -54,34 +51,33 @@ if (!class_exists('XmlImportConfig'))
 		 * Returns path to cache directory
 		 * @return string
 		 */
-		public function getCacheDirectory()
-		{
+		public function getCacheDirectory() {
 			return $this->cache_dir;
 		}
 
 		/**
 		 * Sets path to cache directory
+		 *
 		 * @param string $cacheDirectoryPath
 		 */
-		public function setCacheDirectory($cacheDirectoryPath)
-		{
+		public function setCacheDirectory( $cacheDirectoryPath ) {
 			$this->cache_dir = $cacheDirectoryPath;
 		}
-		
+
 		/**
 		 * Returns string glue to use when concatenating multiple elements
 		 * @return string
 		 */
-		public function getMultiGlue()
-		{
+		public function getMultiGlue() {
 			return $this->multi_glue;
 		}
+
 		/**
 		 * Sets string glue to use when concatenating multiple element
+		 *
 		 * @param unknown_type $glue
 		 */
-		public function setMultiGlue($glue)
-		{
+		public function setMultiGlue( $glue ) {
 			$this->multi_glue = $glue;
 		}
 	}

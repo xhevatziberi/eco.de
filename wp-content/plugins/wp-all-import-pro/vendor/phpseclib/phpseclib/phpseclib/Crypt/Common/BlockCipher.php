@@ -19,6 +19,5 @@ namespace phpseclib3\Crypt\Common;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class BlockCipher extends SymmetricKey
-{
+abstract class BlockCipher extends SymmetricKey {
 }

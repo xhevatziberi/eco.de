@@ -20,13 +20,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class BuiltInDomainDefinedAttribute
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'type' => ['type' => ASN1::TYPE_PRINTABLE_STRING],
-            'value' => ['type' => ASN1::TYPE_PRINTABLE_STRING]
-        ]
-    ];
+abstract class BuiltInDomainDefinedAttribute {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'type'  => [ 'type' => ASN1::TYPE_PRINTABLE_STRING ],
+			'value' => [ 'type' => ASN1::TYPE_PRINTABLE_STRING ],
+		],
+	];
 }

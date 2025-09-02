@@ -20,21 +20,22 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class PrivateKeyUsagePeriod
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'notBefore' => [
-                'constant' => 0,
-                'optional' => true,
-                'implicit' => true,
-                'type' => ASN1::TYPE_GENERALIZED_TIME],
-            'notAfter' => [
-                'constant' => 1,
-                'optional' => true,
-                'implicit' => true,
-                'type' => ASN1::TYPE_GENERALIZED_TIME]
-        ]
-    ];
+abstract class PrivateKeyUsagePeriod {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'notBefore' => [
+				'constant' => 0,
+				'optional' => true,
+				'implicit' => true,
+				'type'     => ASN1::TYPE_GENERALIZED_TIME,
+			],
+			'notAfter'  => [
+				'constant' => 1,
+				'optional' => true,
+				'implicit' => true,
+				'type'     => ASN1::TYPE_GENERALIZED_TIME,
+			],
+		],
+	];
 }

@@ -20,21 +20,20 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class NameConstraints
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'permittedSubtrees' => [
-                'constant' => 0,
-                'optional' => true,
-                'implicit' => true
-            ] + GeneralSubtrees::MAP,
-            'excludedSubtrees' => [
-                'constant' => 1,
-                'optional' => true,
-                'implicit' => true
-            ] + GeneralSubtrees::MAP
-        ]
-    ];
+abstract class NameConstraints {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'permittedSubtrees' => [
+				                       'constant' => 0,
+				                       'optional' => true,
+				                       'implicit' => true,
+			                       ] + GeneralSubtrees::MAP,
+			'excludedSubtrees'  => [
+				                       'constant' => 1,
+				                       'optional' => true,
+				                       'implicit' => true,
+			                       ] + GeneralSubtrees::MAP,
+		],
+	];
 }

@@ -20,12 +20,11 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class GeneralNames
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'min' => 1,
-        'max' => -1,
-        'children' => GeneralName::MAP
-    ];
+abstract class GeneralNames {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'min'      => 1,
+		'max'      => - 1,
+		'children' => GeneralName::MAP,
+	];
 }

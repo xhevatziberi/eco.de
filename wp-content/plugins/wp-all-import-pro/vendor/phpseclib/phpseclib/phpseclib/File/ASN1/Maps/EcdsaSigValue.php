@@ -20,13 +20,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class EcdsaSigValue
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'r' => ['type' => ASN1::TYPE_INTEGER],
-            's' => ['type' => ASN1::TYPE_INTEGER]
-        ]
-    ];
+abstract class EcdsaSigValue {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'r' => [ 'type' => ASN1::TYPE_INTEGER ],
+			's' => [ 'type' => ASN1::TYPE_INTEGER ],
+		],
+	];
 }

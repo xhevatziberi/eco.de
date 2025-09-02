@@ -37,7 +37,9 @@ class LogoCloud extends Widget_Base {
 		$args = [
 			'post_type' => 'member',
 			'posts_per_page' => -1,
-			'orderby' => 'rand'
+			'orderby' => 'rand',
+			'post_status' => 'publish',
+			'posts_per_page' => 64, // Limit to 64 logos
 		];
 		$query = new \WP_Query($args);
 
@@ -46,9 +48,12 @@ class LogoCloud extends Widget_Base {
 		if ($query->have_posts()) {
 			while ($query->have_posts()) {
 				$query->the_post();
-				$logo = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+				$logo = get_the_post_thumbnail_url(get_the_ID(), 'full');
 				if ($logo) {
-					$logos[] = esc_url($logo);
+					$logos[] = [
+						'logo' => esc_url($logo),
+						'url' => esc_url(get_field('website'))
+					];
 				}
 			}
 			wp_reset_postdata();
@@ -57,6 +62,7 @@ class LogoCloud extends Widget_Base {
 
 		<div class="eco-logo-cloud" data-logos='<?php echo json_encode($logos); ?>'>
 			<!-- JS will inject logos -->
+			 
 		</div>
 		<?php
 	}

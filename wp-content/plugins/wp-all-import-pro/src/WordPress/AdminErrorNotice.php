@@ -9,10 +9,10 @@ namespace Wpai\WordPress;
  */
 class AdminErrorNotice extends AdminNotice {
 
-    /**
-     * @return mixed|string
-     */
-    public function getType() {
-        return 'error';
-    }
+	/**
+	 * @return mixed|string
+	 */
+	public function getType() {
+		return 'error';
+	}
 }

@@ -6,7 +6,7 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 		protected $file;
 		protected $errors;
 		protected $root_element = '';
-		protected $is_csv       = false;
+		protected $is_csv = false;
 
 		protected $uploadsPath;
 
@@ -61,7 +61,11 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 				$archive = new WpaiPclZip( $this->file );
 
 				// Attempt to extract files.
-				$v_result_list = $archive->extract( WPAI_PCLZIP_OPT_PATH, $this->uploadsPath, WPAI_PCLZIP_OPT_REPLACE_NEWER, WPAI_PCLZIP_OPT_EXTRACT_DIR_RESTRICTION, $this->uploadsPath, WPAI_PCLZIP_OPT_EXTRACT_EXT_RESTRICTIONS, array( 'php', 'phtml', 'htaccess' ) );
+				$v_result_list = $archive->extract( WPAI_PCLZIP_OPT_PATH, $this->uploadsPath, WPAI_PCLZIP_OPT_REPLACE_NEWER, WPAI_PCLZIP_OPT_EXTRACT_DIR_RESTRICTION, $this->uploadsPath, WPAI_PCLZIP_OPT_EXTRACT_EXT_RESTRICTIONS, array(
+					'php',
+					'phtml',
+					'htaccess',
+				) );
 				if ( empty( $v_result_list ) || ! is_array( $v_result_list ) && $v_result_list < 1 ) {
 					$this->errors->add( 'form-validation', __( 'WP All Import couldn\'t find a file to import inside your ZIP.<br/><br/>Either the .ZIP file is broken, or doesn\'t contain a file with an extension of  XML, CSV, PSV, DAT, or TXT. <br/>Please attempt to unzip your .ZIP file on your computer to ensure it is a valid .ZIP file which can actually be unzipped, and that it contains a file which WP All Import can import.', 'wp-all-import-pro' ) );
 				} else {
@@ -80,15 +84,16 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 									$templateOptions  = empty( $decodedTemplates[0] ) ? current( $decodedTemplates ) : $decodedTemplates;
 									if ( ! empty( $templateOptions ) and isset( $templateOptions[0]['_import_type'] ) and $templateOptions[0]['_import_type'] == 'url' ) {
 										$options = \pmxi_maybe_unserialize( $templateOptions[0]['options'] );
+
 										return array(
-											'filePath'     => $templateOptions[0]['_import_url'],
-											'bundle'       => $bundle,
-											'bundle_xpath' => $templateOptions[0]['bundle_xpath'] ?? '',
-											'template'     => json_encode( $templateOptions ),
-											'templates'    => $templates,
-											'post_type'    => ( ! empty( $options ) ) ? $options['custom_type'] : false,
-											'taxonomy_type' => ( ! empty( $options['taxonomy_type'] ) ) ? $options['taxonomy_type'] : false,
-											'gravity_form_title' => ( ! empty( $options['gravity_form_title'] ) ) ? $options['gravity_form_title'] : false,
+											'filePath'             => $templateOptions[0]['_import_url'],
+											'bundle'               => $bundle,
+											'bundle_xpath'         => $templateOptions[0]['bundle_xpath'] ?? '',
+											'template'             => json_encode( $templateOptions ),
+											'templates'            => $templates,
+											'post_type'            => ( ! empty( $options ) ) ? $options['custom_type'] : false,
+											'taxonomy_type'        => ( ! empty( $options['taxonomy_type'] ) ) ? $options['taxonomy_type'] : false,
+											'gravity_form_title'   => ( ! empty( $options['gravity_form_title'] ) ) ? $options['gravity_form_title'] : false,
 											'is_empty_bundle_file' => true,
 										);
 									}
@@ -124,7 +129,7 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 						$zip    = new \ZipArchive();
 						$result = $zip->open( trim( $this->file ) );
 						if ( $result ) {
-							for ( $i = 0; $i < $zip->numFiles; $i++ ) {
+							for ( $i = 0; $i < $zip->numFiles; $i ++ ) {
 								$fileName = $zip->getNameIndex( $i );
 								if ( preg_match( '%\W(xml|csv|txt|dat|psv|json|xls|xlsx|gz)$%i', trim( $fileName ) ) ) {
 									$filePath = $this->uploadsPath . '/' . $fileName;
@@ -163,12 +168,10 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 
 				include_once PMXI_Plugin::ROOT_DIR . '/libraries/XmlImportCsvParse.php';
 
-				$csv = new PMXI_CsvParser(
-					array(
+				$csv = new PMXI_CsvParser( array(
 						'filename'  => $this->file,
 						'targetDir' => $this->uploadsPath,
-					)
-				);
+					) );
 				//@unlink($filePath);
 				$csv_path           = $filePath;
 				$filePath           = $csv->xml_path;
@@ -189,12 +192,10 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 					if ( $fileInfo['type'] == 'csv' ) { // it is CSV file
 
 						include_once PMXI_Plugin::ROOT_DIR . '/libraries/XmlImportCsvParse.php';
-						$csv = new PMXI_CsvParser(
-							array(
+						$csv = new PMXI_CsvParser( array(
 								'filename' => $filePath,
 								'targeDir' => $this->uploadsPath,
-							)
-						); // create chunks
+							) ); // create chunks
 						//@unlink($filePath);
 						$csv_path           = $filePath;
 						$filePath           = $csv->xml_path;
@@ -346,7 +347,11 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 					$archive = new WpaiPclZip( $tmpname );
 
 					// Attempt to extract files.
-					$v_result_list = $archive->extract( WPAI_PCLZIP_OPT_PATH, $this->uploadsPath, WPAI_PCLZIP_OPT_REPLACE_NEWER, WPAI_PCLZIP_OPT_EXTRACT_DIR_RESTRICTION, $this->uploadsPath, WPAI_PCLZIP_OPT_EXTRACT_EXT_RESTRICTIONS, array( 'php', 'phtml', 'htaccess' ) );
+					$v_result_list = $archive->extract( WPAI_PCLZIP_OPT_PATH, $this->uploadsPath, WPAI_PCLZIP_OPT_REPLACE_NEWER, WPAI_PCLZIP_OPT_EXTRACT_DIR_RESTRICTION, $this->uploadsPath, WPAI_PCLZIP_OPT_EXTRACT_EXT_RESTRICTIONS, array(
+						'php',
+						'phtml',
+						'htaccess',
+					) );
 					if ( empty( $v_result_list ) || ! is_array( $v_result_list ) && $v_result_list < 1 ) {
 						$this->errors->add( 'form-validation', __( 'WP All Import couldn\'t find a file to import inside your ZIP.<br/><br/>Either the .ZIP file is broken, or doesn\'t contain a file with an extension of  XML, CSV, PSV, DAT, or TXT. <br/>Please attempt to unzip your .ZIP file on your computer to ensure it is a valid .ZIP file which can actually be unzipped, and that it contains a file which WP All Import can import.', 'wp-all-import-pro' ) );
 					} else {
@@ -394,7 +399,7 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 							$zip    = new \ZipArchive();
 							$result = $zip->open( trim( $tmpname ) );
 							if ( $result ) {
-								for ( $i = 0; $i < $zip->numFiles; $i++ ) {
+								for ( $i = 0; $i < $zip->numFiles; $i ++ ) {
 									$fileName = $zip->getNameIndex( $i );
 									if ( preg_match( '%\W(xml|csv|txt|dat|psv|json|xls|xlsx|gz)$%i', trim( $fileName ) ) ) {
 										$filePath = $this->uploadsPath . '/' . $fileName;
@@ -437,12 +442,10 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 						}
 						// Detect if file is very large
 						include_once PMXI_Plugin::ROOT_DIR . '/libraries/XmlImportCsvParse.php';
-						$csv = new PMXI_CsvParser(
-							array(
+						$csv = new PMXI_CsvParser( array(
 								'filename'  => $filePath,
 								'targetDir' => $this->uploadsPath,
-							)
-						); // create chunks
+							) ); // create chunks
 						//wp_all_import_remove_source($filePath, false);
 						$csv_path           = $filePath;
 						$filePath           = $csv->xml_path;
@@ -506,7 +509,13 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 						$fileInfo = wp_all_import_get_gz( $this->file, 0, $this->uploadsPath );
 					} else {
 						$headers = wp_all_import_get_feed_type( $this->file );
-						if ( $headers['Content-Type'] and in_array( $headers['Content-Type'], array( 'gz', 'gzip' ) ) or $headers['Content-Encoding'] and in_array( $headers['Content-Encoding'], array( 'gz', 'gzip' ) ) ) {
+						if ( $headers['Content-Type'] and in_array( $headers['Content-Type'], array(
+								'gz',
+								'gzip',
+							) ) or $headers['Content-Encoding'] and in_array( $headers['Content-Encoding'], array(
+								'gz',
+								'gzip',
+							) ) ) {
 							$fileInfo = wp_all_import_get_gz( $this->file, 0, $this->uploadsPath, $headers );
 						} else {
 							$fileInfo = wp_all_import_get_url( $this->file, $this->uploadsPath, $headers['Content-Type'], $headers['Content-Encoding'], true );
@@ -529,12 +538,10 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 						switch ( $fileInfo['type'] ) {
 							case 'csv':
 								include_once PMXI_Plugin::ROOT_DIR . '/libraries/XmlImportCsvParse.php';
-								$csv      = new PMXI_CsvParser(
-									array(
+								$csv      = new PMXI_CsvParser( array(
 										'filename'  => $filePath,
 										'targetDir' => $this->uploadsPath,
-									)
-								); // create chunks
+									) ); // create chunks
 								$csv_path = $filePath;
 								//wp_all_import_remove_source($filePath, false);
 								$filePath           = $csv->xml_path;
@@ -570,7 +577,7 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 								break;
 						}
 					} else {
-						$error = ($fileInfo) ? $fileInfo->get_error_message() : 'No data was returned. This can happen if you try to download from a private IP or if an unknown error has occurred.';
+						$error = ( $fileInfo ) ? $fileInfo->get_error_message() : 'No data was returned. This can happen if you try to download from a private IP or if an unknown error has occurred.';
 
 						$this->errors->add( 'form-validation', $error );
 					}
@@ -653,7 +660,11 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 				$archive = new WpaiPclZip( $zipfilePath );
 
 				// Attempt to extract files.
-				$v_result_list = $archive->extract( WPAI_PCLZIP_OPT_PATH, $this->uploadsPath, WPAI_PCLZIP_OPT_REPLACE_NEWER, WPAI_PCLZIP_OPT_EXTRACT_DIR_RESTRICTION, $this->uploadsPath, WPAI_PCLZIP_OPT_EXTRACT_EXT_RESTRICTIONS, array( 'php', 'phtml', 'htaccess' ) );
+				$v_result_list = $archive->extract( WPAI_PCLZIP_OPT_PATH, $this->uploadsPath, WPAI_PCLZIP_OPT_REPLACE_NEWER, WPAI_PCLZIP_OPT_EXTRACT_DIR_RESTRICTION, $this->uploadsPath, WPAI_PCLZIP_OPT_EXTRACT_EXT_RESTRICTIONS, array(
+					'php',
+					'phtml',
+					'htaccess',
+				) );
 				if ( empty( $v_result_list ) || ! is_array( $v_result_list ) && $v_result_list < 1 ) {
 					$this->errors->add( 'form-validation', __( 'WP All Import couldn\'t find a file to import inside your ZIP.<br/><br/>Either the .ZIP file is broken, or doesn\'t contain a file with an extension of  XML, CSV, PSV, DAT, or TXT. <br/>Please attempt to unzip your .ZIP file on your computer to ensure it is a valid .ZIP file which can actually be unzipped, and that it contains a file which WP All Import can import.', 'wp-all-import-pro' ) );
 				} else {
@@ -701,7 +712,7 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 						$zip    = new \ZipArchive();
 						$result = $zip->open( trim( $zipfilePath ) );
 						if ( $result ) {
-							for ( $i = 0; $i < $zip->numFiles; $i++ ) {
+							for ( $i = 0; $i < $zip->numFiles; $i ++ ) {
 								$fileName = $zip->getNameIndex( $i );
 								if ( preg_match( '%\W(xml|csv|txt|dat|psv|json|xls|xlsx|gz)$%i', trim( $fileName ) ) ) {
 									$filePath = $this->uploadsPath . '/' . $fileName;
@@ -755,12 +766,10 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 				);
 				// Detect if file is very large
 				include_once PMXI_Plugin::ROOT_DIR . '/libraries/XmlImportCsvParse.php';
-				$csv = new PMXI_CsvParser(
-					array(
+				$csv = new PMXI_CsvParser( array(
 						'filename'  => $filePath,
 						'targetDir' => $this->uploadsPath,
-					)
-				); // create chunks
+					) ); // create chunks
 				//wp_all_import_remove_source($filePath, false);
 				$filePath           = $csv->xml_path;
 				$this->is_csv       = $csv->is_csv;
@@ -885,12 +894,10 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 
 				if ( preg_match( '%\W(csv|txt|dat|psv|tsv)$%i', trim( $this->file ) ) or ( ! empty( $fileInfo ) and $fileInfo['type'] == 'csv' ) ) {
 					include_once PMXI_Plugin::ROOT_DIR . '/libraries/XmlImportCsvParse.php';
-					$csv = new PMXI_CsvParser(
-						array(
+					$csv = new PMXI_CsvParser( array(
 							'filename'  => $filePath,
 							'targetDir' => $this->uploadsPath,
-						)
-					); // create chunks
+						) ); // create chunks
 					//wp_all_import_remove_source($filePath, false);
 					$filePath           = $csv->xml_path;
 					$this->is_csv       = $csv->is_csv;
@@ -942,12 +949,10 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 				}
 
 				include_once PMXI_Plugin::ROOT_DIR . '/libraries/XmlImportCsvParse.php';
-				$csv = new PMXI_CsvParser(
-					array(
+				$csv = new PMXI_CsvParser( array(
 						'filename'  => $filePath,
 						'targetDir' => $this->uploadsPath,
-					)
-				); // create chunks
+					) ); // create chunks
 
 				$csv_path = $filePath;
 
@@ -1006,12 +1011,10 @@ if ( ! class_exists( 'PMXI_Upload' ) ) {
 
 						include_once PMXI_Plugin::ROOT_DIR . '/libraries/XmlImportCsvParse.php';
 						$csv_path = $filePath;
-						$csv      = new PMXI_CsvParser(
-							array(
+						$csv      = new PMXI_CsvParser( array(
 								'filename' => $filePath,
 								'targeDir' => $this->uploadsPath,
-							)
-						); // create chunks
+							) ); // create chunks
 						//@unlink($filePath);
 						$filePath           = $csv->xml_path;
 						$this->is_csv       = $csv->is_csv;

@@ -18,7 +18,6 @@ namespace phpseclib3\File\ASN1\Maps;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class HashAlgorithm
-{
-    const MAP = AlgorithmIdentifier::MAP;
+abstract class HashAlgorithm {
+	const MAP = AlgorithmIdentifier::MAP;
 }

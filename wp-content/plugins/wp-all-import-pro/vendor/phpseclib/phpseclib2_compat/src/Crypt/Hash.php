@@ -45,101 +45,99 @@ namespace phpseclib\Crypt;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class Hash
-{
-    /**#@+
-     * @access private
-     * @see \phpseclib\Crypt\Hash::__construct()
-     */
-    /**
-     * Toggles the internal implementation
-     */
-    const MODE_INTERNAL = 1;
-    /**#@-*/
+class Hash {
+	/**#@+
+	 * @access private
+	 * @see \phpseclib\Crypt\Hash::__construct()
+	 */
+	/**
+	 * Toggles the internal implementation
+	 */
+	const MODE_INTERNAL = 1;
+	/**#@-*/
 
-    /**
-     * Hash Object
-     *
-     * @see self::setHash()
-     * @var null|\phpseclib3\Crypt\Hash
-     * @access private
-     */
-    private $hash;
+	/**
+	 * Hash Object
+	 *
+	 * @see self::setHash()
+	 * @var null|\phpseclib3\Crypt\Hash
+	 * @access private
+	 */
+	private $hash;
 
-    /**
-     * Default Constructor.
-     *
-     * @param string $hash
-     * @return \phpseclib\Crypt\Hash
-     * @access public
-     */
-    public function __construct($hash = 'sha1')
-    {
-        $this->setHash($hash);
-    }
+	/**
+	 * Default Constructor.
+	 *
+	 * @param string $hash
+	 *
+	 * @return \phpseclib\Crypt\Hash
+	 * @access public
+	 */
+	public function __construct( $hash = 'sha1' ) {
+		$this->setHash( $hash );
+	}
 
-    /**
-     * Sets the key for HMACs
-     *
-     * Keys can be of any length.
-     *
-     * @access public
-     * @param string $key
-     */
-    public function setKey($key = false)
-    {
-        $this->hash->setKey($key);
-    }
+	/**
+	 * Sets the key for HMACs
+	 *
+	 * Keys can be of any length.
+	 *
+	 * @access public
+	 *
+	 * @param string $key
+	 */
+	public function setKey( $key = false ) {
+		$this->hash->setKey( $key );
+	}
 
-    /**
-     * Gets the hash function.
-     *
-     * As set by the constructor or by the setHash() method.
-     *
-     * @access public
-     * @return string
-     */
-    public function getHash()
-    {
-        return $this->hash->getHash();
-    }
+	/**
+	 * Gets the hash function.
+	 *
+	 * As set by the constructor or by the setHash() method.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function getHash() {
+		return $this->hash->getHash();
+	}
 
-    /**
-     * Sets the hash function.
-     *
-     * @access public
-     * @param string $hash
-     */
-    public function setHash($hash)
-    {
-        $this->hash = new \phpseclib3\Crypt\Hash;
-        try {
-            $this->hash->setHash($hash);
-        } catch (\phpseclib3\Exception\UnsupportedAlgorithmException $e) {
-            $this->hash->setHash('sha1');
-        }
-    }
+	/**
+	 * Sets the hash function.
+	 *
+	 * @access public
+	 *
+	 * @param string $hash
+	 */
+	public function setHash( $hash ) {
+		$this->hash = new \phpseclib3\Crypt\Hash;
+		try {
+			$this->hash->setHash( $hash );
+		} catch ( \phpseclib3\Exception\UnsupportedAlgorithmException $e ) {
+			$this->hash->setHash( 'sha1' );
+		}
+	}
 
-    /**
-     * Compute the HMAC.
-     *
-     * @access public
-     * @param string $text
-     * @return string
-     */
-    public function hash($text)
-    {
-        return $this->hash->hash($text);
-    }
+	/**
+	 * Compute the HMAC.
+	 *
+	 * @access public
+	 *
+	 * @param string $text
+	 *
+	 * @return string
+	 */
+	public function hash( $text ) {
+		return $this->hash->hash( $text );
+	}
 
-    /**
-     * Returns the hash length (in bytes)
-     *
-     * @access public
-     * @return int
-     */
-    public function getLength()
-    {
-        return $this->hash->getLengthInBytes();
-    }
+	/**
+	 * Returns the hash length (in bytes)
+	 *
+	 * @access public
+	 * @return int
+	 */
+	public function getLength() {
+		return $this->hash->getLengthInBytes();
+	}
 }

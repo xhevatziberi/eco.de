@@ -147,6 +147,7 @@ let calendar = () => {
 						${event.categories.map(cat => `<span class="event-category-item" data-category="${cat}">${cat}</span>`).join(' | ')}
 					</div>
 					<h4 class="event-title">${event.title}</h4>
+					${event.teaser_short_description ? `<div class="event-teaser">${event.teaser_short_description}</div>` : ''}
 					<div class="event-ticketshop">
 						<a href="${event.link}#ticket">Link zum Ticketshop</a>
 					</div>

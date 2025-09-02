@@ -20,13 +20,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class PolicyQualifierInfo
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'policyQualifierId' => PolicyQualifierId::MAP,
-            'qualifier' => ['type' => ASN1::TYPE_ANY]
-        ]
-    ];
+abstract class PolicyQualifierInfo {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'policyQualifierId' => PolicyQualifierId::MAP,
+			'qualifier'         => [ 'type' => ASN1::TYPE_ANY ],
+		],
+	];
 }

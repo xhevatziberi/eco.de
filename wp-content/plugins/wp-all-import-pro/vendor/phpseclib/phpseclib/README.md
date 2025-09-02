@@ -12,7 +12,9 @@
 
 MIT-licensed pure-PHP implementations of the following:
 
-SSH-2, SFTP, X.509, an arbitrary-precision integer arithmetic library, Ed25519 / Ed449 / Curve25519 / Curve449, ECDSA / ECDH (with support for 66 curves), RSA (PKCS#1 v2.2 compliant), DSA / DH, DES / 3DES / RC4 / Rijndael / AES / Blowfish / Twofish / Salsa20 / ChaCha20, GCM / Poly1305
+SSH-2, SFTP, X.509, an arbitrary-precision integer arithmetic library, Ed25519 / Ed449 / Curve25519 / Curve449, ECDSA /
+ECDH (with support for 66 curves), RSA (PKCS#1 v2.2 compliant), DSA / DH, DES / 3DES / RC4 / Rijndael / AES / Blowfish /
+Twofish / Salsa20 / ChaCha20, GCM / Poly1305
 
 * [Browse Git](https://github.com/phpseclib/phpseclib)
 
@@ -55,7 +57,8 @@ SSH-2, SFTP, X.509, an arbitrary-precision integer arithmetic library, Ed25519 /
 
 ## Security contact information
 
-To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift
+will coordinate the fix and disclosure.
 
 ## Support
 
@@ -93,5 +96,5 @@ Special Thanks to our $50+ sponsors!:
    psalm --config=build/psalm.xml --no-cache --long-progress --report-show-info=false --output-format=text
    vendor/bin/phpunit --verbose --configuration tests/phpunit.xml
    ```
-   
+
 6. Send us a Pull Request

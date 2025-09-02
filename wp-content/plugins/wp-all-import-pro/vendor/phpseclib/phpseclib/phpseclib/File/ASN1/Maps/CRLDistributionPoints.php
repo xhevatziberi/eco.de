@@ -20,12 +20,11 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class CRLDistributionPoints
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'min' => 1,
-        'max' => -1,
-        'children' => DistributionPoint::MAP
-    ];
+abstract class CRLDistributionPoints {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'min'      => 1,
+		'max'      => - 1,
+		'children' => DistributionPoint::MAP,
+	];
 }

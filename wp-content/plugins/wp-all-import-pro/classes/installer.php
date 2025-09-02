@@ -1,27 +1,20 @@
 <?php
 
-class PMXI_Installer
-{
-    const MIN_PHP_VERSION = "7.2.5";
+class PMXI_Installer {
+	const MIN_PHP_VERSION = "7.2.5";
 
-    const WRONG_PHP_VERSION_MESSAGE = "WP All Import requires PHP %1s or greater, you are using PHP %2s. Please contact your host and tell them to update your server to at least PHP %1s.";
+	const WRONG_PHP_VERSION_MESSAGE = "WP All Import requires PHP %1s or greater, you are using PHP %2s. Please contact your host and tell them to update your server to at least PHP %1s.";
 
-    public function checkActivationConditions()
-    {
-        if (version_compare(phpversion(), self::MIN_PHP_VERSION  , "<")) {
-            $this->error(sprintf(
-                self::WRONG_PHP_VERSION_MESSAGE,
-                self::MIN_PHP_VERSION,
-                phpversion(),
-                self::MIN_PHP_VERSION
-            ));
-        }
-    }
+	public function checkActivationConditions() {
+		if ( version_compare( phpversion(), self::MIN_PHP_VERSION, "<" ) ) {
+			$this->error( sprintf( self::WRONG_PHP_VERSION_MESSAGE, self::MIN_PHP_VERSION, phpversion(), self::MIN_PHP_VERSION ) );
+		}
+	}
 
-    private function error($message){
+	private function error( $message ) {
 
-        $message = __($message);
-        $error = <<<EOT
+		$message = __( $message );
+		$error   = <<<EOT
 <style type="text/css">
     body, html {
         margin: 0;
@@ -34,7 +27,7 @@ class PMXI_Installer
     </p>
 </div>
 EOT;
-        echo $error;
-        die;
-    }
+		echo $error;
+		die;
+	}
 }

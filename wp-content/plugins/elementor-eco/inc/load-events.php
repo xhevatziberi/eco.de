@@ -61,6 +61,7 @@ function eco_load_events_callback() {
                 'categories' => wp_get_post_terms(get_the_ID(), 'event-category', ['fields' => 'names']),
                 'tags' => wp_get_post_terms(get_the_ID(), 'event-tag', ['fields' => 'names']),
                 'id' => get_the_ID(),
+                'teaser_short_description' => get_field('teaser_short_description'),
             ];
         }
     }

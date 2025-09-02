@@ -20,22 +20,21 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class PrivateKeyInfo
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'version' => [
-                'type' => ASN1::TYPE_INTEGER,
-                'mapping' => ['v1']
-            ],
-            'privateKeyAlgorithm' => AlgorithmIdentifier::MAP,
-            'privateKey' => PrivateKey::MAP,
-            'attributes' => [
-                'constant' => 0,
-                'optional' => true,
-                'implicit' => true
-            ] + Attributes::MAP
-        ]
-    ];
+abstract class PrivateKeyInfo {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'version'             => [
+				'type'    => ASN1::TYPE_INTEGER,
+				'mapping' => [ 'v1' ],
+			],
+			'privateKeyAlgorithm' => AlgorithmIdentifier::MAP,
+			'privateKey'          => PrivateKey::MAP,
+			'attributes'          => [
+				                         'constant' => 0,
+				                         'optional' => true,
+				                         'implicit' => true,
+			                         ] + Attributes::MAP,
+		],
+	];
 }

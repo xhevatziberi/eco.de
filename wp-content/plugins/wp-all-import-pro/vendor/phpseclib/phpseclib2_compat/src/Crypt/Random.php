@@ -31,6 +31,5 @@ namespace phpseclib\Crypt;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class Random extends \phpseclib3\Crypt\Random
-{
+class Random extends \phpseclib3\Crypt\Random {
 }

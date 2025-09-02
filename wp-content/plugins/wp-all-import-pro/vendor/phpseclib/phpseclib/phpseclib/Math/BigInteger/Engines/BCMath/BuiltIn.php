@@ -20,21 +20,20 @@ use phpseclib3\Math\BigInteger\Engines\BCMath;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class BuiltIn extends BCMath
-{
-    /**
-     * Performs modular exponentiation.
-     *
-     * @param BCMath $x
-     * @param BCMath $e
-     * @param BCMath $n
-     * @return BCMath
-     */
-    protected static function powModHelper(BCMath $x, BCMath $e, BCMath $n)
-    {
-        $temp = new BCMath();
-        $temp->value = bcpowmod($x->value, $e->value, $n->value);
+abstract class BuiltIn extends BCMath {
+	/**
+	 * Performs modular exponentiation.
+	 *
+	 * @param BCMath $x
+	 * @param BCMath $e
+	 * @param BCMath $n
+	 *
+	 * @return BCMath
+	 */
+	protected static function powModHelper( BCMath $x, BCMath $e, BCMath $n ) {
+		$temp        = new BCMath();
+		$temp->value = bcpowmod( $x->value, $e->value, $n->value );
 
-        return $x->normalize($temp);
-    }
+		return $x->normalize( $temp );
+	}
 }

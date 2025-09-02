@@ -1,8 +1,8 @@
 <?php
 
-if(!function_exists('wp_all_import_sanitize_svg')) {
+if ( ! function_exists( 'wp_all_import_sanitize_svg' ) ) {
 	function wp_all_import_sanitize_svg( $svg, $is_file_path = true ) {
-		
+
 		try {
 			$sanitizer = new \enshrined\svgSanitize\Sanitizer();
 
@@ -15,10 +15,10 @@ if(!function_exists('wp_all_import_sanitize_svg')) {
 			} else {
 				$svg = $sanitizer->sanitize( $svg );
 			}
-		}catch(LogicException $e){
+		} catch ( LogicException $e ) {
 			return false;
 		}
-		
+
 
 		return $svg;
 	}

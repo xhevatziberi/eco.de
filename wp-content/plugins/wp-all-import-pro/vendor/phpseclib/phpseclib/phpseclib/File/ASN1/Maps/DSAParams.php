@@ -20,14 +20,13 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class DSAParams
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'p' => ['type' => ASN1::TYPE_INTEGER],
-            'q' => ['type' => ASN1::TYPE_INTEGER],
-            'g' => ['type' => ASN1::TYPE_INTEGER]
-        ]
-    ];
+abstract class DSAParams {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'p' => [ 'type' => ASN1::TYPE_INTEGER ],
+			'q' => [ 'type' => ASN1::TYPE_INTEGER ],
+			'g' => [ 'type' => ASN1::TYPE_INTEGER ],
+		],
+	];
 }

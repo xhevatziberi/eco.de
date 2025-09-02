@@ -5,6 +5,26 @@ class VamtamDiagnostics {
 
 	public function __construct() {
 		add_action( 'admin_notices', array( __CLASS__, 'notice' ), 5 );
+
+		// Schedule the event on theme activation
+		add_action( 'after_setup_theme', function() {
+			if ( ! wp_next_scheduled( 'vamtam_mixed_content_cron' ) ) {
+				wp_schedule_event( time(), 'daily', 'vamtam_mixed_content_cron' );
+			}
+		} );
+
+		// Unschedule on theme switch (optional cleanup)
+		add_action( 'switch_theme', function() {
+			$timestamp = wp_next_scheduled( 'vamtam_mixed_content_cron' );
+			if ( $timestamp ) {
+				wp_unschedule_event( $timestamp, 'vamtam_mixed_content_cron' );
+			}
+		} );
+
+		// Hook the cron event to the diagnostics method
+		add_action( 'vamtam_mixed_content_cron', [ __CLASS__, 'mixed_content_test_real' ] );
+
+		add_action( 'wp_ajax_nopriv_vamtam_run_mixed_content_test', [ __CLASS__, 'mixed_content_test_ajax' ] );
 	}
 
 	public static function notice() {
@@ -102,9 +122,22 @@ class VamtamDiagnostics {
 	}
 
 	/**
-	 * @return bool true if mixed content detected
+	 * Wrapper for mixed_content_test_real() which returns a fast negative result, if cached
 	 */
-	private static function mixed_content_test() {
+	public static function mixed_content_test() {
+		$cached_status = get_transient( 'vamtam-mixed-content-test-passed' );
+
+		if ( $cached_status ) {
+			return false; // false means no http:// links detected
+		}
+
+		return self::mixed_content_test_real();
+	}
+
+	/**
+	 * @return string|bool string if mixed content detected, false otherwise
+	 */
+	private static function mixed_content_test_real() {
 		// this page was loaded over https
 		if ( self::is_https() ) {
 			global $wpdb;
@@ -119,16 +152,32 @@ class VamtamDiagnostics {
 			$home_url_raw_json = substr( json_encode( $home_url_raw ), 1, -1 );
 			$site_url_raw_json = substr( json_encode( $site_url_raw ), 1, -1 );
 
-			if ( (int) $wpdb->get_var( $wpdb->prepare( "
-					select count(*) from $wpdb->options where
-					option_value like %s or option_value like %s or
-					option_value like %s or option_value like %s
+			$faulty_options = $wpdb->get_col( $wpdb->prepare( "
+					select option_name from $wpdb->options where
+					option_name not in (
+						'vamtam_import_attachments_url_remap',
+						'vamtam_import_attachments_todo',
+						'vamtam_attachments_imported',
+						'bsr_data'
+					)
+					and
+						option_name not like '_transient_%'
+					and
+						option_name not like '_site_transient_%'
+					and
+					(
+						option_value like %s or option_value like %s or
+						option_value like %s or option_value like %s
+					)
 				",
-					[ $home_url_raw, $home_url_raw_json,
-					  $site_url_raw, $site_url_raw_json ]
-				) )
-			) {
-				return "$wpdb->options table";
+					[
+					  $home_url_raw, $home_url_raw_json,
+					  $site_url_raw, $site_url_raw_json,
+					]
+				) );
+
+			if ( count( $faulty_options ) > 0 ){
+				return "$wpdb->options table (options: " . implode( ', ', $faulty_options ) . ")";
 			}
 
 
@@ -157,7 +206,20 @@ class VamtamDiagnostics {
 			}
 		}
 
+		// cache negative result - must be longer than the cron frequency
+		set_transient( 'vamtam-mixed-content-test-passed', true, DAY_IN_SECONDS * 2 );
 		return false;
+	}
+
+	public static function mixed_content_test_ajax() {
+		if ( ! isset( $_POST['hash'] ) || $_POST['hash'] !== get_transient( 'vamtam-mixed-content-test-running' ) ) {
+			wp_die( esc_html__( 'Hash check failed', 'tecnologia' ), esc_html__( 'Error', 'tecnologia' ), array( 'response' => 403 ) );
+		}
+
+		$result = VamtamDiagnostics::mixed_content_test();
+		set_transient( 'vamtam-mixed-content-test-result', $result, DAY_IN_SECONDS );
+		delete_transient( 'vamtam-mixed-content-test-running' );
+		wp_die();
 	}
 
 	private static function memory_in_mbytes( $memory ) {
@@ -203,15 +265,49 @@ class VamtamDiagnostics {
 		}
 	}
 
-	public static function tests() {
+	public static function tests( $full = false ) {
 		if ( ! empty( self::$test_results ) ) {
+			if ( ! $full ) {
+				return array_filter( self::$test_results, function( $test ) {
+					return ! $test['pass'];
+				} );
+			}
+
 			return self::$test_results;
 		}
 
 		$phpversion         = phpversion();
 		$phpversion_minimum = '8.0';
 
-		$mixed_content = self::mixed_content_test();
+		// Use cached result for mixed content test to avoid slow page loads
+		$mixed_content = get_transient( 'vamtam-mixed-content-test-result' );
+
+		// If no cached result, or if the result is more than 180s old, get new result on shutdown (async)
+		// will be shown on next page load
+		if (
+			$mixed_content === false ||
+			DAY_IN_SECONDS - (get_option( '_transient_timeout_vamtam-mixed-content-test-result' ) - time()) > 180
+		) {
+			if ( ! get_transient( 'vamtam-mixed-content-test-running' ) ) {
+				$hash = wp_hash( wp_nonce_tick( 'vamtam_run_mixed_content_test' ) );
+
+				set_transient( 'vamtam-mixed-content-test-running', $hash, 60 );
+
+				add_action( 'shutdown', function() use ( $hash ) {
+					echo 'will run mixed content test';
+					$post_result = wp_remote_post( admin_url( 'admin-ajax.php?action=vamtam_run_mixed_content_test' ), [
+						'timeout' => 60,
+						'body' => [
+							'hash' => $hash,
+						],
+						'blocking' => false,
+					] );
+				} );
+			}
+		}
+
+		$has_mbstring = extension_loaded('mbstring');
+		$has_zip      = extension_loaded('zip');
 
 		self::$test_results = [
 			'phpversion' => [
@@ -224,27 +320,34 @@ class VamtamDiagnostics {
 				'title'  => esc_html__( 'Mixed content', 'tecnologia' ),
 				'result' => $mixed_content ? "Detected in $mixed_content" : 'passed',
 				'pass'   => ! $mixed_content,
-				'msg'    => esc_html__( 'This page was loaded over HTTPS, however URLs using HTTP were found in the database. Please replace all HTTP links with their HTTPS equivalents.', 'tecnologia' ),
-			],
-			'memory_frontend' => [
-				'title'  => esc_html__( 'Memory limit (frontend)', 'tecnologia' ),
-				'result' => WP_Site_Health::get_instance()->php_memory_limit,
-				'pass'   => self::memory_in_mbytes( WP_Site_Health::get_instance()->php_memory_limit ) >= 256,
-				'msg'    => esc_html__( 'The memory limit for this site is too low, we recommend a minimum of 256MB. Please contact your hosting provider if you are unsure how to change this.', 'tecnologia' ),
+				'msg'    => esc_html__( 'This page was loaded over HTTPS, however URLs using HTTP were found in the database. Please replace all HTTP links with their HTTPS equivalents. This message will remain visible for up to 3 minutes after resolving the problem.', 'tecnologia' ),
 			],
 			'mbstring' => [
 				'title'  => esc_html__( 'mbstring extension', 'tecnologia' ),
-				'result' => 'inactive',
-				'pass'   => extension_loaded('mbstring'),
+				'result' => $has_mbstring ? 'active' : 'inactive',
+				'pass'   => $has_mbstring,
 				'msg'    => wp_kses_post( __( 'The <strong>mbstring</strong> extension must be enabled for all features to work correctly. Please ask your hosting provider to enable this if you cannot do it yourself. Most servers already have mbstring installed, even if it is disabled by default.', 'tecnologia' ) ),
 			],
 			'zip' => [
 				'title'  => esc_html__( 'zip extension', 'tecnologia' ),
-				'result' => 'inactive',
-				'pass'   => extension_loaded('zip'),
+				'result' => $has_zip ? 'active' : 'inactive',
+				'pass'   => $has_zip,
 				'msg'    => wp_kses_post( __( 'The <strong>zip</strong> extension must be enabled before uploading custom icons. Please ask your hosting provider to enable this if you cannot do it yourself. Most servers already have this extension installed, even if it is disabled by default.', 'tecnologia' ) ),
 			],
 		];
+
+		if ( ! class_exists( 'WP_Site_Health' ) ) {
+			include_once( ABSPATH . 'wp-admin/includes/class-wp-site-health.php' );
+		}
+
+		if ( class_exists( 'WP_Site_Health' ) ) {
+			self::$test_results['memory_frontend'] = [
+				'title'  => esc_html__( 'Memory limit (frontend)', 'tecnologia' ),
+				'result' => WP_Site_Health::get_instance()->php_memory_limit,
+				'pass'   => self::memory_in_mbytes( WP_Site_Health::get_instance()->php_memory_limit ) >= 256,
+				'msg'    => esc_html__( 'The memory limit for this site is too low, we recommend a minimum of 256MB. Please contact your hosting provider if you are unsure how to change this.', 'tecnologia' ),
+			];
+		}
 
 		if ( function_exists( 'ini_get' ) ) {
 			$post_max_size       = ini_get( 'post_max_size' );
@@ -273,9 +376,13 @@ class VamtamDiagnostics {
 			] );
 		}
 
-		$attachments_todo = get_option( 'vamtam_import_attachments_todo', [ 'attachments' => '' ] )['attachments'];
+		$attachments_todo     = get_option( 'vamtam_import_attachments_todo' );
+		$attachments_imported = get_option( 'vamtam_attachments_imported', [] );
+
+		$attachments_todo = is_array( $attachments_todo ) && is_array( $attachments_todo['attachments'] ) ? $attachments_todo['attachments'] : [];
+
 		$not_yet_imported = is_countable( $attachments_todo ) ? count( $attachments_todo ) : 0;
-		$already_imported = count( get_option( 'vamtam_attachments_imported', [] ) );
+		$already_imported = is_countable( $attachments_imported ) ? count( $attachments_imported ) : 0;
 
 		if ( $already_imported === 0 || $not_yet_imported > 0 ) {
 			$cron_runner_plugins = array(
@@ -329,12 +436,22 @@ class VamtamDiagnostics {
 					'msg'    => wp_kses_post( sprintf( __( "We couldn't perform a test call to WP-Cron on this server. We received the following error message when attempting to load %s: <strong>%s</strong><br><br>Please contact your hosting provider for assistance.", 'tecnologia' ), site_url( 'wp-cron.php' ), $cron_test->get_error_message() ) ),
 				];
 			}
+
+			if ( ! self::is_https() ) {
+				self::$test_results['not_https'] = [
+					'title'  => esc_html__( 'Using HTTPS', 'tecnologia' ),
+					'result' => 'no',
+					'pass'   => false,
+					'msg'    => esc_html__( "It seems that this site is using an HTTP URL. If you plan to migrate to HTTPS in the future, we strongly recommend that you do this before importing the demo content. Migrating after importing the demo content is more complicated and may lead to problems.", 'tecnologia' ),
+				];
+			}
 		}
 
-		self::$test_results = array_filter( self::$test_results, function( $test ) {
-			return ! $test['pass'];
-		} );
-
+		if ( ! $full ) {
+			return array_filter( self::$test_results, function( $test ) {
+				return ! $test['pass'];
+			} );
+		}
 		return self::$test_results;
 	}
 }

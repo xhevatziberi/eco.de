@@ -512,10 +512,10 @@ class VamtamPurchaseHelper extends VamtamAjax {
 				'label'          => esc_html__( 'Dummy Content Import', 'tecnologia' ),
 				'id'             => 'content-import-button',
 				'description'    => esc_html__( 'You are advised to use this importer only on new WordPress sites.', 'tecnologia' ),
-				'button_title'   => esc_html__( 'Import', 'tecnologia' ),
-				'href'           => $content_allowed ? wp_nonce_url( admin_url( 'admin.php?import=wpv&step=2' ), 'vamtam-import' ) : 'javascript:void( 0 )',
+				'button_title'   => $content_imported ? esc_html__( 'Imported', 'tecnologia' ) : esc_html__( 'Import', 'tecnologia' ),
+				'href'           => $content_allowed && !$content_imported ? wp_nonce_url( admin_url( 'admin.php?import=wpv&step=2' ), 'vamtam-import' ) : 'javascript:void( 0 )',
 				'type'           => 'button',
-				'class'          => $content_allowed ? 'button-primary vamtam-import-button' : 'disabled',
+				'class'          => $content_allowed && !$content_imported ? 'button-primary vamtam-import-button' : ($content_imported ? 'done disabled' : 'disabled'),
 				'data'           => array_merge( $messages, [
 					'content-imported' => $content_imported,
 					'success-msg'      => sprintf( esc_html__( 'Main content imported. Image import progress: <span class="vamtam-image-import-progress">%s</span>.', 'tecnologia' ), $img_progress ),

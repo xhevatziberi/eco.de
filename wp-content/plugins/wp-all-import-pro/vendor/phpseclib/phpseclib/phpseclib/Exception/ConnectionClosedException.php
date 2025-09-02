@@ -18,6 +18,5 @@ namespace phpseclib3\Exception;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class ConnectionClosedException extends \RuntimeException
-{
+class ConnectionClosedException extends \RuntimeException {
 }

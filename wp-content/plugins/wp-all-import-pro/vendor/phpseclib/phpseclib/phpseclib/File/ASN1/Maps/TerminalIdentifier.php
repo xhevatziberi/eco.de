@@ -20,7 +20,6 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class TerminalIdentifier
-{
-    const MAP = ['type' => ASN1::TYPE_PRINTABLE_STRING];
+abstract class TerminalIdentifier {
+	const MAP = [ 'type' => ASN1::TYPE_PRINTABLE_STRING ];
 }

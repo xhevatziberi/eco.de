@@ -61,77 +61,76 @@ namespace phpseclib\Crypt;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class Rijndael extends Base
-{
-    /**
-     * Sets the block length
-     *
-     * Valid block lengths are 128, 160, 192, 224, and 256.  If the length is less than 128, it will be rounded up to
-     * 128.  If the length is greater than 128 and invalid, it will be rounded down to the closest valid amount.
-     *
-     * @access public
-     * @param int $length
-     */
-    public function setBlockLength($length)
-    {
-        $length >>= 5;
-        if ($length > 8) {
-            $length = 8;
-        } elseif ($length < 4) {
-            $length = 4;
-        }
-        $this->cipher->setBlockLength($length);
-    }
+class Rijndael extends Base {
+	/**
+	 * Sets the block length
+	 *
+	 * Valid block lengths are 128, 160, 192, 224, and 256.  If the length is less than 128, it will be rounded up to
+	 * 128.  If the length is greater than 128 and invalid, it will be rounded down to the closest valid amount.
+	 *
+	 * @access public
+	 *
+	 * @param int $length
+	 */
+	public function setBlockLength( $length ) {
+		$length >>= 5;
+		if ( $length > 8 ) {
+			$length = 8;
+		} elseif ( $length < 4 ) {
+			$length = 4;
+		}
+		$this->cipher->setBlockLength( $length );
+	}
 
-    /**
-     * Turns key lengths, be they valid or invalid, to valid key lengths
-     *
-     * @param int $length
-     * @access private
-     * @return int
-     */
-    protected function calculateNewKeyLength($length)
-    {
-        switch (true) {
-            case $length <= 128:
-                return 128;
-            case $length <= 160:
-                return 160;
-            case $length <= 192:
-                return 192;
-            case $length <= 224:
-                return 224;
-            default:
-                return 256;
-        }
-    }
+	/**
+	 * Turns key lengths, be they valid or invalid, to valid key lengths
+	 *
+	 * @param int $length
+	 *
+	 * @access private
+	 * @return int
+	 */
+	protected function calculateNewKeyLength( $length ) {
+		switch ( true ) {
+			case $length <= 128:
+				return 128;
+			case $length <= 160:
+				return 160;
+			case $length <= 192:
+				return 192;
+			case $length <= 224:
+				return 224;
+			default:
+				return 256;
+		}
+	}
 
-    /**
-     * Sets the password.
-     *
-     * Depending on what $method is set to, setPassword()'s (optional) parameters are as follows:
-     *     {@link http://en.wikipedia.org/wiki/PBKDF2 pbkdf2} or pbkdf1:
-     *         $hash, $salt, $count, $dkLen
-     *
-     *         Where $hash (default = sha1) currently supports the following hashes: see: Crypt/Hash.php
-     *
-     * @see Crypt/Hash.php
-     * @param string $password
-     * @param string $method
-     * @return bool
-     * @access public
-     * @internal Could, but not must, extend by the child Crypt_* class
-     */
-    public function setPassword($password, $method = 'pbkdf2')
-    {
-        $this->cipher->setKeyLength($this->key_length);
-        $args = func_get_args();
-        if (in_array($method, ['pbkdf1', 'pbkdf2']) && !isset($args[3])) {
-            $args[1] = $method;
-            $args[2] = isset($args[2]) ? $args[2] : 'sha1';
-            $args[3] = 'phpseclib';
-        }
-        $this->password = $args;
-        $this->cipher->setPassword(...$args);
-    }
+	/**
+	 * Sets the password.
+	 *
+	 * Depending on what $method is set to, setPassword()'s (optional) parameters are as follows:
+	 *     {@link http://en.wikipedia.org/wiki/PBKDF2 pbkdf2} or pbkdf1:
+	 *         $hash, $salt, $count, $dkLen
+	 *
+	 *         Where $hash (default = sha1) currently supports the following hashes: see: Crypt/Hash.php
+	 *
+	 * @param string $password
+	 * @param string $method
+	 *
+	 * @return bool
+	 * @access public
+	 * @see Crypt/Hash.php
+	 * @internal Could, but not must, extend by the child Crypt_* class
+	 */
+	public function setPassword( $password, $method = 'pbkdf2' ) {
+		$this->cipher->setKeyLength( $this->key_length );
+		$args = func_get_args();
+		if ( in_array( $method, [ 'pbkdf1', 'pbkdf2' ] ) && ! isset( $args[3] ) ) {
+			$args[1] = $method;
+			$args[2] = isset( $args[2] ) ? $args[2] : 'sha1';
+			$args[3] = 'phpseclib';
+		}
+		$this->password = $args;
+		$this->cipher->setPassword( ...$args );
+	}
 }

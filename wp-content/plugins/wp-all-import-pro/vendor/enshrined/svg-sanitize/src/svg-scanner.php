@@ -27,13 +27,9 @@ require_once( __DIR__ . '/Sanitizer.php' );
  */
 
 function sysexit(
-	$results,
-	$status
+	$results, $status
 ) {
-	echo json_encode(
-		$results,
-		JSON_PRETTY_PRINT
-	);
+	echo json_encode( $results, JSON_PRETTY_PRINT );
 
 	exit( $status );
 }
@@ -54,8 +50,7 @@ $results = array(
 		'errors' => 0,
 	),
 
-	'files' => array(
-	),
+	'files' => array(),
 );
 
 
@@ -66,24 +61,19 @@ $results = array(
 $files_to_scan = $argv;
 unset( $files_to_scan[0] );
 
-$files_to_scan = array_values(
-	$files_to_scan
-);
+$files_to_scan = array_values( $files_to_scan );
 
 /*
  * Catch no file specified.
  */
 
 if ( empty( $files_to_scan ) ) {
-	$results['totals']['errors']++;
+	$results['totals']['errors'] ++;
 	$results['messages'] = array(
 		array( 'No files to scan specified' ),
 	);
 
-	sysexit(
-		$results,
-		1
-	);
+	sysexit( $results, 1 );
 }
 
 /*
@@ -100,7 +90,7 @@ $sanitizer->removeRemoteReferences( true );
  * Scan each file specified to be scanned.
  */
 
-foreach( $files_to_scan as $file_name ) {
+foreach ( $files_to_scan as $file_name ) {
 	/*
 	 * Read SVG file.
 	 */
@@ -110,14 +100,14 @@ foreach( $files_to_scan as $file_name ) {
 	 * If not found, report that and continue.
 	 */
 	if ( false === $svg_file ) {
-		$results['totals']['errors']++;
+		$results['totals']['errors'] ++;
 
 		$results['files'][ $file_name ][] = array(
-			'errors' => 1,
+			'errors'   => 1,
 			'messages' => array(
 				array(
 					'message' => 'File specified could not be read (' . $file_name . ')',
-					'line' => null,
+					'line'    => null,
 				),
 			),
 		);
@@ -137,32 +127,24 @@ foreach( $files_to_scan as $file_name ) {
 	 */
 	if ( empty( $xml_issues ) && ( false !== $sanitize_status ) ) {
 		$results['files'][ $file_name ] = array(
-			'errors' => 0,
-			'messages' => array()
+			'errors'   => 0,
+			'messages' => array(),
 		);
-	}
-
-	/*
+	} /*
 	 * Could not sanitize the file.
-	 */
-	else if (
-		( '' === $sanitize_status ) ||
-		( false === $sanitize_status )
-	) {
-		$results['totals']['errors']++;
+	 */ else if ( ( '' === $sanitize_status ) || ( false === $sanitize_status ) ) {
+		$results['totals']['errors'] ++;
 
 		$results['files'][ $file_name ] = array(
-			'errors' => 1,
+			'errors'   => 1,
 			'messages' => array(
 				array(
-					'message' => 'Unable to sanitize file \'' . $file_name . '\'' ,
-					'line' => null,
-				)
+					'message' => 'Unable to sanitize file \'' . $file_name . '\'',
+					'line'    => null,
+				),
 			),
 		);
-	}
-
-	/*
+	} /*
 	 * If we find issues, note it and update statistics.
 	 */
 
@@ -170,7 +152,7 @@ foreach( $files_to_scan as $file_name ) {
 		$results['totals']['errors'] += count( $xml_issues );
 
 		$results['files'][ $file_name ] = array(
-			'errors' => count( $xml_issues ),
+			'errors'   => count( $xml_issues ),
 			'messages' => $xml_issues,
 		);
 	}
@@ -186,7 +168,4 @@ foreach( $files_to_scan as $file_name ) {
  * that reflects what issues
  * we found.
  */
-sysexit(
-	$results,
-	( $results['totals']['errors'] === 0 ? 0 : 1 )
-);
+sysexit( $results, ( $results['totals']['errors'] === 0 ? 0 : 1 ) );

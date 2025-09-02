@@ -49,17 +49,16 @@ namespace phpseclib\Crypt;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class DES extends Base
-{
-    /**
-     * Turns key lengths, be they valid or invalid, to valid key lengths
-     *
-     * @param int $length
-     * @access private
-     * @return int
-     */
-    protected function calculateNewKeyLength($length)
-    {
-        return 64;
-    }
+class DES extends Base {
+	/**
+	 * Turns key lengths, be they valid or invalid, to valid key lengths
+	 *
+	 * @param int $length
+	 *
+	 * @access private
+	 * @return int
+	 */
+	protected function calculateNewKeyLength( $length ) {
+		return 64;
+	}
 }

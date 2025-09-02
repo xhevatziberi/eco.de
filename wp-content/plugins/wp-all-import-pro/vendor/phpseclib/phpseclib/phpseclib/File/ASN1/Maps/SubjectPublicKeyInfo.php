@@ -20,13 +20,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class SubjectPublicKeyInfo
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'algorithm' => AlgorithmIdentifier::MAP,
-            'subjectPublicKey' => ['type' => ASN1::TYPE_BIT_STRING]
-        ]
-    ];
+abstract class SubjectPublicKeyInfo {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'algorithm'        => AlgorithmIdentifier::MAP,
+			'subjectPublicKey' => [ 'type' => ASN1::TYPE_BIT_STRING ],
+		],
+	];
 }

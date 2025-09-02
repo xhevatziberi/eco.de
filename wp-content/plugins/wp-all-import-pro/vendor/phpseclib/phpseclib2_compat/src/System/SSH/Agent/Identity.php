@@ -29,6 +29,5 @@ namespace phpseclib\System\SSH\Agent;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  internal
  */
-class Identity extends \phpseclib3\System\SSH\Agent\Identity
-{
+class Identity extends \phpseclib3\System\SSH\Agent\Identity {
 }

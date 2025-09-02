@@ -4,6 +4,5 @@ namespace League\Flysystem;
 
 use ErrorException;
 
-class ConnectionErrorException extends ErrorException implements FilesystemException
-{
+class ConnectionErrorException extends ErrorException implements FilesystemException {
 }

@@ -20,17 +20,16 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class Curve
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'a' => FieldElement::MAP,
-            'b' => FieldElement::MAP,
-            'seed' => [
-                'type' => ASN1::TYPE_BIT_STRING,
-                'optional' => true
-            ]
-        ]
-    ];
+abstract class Curve {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'a'    => FieldElement::MAP,
+			'b'    => FieldElement::MAP,
+			'seed' => [
+				'type'     => ASN1::TYPE_BIT_STRING,
+				'optional' => true,
+			],
+		],
+	];
 }

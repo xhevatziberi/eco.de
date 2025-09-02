@@ -1,36 +1,39 @@
 /**
  * plugin javascript
  */
-(function($){$(function () {
-		
-	$('#dismiss').on('click', function(){
+(function ($) {
+	$(function () {
 
-		$(this).parents('div.updated:first').slideUp();
-		$.post('admin.php?page=pmxi-admin-settings&action=dismiss', {dismiss: true}, function (data) {}, 'html');
-		
-	});
+		$('#dismiss').on('click', function () {
 
-	$('.wpallimport-dismissible').find('button.notice-dismiss').on('click', (function(e){
+			$(this).parents('div.updated:first').slideUp();
+			$.post('admin.php?page=pmxi-admin-settings&action=dismiss', {dismiss: true}, function (data) {
+			}, 'html');
 
-    	var request = {
-			action: 'dismiss_notifications',		
-			security: wp_all_import_security,	
-			addon: $(this).parent('div:first').attr('rel')
-	    };		
-
-	    var ths = $(this);
-
-		$(this).parent('div:first').hide();
-
-		$.ajax({
-			type: 'POST',
-			url: ajaxurl,
-			data: request,
-			success: function(response) {
-								
-			},			
-			dataType: "json"
 		});
-    }));
-	
-});})(jQuery);
+
+		$('.wpallimport-dismissible').find('button.notice-dismiss').on('click', (function (e) {
+
+			var request = {
+				action: 'dismiss_notifications',
+				security: wp_all_import_security,
+				addon: $(this).parent('div:first').attr('rel')
+			};
+
+			var ths = $(this);
+
+			$(this).parent('div:first').hide();
+
+			$.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: request,
+				success: function (response) {
+
+				},
+				dataType: "json"
+			});
+		}));
+
+	});
+})(jQuery);

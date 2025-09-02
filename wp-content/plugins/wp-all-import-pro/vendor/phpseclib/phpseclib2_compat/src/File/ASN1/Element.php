@@ -23,6 +23,5 @@ namespace phpseclib\File\ASN1;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class Element extends \phpseclib3\File\ASN1\Element
-{
+class Element extends \phpseclib3\File\ASN1\Element {
 }

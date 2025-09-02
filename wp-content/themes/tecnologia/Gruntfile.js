@@ -33,7 +33,6 @@ module.exports = function(grunt) {
 
 		// samples
 		// 'scp-download-samples', // removed as it only downloads all-default.css
-		// 'download-images',
 		'download-content-xml',
 		'download-sidebars-options',
 		// 'download-revslider',
@@ -51,6 +50,9 @@ module.exports = function(grunt) {
 
 		'download-elementor-styles',
 		'download-elementor-global-defaults',
+		'download-elementor-icons',
+
+		'pojo-affiliate-links',
 
 		// clean and compress
 		'clean:post-copy',

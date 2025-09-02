@@ -20,16 +20,15 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class FieldID
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'fieldType' => ['type' => ASN1::TYPE_OBJECT_IDENTIFIER],
-            'parameters' => [
-                'type' => ASN1::TYPE_ANY,
-                'optional' => true
-            ]
-        ]
-    ];
+abstract class FieldID {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'fieldType'  => [ 'type' => ASN1::TYPE_OBJECT_IDENTIFIER ],
+			'parameters' => [
+				'type'     => ASN1::TYPE_ANY,
+				'optional' => true,
+			],
+		],
+	];
 }

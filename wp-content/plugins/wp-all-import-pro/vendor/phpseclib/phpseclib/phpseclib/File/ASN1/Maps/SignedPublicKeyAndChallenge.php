@@ -20,14 +20,13 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class SignedPublicKeyAndChallenge
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'publicKeyAndChallenge' => PublicKeyAndChallenge::MAP,
-            'signatureAlgorithm' => AlgorithmIdentifier::MAP,
-            'signature' => ['type' => ASN1::TYPE_BIT_STRING]
-        ]
-    ];
+abstract class SignedPublicKeyAndChallenge {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'publicKeyAndChallenge' => PublicKeyAndChallenge::MAP,
+			'signatureAlgorithm'    => AlgorithmIdentifier::MAP,
+			'signature'             => [ 'type' => ASN1::TYPE_BIT_STRING ],
+		],
+	];
 }

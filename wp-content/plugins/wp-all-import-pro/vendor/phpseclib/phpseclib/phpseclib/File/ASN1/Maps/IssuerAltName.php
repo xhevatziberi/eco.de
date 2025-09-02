@@ -18,7 +18,6 @@ namespace phpseclib3\File\ASN1\Maps;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class IssuerAltName
-{
-    const MAP = GeneralNames::MAP;
+abstract class IssuerAltName {
+	const MAP = GeneralNames::MAP;
 }

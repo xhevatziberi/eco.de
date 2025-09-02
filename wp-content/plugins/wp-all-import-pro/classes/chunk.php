@@ -30,7 +30,7 @@ class PMXI_Chunk {
 		'pointer'   => 1,
 		'chunkSize' => 1024,
 		'filter'    => true,
-		'get_cloud' => false
+		'get_cloud' => false,
 	);
 
 	/**
@@ -199,7 +199,7 @@ class PMXI_Chunk {
 						'article',
 						'post',
 						'book',
-						'item_0'
+						'item_0',
 					);
 
 					foreach ( $this->cloud as $element_name => $value ) {
@@ -228,7 +228,7 @@ class PMXI_Chunk {
 				@$this->reader->setParserProperty( XMLReader::VALIDATE, false );
 			} else {
 				$parseroptions  = array(
-					"uniqueNode" => $this->options['element']
+					"uniqueNode" => $this->options['element'],
 				);
 				$CHUNK_SIZE     = 1024;
 				$streamProvider = new Prewk\XmlStringStreamer\Stream\File( $path, $CHUNK_SIZE );
@@ -237,8 +237,8 @@ class PMXI_Chunk {
 			}
 		} catch ( Throwable $e ) {
 
-			if (defined('WP_DEBUG') && WP_DEBUG) {
-				error_log('Error in PMXI_Chunk constructor: ' . $e->getMessage());
+			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+				error_log( 'Error in PMXI_Chunk constructor: ' . $e->getMessage() );
 			}
 
 			$this->options     = array();

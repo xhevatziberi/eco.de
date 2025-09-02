@@ -2,6 +2,5 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-class Exception extends \Exception
-{
+class Exception extends \Exception {
 }

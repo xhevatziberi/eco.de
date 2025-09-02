@@ -20,6 +20,5 @@ use phpseclib3\Math\BigInteger\Engines\OpenSSL as Progenitor;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class OpenSSL extends Progenitor
-{
+abstract class OpenSSL extends Progenitor {
 }

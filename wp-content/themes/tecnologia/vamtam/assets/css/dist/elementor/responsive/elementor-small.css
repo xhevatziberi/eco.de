@@ -116,6 +116,10 @@
 .elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right .elementor-image-box-img {
   margin-left: var(--vamtam-img-spacing, 20px) !important;
 }
+[data-elementor-device-mode="mobile"] .elementor-widget-posts.vamtam-has-theme-widget-styles[data-widget_type="posts.vamtam_classic"]:not(.elementor-element-edit-mode).elementor-hidden-mobile,
+[data-elementor-device-mode="mobile"] .elementor-widget-posts.vamtam-has-theme-widget-styles[data-widget_type="archive-posts.vamtam_classic"]:not(.elementor-element-edit-mode).elementor-hidden-mobile {
+  display: none;
+}
 .elementor-widget-post-comments.vamtam-has-theme-widget-styles #commentform .form-submit {
   margin: 0 !important;
 }
@@ -144,10 +148,6 @@
 .elementor-widget-post-navigation.vamtam-has-theme-widget-styles .elementor-post-navigation .elementor-post-navigation__separator-wrapper .elementor-post-navigation__separator {
   width: 100%;
   height: 1px;
-}
-[data-elementor-device-mode="mobile"] .elementor-widget-posts.vamtam-has-theme-widget-styles[data-widget_type="posts.vamtam_classic"]:not(.elementor-element-edit-mode).elementor-hidden-mobile,
-[data-elementor-device-mode="mobile"] .elementor-widget-posts.vamtam-has-theme-widget-styles[data-widget_type="archive-posts.vamtam_classic"]:not(.elementor-element-edit-mode).elementor-hidden-mobile {
-  display: none;
 }
 .elementor-section.elementor-element {
   padding: 0 20px;

@@ -1,0 +1,95 @@
+.eco-podcast-player {
+	display: flex;
+	background: linear-gradient(90deg, #ff512f, #e2001a);
+	border-radius: 8px;
+	color: white;
+	overflow: hidden;
+	/* max-width: 800px; */
+	margin: 20px auto;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.eco-podcast-left {
+    line-height: 0;
+}
+
+.eco-podcast-left img {
+	width: 180px;
+	height: 180px;
+	object-fit: cover;
+}
+
+.eco-podcast-right {
+	padding: 15px;
+	flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.eco-podcast-right h3 {
+	margin: 0 0 5px;
+    font-size: 1.2em;
+    color: white;
+}
+
+.podcast-description {
+	margin: 0 0 15px;
+	font-size: 0.9em;
+	opacity: 0.8;
+}
+
+.progress-bar {
+	background: rgba(255, 255, 255, 0.3);
+	height: 5px;
+	width: 100%;
+	margin-bottom: 10px;
+	position: relative;
+    cursor: pointer;
+}
+
+.progress-bar .progress {
+	background: white;
+	width: 0%;
+	height: 100%;
+	display: block;
+}
+
+.eco-podcast-controls {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 0.9em;
+	margin-top: 10px;
+}
+
+.play-btn {
+	background: white !important;
+	color: #e2001a !important;
+	border: none;
+	padding: 6px 12px;
+	border-radius: 20px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+}
+
+
+@media (max-width: 768px) {
+	.eco-podcast-player {
+		flex-direction: column;
+		align-items: center;
+	}
+	.eco-podcast-left img {
+		width: 100%;
+		height: auto;
+	}
+	.progress-bar {
+		margin: 10px 0;
+	}
+}

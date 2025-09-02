@@ -2,44 +2,41 @@
 
 namespace League\Flysystem\Adapter;
 
-class Ftpd extends Ftp
-{
-    /**
-     * @inheritdoc
-     */
-    public function getMetadata($path)
-    {
-        if ($path === '') {
-            return ['type' => 'dir', 'path' => ''];
-        }
-        if (@ftp_chdir($this->getConnection(), $path) === true) {
-            $this->setConnectionRoot();
+class Ftpd extends Ftp {
+	/**
+	 * @inheritdoc
+	 */
+	public function getMetadata( $path ) {
+		if ( $path === '' ) {
+			return [ 'type' => 'dir', 'path' => '' ];
+		}
+		if ( @ftp_chdir( $this->getConnection(), $path ) === true ) {
+			$this->setConnectionRoot();
 
-            return ['type' => 'dir', 'path' => $path];
-        }
+			return [ 'type' => 'dir', 'path' => $path ];
+		}
 
-        if ( ! ($object = ftp_raw($this->getConnection(), 'STAT ' . $path)) || count($object) < 3) {
-            return false;
-        }
+		if ( ! ( $object = ftp_raw( $this->getConnection(), 'STAT ' . $path ) ) || count( $object ) < 3 ) {
+			return false;
+		}
 
-        if (substr($object[1], 0, 5) === "ftpd:") {
-            return false;
-        }
+		if ( substr( $object[1], 0, 5 ) === "ftpd:" ) {
+			return false;
+		}
 
-        return $this->normalizeObject($object[1], '');
-    }
+		return $this->normalizeObject( $object[1], '' );
+	}
 
-    /**
-     * @inheritdoc
-     */
-    protected function listDirectoryContents($directory, $recursive = true)
-    {
-        $listing = ftp_rawlist($this->getConnection(), $directory, $recursive);
+	/**
+	 * @inheritdoc
+	 */
+	protected function listDirectoryContents( $directory, $recursive = true ) {
+		$listing = ftp_rawlist( $this->getConnection(), $directory, $recursive );
 
-        if ($listing === false || ( ! empty($listing) && substr($listing[0], 0, 5) === "ftpd:")) {
-            return [];
-        }
+		if ( $listing === false || ( ! empty( $listing ) && substr( $listing[0], 0, 5 ) === "ftpd:" ) ) {
+			return [];
+		}
 
-        return $this->normalizeListing($listing, $directory);
-    }
+		return $this->normalizeListing( $listing, $directory );
+	}
 }

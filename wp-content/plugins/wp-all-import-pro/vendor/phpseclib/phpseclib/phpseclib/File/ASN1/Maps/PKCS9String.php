@@ -20,13 +20,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class PKCS9String
-{
-    const MAP = [
-        'type' => ASN1::TYPE_CHOICE,
-        'children' => [
-            'ia5String' => ['type' => ASN1::TYPE_IA5_STRING],
-            'directoryString' => DirectoryString::MAP
-        ]
-    ];
+abstract class PKCS9String {
+	const MAP = [
+		'type'     => ASN1::TYPE_CHOICE,
+		'children' => [
+			'ia5String'       => [ 'type' => ASN1::TYPE_IA5_STRING ],
+			'directoryString' => DirectoryString::MAP,
+		],
+	];
 }

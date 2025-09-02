@@ -13,6 +13,5 @@
 
 namespace phpseclib3\Crypt\EC\Curves;
 
-final class prime192v1 extends secp192r1
-{
+final class prime192v1 extends secp192r1 {
 }

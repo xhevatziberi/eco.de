@@ -18,6 +18,5 @@ namespace phpseclib3\Exception;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class UnsupportedFormatException extends \RuntimeException
-{
+class UnsupportedFormatException extends \RuntimeException {
 }

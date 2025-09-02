@@ -71,56 +71,6 @@ module.exports = function(grunt) {
 		});
 	}
 
-	grunt.registerTask('download-layerslider', function() {
-		var done = this.async();
-
-		var exec = require('child_process').exec;
-		var fs   = require("fs");
-
-		var localdir = path.join(builddir, 'samples/layerslider/');
-		grunt.file.mkdir(localdir);
-
-		grunt.log.writeln('Downloading layerslider-export.zip');
-
-		var temp_file = '/tmp/layerslider-export.zip';
-
-		exportApiCall( 'layerslider', function(err, res) {
-			if(err) return done(false);
-
-
-			var curl = "curl -o " + temp_file + " " + res.exported;
-
-			exec(curl, function(error) {
-				if(error) return done(grunt.util.error(error));
-
-				var data = grunt.file.read( temp_file, { encoding: 'binary' } );
-
-				var Zip = require('node-zip');
-				var spread = new Zip( data, { base64: false, checkCRC32: true});
-
-				Object.keys(spread.files).forEach( function( f ) {
-					if ( ! f.match( /json$/ ) ) {
-						return true;
-					}
-
-					var single = new Zip();
-
-					single.file( f, spread.file(f).asText() );
-
-					var data = single.generate( { base64: false } );
-
-					var spath = path.join( localdir, f.split( '/' )[0] );
-					grunt.file.mkdir( spath );
-					fs.writeFileSync( path.join( spath, 'slider.zip' ), data, 'binary' );
-
-					grunt.file.copy( path.join( basedir, 'samples', 'small.png' ), path.join( spath, 'preview.png' ) );
-				} );
-
-				done();
-			});
-		});
-	});
-
 	grunt.registerTask('download-revslider', function() {
 		var done = this.async();
 
@@ -151,51 +101,6 @@ module.exports = function(grunt) {
 				var url = secrets.export_api_url + secrets.export_api_key + '/revslider-single/' + res[ri];
 
 				var curl = "curl -o '" + path.join(localdir, res[ri] + '.zip') + "' '" + url + "'";
-
-				exec(curl, function(error) {
-					if(error) return done(grunt.util.error(error));
-
-					next();
-				});
-			};
-
-			next();
-		});
-	});
-
-	grunt.registerTask('download-ninjaforms', function() {
-		var done = this.async();
-
-		exportApiCall('ninja-forms-list', function(err, res) {
-			if ( err ) {
-				done( grunt.util.error("API error: "+err ) );
-				return;
-			}
-
-			if ( res.length === 0 ) {
-				done( grunt.util.error( 'No forms found, possibly something went wrong.' ) );
-
-				console.error( res );
-
-				return;
-			}
-
-			var exec = require('child_process').exec;
-
-			var localdir = path.join(builddir, 'samples/ninja-forms/');
-			grunt.file.mkdir(localdir);
-
-			var ri = -1;
-
-			var next = function() {
-				if(++ri >= res.length)
-					return done();
-
-				grunt.log.writeln('Downloading '+res[ri]);
-
-				var url = secrets.export_api_url + secrets.export_api_key + '/ninja-forms-download/' + res[ri];
-
-				var curl = "curl -o " + path.join(localdir, res[ri] + '.nff') + " " + url;
 
 				exec(curl, function(error) {
 					if(error) return done(grunt.util.error(error));
@@ -243,51 +148,6 @@ module.exports = function(grunt) {
 			var export_path = path.join(builddir, 'samples/elementor-global-defaults.php');
 
 			grunt.file.write( export_path, res.exported );
-
-			done();
-		});
-	});
-
-	grunt.registerTask('download-booked', function() {
-		var done = this.async();
-
-		exportApiCall('booked-settings', function(err, res) {
-			if ( err ) {
-				done( grunt.util.error("API error: " + err ) );
-				return;
-			}
-
-			var exec = require('child_process').exec;
-
-			var localpath = path.join(builddir, 'samples/booked-settings.json');
-
-			if ( typeof res !== 'string' ) {
-				res = JSON.stringify( res );
-			}
-
-			grunt.file.write( localpath, res );
-
-			done();
-		});
-	});
-
-	grunt.registerTask('download-gmp-easy', function() {
-		var done = this.async();
-
-		var exec = require('child_process').exec;
-
-		var localdir = path.join(builddir, 'samples/');
-
-		var url = secrets.export_api_url + secrets.export_api_key + '/google-maps-easy-download';
-
-		var curl = "curl -o " + path.join(localdir, 'gmp-easy.csv') + " " + url;
-
-		grunt.log.writeln( url );
-
-		exec(curl, function(error) {
-			if ( error ) {
-				return done( grunt.util.error( error ) );
-			}
 
 			done();
 		});
@@ -388,7 +248,7 @@ module.exports = function(grunt) {
 			console.log(res);
 
 			var exec = require('child_process').exec;
-			var curl = "curl -o "+path.join(builddir, 'samples', 'content.xml')+" "+res.download_url;
+			var curl = "curl --fail-with-body -o "+path.join(builddir, 'samples', 'content.xml')+" "+res.download_url;
 
 			exec(curl, function(err) {
 				if(err) return done(grunt.util.error(err));
@@ -399,39 +259,67 @@ module.exports = function(grunt) {
 		});
 	});
 
-	grunt.registerTask('download-images', function() {
+	grunt.registerTask('download-elementor-icons', function() {
 		var done = this.async();
 
-		var localdir = path.join(builddir, 'samples/images/');
-		grunt.file.mkdir(localdir);
+		exportApiCall('elementor-icons', function(err, res) {
+			if(err) return done(grunt.util.error("API error:"+err));
 
-		exportApiCall('image-replacements', function(err, res) {
-			if(!('images' in res))
-				return done(grunt.util.error('No image info.'));
+			console.log(res);
 
-			var images = res.images.filter(function(s) { return s; }),
-				i = 0;
+			var exec = require('child_process').exec;
+			var curl = "curl --fail-with-body -o "+path.join(builddir, 'samples', 'theme-icons.zip')+" "+res.download_url;
 
-			var next = function() {
-				if(i >= images.length) return done();
+			exec(curl, function(err) {
+				if(err) return done(grunt.util.error(err));
 
-				var image_url = images[i++];
-				var localpath = path.join(localdir, path.basename(image_url));
-
-				var exec = require('child_process').exec;
-				var curl = "curl -o "+localpath+" "+image_url;
-
-				exec(curl, function(err) {
-					if(err) return done(grunt.util.error(err));
-
-					grunt.log.writeln("saved: "+image_url);
-					next();
-				});
-			};
-
-			next();
+				grunt.log.writeln("saved theme-icons.zip");
+				done();
+			});
 		});
 	});
+
+	grunt.registerTask('pojo-affiliate-links', function() {
+		const done  = this.async();
+		const fs    = require('fs');
+		const JSZip = require('jszip');
+
+		const zip_path = 'vamtam/plugins/pojo-accessibility.zip';
+		const zip = new JSZip();
+
+		fs.readFile( path.join( basedir, zip_path ), function(err, data) {
+			if (err) {
+				return done(grunt.util.error("Error reading zip file: " + err));
+			}
+
+			zip.loadAsync(data).then(function(contents) {
+				const file_path = 'pojo-accessibility/assets/build/admin.js';
+				const file = contents.file(file_path);
+
+				if ( ! file ) {
+					return done(grunt.util.error( "Can't replace affiliate links - file not found" ) );
+				}
+
+				file.async('string').then(function(content) {
+					content = content.replace(
+						'https://go.elementor.com/acc-add-visits',
+						'https://be.elementor.com/visit/?bta=13981&nci=5741'
+					);
+
+					zip.file(file_path, content);
+
+					zip.generateAsync({ type: 'nodebuffer' }).then(function(newData) {
+						fs.writeFile( path.join( builddir, zip_path ), newData, function(err) {
+							if (err) {
+								return done(grunt.util.error("Error writing zip file: " + err));
+							}
+							done();
+						});
+					});
+				});
+			});
+		});
+	} );
 
 	grunt.registerMultiTask('add-textdomain', function() {
 		var files = grunt.file.expand(this.data);
@@ -480,66 +368,5 @@ module.exports = function(grunt) {
 		});
 
 		done();
-	});
-
-	grunt.registerTask('split-icons', async function() {
-		let done = this.async();
-
-		console.log( 'Parsing the icon list' );
-
-		let split = grunt.file.readJSON( 'vamtam/assets/fonts/theme-icons/split.json' );
-
-		const regex = /'([^']+)'\s*=>\s*0x(.*),/g;
-		const icons = grunt.file.read( 'vamtam/assets/fonts/theme-icons/list.php' );
-
-		let matches, map = {};
-		while ( matches = regex.exec( icons ) ) {
-			map[ matches[1] ] = 'U+' + matches[2].toUpperCase();
-		}
-
-		for ( let collection in split ) {
-			split[ collection ] = split[ collection ].map( name => {
-				const char = map[ name ];
-				delete map[ name ];
-
-				return char;
-			} );
-		}
-
-		split.common = Object.values( map );
-
-		const fs = require( 'fs' );
-
-		const util = require('util');
-		const exec = util.promisify(require('child_process').exec);
-
-		for ( let collection in split ) {
-			console.log( `subsetting ${collection}`)
-
-			await [ 'woff', 'woff2' ].forEach( async format => {
-				console.log( split[ collection ].join(',') );
-				let cmd = `pyftsubset vamtam/assets/fonts/theme-icons/theme-icons.woff --layout-features='*' --symbol-cmap --legacy-cmap --notdef-glyph --notdef-outline --recommended-glyphs --unicodes=${split[ collection ].join(',')} --flavor=${format} --output-file=vamtam/assets/fonts/theme-icons/split/${collection}.${format}`;
-
-				await exec( cmd );
-			} );
-		}
-
-		console.log( 'Storing ranges' );
-
-		const { UnicodeRange } = require( '@japont/unicode-range' );
-
-		let output = '<?php\n\nreturn array(\n';
-
-		for ( let collection in split ) {
-			const range = UnicodeRange.stringify( UnicodeRange.parse( split[ collection ] ) );
-
-			output += `\t'${collection}' => '${ range.join( ',' ).toUpperCase() }',\n`;
-		}
-
-		output += ');\n';
-
-		grunt.file.write( 'vamtam/assets/fonts/theme-icons/split/ranges.php', output );
-
-		done()
 	});
 };

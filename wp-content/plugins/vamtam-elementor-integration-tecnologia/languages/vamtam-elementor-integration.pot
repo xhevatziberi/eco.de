@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the VamTam Elementor Integration (Tecnologia) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: VamTam Elementor Integration (Tecnologia) 1.1.4\n"
+"Project-Id-Version: VamTam Elementor Integration (Tecnologia) 1.1.9\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/vamtam-elementor-integration-"
 "tecnologia\n"
-"POT-Creation-Date: 2025-04-09 09:04:57+00:00\n"
+"POT-Creation-Date: 2025-06-10 20:17:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -546,33 +546,33 @@ msgid ""
 "automatic updates. Envato Elements clients must use FTP."
 msgstr ""
 
-#: vamtam-updates/class-vamtam-updates.php:102
+#: vamtam-updates/class-vamtam-updates.php:104
 msgid " View changelog"
 msgstr ""
 
-#: vamtam-updates/class-vamtam-updates.php:117
+#: vamtam-updates/class-vamtam-updates.php:119
 msgid "Heads up, no valid license found!"
 msgstr ""
 
-#: vamtam-updates/class-vamtam-updates.php:119
+#: vamtam-updates/class-vamtam-updates.php:121
 msgid "Heads up, you're missing out on automatic updates!"
 msgstr ""
 
-#: vamtam-updates/class-vamtam-updates.php:127
+#: vamtam-updates/class-vamtam-updates.php:129
 msgid "Please activate your license to get automatic plugin updates!"
 msgstr ""
 
-#: vamtam-updates/class-vamtam-updates.php:131
+#: vamtam-updates/class-vamtam-updates.php:133
 msgid "Register Now"
 msgstr ""
 
-#: vamtam-updates/class-vamtam-updates.php:135
+#: vamtam-updates/class-vamtam-updates.php:137
 msgid ""
 "Note: Only Envato Market clients with a valid purchase code are entitled to "
 "automatic updates. Envato Elements clients must use FTP."
 msgstr ""
 
-#: vamtam-updates/class-vamtam-updates.php:145
+#: vamtam-updates/class-vamtam-updates.php:147
 msgid "Update Now"
 msgstr ""
 

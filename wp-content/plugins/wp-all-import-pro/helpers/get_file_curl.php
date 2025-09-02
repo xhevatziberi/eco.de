@@ -6,25 +6,25 @@ if ( ! function_exists( 'get_file_curl' ) ):
 		if ( ! preg_match( '%^(http|ftp)s?://%i', $url ) || pmxi_is_private_ip( $url ) ) {
 			return false;
 		}
-		
-		$mimicBrowserUserAgent = apply_filters('pmxi_mimic_browser_user_agent', false);
+
+		$mimicBrowserUserAgent = apply_filters( 'pmxi_mimic_browser_user_agent', false );
 
 		\Wpai\WordPress\AttachmentHandler::$user_agent = $mimicBrowserUserAgent ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36' : \Wpai\WordPress\AttachmentHandler::$user_agent;
 
-		\Wpai\WordPress\AttachmentHandler::$user_agent = apply_filters('pmxi_user_agent', \Wpai\WordPress\AttachmentHandler::$user_agent);
+		\Wpai\WordPress\AttachmentHandler::$user_agent = apply_filters( 'pmxi_user_agent', \Wpai\WordPress\AttachmentHandler::$user_agent );
 
 		$response = wp_remote_get( $url, array(
 			'timeout' => PMXI_Plugin::getInstance()->getOption( 'pmxi_file_download_timeout' ),
 			'headers' => array(
 				'User-Agent' => \Wpai\WordPress\AttachmentHandler::$user_agent,
-				'Accept' => apply_filters('pmxi_accept_header', 'application/xml;q=1.0, */*;q=0.8', $url)
+				'Accept'     => apply_filters( 'pmxi_accept_header', 'application/xml;q=1.0, */*;q=0.8', $url ),
 			),
 		) );
 
 		if ( ! is_wp_error( $response ) and ( ! isset( $response['response']['code'] ) or isset( $response['response']['code'] ) and ! in_array( $response['response']['code'], array(
 					401,
 					403,
-					404
+					404,
 				) ) ) ) {
 			$rawdata = wp_remote_retrieve_body( $response );
 
@@ -37,10 +37,10 @@ if ( ! function_exists( 'get_file_curl' ) ):
 				}
 
 				return $result;
-			}else{
-				if(preg_match( '%\W(svg)$%i', basename( $fullpath ))){
-					$rawdata = wp_all_import_sanitize_svg($rawdata, false);
-					if( empty( $rawdata )){
+			} else {
+				if ( preg_match( '%\W(svg)$%i', basename( $fullpath ) ) ) {
+					$rawdata = wp_all_import_sanitize_svg( $rawdata, false );
+					if ( empty( $rawdata ) ) {
 						return false;
 					}
 				}
@@ -145,8 +145,11 @@ if ( ! function_exists( 'pmxi_curl_download' ) ) {
 		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
 		curl_setopt( $ch, CURLOPT_HEADER, true );
 		curl_setopt( $ch, CURLOPT_NOBODY, true );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'User-Agent: '. \Wpai\WordPress\AttachmentHandler::$user_agent, 'Accept: '.apply_filters('pmxi_accept_header', 'application/xml;q=1.0, */*;q=0.8', $url) ));
-		curl_setopt( $ch, CURLOPT_TIMEOUT, PMXI_Plugin::getInstance()->getOption( 'pmxi_file_download_timeout' ));
+		curl_setopt( $ch, CURLOPT_HTTPHEADER, array(
+			'User-Agent: ' . \Wpai\WordPress\AttachmentHandler::$user_agent,
+			'Accept: ' . apply_filters( 'pmxi_accept_header', 'application/xml;q=1.0, */*;q=0.8', $url ),
+		) );
+		curl_setopt( $ch, CURLOPT_TIMEOUT, PMXI_Plugin::getInstance()->getOption( 'pmxi_file_download_timeout' ) );
 
 		$header = curl_exec( $ch );
 		$finalUrl = curl_getinfo( $ch, CURLINFO_EFFECTIVE_URL );
@@ -158,7 +161,10 @@ if ( ! function_exists( 'pmxi_curl_download' ) ) {
 
 		$ch = curl_init( $finalUrl );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'User-Agent: ' . \Wpai\WordPress\AttachmentHandler::$user_agent, 'Accept: '.apply_filters('pmxi_accept_header', 'application/xml;q=1.0, */*;q=0.8', $url) ));
+		curl_setopt( $ch, CURLOPT_HTTPHEADER, array(
+			'User-Agent: ' . \Wpai\WordPress\AttachmentHandler::$user_agent,
+			'Accept: ' . apply_filters( 'pmxi_accept_header', 'application/xml;q=1.0, */*;q=0.8', $url ),
+		) );
 		$rawdata = curl_exec( $ch );
 		$result  = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
 		curl_close( $ch );
@@ -167,9 +173,9 @@ if ( ! function_exists( 'pmxi_curl_download' ) ) {
 			return false;
 		}
 
-		if(preg_match( '%\W(svg)$%i', basename( $fullpath ))){
-			$rawdata = wp_all_import_sanitize_svg($rawdata, false);
-			if( empty( $rawdata )){
+		if ( preg_match( '%\W(svg)$%i', basename( $fullpath ) ) ) {
+			$rawdata = wp_all_import_sanitize_svg( $rawdata, false );
+			if ( empty( $rawdata ) ) {
 				return false;
 			}
 		}

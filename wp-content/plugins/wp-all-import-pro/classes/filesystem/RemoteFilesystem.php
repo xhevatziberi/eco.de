@@ -22,20 +22,34 @@ class RemoteFilesystem {
 	private $orig_type = '';
 	private $allow_hidden_files_folders;
 	// Should match list in classes/upload.php#56 - xml|gzip|zip|csv|tsv|gz|json|txt|dat|psv|sql|xls|xlsx
-	private $allowed_file_extensions = ['xml','gzip','zip','csv','tsv','gz','json','txt','dat','psv','sql','xls','xlsx'];
+	private $allowed_file_extensions = [
+		'xml',
+		'gzip',
+		'zip',
+		'csv',
+		'tsv',
+		'gz',
+		'json',
+		'txt',
+		'dat',
+		'psv',
+		'sql',
+		'xls',
+		'xlsx',
+	];
 	private $debug;
 	private $attempted_roots = [];
 
 	public function __construct( $options ) {
 
 		// Enable debug filter
-		$this->debug = apply_filters('wpai_ftp_enable_debug', false);
+		$this->debug = apply_filters( 'wpai_ftp_enable_debug', false );
 
 		// Show hidden files filter.
-		$this->allow_hidden_files_folders = apply_filters('wpai_ftp_allow_hidden_files_folders', false);
+		$this->allow_hidden_files_folders = apply_filters( 'wpai_ftp_allow_hidden_files_folders', false );
 
 		// Allowed file extensions filter.
-		$this->allowed_file_extensions = apply_filters('wpai_ftp_allowed_file_extensions', $this->allowed_file_extensions);
+		$this->allowed_file_extensions = apply_filters( 'wpai_ftp_allowed_file_extensions', $this->allowed_file_extensions );
 
 		/*
 		 * INI default_socket_timeout should be higher than the 'timeout' parameter below.
@@ -43,10 +57,10 @@ class RemoteFilesystem {
 		// Default options
 		$default_options = [
 			'root'                           => '/',
-			'timeout'                        => apply_filters('wpai_ftp_timeout', 10),
+			'timeout'                        => apply_filters( 'wpai_ftp_timeout', 10 ),
 			// FTP only options
-			'passive'                        => apply_filters('wpai_ftp_passive_mode', true),
-			'ignorePassiveAddress'           => apply_filters('wpai_ftp_ignore_passive_address', false),
+			'passive'                        => apply_filters( 'wpai_ftp_passive_mode', true ),
+			'ignorePassiveAddress'           => apply_filters( 'wpai_ftp_ignore_passive_address', false ),
 			'enableTimestampsOnUnixListings' => true,
 			'ssl'                            => false,
 		];
@@ -54,7 +68,7 @@ class RemoteFilesystem {
 		$this->options = $this->option_merge( $default_options, $options );
 
 		// Root override
-		$this->options['root'] = apply_filters('wpai_ftp_root', $this->options['root'], PMXI_Plugin::getCurrentImportId());
+		$this->options['root'] = apply_filters( 'wpai_ftp_root', $this->options['root'], PMXI_Plugin::getCurrentImportId() );
 
 		$this->attempted_roots[] = $this->options['root'];
 
@@ -73,24 +87,24 @@ class RemoteFilesystem {
 	 * Determine protocol and attempt to connect.
 	 */
 	private function connect() {
-		if ( preg_match( '%^sftp://%i', trim( $this->options['host'] ) ) || !empty($this->options['privateKey']) ) {
+		if ( preg_match( '%^sftp://%i', trim( $this->options['host'] ) ) || ! empty( $this->options['privateKey'] ) ) {
 			$this->default_port    = [ 22, 2222 ];
-			$this->options['host'] = preg_replace( '%^sftp://%i', '', trim($this->options['host'] ));
+			$this->options['host'] = preg_replace( '%^sftp://%i', '', trim( $this->options['host'] ) );
 			$this->buildFilesystem( 'sftp' );
 		} elseif ( preg_match( '%^ftp://%i', trim( $this->options['host'] ) ) ) {
 			$this->default_port    = [ 21 ];
-			$this->options['host'] = preg_replace( '%^ftp://%i', '', trim( $this->options['host'] ));
+			$this->options['host'] = preg_replace( '%^ftp://%i', '', trim( $this->options['host'] ) );
 			$this->buildFilesystem( 'ftp' );
 		} elseif ( preg_match( '%^ftps://%i', trim( $this->options['host'] ) ) ) {
 			$this->default_port    = [ 21 ];
 			$this->options['host'] = preg_replace( '%^ftps://%i', '', trim( $this->options['host'] ) );
-			$this->options['ssl']        = true;
+			$this->options['ssl']  = true;
 			$this->buildFilesystem( 'ftp' );
 		} elseif ( trim( $this->options['port'] ) == 21 ) {
-			$this->default_port    = [ 21 ];
+			$this->default_port = [ 21 ];
 			$this->buildFilesystem( 'ftp' );
 		} elseif ( trim( $this->options['port'] ) == 22 || trim( $this->options['port'] ) == 2222 ) {
-			$this->default_port    = [ 22, 2222 ];
+			$this->default_port = [ 22, 2222 ];
 			$this->buildFilesystem( 'sftp' );
 		} else {
 			// Try SFTP by default.
@@ -103,16 +117,17 @@ class RemoteFilesystem {
 	private function buildFilesystem( $type ) {
 
 		$this->type = $type;
-		if( $this->orig_type === '' )
+		if ( $this->orig_type === '' ) {
 			$this->orig_type = $type;
+		}
 
 		try {
 
 			switch ( $type ) {
 
 				case 'ftp':
-					if(!defined('FTP_BINARY')){
-						throw new Exception('PHP FTP support is not enabled on your site. FTP connections will fail.');
+					if ( ! defined( 'FTP_BINARY' ) ) {
+						throw new Exception( 'PHP FTP support is not enabled on your site. FTP connections will fail.' );
 					}
 					$this->filesystem = new Filesystem( new FtpAdapter( $this->options ) );
 					break;
@@ -141,13 +156,13 @@ class RemoteFilesystem {
 			$this->error = $e->getMessage();
 
 			// Log all of the error messages if debug mode is enabled.
-			if( $this->debug ){
-				error_log("WPAI_FTP_DEBUG");
-				error_log("Error Message:");
-				error_log($e->getMessage());
-				error_log("Options Array:");
-				error_log(print_r($this->options, true));
-				error_log("END WPAI_FTP_DEBUG");
+			if ( $this->debug ) {
+				error_log( "WPAI_FTP_DEBUG" );
+				error_log( "Error Message:" );
+				error_log( $e->getMessage() );
+				error_log( "Options Array:" );
+				error_log( print_r( $this->options, true ) );
+				error_log( "END WPAI_FTP_DEBUG" );
 
 			}
 
@@ -168,8 +183,8 @@ class RemoteFilesystem {
 
 				if ( ! in_array( $new_root, $this->attempted_roots ) ) {
 					// Remove the root from the directory path to ensure it's not doubled.
-					$this->options['dir'] = str_replace( $new_root, '', $this->options['dir']);
-					$this->options['root'] = $new_root;
+					$this->options['dir']    = str_replace( $new_root, '', $this->options['dir'] );
+					$this->options['root']   = $new_root;
 					$this->attempted_roots[] = $this->options['root'];
 					$this->error_stack[]     = $this->error;
 					$this->error             = false;
@@ -183,9 +198,10 @@ class RemoteFilesystem {
 
 			// Check if it was a login failure or connection failure.
 			// Don't retry if login failure or if host couldn't be found.
-			elseif ( str_replace( [ 'Could not login',
-								'php_network_getaddresses: getaddrinfo failed:',
-							  ], '',$e->getMessage() ) !== $e->getMessage() ) {
+			elseif ( str_replace( [
+					'Could not login',
+					'php_network_getaddresses: getaddrinfo failed:',
+				], '', $e->getMessage() ) !== $e->getMessage() ) {
 
 				return $this->contents;
 
@@ -193,7 +209,7 @@ class RemoteFilesystem {
 				errorProcessing:
 
 				// Retry with default port(s)
-				if ( is_array( $this->default_port ) && count( $this->default_port ) > 0) {
+				if ( is_array( $this->default_port ) && count( $this->default_port ) > 0 ) {
 					$port = array_pop( $this->default_port );
 					while ( $port === $this->options['port'] && count( $this->default_port ) > 0 ) {
 						$port = array_pop( $this->default_port );
@@ -207,7 +223,7 @@ class RemoteFilesystem {
 						$this->buildFilesystem( $this->type );
 						$this->listContents( $recursive );
 
-					}else{
+					} else {
 						goto errorProcessing;
 					}
 
@@ -260,15 +276,18 @@ class RemoteFilesystem {
 					$curl     = curl_init();
 					$filename = $destination . '/' . basename( $this->options['dir'] );
 					$file     = fopen( $destination . '/' . basename( $this->options['dir'] ), 'w' );
-                    curl_setopt( $curl, CURLOPT_URL, 'ftp://' . str_replace(array('ftps://', 'ftp://'), '', $this->options['ftp_host']) . '/' . $this->options['dir'] ); #input
+					curl_setopt( $curl, CURLOPT_URL, 'ftp://' . str_replace( array(
+							'ftps://',
+							'ftp://',
+						), '', $this->options['ftp_host'] ) . '/' . $this->options['dir'] ); #input
 					curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
 					curl_setopt( $curl, CURLOPT_FILE, $file ); #output
 					curl_setopt( $curl, CURLOPT_USERPWD, $this->options['ftp_username'] . ':' . $this->options['ftp_password'] );
-                    curl_setopt($curl, CURLOPT_FTP_SSL, CURLFTPSSL_TRY);
-                    curl_setopt($curl, CURLOPT_FTPSSLAUTH, CURLFTPAUTH_DEFAULT);
-                    curl_setopt($curl, CURLOPT_PORT, $this->options['port']);
-                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-                    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+					curl_setopt( $curl, CURLOPT_FTP_SSL, CURLFTPSSL_TRY );
+					curl_setopt( $curl, CURLOPT_FTPSSLAUTH, CURLFTPAUTH_DEFAULT );
+					curl_setopt( $curl, CURLOPT_PORT, $this->options['port'] );
+					curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, 0 );
+					curl_setopt( $curl, CURLOPT_SSL_VERIFYHOST, 0 );
 					curl_exec( $curl );
 					curl_close( $curl );
 					fclose( $file );
@@ -393,7 +412,7 @@ class RemoteFilesystem {
 
 						// Pass the current dir, found files, and target extension back to the user via filter.
 						// The full directory pointing to a single file must be returned.
-						$this->options['dir'] = apply_filters('wpai_ftp_custom_target_file_filter', $this->options['dir'], $contents, $this->rel_type);
+						$this->options['dir'] = apply_filters( 'wpai_ftp_custom_target_file_filter', $this->options['dir'], $contents, $this->rel_type );
 						break;
 				}
 			}
@@ -408,8 +427,9 @@ class RemoteFilesystem {
 	}
 
 	public function get_protocol() {
-		if( $this->type == 'ftp' && $this->options['ssl'] == true )
+		if ( $this->type == 'ftp' && $this->options['ssl'] == true ) {
 			$this->type = 'ftps';
+		}
 
 		return $this->type;
 	}
@@ -418,24 +438,25 @@ class RemoteFilesystem {
 		return $this->options['root'];
 	}
 
-	private function filter_contents(){
+	private function filter_contents() {
 		// Build filter string.
 		$filters = [];
 
-		if( !$this->allow_hidden_files_folders ) {
+		if ( ! $this->allow_hidden_files_folders ) {
 			$filters[] = '^\.'; // Match leading period.
 		}
 
-		if( count($filters) > 0) {
+		if ( count( $filters ) > 0 ) {
 			$filter = '@' . implode( '|', $filters ) . '@';
 
 			$this->contents = array_filter( $this->contents, function ( $var ) use ( $filter ) {
 
 				// Ensure that $var has an extension element in all cases.
-				if( !isset($var['extension']))
+				if ( ! isset( $var['extension'] ) ) {
 					$var['extension'] = '';
+				}
 
-				return ( preg_match( $filter, $var['basename'] ) !== 1 && ( $var['type'] === 'dir' || in_array( strtolower($var['extension']), $this->allowed_file_extensions ) ) );
+				return ( preg_match( $filter, $var['basename'] ) !== 1 && ( $var['type'] === 'dir' || in_array( strtolower( $var['extension'] ), $this->allowed_file_extensions ) ) );
 
 			} );
 

@@ -112,7 +112,9 @@ class Vamtam_Elementor_Utils {
 			unset( $control_data['section'] );
 			unset( $control_data['tab'] );
 
-			if ( isset( $control_data['responsive'] ) && ( $control_data['responsive'] === true || ! empty( $control_data['responsive'] ) ) ) {
+			$is_responsive = isset( $control_data['is_responsive'] ) ? $control_data['is_responsive'] === true : isset( $control_data['responsive'] ) && ( $control_data['responsive'] === true || ! empty( $control_data['responsive'] ) );
+
+			if ( $is_responsive ) {
 				self::remove_responsive_control( $element, $control_id, $controls_manager );
 			} else {
 				$element->remove_control( $control_id );
@@ -378,30 +380,45 @@ class Vamtam_Elementor_Utils {
 		}
 	}
 
-	protected static function handle_responsive_prefix_class_option( $element, $control_id, &$control_data ) {
-		if ( ! isset( $control_data[ 'prefix_class' ] ) ) {
+	protected static function maybe_handle_responsive_prefix_class_option( $controls_manager, $element, $control_id, &$control_data ) {
+		$is_frontend = ! is_admin() && ! \Elementor\Plugin::$instance->preview->is_preview_mode();
+
+		if ( ! $is_frontend ) {
+			return; // On editor responsive controls are duplicated no matter what.
+		}
+
+		$existing_control_data = $controls_manager->get_control_from_stack( $element->get_unique_name(), $control_id );
+
+		if ( is_wp_error( $existing_control_data ) ) {
 			return;
 		}
 
-		$all_ok       = false;
-		$control_args = [];
+		$responsive_duplication_mode   = \Elementor\Plugin::$instance->breakpoints->get_responsive_control_duplication_mode();
+		$additional_breakpoints_active = \Elementor\Plugin::$instance->experiments->is_feature_active( 'additional_custom_breakpoints' );
+		$control_is_dynamic            = ! empty( $existing_control_data[ 'dynamic' ][ 'active' ] );
+		$is_frontend_available         = ! empty( $existing_control_data[ 'frontend_available' ] );
+		$has_prefix_class              = ! empty( $existing_control_data[ 'prefix_class' ] );
 
-		$devices = \Elementor\Plugin::$instance->breakpoints->get_active_devices_list( [
-			'reverse' => true,
-			'desktop_first' => true,
-		] );
-
-		foreach ( $devices as $device_name ) {
-			$device_to_replace = \Elementor\Plugin::$instance->breakpoints::BREAKPOINT_KEY_DESKTOP === $device_name ? '' : '-' . $device_name;
-
-			$control_args[ 'prefix_class' ] = sprintf( $control_data[ 'prefix_class' ], $device_to_replace );
-
-			$all_ok = $element->update_control( $control_id, $control_args );
+		if (
+			! ( $additional_breakpoints_active
+			&& ( 'off' === $responsive_duplication_mode || ( 'dynamic' === $responsive_duplication_mode && ! $control_is_dynamic ) )
+			&& ! $is_frontend_available
+			&& ! $has_prefix_class )
+		) {
+			// Will be handled by update_responsive_control() correctly.
+			return;
 		}
 
-		if ( $all_ok ) {
-			// So update_responsive_control() doesn't mess with it.
+		// We need to remove and re-add the responsive control, to properly apply the 'prefix_class'
+		self::remove_control( $controls_manager, $element, $control_id );
+
+		$existing_control_data[ 'prefix_class' ] = $control_data[ 'prefix_class' ];
+
+		// Note that the control won't be injected in the exact index in the control stack that we removed it from, but we don't mind cause it's only for frontend use(accessing & rendering it's data not placing a control on the editor).
+		if ( ! is_wp_error( $element->add_responsive_control( $control_id, $control_data ) ) ) {
 			unset( $control_data[ 'prefix_class' ] );
+		} else {
+			return false;
 		}
 	}
 
@@ -472,7 +489,7 @@ class Vamtam_Elementor_Utils {
 		if ( $is_responsive ) {
 			if ( isset( $control_data[ 'prefix_class' ] ) ) {
 				// handle_responsive_prefix_class_option() should be called before update_responsive_control() so it is handled properly by add_responsive_control().
-				self::handle_responsive_prefix_class_option( $element, $control_id, $control_data );
+				self::maybe_handle_responsive_prefix_class_option( $controls_manager, $element, $control_id, $control_data );
 
 				if ( empty( $control_data ) ) {
 					return;

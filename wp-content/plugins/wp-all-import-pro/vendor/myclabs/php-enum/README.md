@@ -5,7 +5,8 @@
 [![Total Downloads](https://poser.pugx.org/myclabs/php-enum/downloads.png)](https://packagist.org/packages/myclabs/php-enum)
 [![Psalm Shepherd][Shepherd Image]][Shepherd Link]
 
-Maintenance for this project is [supported via Tidelift](https://tidelift.com/subscription/pkg/packagist-myclabs-php-enum?utm_source=packagist-myclabs-php-enum&utm_medium=referral&utm_campaign=readme).
+Maintenance for this project
+is [supported via Tidelift](https://tidelift.com/subscription/pkg/packagist-myclabs-php-enum?utm_source=packagist-myclabs-php-enum&utm_medium=referral&utm_campaign=readme).
 
 ## Why?
 
@@ -100,7 +101,8 @@ $action = Action::VIEW();
 $action = Action::EDIT();
 ```
 
-Static method helpers are implemented using [`__callStatic()`](http://www.php.net/manual/en/language.oop5.overloading.php#object.callstatic).
+Static method helpers are implemented using [
+`__callStatic()`](http://www.php.net/manual/en/language.oop5.overloading.php#object.callstatic).
 
 If you care about IDE autocompletion, you can either implement the static methods yourself:
 
@@ -133,16 +135,21 @@ final class Action extends Enum
 ```
 
 ## Native enums and migration
+
 Native enum arrived to PHP in version 8.1: https://www.php.net/enumerations  
-If your project is running PHP 8.1+ or your library has it as a minimum requirement you should use it instead of this library.
+If your project is running PHP 8.1+ or your library has it as a minimum requirement you should use it instead of this
+library.
 
 When migrating from `myclabs/php-enum`, the effort should be small if the usage was in the recommended way:
+
 - private constants
 - final classes
 - no method overridden
 
 Changes for migration:
+
 - Class definition should be changed from
+
 ```php
 /**
  * @method static Action VIEW()
@@ -154,7 +161,9 @@ final class Action extends Enum
     private const EDIT = 'edit';
 }
 ```
- to
+
+to
+
 ```php
 enum Action: string
 {
@@ -162,6 +171,7 @@ enum Action: string
     case EDIT = 'edit';
 }
 ```
+
 All places where the class was used as a type will continue to work.
 
 Usages and the change needed:
@@ -185,7 +195,6 @@ Usages and the change needed:
 - [Doctrine enum mapping](https://github.com/acelaya/doctrine-enum-type)
 - [Symfony ParamConverter integration](https://github.com/Ex3v/MyCLabsEnumParamConverter)
 - [PHPStan integration](https://github.com/timeweb/phpstan-enum)
-
 
 [GA Image]: https://github.com/myclabs/php-enum/workflows/CI/badge.svg
 

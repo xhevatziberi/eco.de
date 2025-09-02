@@ -23,13 +23,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class PublicKeyInfo
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'publicKeyAlgorithm' => AlgorithmIdentifier::MAP,
-            'publicKey' => ['type' => ASN1::TYPE_BIT_STRING]
-        ]
-    ];
+abstract class PublicKeyInfo {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'publicKeyAlgorithm' => AlgorithmIdentifier::MAP,
+			'publicKey'          => [ 'type' => ASN1::TYPE_BIT_STRING ],
+		],
+	];
 }

@@ -20,13 +20,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class PublicKeyAndChallenge
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'spki' => SubjectPublicKeyInfo::MAP,
-            'challenge' => ['type' => ASN1::TYPE_IA5_STRING]
-        ]
-    ];
+abstract class PublicKeyAndChallenge {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'spki'      => SubjectPublicKeyInfo::MAP,
+			'challenge' => [ 'type' => ASN1::TYPE_IA5_STRING ],
+		],
+	];
 }

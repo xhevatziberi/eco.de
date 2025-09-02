@@ -3,12 +3,10 @@
 namespace Wpai\Http;
 
 
-class JsonResponse extends Response
-{
-    protected $headers = array('Content-Type' => 'Application/Json');
+class JsonResponse extends Response {
+	protected $headers = array( 'Content-Type' => 'Application/Json' );
 
-    protected function sendContent()
-    {
-        echo json_encode($this->content);
-    }
+	protected function sendContent() {
+		echo json_encode( $this->content );
+	}
 }

@@ -1,0 +1,53 @@
+.eco-podcast-rss h4 {
+	margin-bottom: 10px;
+}
+
+.eco-podcast-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.eco-podcast-list li {
+	margin-bottom: 12px;
+}
+
+.eco-podcast-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	position: relative;
+}
+
+.eco-podcast-thumb {
+	width: 60px;
+	height: 60px;
+	object-fit: cover;
+	border-radius: 4px;
+}
+
+.eco-podcast-meta {
+	flex-grow: 1;
+	font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
+}
+
+.eco-podcast-meta small {
+	color: #666;
+}
+
+.eco-podcast-play {
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: #E2001A;
+	font-size: 1.2em;
+	padding: 5px;
+}
+
+@media (max-width: 768px) {
+	.eco-podcast-meta {
+		display: block;
+	}
+}

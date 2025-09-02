@@ -246,8 +246,8 @@ function update_buttons_section_controls( $controls_manager, $kit ) {
 		'html .woocommerce .woocommerce-message .vamtam-close-notice-btn',
 		'html .elementor-widget-woocommerce-my-account .e-my-account-tab:not(.e-my-account-tab__dashboard--custom) .woocommerce a.button',
 		'html a.comment-reply-link',
-		'html .elementor-widget-woocommerce-menu-cart.elementor-element .elementor-button.elementor-button--checkout',
-		'html .elementor-widget-woocommerce-menu-cart.elementor-element .elementor-button.elementor-button--view-cart',
+		'html .elementor-widget-woocommerce-menu-cart.elementor-element .elementor-button--checkout',
+		'html .elementor-widget-woocommerce-menu-cart.elementor-element .elementor-button--view-cart',
 	];
 
 

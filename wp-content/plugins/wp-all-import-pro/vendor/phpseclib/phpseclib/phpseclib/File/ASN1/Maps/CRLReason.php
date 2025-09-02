@@ -20,22 +20,21 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class CRLReason
-{
-    const MAP = [
-        'type' => ASN1::TYPE_ENUMERATED,
-        'mapping' => [
-            'unspecified',
-            'keyCompromise',
-            'cACompromise',
-            'affiliationChanged',
-            'superseded',
-            'cessationOfOperation',
-            'certificateHold',
-            // Value 7 is not used.
-            8 => 'removeFromCRL',
-            'privilegeWithdrawn',
-            'aACompromise'
-        ]
-    ];
+abstract class CRLReason {
+	const MAP = [
+		'type'    => ASN1::TYPE_ENUMERATED,
+		'mapping' => [
+			'unspecified',
+			'keyCompromise',
+			'cACompromise',
+			'affiliationChanged',
+			'superseded',
+			'cessationOfOperation',
+			'certificateHold',
+			// Value 7 is not used.
+			8 => 'removeFromCRL',
+			'privilegeWithdrawn',
+			'aACompromise',
+		],
+	];
 }

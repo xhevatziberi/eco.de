@@ -56,11 +56,21 @@ class VamtamHelpPage {
 
 	public static function radio( $args ) {
 		$value = vamtam_sanitize_bool( get_option( $args[0], $args[1] ) );
+?>
 
-		echo '<label><input type="radio" id="' . esc_attr( $args[0] ) . '-on" name="' . esc_attr( $args[0] ) . '" value="1" ' . checked( $value, true, false ) . '/> ' . esc_html__( 'On', 'tecnologia' ) . '</label> ';
-		echo '<label><input type="radio" id="' . esc_attr( $args[0] ) . '-off" name="' . esc_attr( $args[0] ) . '" value="0" ' . checked( $value, false, false ) . '/> ' . esc_html__( 'Off', 'tecnologia' ) . '</label>';
+		<label><input type="radio" id="<?= esc_attr( $args[0] ) ?>-on" name="<?= esc_attr( $args[0] ) ?>" value="1" <?php checked( $value, true ) ?>/><?php esc_html_e( 'On', 'tecnologia' ) ?></label>
+		<label><input type="radio" id="<?= esc_attr( $args[0] ) ?>-off" name="<?= esc_attr( $args[0] ) ?>" value="0" <?php checked( $value, false ) ?>/><?php esc_html_e( 'Off', 'tecnologia' ) ?></label>
 
-		echo '<p class="description">' . esc_html__( 'This option allows us to receive comprehensive data about your site, which can expedite the troubleshooting process, and enable our team to provide you with more accurate and timely assistance.', 'tecnologia' ) . '</p>';
+		<p class="description"><?php
+			esc_html_e( 'This option allows us to receive comprehensive data about your site, which can expedite the troubleshooting process, and enable our team to provide you with more accurate and timely assistance. When enabled, we will receive information about the following:', 'tecnologia' );
+			?><br>
+			<ol>
+				<li><?= wp_kses_post( 'The result of the diagnostic tests shown on the <i>Import Demo</i> page', 'tecnologia' ) ?></li>
+				<li><?php esc_html_e( 'Active plugins and their versions', 'tecnologia' ) ?></li>
+				<li><?php esc_html_e( 'WP_DEBUG', 'tecnologia' ) ?></li>
+			</ol>
+		</p>
+<?php
 	}
 }
 

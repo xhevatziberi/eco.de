@@ -22,19 +22,18 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class netscape_cert_type
-{
-    const MAP = [
-        'type' => ASN1::TYPE_BIT_STRING,
-        'mapping' => [
-            'SSLClient',
-            'SSLServer',
-            'Email',
-            'ObjectSigning',
-            'Reserved',
-            'SSLCA',
-            'EmailCA',
-            'ObjectSigningCA'
-        ]
-    ];
+abstract class netscape_cert_type {
+	const MAP = [
+		'type'    => ASN1::TYPE_BIT_STRING,
+		'mapping' => [
+			'SSLClient',
+			'SSLServer',
+			'Email',
+			'ObjectSigning',
+			'Reserved',
+			'SSLCA',
+			'EmailCA',
+			'ObjectSigningCA',
+		],
+	];
 }

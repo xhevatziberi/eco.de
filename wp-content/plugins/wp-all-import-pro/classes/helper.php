@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Helper class which defnes a namespace for some commonly used functions
  *
@@ -37,33 +38,39 @@ class PMXI_Helper {
 	 *   self::GLOB_NODOTS, self::GLOB_RECURSE
 	 * - 100607 Recurse is_dir check fixed by Pavel Kulbakin <p.kulbakin@gmail.com>
 	 */
-	public static function safe_glob($pattern,  $flags=0) {
-		$split = explode('/', str_replace('\\', '/', $pattern));
-		$mask = array_pop($split);
-		$path = implode('/', $split);
+	public static function safe_glob( $pattern, $flags = 0 ) {
+		$split = explode( '/', str_replace( '\\', '/', $pattern ) );
+		$mask  = array_pop( $split );
+		$path  = implode( '/', $split );
 
-		if (($dir = @opendir($path . '/')) !== false or ($dir = @opendir($path)) !== false) {
+		if ( ( $dir = @opendir( $path . '/' ) ) !== false or ( $dir = @opendir( $path ) ) !== false ) {
 			$glob = array();
-			while(($file = readdir($dir)) !== false) {
+			while ( ( $file = readdir( $dir ) ) !== false ) {
 				// Recurse subdirectories (self::GLOB_RECURSE)
-				if (($flags & self::GLOB_RECURSE) && is_dir($path . '/' . $file) && ( ! in_array($file, array('.', '..')))) {
-					$glob = array_merge($glob, self::array_prepend(self::safe_glob($path . '/' . $file . '/' . $mask, $flags), ($flags & self::GLOB_PATH ? '' : $file . '/')));
+				if ( ( $flags & self::GLOB_RECURSE ) && is_dir( $path . '/' . $file ) && ( ! in_array( $file, array(
+						'.',
+						'..',
+					) ) ) ) {
+					$glob = array_merge( $glob, self::array_prepend( self::safe_glob( $path . '/' . $file . '/' . $mask, $flags ), ( $flags & self::GLOB_PATH ? '' : $file . '/' ) ) );
 				}
 				// Match file mask
-				if (self::fnmatch($mask, $file, self::FNM_CASEFOLD)) {
-					if ((( ! ($flags & self::GLOB_ONLYDIR)) || is_dir("$path/$file"))
-						&& (( ! ($flags & self::GLOB_NODIR)) || ( ! is_dir($path . '/' . $file)))
-						&& (( ! ($flags & self::GLOB_NODOTS)) || ( ! in_array($file, array('.', '..'))))
-					) {
-						$glob[] = ($flags & self::GLOB_PATH ? $path . '/' : '') . $file . ($flags & self::GLOB_MARK ? '/' : '');
+				if ( self::fnmatch( $mask, $file, self::FNM_CASEFOLD ) ) {
+					if ( ( ( ! ( $flags & self::GLOB_ONLYDIR ) ) || is_dir( "$path/$file" ) ) && ( ( ! ( $flags & self::GLOB_NODIR ) ) || ( ! is_dir( $path . '/' . $file ) ) ) && ( ( ! ( $flags & self::GLOB_NODOTS ) ) || ( ! in_array( $file, array(
+								'.',
+								'..',
+							) ) ) ) ) {
+						$glob[] = ( $flags & self::GLOB_PATH ? $path . '/' : '' ) . $file . ( $flags & self::GLOB_MARK ? '/' : '' );
 					}
 				}
 			}
-			closedir($dir);
-			if ( ! ($flags & self::GLOB_NOSORT)) sort($glob);
+			closedir( $dir );
+			if ( ! ( $flags & self::GLOB_NOSORT ) ) {
+				sort( $glob );
+			}
+
 			return $glob;
 		} else {
-			return (strpos($pattern, "*") === false) ? array($pattern) : [];
+			return ( strpos( $pattern, "*" ) === false ) ? array( $pattern ) : [];
 		}
 	}
 
@@ -73,21 +80,22 @@ class PMXI_Helper {
 	 * @author BigueNique AT yahoo DOT ca
 	 * @since 080324
 	 */
-	public static function array_prepend($array, $string, $deep=false) {
-		if(empty($array)||empty($string)) {
+	public static function array_prepend( $array, $string, $deep = false ) {
+		if ( empty( $array ) || empty( $string ) ) {
 			return $array;
 		}
-		foreach ($array as $key => $element) {
-			if (is_array($element)) {
-				if ($deep) {
-					$array[$key] = self::array_prepend($element,$string,$deep);
+		foreach ( $array as $key => $element ) {
+			if ( is_array( $element ) ) {
+				if ( $deep ) {
+					$array[ $key ] = self::array_prepend( $element, $string, $deep );
 				} else {
-					trigger_error(__METHOD__ . ': array element', E_USER_WARNING);
+					trigger_error( __METHOD__ . ': array element', E_USER_WARNING );
 				}
 			} else {
-				$array[$key] = $string.$element;
+				$array[ $key ] = $string . $element;
 			}
 		}
+
 		return $array;
 
 	}
@@ -95,45 +103,44 @@ class PMXI_Helper {
 	/**
 	 * non-POSIX complient remplacement for the fnmatch
 	 */
-	public static function fnmatch($pattern, $string, $flags = 0) {
+	public static function fnmatch( $pattern, $string, $flags = 0 ) {
 
-		$modifiers = null;
+		$modifiers  = null;
 		$transforms = array(
-			'\*'    => '.*',
-			'\?'    => '.',
-			'\[\!'  => '[^',
-			'\['    => '[',
-			'\]'    => ']',
-			'\.'    => '\.',
-			'\\'    => '\\\\',
-			'\-'    => '-',
+			'\*'   => '.*',
+			'\?'   => '.',
+			'\[\!' => '[^',
+			'\['   => '[',
+			'\]'   => ']',
+			'\.'   => '\.',
+			'\\'   => '\\\\',
+			'\-'   => '-',
 		);
 
 		// Forward slash in string must be in pattern:
-		if ($flags & self::FNM_PATHNAME) {
+		if ( $flags & self::FNM_PATHNAME ) {
 			$transforms['\*'] = '[^/]*';
 		}
 
 		// Back slash should not be escaped:
-		if ($flags & self::FNM_NOESCAPE) {
-			unset($transforms['\\']);
+		if ( $flags & self::FNM_NOESCAPE ) {
+			unset( $transforms['\\'] );
 		}
 
 		// Perform case insensitive match:
-		if ($flags & self::FNM_CASEFOLD) {
+		if ( $flags & self::FNM_CASEFOLD ) {
 			$modifiers .= 'i';
 		}
 
 		// Period at start must be the same as pattern:
-		if ($flags & self::FNM_PERIOD) {
-			if (strpos($string, '.') === 0 && strpos($pattern, '.') !== 0) return false;
+		if ( $flags & self::FNM_PERIOD ) {
+			if ( strpos( $string, '.' ) === 0 && strpos( $pattern, '.' ) !== 0 ) {
+				return false;
+			}
 		}
 
-		$pattern = '#^'
-			.strtr(preg_quote($pattern, '#'), $transforms)
-			.'$#'
-			.$modifiers;
+		$pattern = '#^' . strtr( preg_quote( $pattern, '#' ), $transforms ) . '$#' . $modifiers;
 
-		return (boolean)preg_match($pattern, $string);
+		return (boolean) preg_match( $pattern, $string );
 	}
 }

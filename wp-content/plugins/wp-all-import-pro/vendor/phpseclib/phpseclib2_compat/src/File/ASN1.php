@@ -30,66 +30,69 @@ namespace phpseclib\File;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class ASN1 extends \phpseclib3\File\ASN1
-{
-    /**
-     * Parse BER-encoding
-     *
-     * Serves a similar purpose to openssl's asn1parse
-     *
-     * @param string $encoded
-     * @return array
-     * @access public
-     */
-    public static function decodeBER($encoded)
-    {
-        $decoded = parent::decodeBER($encoded);
-        if ($decoded === null) {
-            return [false];
-        }
-        return $decoded;
-    }
+class ASN1 extends \phpseclib3\File\ASN1 {
+	/**
+	 * Parse BER-encoding
+	 *
+	 * Serves a similar purpose to openssl's asn1parse
+	 *
+	 * @param string $encoded
+	 *
+	 * @return array
+	 * @access public
+	 */
+	public static function decodeBER( $encoded ) {
+		$decoded = parent::decodeBER( $encoded );
+		if ( $decoded === null ) {
+			return [ false ];
+		}
 
-    /**
-     * BER-decode the OID
-     *
-     * Called by _decode_ber()
-     *
-     * @access private
-     * @param string $content
-     * @return string
-     */
-    public function _decodeOID($content)
-    {
-        return $this->decodeOID($content);
-    }
+		return $decoded;
+	}
 
-    /**
-     * DER-encode the length
-     *
-     * DER supports lengths up to (2**8)**127, however, we'll only support lengths up to (2**8)**4.  See
-     * {@link http://itu.int/ITU-T/studygroups/com17/languages/X.690-0207.pdf#p=13 X.690 paragraph 8.1.3} for more information.
-     *
-     * @access private
-     * @param int $length
-     * @return string
-     */
-    public function _encodeLength($length)
-    {
-        return $this->encodeLength($length);
-    }
+	/**
+	 * BER-decode the OID
+	 *
+	 * Called by _decode_ber()
+	 *
+	 * @access private
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function _decodeOID( $content ) {
+		return $this->decodeOID( $content );
+	}
 
-    /**
-     * DER-encode the OID
-     *
-     * Called by _encode_der()
-     *
-     * @access private
-     * @param string $content
-     * @return string
-     */
-    public function _encodeOID($source)
-    {
-        return $this->encodeOID($source);
-    }
+	/**
+	 * DER-encode the length
+	 *
+	 * DER supports lengths up to (2**8)**127, however, we'll only support lengths up to (2**8)**4.  See
+	 * {@link http://itu.int/ITU-T/studygroups/com17/languages/X.690-0207.pdf#p=13 X.690 paragraph 8.1.3} for more information.
+	 *
+	 * @access private
+	 *
+	 * @param int $length
+	 *
+	 * @return string
+	 */
+	public function _encodeLength( $length ) {
+		return $this->encodeLength( $length );
+	}
+
+	/**
+	 * DER-encode the OID
+	 *
+	 * Called by _encode_der()
+	 *
+	 * @access private
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function _encodeOID( $source ) {
+		return $this->encodeOID( $source );
+	}
 }

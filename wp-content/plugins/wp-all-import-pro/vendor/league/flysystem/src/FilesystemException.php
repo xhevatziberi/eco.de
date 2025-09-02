@@ -2,6 +2,5 @@
 
 namespace League\Flysystem;
 
-interface FilesystemException
-{
+interface FilesystemException {
 }

@@ -1078,6 +1078,12 @@ input:is([type="submit"]) {
 .dialog-lightbox-widget.elementor-popup-modal.vamtam-popup-search-form .dialog-close-button .eicon-close::before {
   content: var(--vamtam-icon-close);
 }
+body.e--ua-safari .dialog-close-button {
+  outline: 0;
+}
+body.e--ua-safari .dialog-close-button {
+  outline: 0;
+}
 /* Flatpickr fix*/
 body .flatpickr-calendar input {
   border: 0px !important;
@@ -1148,11 +1154,14 @@ body .flatpickr-day:is(
 .elementor-swiper-button-next {
   right: 10px;
 }
-body.e--ua-blink .elementor-popup-modal .dialog-widget-content {
-  max-width: 100vw;
+body.e--ua-blink .elementor-popup-modal :is(.dialog-widget-content, .dialog-message) {
+  max-width: calc(100vw - var(--vamtam-scrollbar-width, 0));
 }
 .ui-widget-content {
   z-index: auto !important;
+}
+.elementor-popup-modal.vamtam-header-mega-menu {
+  pointer-events: none !important;
 }
 body.e--ua-isTouchDevice.e--ua-appleWebkit a {
   -webkit-tap-highlight-color: transparent;
@@ -1562,14 +1571,14 @@ These are general-purpose anims used across themes.
     opacity: 1;
   }
 }
+.elementor-widget-icon-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-top .elementor-icon-box-title {
+  margin-top: 0;
+}
 .elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left .elementor-image-box-img a,
 .elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right .elementor-image-box-img a {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.elementor-widget-icon-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-top .elementor-icon-box-title {
-  margin-top: 0;
 }
 .elementor-widget-login.vamtam-has-theme-widget-styles.vamtam-popup-login-form form.elementor-form .elementor-column.elementor-field-type-submit {
   margin-top: 40px;
@@ -2282,6 +2291,10 @@ body:not(.vamtam-is-elementor) .elementor-widget-post-comments.vamtam-has-theme-
   top: var(--vamtam-nav-next-y, 50%);
   left: auto;
   bottom: auto;
+}
+.elementor-widget-testimonial-carousel.vamtam-has-theme-widget-styles.vamtam-has-slide-height .elementor-swiper > :not(.swiper-initialized) .swiper-wrapper {
+  height: var(--vamtam-slide-height);
+  overflow: hidden;
 }
 .elementor-widget-toggle.vamtam-has-theme-widget-styles .elementor-tab-title {
   transition: all 0.3s, border-bottom-width 0s 0.4s;

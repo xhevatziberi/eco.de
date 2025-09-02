@@ -20,7 +20,6 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class InvalidityDate
-{
-    const MAP = ['type' => ASN1::TYPE_GENERALIZED_TIME];
+abstract class InvalidityDate {
+	const MAP = [ 'type' => ASN1::TYPE_GENERALIZED_TIME ];
 }

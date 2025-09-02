@@ -20,12 +20,11 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class Name
-{
-    const MAP = [
-        'type' => ASN1::TYPE_CHOICE,
-        'children' => [
-            'rdnSequence' => RDNSequence::MAP
-        ]
-    ];
+abstract class Name {
+	const MAP = [
+		'type'     => ASN1::TYPE_CHOICE,
+		'children' => [
+			'rdnSequence' => RDNSequence::MAP,
+		],
+	];
 }

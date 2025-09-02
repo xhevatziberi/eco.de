@@ -20,18 +20,17 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class Attribute
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'type' => AttributeType::MAP,
-            'value' => [
-                'type' => ASN1::TYPE_SET,
-                'min' => 1,
-                'max' => -1,
-                'children' => AttributeValue::MAP
-            ]
-        ]
-    ];
+abstract class Attribute {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'type'  => AttributeType::MAP,
+			'value' => [
+				'type'     => ASN1::TYPE_SET,
+				'min'      => 1,
+				'max'      => - 1,
+				'children' => AttributeValue::MAP,
+			],
+		],
+	];
 }

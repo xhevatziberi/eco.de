@@ -7,32 +7,30 @@
  *          before child definitions are parsed in earnest by
  *          HTMLPurifier_Strategy_FixNesting.
  */
-class HTMLPurifier_ChildDef_Empty extends HTMLPurifier_ChildDef
-{
-    /**
-     * @type bool
-     */
-    public $allow_empty = true;
+class HTMLPurifier_ChildDef_Empty extends HTMLPurifier_ChildDef {
+	/**
+	 * @type bool
+	 */
+	public $allow_empty = true;
 
-    /**
-     * @type string
-     */
-    public $type = 'empty';
+	/**
+	 * @type string
+	 */
+	public $type = 'empty';
 
-    public function __construct()
-    {
-    }
+	public function __construct() {
+	}
 
-    /**
-     * @param HTMLPurifier_Node[] $children
-     * @param HTMLPurifier_Config $config
-     * @param HTMLPurifier_Context $context
-     * @return array
-     */
-    public function validateChildren($children, $config, $context)
-    {
-        return array();
-    }
+	/**
+	 * @param HTMLPurifier_Node[] $children
+	 * @param HTMLPurifier_Config $config
+	 * @param HTMLPurifier_Context $context
+	 *
+	 * @return array
+	 */
+	public function validateChildren( $children, $config, $context ) {
+		return array();
+	}
 }
 
 // vim: et sw=4 sts=4

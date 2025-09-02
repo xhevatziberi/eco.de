@@ -20,17 +20,16 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class Characteristic_two
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'm' => ['type' => ASN1::TYPE_INTEGER], // field size 2**m
-            'basis' => ['type' => ASN1::TYPE_OBJECT_IDENTIFIER],
-            'parameters' => [
-                'type' => ASN1::TYPE_ANY,
-                'optional' => true
-            ]
-        ]
-    ];
+abstract class Characteristic_two {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'm'          => [ 'type' => ASN1::TYPE_INTEGER ], // field size 2**m
+			'basis'      => [ 'type' => ASN1::TYPE_OBJECT_IDENTIFIER ],
+			'parameters' => [
+				'type'     => ASN1::TYPE_ANY,
+				'optional' => true,
+			],
+		],
+	];
 }

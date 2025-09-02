@@ -46,7 +46,7 @@ class Plugin {
 	 * @access public
 	 */
 	public function widget_scripts() {
-		$version = '1.2.2';
+		$version = '1.2.6';
 		wp_register_script( 'eco-widget-page', plugins_url( basename( __DIR__ ) . '/assets/js/page.js' ), [ 'elementor-frontend' ], $version, true );
 
 		wp_register_style( 'eco-events-style', plugins_url( '/assets/css/events.css', __FILE__  ) );
@@ -63,6 +63,12 @@ class Plugin {
 
 		wp_register_script( 'eco-logo-cloud-script', plugins_url( '/assets/js/logo-cloud.js', __FILE__ ), [ 'jquery' ], $version, true );
 		wp_register_style( 'eco-logo-cloud-style', plugins_url( '/assets/css/logo-cloud.css', __FILE__  ), [], $version );
+
+		wp_register_script( 'eco-podcast-script', plugins_url( '/assets/js/podcast-player.js', __FILE__ ), [ 'jquery' ], $version, true );
+		wp_register_style( 'eco-podcast-style', plugins_url( '/assets/css/podcast-player.css', __FILE__  ), [], $version );
+
+		wp_register_script( 'eco-podcast-rss-script', plugins_url( '/assets/js/podcast-rss.js', __FILE__ ), [ 'jquery' ], $version, true );
+		wp_register_style( 'eco-podcast-rss-style', plugins_url( '/assets/css/podcast-rss.css', __FILE__  ), [], $version );
 
 		wp_register_script( 'elementor-eco-script', plugins_url( '/assets/js/script.js', __FILE__ ), [ 'jquery' ], $version, true );
 		wp_register_style( 'elementor-eco-style', plugins_url( '/assets/css/style.css', __FILE__  ), [], $version );
@@ -88,6 +94,8 @@ class Plugin {
 		require_once( __DIR__ . '/widgets/members.php' );
 		require_once( __DIR__ . '/widgets/people.php' );
 		require_once( __DIR__ . '/widgets/logo-cloud.php' );
+		require_once( __DIR__ . '/widgets/podcast-player.php' );
+		require_once( __DIR__ . '/widgets/podcast-rss.php' );
 	}
 
 	/**
@@ -110,6 +118,8 @@ class Plugin {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Members() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\People() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\LogoCloud() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PodcastPlayer() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PodcastRSS() );
 	}
 
 	function add_elementor_widget_categories( $elements_manager ) {

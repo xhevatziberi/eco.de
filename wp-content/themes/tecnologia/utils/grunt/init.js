@@ -54,10 +54,6 @@ module.exports = function(grunt) {
 				src: '<%= pkg.jsLocation %>all.js',
 				dest: '<%= pkg.jsLocation %>all.min.js',
 			},
-			wc_gallery: {
-				src: '<%= pkg.jsLocation %>wc-gallery.js',
-				dest: '<%= pkg.jsLocation %>wc-gallery.min.js',
-			},
 			theme_elementor: {
 				src: '<%= pkg.jsLocation %>theme-elementor.js',
 				dest: '<%= pkg.jsLocation %>theme-elementor.min.js',
@@ -147,7 +143,6 @@ module.exports = function(grunt) {
 
 					'<%= pkg.jsLocation %>menu.js',
 					'<%= pkg.jsLocation %>general.js',
-					'<%= pkg.jsLocation %>woocommerce.js',
 					'<%= pkg.jsLocation %>custom-animations.js',
 				],
 				dest: '<%= pkg.jsLocation %>all.js',
@@ -352,6 +347,7 @@ module.exports = function(grunt) {
 
 					'!build/**/vamtam/plugins/vamtam-importers-e.zip',
 					`!build/**/vamtam/plugins/vamtam-elementor-integration-${theme_name.replace( /^vamtam-/, '' )}.zip`,
+					'!build/**/vamtam/plugins/pojo-accessibility.zip',
 					`!build/**/vamtam/plugins/vamtam-product-qa.zip`,
 
 					'build/**/node_modules',

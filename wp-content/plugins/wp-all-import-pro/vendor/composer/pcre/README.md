@@ -31,14 +31,12 @@ Install the latest version with:
 $ composer require composer/pcre
 ```
 
-
 Requirements
 ------------
 
 * PHP 7.4.0 is required for 3.x versions
 * PHP 7.2.0 is required for 2.x versions
 * PHP 5.3.2 is required for 1.x versions
-
 
 Basic usage
 -----------
@@ -102,7 +100,8 @@ A subpattern that can match an empty string like `(.*)` is **not** optional, it 
 empty string in the matches. A non-matching subpattern, even if optional like `(?:foo)?` will anyway not be present in
 matches so it is also not a problem to use these with `*StrictGroups` methods.
 
-If you would prefer a slightly more verbose usage, replacing by-ref arguments by result objects, you can use the `Regex` class:
+If you would prefer a slightly more verbose usage, replacing by-ref arguments by result objects, you can use the `Regex`
+class:
 
 ```php
 use Composer\Pcre\Regex;
@@ -128,8 +127,10 @@ $newString = Regex::replaceCallbackArray(['{fo+}' => fn ($match) => strtoupper($
 Note that `preg_grep` and `preg_split` are only callable via the `Preg` class as they do not have
 complex return types warranting a specific result object.
 
-See the [MatchResult](src/MatchResult.php), [MatchWithOffsetsResult](src/MatchWithOffsetsResult.php), [MatchAllResult](src/MatchAllResult.php),
-[MatchAllWithOffsetsResult](src/MatchAllWithOffsetsResult.php), and [ReplaceResult](src/ReplaceResult.php) class sources for more details.
+See
+the [MatchResult](src/MatchResult.php), [MatchWithOffsetsResult](src/MatchWithOffsetsResult.php), [MatchAllResult](src/MatchAllResult.php),
+[MatchAllWithOffsetsResult](src/MatchAllWithOffsetsResult.php), and [ReplaceResult](src/ReplaceResult.php) class sources
+for more details.
 
 Restrictions / Limitations
 --------------------------
@@ -165,21 +166,22 @@ running this with and without PREG_UNMATCHED_AS_NULL in $flags:
 preg_match('/(a)(b)*(c)(d)*/', 'ac', $matches, $flags);
 ```
 
-| no flag | PREG_UNMATCHED_AS_NULL |
-| --- | --- |
-| array (size=4)              | array (size=5) |
-| 0 => string 'ac' (length=2) |   0 => string 'ac' (length=2) |
-| 1 => string 'a' (length=1)  |   1 => string 'a' (length=1) |
-| 2 => string '' (length=0)   |   2 => null |
-| 3 => string 'c' (length=1)  |   3 => string 'c' (length=1) |
-|                             |   4 => null |
-| group 2 (any unmatched group preceding one that matched) is set to `''`. You cannot tell if it matched an empty string or did not match at all | group 2 is `null` when unmatched and a string if it matched, easy to check for |
+| no flag                                                                                                                                                                                                                                                           | PREG_UNMATCHED_AS_NULL                                                                                      |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| array (size=4)                                                                                                                                                                                                                                                    | array (size=5)                                                                                              |
+| 0 => string 'ac' (length=2)                                                                                                                                                                                                                                       | 0 => string 'ac' (length=2)                                                                                 |
+| 1 => string 'a' (length=1)                                                                                                                                                                                                                                        | 1 => string 'a' (length=1)                                                                                  |
+| 2 => string '' (length=0)                                                                                                                                                                                                                                         | 2 => null                                                                                                   |
+| 3 => string 'c' (length=1)                                                                                                                                                                                                                                        | 3 => string 'c' (length=1)                                                                                  |
+|                                                                                                                                                                                                                                                                   | 4 => null                                                                                                   |
+| group 2 (any unmatched group preceding one that matched) is set to `''`. You cannot tell if it matched an empty string or did not match at all                                                                                                                    | group 2 is `null` when unmatched and a string if it matched, easy to check for                              |
 | group 4 (any optional group without a matching one following) is missing altogether. So you have to check with `isset()`, but really you want `isset($m[4]) && $m[4] !== ''` for safety unless you are very careful to check that a non-optional group follows it | group 4 is always set, and null in this case as there was no match, easy to check for with `$m[4] !== null` |
 
 PHPStan Extension
 -----------------
 
-To use the PHPStan extension if you do not use `phpstan/extension-installer` you can include `vendor/composer/pcre/extension.neon` in your PHPStan config.
+To use the PHPStan extension if you do not use `phpstan/extension-installer` you can include
+`vendor/composer/pcre/extension.neon` in your PHPStan config.
 
 The extension provides much better type information for $matches as well as regex validation where possible.
 

@@ -4,53 +4,46 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
 
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
-class AxisText extends Properties
-{
-    /** @var ?int */
-    private $rotation;
+class AxisText extends Properties {
+	/** @var ?int */
+	private $rotation;
 
-    /** @var Font */
-    private $font;
+	/** @var Font */
+	private $font;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->font = new Font();
-        $this->font->setSize(null, true);
-    }
+	public function __construct() {
+		parent::__construct();
+		$this->font = new Font();
+		$this->font->setSize( null, true );
+	}
 
-    public function setRotation(?int $rotation): self
-    {
-        $this->rotation = $rotation;
+	public function setRotation( ?int $rotation ): self {
+		$this->rotation = $rotation;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getRotation(): ?int
-    {
-        return $this->rotation;
-    }
+	public function getRotation(): ?int {
+		return $this->rotation;
+	}
 
-    public function getFillColorObject(): ChartColor
-    {
-        $fillColor = $this->font->getChartColor();
-        if ($fillColor === null) {
-            $fillColor = new ChartColor();
-            $this->font->setChartColorFromObject($fillColor);
-        }
+	public function getFillColorObject(): ChartColor {
+		$fillColor = $this->font->getChartColor();
+		if ( $fillColor === null ) {
+			$fillColor = new ChartColor();
+			$this->font->setChartColorFromObject( $fillColor );
+		}
 
-        return $fillColor;
-    }
+		return $fillColor;
+	}
 
-    public function getFont(): Font
-    {
-        return $this->font;
-    }
+	public function getFont(): Font {
+		return $this->font;
+	}
 
-    public function setFont(Font $font): self
-    {
-        $this->font = $font;
+	public function setFont( Font $font ): self {
+		$this->font = $font;
 
-        return $this;
-    }
+		return $this;
+	}
 }

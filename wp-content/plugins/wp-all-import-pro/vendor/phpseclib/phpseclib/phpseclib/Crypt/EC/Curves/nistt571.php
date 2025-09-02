@@ -13,6 +13,5 @@
 
 namespace phpseclib3\Crypt\EC\Curves;
 
-final class nistt571 extends sect571k1
-{
+final class nistt571 extends sect571k1 {
 }

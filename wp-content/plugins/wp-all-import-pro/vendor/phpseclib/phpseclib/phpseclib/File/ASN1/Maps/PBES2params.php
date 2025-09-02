@@ -22,13 +22,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class PBES2params
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'keyDerivationFunc' => AlgorithmIdentifier::MAP,
-            'encryptionScheme' => AlgorithmIdentifier::MAP
-        ]
-    ];
+abstract class PBES2params {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'keyDerivationFunc' => AlgorithmIdentifier::MAP,
+			'encryptionScheme'  => AlgorithmIdentifier::MAP,
+		],
+	];
 }

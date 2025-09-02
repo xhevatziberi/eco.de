@@ -8,41 +8,40 @@
  *     of PHP 5, you must not use the $hash[$key] syntax; if you do
  *     our version of offsetGet is never called.
  */
-class HTMLPurifier_StringHash extends ArrayObject
-{
-    /**
-     * @type array
-     */
-    protected $accessed = array();
+class HTMLPurifier_StringHash extends ArrayObject {
+	/**
+	 * @type array
+	 */
+	protected $accessed = array();
 
-    /**
-     * Retrieves a value, and logs the access.
-     * @param mixed $index
-     * @return mixed
-     */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($index)
-    {
-        $this->accessed[$index] = true;
-        return parent::offsetGet($index);
-    }
+	/**
+	 * Retrieves a value, and logs the access.
+	 *
+	 * @param mixed $index
+	 *
+	 * @return mixed
+	 */
+	#[\ReturnTypeWillChange]
+	public function offsetGet( $index ) {
+		$this->accessed[ $index ] = true;
 
-    /**
-     * Returns a lookup array of all array indexes that have been accessed.
-     * @return array in form array($index => true).
-     */
-    public function getAccessed()
-    {
-        return $this->accessed;
-    }
+		return parent::offsetGet( $index );
+	}
 
-    /**
-     * Resets the access array.
-     */
-    public function resetAccessed()
-    {
-        $this->accessed = array();
-    }
+	/**
+	 * Returns a lookup array of all array indexes that have been accessed.
+	 * @return array in form array($index => true).
+	 */
+	public function getAccessed() {
+		return $this->accessed;
+	}
+
+	/**
+	 * Resets the access array.
+	 */
+	public function resetAccessed() {
+		$this->accessed = array();
+	}
 }
 
 // vim: et sw=4 sts=4

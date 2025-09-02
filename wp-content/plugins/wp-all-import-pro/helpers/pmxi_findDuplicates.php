@@ -3,7 +3,7 @@
 /**
  * Find duplicates according to settings
  */
-function pmxi_findDuplicates( $articleData, $custom_duplicate_name = '', $custom_duplicate_value = '', $duplicate_indicator = 'title', $indicator_value = '', $import_type = '') {
+function pmxi_findDuplicates( $articleData, $custom_duplicate_name = '', $custom_duplicate_value = '', $duplicate_indicator = 'title', $indicator_value = '', $import_type = '' ) {
 
 	global $wpdb;
 	$is_wc_order = 'shop_order' === $import_type;
@@ -13,19 +13,18 @@ function pmxi_findDuplicates( $articleData, $custom_duplicate_name = '', $custom
 
 		// Custom wc order handling logic.
 		if ( $is_wc_order ) {
-			if( empty($custom_duplicate_value) || empty($custom_duplicate_name) ){
+			if ( empty( $custom_duplicate_value ) || empty( $custom_duplicate_name ) ) {
 				// Only try to match existing orders if the necessary values are set.
 				// Literal 0 hasn't been accounted for as it's unlikely to be used.
 				return false;
 			}
-			return \wc_get_orders(
-				array(
+
+			return \wc_get_orders( array(
 					'meta_key'     => $custom_duplicate_name,
 					'meta_value'   => $custom_duplicate_value,
 					'meta_compare' => '==',
 					'return'       => 'ids',
-				)
-			);
+				) );
 		}
 
 		if ( ! empty( $articleData['post_type'] ) ) {
@@ -80,9 +79,7 @@ function pmxi_findDuplicates( $articleData, $custom_duplicate_name = '', $custom
 					if ( trim( $custom_duplicate_name ) == '_sku' && function_exists( 'wp_all_import_get_product_id_by_sku' ) ) {
 						$id = wp_all_import_get_product_id_by_sku( trim( $custom_duplicate_value ) );
 					} else {
-						$id = $wpdb->get_var(
-							$wpdb->prepare(
-								"
+						$id = $wpdb->get_var( $wpdb->prepare( "
                             SELECT posts.ID
                             FROM {$wpdb->posts} as posts
                             INNER JOIN {$wpdb->postmeta} AS lookup ON posts.ID = lookup.post_id
@@ -91,11 +88,7 @@ function pmxi_findDuplicates( $articleData, $custom_duplicate_name = '', $custom
                             AND lookup.meta_key = %s
                             AND lookup.meta_value = %s
                             LIMIT 1
-                            ",
-								trim( $custom_duplicate_name ),
-								trim( $custom_duplicate_value )
-							)
-						);
+                            ", trim( $custom_duplicate_name ), trim( $custom_duplicate_value ) ) );
 					}
 
 					if ( $id ) {
@@ -128,25 +121,19 @@ function pmxi_findDuplicates( $articleData, $custom_duplicate_name = '', $custom
 				}
 			}
 		}
+
 		return $duplicate_ids;
 	} elseif ( 'parent' == $duplicate_indicator ) {
 		$field = 'post_title'; // post_title or post_content
-		return $wpdb->get_col(
-			$wpdb->prepare(
-				'
+
+		return $wpdb->get_col( $wpdb->prepare( '
 			SELECT ID FROM ' . $wpdb->posts . "
 			WHERE
 				post_type = %s
 				AND ID != %s
 				AND post_parent = %s
 				AND REPLACE(REPLACE(REPLACE($field, ' ', ''), '\\t', ''), '\\n', '') = %s
-			",
-				$articleData['post_type'],
-				isset( $articleData['ID'] ) ? $articleData['ID'] : 0,
-				( ! empty( $articleData['post_parent'] ) ) ? $articleData['post_parent'] : 0,
-				preg_replace( '%[ \\t\\n]%', '', $articleData[ $field ] )
-			)
-		);
+			", $articleData['post_type'], isset( $articleData['ID'] ) ? $articleData['ID'] : 0, ( ! empty( $articleData['post_parent'] ) ) ? $articleData['post_parent'] : 0, preg_replace( '%[ \\t\\n]%', '', $articleData[ $field ] ) ) );
 	} elseif ( ! empty( $articleData['post_type'] ) ) {
 		switch ( $articleData['post_type'] ) {
 			case 'taxonomies':
@@ -154,9 +141,8 @@ function pmxi_findDuplicates( $articleData, $custom_duplicate_name = '', $custom
 				if ( empty( $indicator_value ) ) {
 					$indicator_value = $duplicate_indicator == 'title' ? $articleData['post_title'] : $articleData['slug'];
 				}
-				return $wpdb->get_col(
-					$wpdb->prepare(
-						'
+
+				return $wpdb->get_col( $wpdb->prepare( '
             SELECT t.term_id FROM ' . $wpdb->terms . ' t
             INNER JOIN ' . $wpdb->term_taxonomy . ' tt ON (t.term_id = tt.term_id)
             WHERE
@@ -165,55 +151,39 @@ function pmxi_findDuplicates( $articleData, $custom_duplicate_name = '', $custom
                     AND (REPLACE(REPLACE(REPLACE(t.' . $field . ", ' ', ''), '\\t', ''), '\\n', '') = %s
                         OR REPLACE(REPLACE(REPLACE(t." . $field . ", ' ', ''), '\\t', ''), '\\n', '') = %s
                             OR REPLACE(REPLACE(REPLACE(t." . $field . ", ' ', ''), '\\t', ''), '\\n', '') = %s) 
-            ",
-						isset( $articleData['ID'] ) ? $articleData['ID'] : 0,
-						isset( $articleData['taxonomy'] ) ? $articleData['taxonomy'] : '%',
-						preg_replace( '%[ \\t\\n]%', '', esc_attr( $indicator_value ) ),
-						preg_replace( '%[ \\t\\n]%', '', htmlentities( $indicator_value ) ),
-						preg_replace( '%[ \\t\\n]%', '', $indicator_value )
-					)
-				);
+            ", isset( $articleData['ID'] ) ? $articleData['ID'] : 0, isset( $articleData['taxonomy'] ) ? $articleData['taxonomy'] : '%', preg_replace( '%[ \\t\\n]%', '', esc_attr( $indicator_value ) ), preg_replace( '%[ \\t\\n]%', '', htmlentities( $indicator_value ) ), preg_replace( '%[ \\t\\n]%', '', $indicator_value ) ) );
 				break;
 			case 'comments':
 				$field = 'comment_' . $duplicate_indicator; // post_title or post_content
-				return $wpdb->get_col(
-					$wpdb->prepare(
-						'
+
+				return $wpdb->get_col( $wpdb->prepare( '
             SELECT comment_ID FROM ' . $wpdb->comments . "
             WHERE                
                 AND comment_ID != %s
                 AND REPLACE(REPLACE(REPLACE($field, ' ', ''), '\\t', ''), '\\n', '') = %s
-            ",
-						isset( $articleData['ID'] ) ? $articleData['ID'] : 0,
-						preg_replace( '%[ \\t\\n]%', '', $articleData[ $field ] )
-					)
-				);
+            ", isset( $articleData['ID'] ) ? $articleData['ID'] : 0, preg_replace( '%[ \\t\\n]%', '', $articleData[ $field ] ) ) );
 				break;
 			default:
 				$field = 'post_' . $duplicate_indicator; // post_title or post_content
-				return $wpdb->get_col(
-					$wpdb->prepare(
-						'
+
+				return $wpdb->get_col( $wpdb->prepare( '
             SELECT ID FROM ' . $wpdb->posts . "
             WHERE
                 post_type = %s
                 AND ID != %s
                 AND REPLACE(REPLACE(REPLACE($field, ' ', ''), '\\t', ''), '\\n', '') = %s
-            ",
-						$articleData['post_type'],
-						isset( $articleData['ID'] ) ? $articleData['ID'] : 0,
-						preg_replace( '%[ \\t\\n]%', '', $articleData[ $field ] )
-					)
-				);
+            ", $articleData['post_type'], isset( $articleData['ID'] ) ? $articleData['ID'] : 0, preg_replace( '%[ \\t\\n]%', '', $articleData[ $field ] ) ) );
 				break;
 		}
 	} elseif ( $duplicate_indicator == 'title' ) {
-			$field = 'user_login';
-			$u     = get_user_by( 'login', $articleData[ $field ] );
-			return ( ! empty( $u ) ) ? array( $u->ID ) : false;
+		$field = 'user_login';
+		$u     = get_user_by( 'login', $articleData[ $field ] );
+
+		return ( ! empty( $u ) ) ? array( $u->ID ) : false;
 	} else {
 		$field = 'user_email';
 		$u     = get_user_by( 'email', $articleData[ $field ] );
+
 		return ( ! empty( $u ) ) ? array( $u->ID ) : false;
 	}
 }

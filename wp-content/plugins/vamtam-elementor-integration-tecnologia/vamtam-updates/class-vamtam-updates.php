@@ -73,7 +73,9 @@ class Vamtam_Updates_4 {
 	public function update_handler( $plugin_file, $plugin_data, $status ) {
 		if ( $plugin_file === $this->main_file ) {
 			remove_all_actions( "after_plugin_row_{$plugin_file}" );
-			add_action( "after_plugin_row_{$plugin_file}", array( $this, 'version_update_notice'), 10, 2);
+			if ( defined( 'VAMTAM_ENVATO_THEME_ID' ) ) {
+				add_action( "after_plugin_row_{$plugin_file}", array( $this, 'version_update_notice'), 10, 2);
+			}
 		}
 	}
 

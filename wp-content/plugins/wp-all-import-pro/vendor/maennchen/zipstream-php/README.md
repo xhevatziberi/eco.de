@@ -14,13 +14,15 @@ version.
 
 ## Overview
 
-A fast and simple streaming zip file downloader for PHP. Using this library will save you from having to write the Zip to disk. You can directly send it to the user, which is much faster. It can work with S3 buckets or any PSR7 Stream.
+A fast and simple streaming zip file downloader for PHP. Using this library will save you from having to write the Zip
+to disk. You can directly send it to the user, which is much faster. It can work with S3 buckets or any PSR7 Stream.
 
 Please see the [LICENSE](LICENSE) file for licensing and warranty information.
 
 ## Installation
 
-Simply add a dependency on maennchen/zipstream-php to your project's composer.json file if you use Composer to manage the dependencies of your project. Use following command to add the package to your project's dependencies:
+Simply add a dependency on maennchen/zipstream-php to your project's composer.json file if you use Composer to manage
+the dependencies of your project. Use following command to add the package to your project's dependencies:
 
 ```bash
 composer require maennchen/zipstream-php
@@ -62,7 +64,8 @@ $zip->finish();
 
 ## Upgrade to version 1.0.0
 
-- All options parameters to all function have been moved from an `array` to structured option objects. See [the wiki](https://github.com/maennchen/ZipStream-PHP/wiki/Available-options) for examples.
+- All options parameters to all function have been moved from an `array` to structured option objects.
+  See [the wiki](https://github.com/maennchen/ZipStream-PHP/wiki/Available-options) for examples.
 - The whole library has been refactored. The minimal PHP requirement has been raised to PHP 7.1.
 
 ## Usage with Symfony and S3
@@ -92,7 +95,8 @@ This project exists thanks to all the people who contribute.
 
 ### Financial Contributors
 
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/zipstream/contribute)]
+Become a financial contributor and help us sustain our
+community. [[Contribute](https://opencollective.com/zipstream/contribute)]
 
 #### Individuals
 
@@ -100,7 +104,8 @@ Become a financial contributor and help us sustain our community. [[Contribute](
 
 #### Organizations
 
-Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/zipstream/contribute)]
+Support this project with your organization. Your logo will show up here with a link to your
+website. [[Contribute](https://opencollective.com/zipstream/contribute)]
 
 <a href="https://opencollective.com/zipstream/organization/0/website"><img src="https://opencollective.com/zipstream/organization/0/avatar.svg"></a>
 <a href="https://opencollective.com/zipstream/organization/1/website"><img src="https://opencollective.com/zipstream/organization/1/avatar.svg"></a>

@@ -40,7 +40,7 @@ function pmxi_wp_loaded_99() {
 			'trigger',
 			'pipe',
 			'cancel',
-			'cleanup'
+			'cleanup',
 		) ) ) {
 
 		/* Confirm cron import key, then execute import */
@@ -49,9 +49,9 @@ function pmxi_wp_loaded_99() {
 		if ( ! empty( $cron_job_key ) && $_GET['import_key'] == $cron_job_key ) {
 
 			$logger = function ( $m ) {
-				print( "<p>[" . date( "H:i:s" ) . "] ".wp_all_import_filter_html_kses($m)."</p>\n" );
+				print( "<p>[" . date( "H:i:s" ) . "] " . wp_all_import_filter_html_kses( $m ) . "</p>\n" );
 			};
-			$logger = apply_filters('wp_all_import_logger', $logger);
+			$logger = apply_filters( 'wp_all_import_logger', $logger );
 
 			if ( empty( $_GET['import_id'] ) ) {
 				if ( $_GET['action'] == 'cleanup' ) {
@@ -59,14 +59,14 @@ function pmxi_wp_loaded_99() {
 					$settings->cleanup( true );
 					pmxi_send_json( array(
 						'status'  => 200,
-						'message' => __( 'Cleanup completed.', 'wp-all-import-pro' )
+						'message' => __( 'Cleanup completed.', 'wp-all-import-pro' ),
 					) );
 
 					return;
 				}
 				pmxi_send_json( array(
 					'status'  => 403,
-					'message' => __( 'Missing import ID.', 'wp-all-import-pro' )
+					'message' => __( 'Missing import ID.', 'wp-all-import-pro' ),
 				) );
 
 				return;
@@ -96,7 +96,7 @@ function pmxi_wp_loaded_99() {
 								}
 								pmxi_send_json( array(
 									'status'  => 403,
-									'message' => sprintf( __( 'Other imports are currently in process [%s].', 'wp-all-import-pro' ), implode( ",", $processing_ids ) )
+									'message' => sprintf( __( 'Other imports are currently in process [%s].', 'wp-all-import-pro' ), implode( ",", $processing_ids ) ),
 								) );
 								break;
 							}
@@ -105,7 +105,7 @@ function pmxi_wp_loaded_99() {
 						if ( ! in_array( $import->type, array( 'url', 'ftp', 'file' ) ) ) {
 							pmxi_send_json( array(
 								'status'  => 500,
-								'message' => sprintf( __( 'Scheduling update is not working with "upload" import type. Import #%s.', 'wp-all-import-pro' ), $id )
+								'message' => sprintf( __( 'Scheduling update is not working with "upload" import type. Import #%s.', 'wp-all-import-pro' ), $id ),
 							) );
 						}
 
@@ -117,7 +117,7 @@ function pmxi_wp_loaded_99() {
 
 									pmxi_send_json( array(
 										'status'  => 403,
-										'message' => sprintf( __( 'Import #%s is currently in manually process. Request skipped.', 'wp-all-import-pro' ), $id )
+										'message' => sprintf( __( 'Import #%s is currently in manually process. Request skipped.', 'wp-all-import-pro' ), $id ),
 									) );
 								} elseif ( ! $import->processing and ! $import->triggered ) {
 
@@ -127,19 +127,19 @@ function pmxi_wp_loaded_99() {
 
 									pmxi_send_json( array(
 										'status'  => 200,
-										'message' => sprintf( __( '#%s Cron job triggered.', 'wp-all-import-pro' ), $id )
+										'message' => sprintf( __( '#%s Cron job triggered.', 'wp-all-import-pro' ), $id ),
 									) );
 
 								} elseif ( $import->processing and ! $import->triggered ) {
 									pmxi_send_json( array(
 										'status'  => 403,
-										'message' => sprintf( __( 'Import #%s currently in process. Request skipped.', 'wp-all-import-pro' ), $id )
+										'message' => sprintf( __( 'Import #%s currently in process. Request skipped.', 'wp-all-import-pro' ), $id ),
 									) );
 								} elseif ( ! $import->processing and $import->triggered ) {
 
 									pmxi_send_json( array(
 										'status'  => 403,
-										'message' => sprintf( __( 'Import #%s already triggered. Request skipped.', 'wp-all-import-pro' ), $id )
+										'message' => sprintf( __( 'Import #%s already triggered. Request skipped.', 'wp-all-import-pro' ), $id ),
 									) );
 								}
 
@@ -154,7 +154,7 @@ function pmxi_wp_loaded_99() {
 
 								if ( $import->processing == 1 and ( time() - strtotime( $import->registered_on ) ) > $max_wait ) { // it means processor crashed, so it will reset processing to false, and terminate. Then next run it will work normally.
 									$import->set( array(
-										'processing' => 0
+										'processing' => 0,
 									) )->update();
 								}
 
@@ -162,12 +162,12 @@ function pmxi_wp_loaded_99() {
 								if ( ! (int) $import->triggered ) {
 									pmxi_send_json( array(
 										'status'  => 403,
-										'message' => sprintf( __( 'Import #%s is not triggered. Request skipped.', 'wp-all-import-pro' ), $id )
+										'message' => sprintf( __( 'Import #%s is not triggered. Request skipped.', 'wp-all-import-pro' ), $id ),
 									) );
 								} elseif ( (int) $import->executing ) {
 									pmxi_send_json( array(
 										'status'  => 403,
-										'message' => sprintf( __( 'Import #%s is currently in manually process. Request skipped.', 'wp-all-import-pro' ), $id )
+										'message' => sprintf( __( 'Import #%s is currently in manually process. Request skipped.', 'wp-all-import-pro' ), $id ),
 									) );
 								} elseif ( (int) $import->triggered and ! (int) $import->processing ) {
 
@@ -181,19 +181,19 @@ function pmxi_wp_loaded_99() {
 
 										pmxi_send_json( array(
 											'status'  => 200,
-											'message' => sprintf( __( 'Import #%s complete', 'wp-all-import-pro' ), $import->id )
+											'message' => sprintf( __( 'Import #%s complete', 'wp-all-import-pro' ), $import->id ),
 										) );
 									} else {
 										pmxi_send_json( array(
 											'status'  => 200,
-											'message' => sprintf( __( 'Records Processed %s. Records Count %s.', 'wp-all-import-pro' ), (int) $import->queue_chunk_number, (int) $import->count )
+											'message' => sprintf( __( 'Records Processed %s. Records Count %s.', 'wp-all-import-pro' ), (int) $import->queue_chunk_number, (int) $import->count ),
 										) );
 									}
 
 								} else {
 									pmxi_send_json( array(
 										'status'  => 403,
-										'message' => sprintf( __( 'Import #%s already processing. Request skipped.', 'wp-all-import-pro' ), $id )
+										'message' => sprintf( __( 'Import #%s already processing. Request skipped.', 'wp-all-import-pro' ), $id ),
 									) );
 								}
 
@@ -211,12 +211,12 @@ function pmxi_wp_loaded_99() {
 									'processing'  => 0,
 									'executing'   => 0,
 									'canceled'    => 1,
-									'canceled_on' => date( 'Y-m-d H:i:s' )
+									'canceled_on' => date( 'Y-m-d H:i:s' ),
 								) )->update();
 
 								pmxi_send_json( array(
 									'status'  => 200,
-									'message' => sprintf( __( 'Import #%s canceled', 'wp-all-import-pro' ), $import->id )
+									'message' => sprintf( __( 'Import #%s canceled', 'wp-all-import-pro' ), $import->id ),
 								) );
 
 								break;
@@ -229,28 +229,24 @@ function pmxi_wp_loaded_99() {
 
 }
 
-function pmxi_send_json($response, $status_code = null, $options = 0){
-	header("Content-Type: application/json; charset=" . get_option( 'blog_charset' ));
-	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, no-transform");
-	header("CDN-Cache-Control: no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, no-transform");
-	header("Cloudflare-CDN-Cache-Control: no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, no-transform");
-	header("Cache-Control: post-check=0, pre-check=0", false);
-	header("Pragma: no-cache");
+function pmxi_send_json( $response, $status_code = null, $options = 0 ) {
+	header( "Content-Type: application/json; charset=" . get_option( 'blog_charset' ) );
+	header( "Cache-Control: no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, no-transform" );
+	header( "CDN-Cache-Control: no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, no-transform" );
+	header( "Cloudflare-CDN-Cache-Control: no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, no-transform" );
+	header( "Cache-Control: post-check=0, pre-check=0", false );
+	header( "Pragma: no-cache" );
 
 	if ( null !== $status_code ) {
 		status_header( $status_code );
 	}
 
-	echo wp_json_encode($response, $options);
+	echo wp_json_encode( $response, $options );
 
 	if ( wp_doing_ajax() ) {
-		wp_die(
-			'',
-			'',
-			array(
+		wp_die( '', '', array(
 				'response' => null,
-			)
-		);
+			) );
 	} else {
 		die;
 	}

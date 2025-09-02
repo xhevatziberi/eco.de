@@ -29,7 +29,7 @@ class Version_Checker {
 
 	public function __construct() {
 		$this->remote   = 'https://api.vamtam.com/version';
-		$this->interval = 2 * 3600;
+		$this->interval = 24 * 3600;
 
 		$this->update_api_url   = $this->update_api_prefix . 'check-theme';
 		$this->validate_api_url = $this->update_api_prefix . 'validate-license';
@@ -65,8 +65,9 @@ class Version_Checker {
 
 		if (
 			isset( $updates->response ) &&
-			isset( $updates->response[ $theme_name ] ) /*&&
-			strpos( $updates->response[ $theme_name ]['package'], 'downloads.wordpress.org' ) !== false*/
+			isset( $updates->response[ $theme_name ] ) &&
+			isset( $updates->response[ $theme_name ]['package'] ) &&
+			strpos( $updates->response[ $theme_name ]['package'], 'downloads.wordpress.org' ) !== false
 		) {
 			unset( $updates->response[ $theme_name ] );
 		}
@@ -226,6 +227,9 @@ class Version_Checker {
 						VamtamFramework::license( self::$VALID_LICENSE );
 						if ( $is_token ) {
 							update_option( VamtamFramework::get_token_option_key(), '1' );
+							delete_option( VamtamFramework::get_purchase_code_option_key() );
+						} else {
+							delete_option( VamtamFramework::get_token_option_key() );
 						}
 					} else {
 						if ( ! $no_ajax ) {
@@ -262,12 +266,19 @@ class Version_Checker {
 		$key = VamtamFramework::get_purchase_code();
 
 		if ( ! empty( $key ) ) {
-			$raw_response = wp_remote_post( 'https://updates.vamtam.com/api/check-banned-key', array(
-				'body' => array(
-					'purchase_key' => $key,
-				),
-				'user-agent' => 'WordPress/' . $wp_version . '; ' . get_option( 'home' ),
-			) );
+			$transient_key = 'vamtam_banned_key_check_' . md5( $key );
+			$raw_response = get_transient( $transient_key );
+
+			if ( $raw_response === false ) {
+				$raw_response = wp_remote_post( 'https://updates.vamtam.com/api/check-banned-key', [
+					'body' => [
+						'purchase_key' => $key,
+					],
+					'user-agent' => 'WordPress/' . $wp_version . '; ' . get_option( 'home' ),
+				] );
+
+				set_transient( $transient_key, $raw_response, DAY_IN_SECONDS );
+			}
 
 			if ( ! is_wp_error( $raw_response ) ) {
 				if ( $raw_response['response']['code'] === 499 ) {
@@ -294,9 +305,9 @@ class Version_Checker {
 		$current_license_key = VamtamFramework::get_purchase_code();
 
 		$system_status_opt_out_old = get_option( 'vamtam-system-status-opt-in-old' );
-		$system_status_opt_out     = get_option( 'vamtam-system-status-opt-in' );
+		$system_status_opt_out     = get_option( 'vamtam-system-status-opt-in', true );
 
-		if ( $last_license_key !== $current_license_key || $system_status_opt_out_old !== $system_status_opt_out || false === get_transient( $key ) ) {
+		if ( $last_license_key !== $current_license_key || $system_status_opt_out_old != $system_status_opt_out || false === get_transient( $key ) ) {
 			global $wp_version;
 
 			$data = array(
@@ -318,7 +329,7 @@ class Version_Checker {
 				update_option( VamtamFramework::get_purchase_code_option_key() . '-old', $current_license_key );
 			}
 
-			if ( $system_status_opt_out_old !== $system_status_opt_out ) {
+			if ( $system_status_opt_out_old != $system_status_opt_out ) {
 				update_option( 'vamtam-system-status-opt-in-old', $system_status_opt_out );
 			}
 
@@ -359,7 +370,7 @@ class Version_Checker {
 	}
 
 	public static function system_status() {
-		if ( ! get_option( 'vamtam-system-status-opt-in' ) ) {
+		if ( ! get_option( 'vamtam-system-status-opt-in', true ) ) {
 			return array(
 				'disabled' => true,
 			);
@@ -372,14 +383,12 @@ class Version_Checker {
 			'wp_debug_log'     => WP_DEBUG_LOG,
 			'active_plugins'   => array(),
 			'writable'         => array(),
-			'ziparchive'       => class_exists( 'ZipArchive' ),
+			'diagnostics'      => VamtamDiagnostics::tests( true ),
 		);
 
 		if ( function_exists( 'ini_get' ) ) {
-			$result['post_max_size']      = ini_get( 'post_max_size' );
 			$result['max_input_vars']     = ini_get( 'max_input_vars' );
 			$result['max_execution_time'] = ini_get( 'max_execution_time' );
-			$result['memory_limit']       = ini_get( 'memory_limit' );
 		}
 
 		$active_plugins = self::active_plugins();

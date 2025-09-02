@@ -4,6 +4,5 @@ namespace League\Flysystem;
 
 use RuntimeException;
 
-class InvalidRootException extends RuntimeException implements FilesystemException
-{
+class InvalidRootException extends RuntimeException implements FilesystemException {
 }

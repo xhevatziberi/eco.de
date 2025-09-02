@@ -22,13 +22,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class PBEParameter
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'salt' => ['type' => ASN1::TYPE_OCTET_STRING],
-            'iterationCount' => ['type' => ASN1::TYPE_INTEGER]
-        ]
-    ];
+abstract class PBEParameter {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'salt'           => [ 'type' => ASN1::TYPE_OCTET_STRING ],
+			'iterationCount' => [ 'type' => ASN1::TYPE_INTEGER ],
+		],
+	];
 }

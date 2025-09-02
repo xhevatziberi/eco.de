@@ -457,7 +457,7 @@ if ( vamtam_theme_supports( 'posts-base--horizontal-layout' ) ) {
 		// Columns.
 		\Vamtam_Elementor_Utils::replace_control_options( $controls_manager, $widget, "{$skin_prefix}_columns", [
 			// This is required cause of https://github.com/elementor/elementor/issues/12947
-			// 'prefix_class' => 'elementor-grid%s-',
+			'prefix_class' => 'elementor-grid%s-',
 		] );
 	}
 	function add_hr_layout_controls_for_skin( $controls_manager, $widget, $skin_prefix ) {

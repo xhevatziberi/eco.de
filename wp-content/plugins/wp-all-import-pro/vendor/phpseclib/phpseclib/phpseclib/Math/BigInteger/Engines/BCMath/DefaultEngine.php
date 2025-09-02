@@ -20,6 +20,5 @@ use phpseclib3\Math\BigInteger\Engines\BCMath\Reductions\Barrett;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class DefaultEngine extends Barrett
-{
+abstract class DefaultEngine extends Barrett {
 }

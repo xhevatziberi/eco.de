@@ -18,39 +18,40 @@
  * to the output stack and back.
  */
 class HTMLPurifier_Queue {
-    private $input;
-    private $output;
+	private $input;
+	private $output;
 
-    public function __construct($input = array()) {
-        $this->input = $input;
-        $this->output = array();
-    }
+	public function __construct( $input = array() ) {
+		$this->input  = $input;
+		$this->output = array();
+	}
 
-    /**
-     * Shifts an element off the front of the queue.
-     */
-    public function shift() {
-        if (empty($this->output)) {
-            $this->output = array_reverse($this->input);
-            $this->input = array();
-        }
-        if (empty($this->output)) {
-            return NULL;
-        }
-        return array_pop($this->output);
-    }
+	/**
+	 * Shifts an element off the front of the queue.
+	 */
+	public function shift() {
+		if ( empty( $this->output ) ) {
+			$this->output = array_reverse( $this->input );
+			$this->input  = array();
+		}
+		if ( empty( $this->output ) ) {
+			return null;
+		}
 
-    /**
-     * Pushes an element onto the front of the queue.
-     */
-    public function push($x) {
-        array_push($this->input, $x);
-    }
+		return array_pop( $this->output );
+	}
 
-    /**
-     * Checks if it's empty.
-     */
-    public function isEmpty() {
-        return empty($this->input) && empty($this->output);
-    }
+	/**
+	 * Pushes an element onto the front of the queue.
+	 */
+	public function push( $x ) {
+		array_push( $this->input, $x );
+	}
+
+	/**
+	 * Checks if it's empty.
+	 */
+	public function isEmpty() {
+		return empty( $this->input ) && empty( $this->output );
+	}
 }

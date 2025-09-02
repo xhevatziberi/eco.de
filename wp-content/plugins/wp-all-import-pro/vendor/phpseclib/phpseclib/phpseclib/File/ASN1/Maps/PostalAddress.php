@@ -20,13 +20,12 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class PostalAddress
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'optional' => true,
-        'min' => 1,
-        'max' => -1,
-        'children' => DirectoryString::MAP
-    ];
+abstract class PostalAddress {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'optional' => true,
+		'min'      => 1,
+		'max'      => - 1,
+		'children' => DirectoryString::MAP,
+	];
 }

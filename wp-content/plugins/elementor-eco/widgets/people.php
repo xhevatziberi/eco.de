@@ -123,7 +123,7 @@ class People extends Widget_Base {
 						<div class="eco-person-content">
 							<h3><?php echo esc_html($name); ?></h3>
 							<?php if ($position) : ?>
-								<p><strong><?php echo esc_html($position); ?></strong></p>
+								<p><strong><?php echo $position; ?></strong></p>
 							<?php endif; ?>
 							<?php if ($company) : ?>
 								<p><?php echo esc_html($company); ?></p>
@@ -138,7 +138,7 @@ class People extends Widget_Base {
 										data-name="<?php echo esc_attr($name); ?>"
 										data-position="<?php echo esc_attr($position); ?>"
 										data-company="<?php echo esc_attr($company); ?>"
-										data-address="<?php echo esc_attr($address); ?>"
+										data-address="<?php echo $address; ?>"
 										data-phone="<?php echo esc_attr($phone); ?>"
 										data-email="<?php echo esc_attr($email); ?>"
 										data-facebook="<?php echo $social_facebook; ?>"
@@ -222,4 +222,89 @@ class People extends Widget_Base {
 		</div>
 		<?php
 	}
+
+	public function render_people_by_ids($ids = []) {
+		if (empty($ids)) return;
+
+		$args = [
+			'post_type' => 'people',
+			'post__in' => $ids,
+			'orderby' => 'post__in',
+			'posts_per_page' => -1,
+		];
+
+		$query = new \WP_Query($args);
+
+		if ($query->have_posts()) :
+			ob_start();
+			?>
+			<div class="eco-people-list">
+				<?php while ($query->have_posts()) : $query->the_post();
+
+					$name = get_field('name') ?: get_the_title();
+					$company = get_field('company');
+					$position = get_field('position');
+					$address = get_field('address');
+					$phone = get_field('phone');
+					$email = get_field('email');
+					$biography = get_field('biography');
+					$social = get_field('social_media');
+					$photo = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+
+					$social_facebook = !empty($social['facebook']) ? esc_url($social['facebook']) : '';
+					$social_twitter  = !empty($social['twitter']) ? esc_url($social['twitter']) : '';
+					$social_linkedin = !empty($social['linkedin']) ? esc_url($social['linkedin']) : '';
+					$social_xing     = !empty($social['xing']) ? esc_url($social['xing']) : '';
+					?>
+					<div class="eco-person">
+						<div class="eco-person-photo">
+							<?php if ($photo): ?>
+								<img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" />
+							<?php endif; ?>
+						</div>
+						<div class="eco-person-content">
+							<h3><?php echo esc_html($name); ?></h3>
+							<?php if ($position): ?>
+								<p><strong><?php echo esc_html($position); ?></strong></p>
+							<?php endif; ?>
+							<?php if ($company): ?>
+								<p><?php echo esc_html($company); ?></p>
+							<?php endif; ?>
+							<?php if ($address || $phone || $email || $social || $biography): ?>
+								<p>
+									<a href="#"
+									class="eco-biography-link"
+									data-name="<?php echo esc_attr($name); ?>"
+									data-position="<?php echo esc_attr($position); ?>"
+									data-company="<?php echo esc_attr($company); ?>"
+									data-address="<?php echo esc_attr($address); ?>"
+									data-phone="<?php echo esc_attr($phone); ?>"
+									data-email="<?php echo esc_attr($email); ?>"
+									data-facebook="<?php echo $social_facebook; ?>"
+									data-twitter="<?php echo $social_twitter; ?>"
+									data-linkedin="<?php echo $social_linkedin; ?>"
+									data-xing="<?php echo $social_xing; ?>"
+									data-biography="<?php echo esc_attr(wp_strip_all_tags($biography)); ?>">
+										<i class="fas fa-info-circle"></i> <?php _e('More Information', 'elementor-eco'); ?>
+									</a>
+								</p>
+							<?php endif; ?>
+						</div>
+					</div>
+				<?php endwhile; ?>
+			</div>
+			<!-- Modal -->
+			<div id="eco-biography-modal" class="eco-modal">
+				<div class="eco-modal-content">
+					<span class="eco-modal-close">&times;</span>
+					<h3 class="eco-modal-title"></h3>
+					<div class="eco-modal-body"></div>
+				</div>
+			</div>
+			<?php
+			wp_reset_postdata();
+			return ob_get_clean();
+		endif;
+	}
+
 }

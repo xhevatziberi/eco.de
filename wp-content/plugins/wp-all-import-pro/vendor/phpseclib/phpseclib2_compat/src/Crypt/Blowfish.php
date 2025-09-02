@@ -44,23 +44,23 @@ namespace phpseclib\Crypt;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class Blowfish extends Base
-{
-    /**
-     * Turns key lengths, be they valid or invalid, to valid key lengths
-     *
-     * @param int $length
-     * @access private
-     * @return int
-     */
-    protected function calculateNewKeyLength($length)
-    {
-        switch (true) {
-            case $length < 32:
-                return 32;
-            case $length > 448:
-                return 448;
-        }
-        return $length;
-    }
+class Blowfish extends Base {
+	/**
+	 * Turns key lengths, be they valid or invalid, to valid key lengths
+	 *
+	 * @param int $length
+	 *
+	 * @access private
+	 * @return int
+	 */
+	protected function calculateNewKeyLength( $length ) {
+		switch ( true ) {
+			case $length < 32:
+				return 32;
+			case $length > 448:
+				return 448;
+		}
+
+		return $length;
+	}
 }

@@ -303,6 +303,7 @@ class VamtamFramework {
 				'nav-menu--custom-sub-indicators',
 				'posts-base--responsive-image-position',
 				'testimonial-carousel--custom-nav-arrows-controls',
+				'testimonial-carousel--reserve-slide-height',
 				'nav-menu--toggle-sticky-hover-state-on-touch-fix',
 			];
 
@@ -541,7 +542,7 @@ class VamtamFramework {
 						<?php else : ?>
 							<p>This licence key has been activated on too many websites. You can activate it on one Live and one Staging site.</p>
 							<p>Please refer to this article for more details - <a target="_blank" href="https://themeforest.net/licenses/standard">https://themeforest.net/licenses/standard</a>.</p>
-							<p>So that you know, it may take up to 12 hours to unregister a key from a site.</p>
+							<p>It may take up to 24 hours to unregister a key from a site.</p>
 						<?php endif; ?>
 					</div>
 				</div>
@@ -570,7 +571,7 @@ class VamtamFramework {
 							) ), 'vamtam-a-span' );
 							?>
 						</p>
-						<p>So that you know, it may take up to 12 hours to unregister a key from a site.</p>
+						<p>It may take up to 24 hours to unregister a key from a site.</p>
 					</div>
 				</div>
 			</div>

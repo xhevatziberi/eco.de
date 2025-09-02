@@ -22,39 +22,38 @@ use phpseclib3\Math\BigInteger;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class Raw
-{
-    /**
-     * Loads a signature
-     *
-     * @param array $sig
-     * @return array|bool
-     */
-    public static function load($sig)
-    {
-        switch (true) {
-            case !is_array($sig):
-            case !isset($sig['r']) || !isset($sig['s']):
-            case !$sig['r'] instanceof BigInteger:
-            case !$sig['s'] instanceof BigInteger:
-                return false;
-        }
+abstract class Raw {
+	/**
+	 * Loads a signature
+	 *
+	 * @param array $sig
+	 *
+	 * @return array|bool
+	 */
+	public static function load( $sig ) {
+		switch ( true ) {
+			case ! is_array( $sig ):
+			case ! isset( $sig['r'] ) || ! isset( $sig['s'] ):
+			case ! $sig['r'] instanceof BigInteger:
+			case ! $sig['s'] instanceof BigInteger:
+				return false;
+		}
 
-        return [
-            'r' => $sig['r'],
-            's' => $sig['s']
-        ];
-    }
+		return [
+			'r' => $sig['r'],
+			's' => $sig['s'],
+		];
+	}
 
-    /**
-     * Returns a signature in the appropriate format
-     *
-     * @param BigInteger $r
-     * @param BigInteger $s
-     * @return string
-     */
-    public static function save(BigInteger $r, BigInteger $s)
-    {
-        return compact('r', 's');
-    }
+	/**
+	 * Returns a signature in the appropriate format
+	 *
+	 * @param BigInteger $r
+	 * @param BigInteger $s
+	 *
+	 * @return string
+	 */
+	public static function save( BigInteger $r, BigInteger $s ) {
+		return compact( 'r', 's' );
+	}
 }

@@ -49,232 +49,229 @@ use phpseclib3\Crypt\Common\StreamCipher;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-class RC4 extends StreamCipher
-{
-    /**
-     * @see \phpseclib3\Crypt\RC4::_crypt()
-     */
-    const ENCRYPT = 0;
+class RC4 extends StreamCipher {
+	/**
+	 * @see \phpseclib3\Crypt\RC4::_crypt()
+	 */
+	const ENCRYPT = 0;
 
-    /**
-     * @see \phpseclib3\Crypt\RC4::_crypt()
-     */
-    const DECRYPT = 1;
+	/**
+	 * @see \phpseclib3\Crypt\RC4::_crypt()
+	 */
+	const DECRYPT = 1;
 
-    /**
-     * Key Length (in bytes)
-     *
-     * @see \phpseclib3\Crypt\RC4::setKeyLength()
-     * @var int
-     */
-    protected $key_length = 128; // = 1024 bits
+	/**
+	 * Key Length (in bytes)
+	 *
+	 * @see \phpseclib3\Crypt\RC4::setKeyLength()
+	 * @var int
+	 */
+	protected $key_length = 128; // = 1024 bits
 
-    /**
-     * The mcrypt specific name of the cipher
-     *
-     * @see \phpseclib3\Crypt\Common\SymmetricKey::cipher_name_mcrypt
-     * @var string
-     */
-    protected $cipher_name_mcrypt = 'arcfour';
+	/**
+	 * The mcrypt specific name of the cipher
+	 *
+	 * @see \phpseclib3\Crypt\Common\SymmetricKey::cipher_name_mcrypt
+	 * @var string
+	 */
+	protected $cipher_name_mcrypt = 'arcfour';
 
-    /**
-     * The Key
-     *
-     * @see self::setKey()
-     * @var string
-     */
-    protected $key;
+	/**
+	 * The Key
+	 *
+	 * @see self::setKey()
+	 * @var string
+	 */
+	protected $key;
 
-    /**
-     * The Key Stream for decryption and encryption
-     *
-     * @see self::setKey()
-     * @var array
-     */
-    private $stream;
+	/**
+	 * The Key Stream for decryption and encryption
+	 *
+	 * @see self::setKey()
+	 * @var array
+	 */
+	private $stream;
 
-    /**
-     * Test for engine validity
-     *
-     * This is mainly just a wrapper to set things up for \phpseclib3\Crypt\Common\SymmetricKey::isValidEngine()
-     *
-     * @see \phpseclib3\Crypt\Common\SymmetricKey::__construct()
-     * @param int $engine
-     * @return bool
-     */
-    protected function isValidEngineHelper($engine)
-    {
-        if ($engine == self::ENGINE_OPENSSL) {
-            if ($this->continuousBuffer) {
-                return false;
-            }
-            // quoting https://www.openssl.org/news/openssl-3.0-notes.html, OpenSSL 3.0.1
-            // "Moved all variations of the EVP ciphers CAST5, BF, IDEA, SEED, RC2, RC4, RC5, and DES to the legacy provider"
-            // in theory openssl_get_cipher_methods() should catch this but, on GitHub Actions, at least, it does not
-            if (defined('OPENSSL_VERSION_TEXT') && version_compare(preg_replace('#OpenSSL (\d+\.\d+\.\d+) .*#', '$1', OPENSSL_VERSION_TEXT), '3.0.1', '>=')) {
-                return false;
-            }
-            $this->cipher_name_openssl = 'rc4-40';
-        }
+	/**
+	 * Test for engine validity
+	 *
+	 * This is mainly just a wrapper to set things up for \phpseclib3\Crypt\Common\SymmetricKey::isValidEngine()
+	 *
+	 * @param int $engine
+	 *
+	 * @return bool
+	 * @see \phpseclib3\Crypt\Common\SymmetricKey::__construct()
+	 */
+	protected function isValidEngineHelper( $engine ) {
+		if ( $engine == self::ENGINE_OPENSSL ) {
+			if ( $this->continuousBuffer ) {
+				return false;
+			}
+			// quoting https://www.openssl.org/news/openssl-3.0-notes.html, OpenSSL 3.0.1
+			// "Moved all variations of the EVP ciphers CAST5, BF, IDEA, SEED, RC2, RC4, RC5, and DES to the legacy provider"
+			// in theory openssl_get_cipher_methods() should catch this but, on GitHub Actions, at least, it does not
+			if ( defined( 'OPENSSL_VERSION_TEXT' ) && version_compare( preg_replace( '#OpenSSL (\d+\.\d+\.\d+) .*#', '$1', OPENSSL_VERSION_TEXT ), '3.0.1', '>=' ) ) {
+				return false;
+			}
+			$this->cipher_name_openssl = 'rc4-40';
+		}
 
-        return parent::isValidEngineHelper($engine);
-    }
+		return parent::isValidEngineHelper( $engine );
+	}
 
-    /**
-     * Sets the key length
-     *
-     * Keys can be between 1 and 256 bytes long.
-     *
-     * @param int $length
-     * @throws \LengthException if the key length is invalid
-     */
-    public function setKeyLength($length)
-    {
-        if ($length < 8 || $length > 2048) {
-            throw new \LengthException('Key size of ' . $length . ' bits is not supported by this algorithm. Only keys between 1 and 256 bytes are supported');
-        }
+	/**
+	 * Sets the key length
+	 *
+	 * Keys can be between 1 and 256 bytes long.
+	 *
+	 * @param int $length
+	 *
+	 * @throws \LengthException if the key length is invalid
+	 */
+	public function setKeyLength( $length ) {
+		if ( $length < 8 || $length > 2048 ) {
+			throw new \LengthException( 'Key size of ' . $length . ' bits is not supported by this algorithm. Only keys between 1 and 256 bytes are supported' );
+		}
 
-        $this->key_length = $length >> 3;
+		$this->key_length = $length >> 3;
 
-        parent::setKeyLength($length);
-    }
+		parent::setKeyLength( $length );
+	}
 
-    /**
-     * Sets the key length
-     *
-     * Keys can be between 1 and 256 bytes long.
-     *
-     * @param string $key
-     */
-    public function setKey($key)
-    {
-        $length = strlen($key);
-        if ($length < 1 || $length > 256) {
-            throw new \LengthException('Key size of ' . $length . ' bytes is not supported by RC4. Keys must be between 1 and 256 bytes long');
-        }
+	/**
+	 * Sets the key length
+	 *
+	 * Keys can be between 1 and 256 bytes long.
+	 *
+	 * @param string $key
+	 */
+	public function setKey( $key ) {
+		$length = strlen( $key );
+		if ( $length < 1 || $length > 256 ) {
+			throw new \LengthException( 'Key size of ' . $length . ' bytes is not supported by RC4. Keys must be between 1 and 256 bytes long' );
+		}
 
-        parent::setKey($key);
-    }
+		parent::setKey( $key );
+	}
 
-    /**
-     * Encrypts a message.
-     *
-     * @see \phpseclib3\Crypt\Common\SymmetricKey::decrypt()
-     * @see self::crypt()
-     * @param string $plaintext
-     * @return string $ciphertext
-     */
-    public function encrypt($plaintext)
-    {
-        if ($this->engine != self::ENGINE_INTERNAL) {
-            return parent::encrypt($plaintext);
-        }
-        return $this->crypt($plaintext, self::ENCRYPT);
-    }
+	/**
+	 * Encrypts a message.
+	 *
+	 * @param string $plaintext
+	 *
+	 * @return string $ciphertext
+	 * @see \phpseclib3\Crypt\Common\SymmetricKey::decrypt()
+	 * @see self::crypt()
+	 */
+	public function encrypt( $plaintext ) {
+		if ( $this->engine != self::ENGINE_INTERNAL ) {
+			return parent::encrypt( $plaintext );
+		}
 
-    /**
-     * Decrypts a message.
-     *
-     * $this->decrypt($this->encrypt($plaintext)) == $this->encrypt($this->encrypt($plaintext)).
-     * At least if the continuous buffer is disabled.
-     *
-     * @see \phpseclib3\Crypt\Common\SymmetricKey::encrypt()
-     * @see self::crypt()
-     * @param string $ciphertext
-     * @return string $plaintext
-     */
-    public function decrypt($ciphertext)
-    {
-        if ($this->engine != self::ENGINE_INTERNAL) {
-            return parent::decrypt($ciphertext);
-        }
-        return $this->crypt($ciphertext, self::DECRYPT);
-    }
+		return $this->crypt( $plaintext, self::ENCRYPT );
+	}
 
-    /**
-     * Encrypts a block
-     *
-     * @param string $in
-     */
-    protected function encryptBlock($in)
-    {
-        // RC4 does not utilize this method
-    }
+	/**
+	 * Decrypts a message.
+	 *
+	 * $this->decrypt($this->encrypt($plaintext)) == $this->encrypt($this->encrypt($plaintext)).
+	 * At least if the continuous buffer is disabled.
+	 *
+	 * @param string $ciphertext
+	 *
+	 * @return string $plaintext
+	 * @see \phpseclib3\Crypt\Common\SymmetricKey::encrypt()
+	 * @see self::crypt()
+	 */
+	public function decrypt( $ciphertext ) {
+		if ( $this->engine != self::ENGINE_INTERNAL ) {
+			return parent::decrypt( $ciphertext );
+		}
 
-    /**
-     * Decrypts a block
-     *
-     * @param string $in
-     */
-    protected function decryptBlock($in)
-    {
-        // RC4 does not utilize this method
-    }
+		return $this->crypt( $ciphertext, self::DECRYPT );
+	}
 
-    /**
-     * Setup the key (expansion)
-     *
-     * @see \phpseclib3\Crypt\Common\SymmetricKey::_setupKey()
-     */
-    protected function setupKey()
-    {
-        $key = $this->key;
-        $keyLength = strlen($key);
-        $keyStream = range(0, 255);
-        $j = 0;
-        for ($i = 0; $i < 256; $i++) {
-            $j = ($j + $keyStream[$i] + ord($key[$i % $keyLength])) & 255;
-            $temp = $keyStream[$i];
-            $keyStream[$i] = $keyStream[$j];
-            $keyStream[$j] = $temp;
-        }
+	/**
+	 * Encrypts a block
+	 *
+	 * @param string $in
+	 */
+	protected function encryptBlock( $in ) {
+		// RC4 does not utilize this method
+	}
 
-        $this->stream = [];
-        $this->stream[self::DECRYPT] = $this->stream[self::ENCRYPT] = [
-            0, // index $i
-            0, // index $j
-            $keyStream
-        ];
-    }
+	/**
+	 * Decrypts a block
+	 *
+	 * @param string $in
+	 */
+	protected function decryptBlock( $in ) {
+		// RC4 does not utilize this method
+	}
 
-    /**
-     * Encrypts or decrypts a message.
-     *
-     * @see self::encrypt()
-     * @see self::decrypt()
-     * @param string $text
-     * @param int $mode
-     * @return string $text
-     */
-    private function crypt($text, $mode)
-    {
-        if ($this->changed) {
-            $this->setup();
-        }
+	/**
+	 * Setup the key (expansion)
+	 *
+	 * @see \phpseclib3\Crypt\Common\SymmetricKey::_setupKey()
+	 */
+	protected function setupKey() {
+		$key       = $this->key;
+		$keyLength = strlen( $key );
+		$keyStream = range( 0, 255 );
+		$j         = 0;
+		for ( $i = 0; $i < 256; $i ++ ) {
+			$j               = ( $j + $keyStream[ $i ] + ord( $key[ $i % $keyLength ] ) ) & 255;
+			$temp            = $keyStream[ $i ];
+			$keyStream[ $i ] = $keyStream[ $j ];
+			$keyStream[ $j ] = $temp;
+		}
 
-        $stream = &$this->stream[$mode];
-        if ($this->continuousBuffer) {
-            $i = &$stream[0];
-            $j = &$stream[1];
-            $keyStream = &$stream[2];
-        } else {
-            $i = $stream[0];
-            $j = $stream[1];
-            $keyStream = $stream[2];
-        }
+		$this->stream                  = [];
+		$this->stream[ self::DECRYPT ] = $this->stream[ self::ENCRYPT ] = [
+			0, // index $i
+			0, // index $j
+			$keyStream,
+		];
+	}
 
-        $len = strlen($text);
-        for ($k = 0; $k < $len; ++$k) {
-            $i = ($i + 1) & 255;
-            $ksi = $keyStream[$i];
-            $j = ($j + $ksi) & 255;
-            $ksj = $keyStream[$j];
+	/**
+	 * Encrypts or decrypts a message.
+	 *
+	 * @param string $text
+	 * @param int $mode
+	 *
+	 * @return string $text
+	 * @see self::decrypt()
+	 * @see self::encrypt()
+	 */
+	private function crypt( $text, $mode ) {
+		if ( $this->changed ) {
+			$this->setup();
+		}
 
-            $keyStream[$i] = $ksj;
-            $keyStream[$j] = $ksi;
-            $text[$k] = $text[$k] ^ chr($keyStream[($ksj + $ksi) & 255]);
-        }
+		$stream = &$this->stream[ $mode ];
+		if ( $this->continuousBuffer ) {
+			$i         = &$stream[0];
+			$j         = &$stream[1];
+			$keyStream = &$stream[2];
+		} else {
+			$i         = $stream[0];
+			$j         = $stream[1];
+			$keyStream = $stream[2];
+		}
 
-        return $text;
-    }
+		$len = strlen( $text );
+		for ( $k = 0; $k < $len; ++ $k ) {
+			$i   = ( $i + 1 ) & 255;
+			$ksi = $keyStream[ $i ];
+			$j   = ( $j + $ksi ) & 255;
+			$ksj = $keyStream[ $j ];
+
+			$keyStream[ $i ] = $ksj;
+			$keyStream[ $j ] = $ksi;
+			$text[ $k ]      = $text[ $k ] ^ chr( $keyStream[ ( $ksj + $ksi ) & 255 ] );
+		}
+
+		return $text;
+	}
 }

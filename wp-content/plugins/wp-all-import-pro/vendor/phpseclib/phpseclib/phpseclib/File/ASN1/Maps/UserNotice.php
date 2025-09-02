@@ -20,19 +20,18 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class UserNotice
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'children' => [
-            'noticeRef' => [
-                'optional' => true,
-                'implicit' => true
-            ] + NoticeReference::MAP,
-            'explicitText' => [
-                'optional' => true,
-                'implicit' => true
-            ] + DisplayText::MAP
-        ]
-    ];
+abstract class UserNotice {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'children' => [
+			'noticeRef'    => [
+				                  'optional' => true,
+				                  'implicit' => true,
+			                  ] + NoticeReference::MAP,
+			'explicitText' => [
+				                  'optional' => true,
+				                  'implicit' => true,
+			                  ] + DisplayText::MAP,
+		],
+	];
 }

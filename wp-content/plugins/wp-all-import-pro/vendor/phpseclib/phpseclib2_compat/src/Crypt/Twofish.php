@@ -44,24 +44,23 @@ namespace phpseclib\Crypt;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class Twofish extends Base
-{
-    /**
-     * Turns key lengths, be they valid or invalid, to valid key lengths
-     *
-     * @param int $length
-     * @access private
-     * @return int
-     */
-    protected function calculateNewKeyLength($length)
-    {
-        switch (true) {
-            case $length <= 128:
-                return 128;
-            case $length <= 192:
-                return 192;
-            default:
-                return 256;
-        }
-    }
+class Twofish extends Base {
+	/**
+	 * Turns key lengths, be they valid or invalid, to valid key lengths
+	 *
+	 * @param int $length
+	 *
+	 * @access private
+	 * @return int
+	 */
+	protected function calculateNewKeyLength( $length ) {
+		switch ( true ) {
+			case $length <= 128:
+				return 128;
+			case $length <= 192:
+				return 192;
+			default:
+				return 256;
+		}
+	}
 }

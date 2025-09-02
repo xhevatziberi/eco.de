@@ -20,7 +20,6 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class AttributeValue
-{
-    const MAP = ['type' => ASN1::TYPE_ANY];
+abstract class AttributeValue {
+	const MAP = [ 'type' => ASN1::TYPE_ANY ];
 }

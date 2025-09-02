@@ -20,6 +20,5 @@ use phpseclib3\Crypt\Common\Formats\Signature\Raw as Progenitor;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class Raw extends Progenitor
-{
+abstract class Raw extends Progenitor {
 }

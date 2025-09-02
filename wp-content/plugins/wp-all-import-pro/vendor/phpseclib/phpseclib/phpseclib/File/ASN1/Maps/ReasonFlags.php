@@ -20,20 +20,19 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class ReasonFlags
-{
-    const MAP = [
-        'type' => ASN1::TYPE_BIT_STRING,
-        'mapping' => [
-            'unused',
-            'keyCompromise',
-            'cACompromise',
-            'affiliationChanged',
-            'superseded',
-            'cessationOfOperation',
-            'certificateHold',
-            'privilegeWithdrawn',
-            'aACompromise'
-        ]
-    ];
+abstract class ReasonFlags {
+	const MAP = [
+		'type'    => ASN1::TYPE_BIT_STRING,
+		'mapping' => [
+			'unused',
+			'keyCompromise',
+			'cACompromise',
+			'affiliationChanged',
+			'superseded',
+			'cessationOfOperation',
+			'certificateHold',
+			'privilegeWithdrawn',
+			'aACompromise',
+		],
+	];
 }

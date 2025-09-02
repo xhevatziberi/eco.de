@@ -167,11 +167,15 @@
   align-items: flex-start;
 }
 .event-item .event-details .event-category {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 	text-transform: uppercase;
 	font-weight: normal;
 	color: #E2001A;
 	letter-spacing: 2px;
+}
+.event-item .event-details .event-teaser {
+  text-align: left;
+  font-size: 1rem;
 }
 .event-item .event-details .event-ticketshop a {
   margin-bottom: 1rem;

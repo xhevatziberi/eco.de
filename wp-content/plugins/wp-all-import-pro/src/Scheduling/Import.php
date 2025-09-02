@@ -7,6 +7,7 @@ class Import {
 
 	/**
 	 * @param $logger
+	 *
 	 * @return mixed
 	 */
 	function process( $import, $logger ) {
@@ -51,14 +52,12 @@ class Import {
 
 			if ( ! $history_log ) {
 				$history_log = new \PMXI_History_Record();
-				$history_log->set(
-					array(
+				$history_log->set( array(
 						'import_id' => $import->id,
 						'date'      => date( 'Y-m-d H:i:s' ),
 						'type'      => 'processing',
 						'summary'   => __( 'cron processing', 'wp-all-import-pro' ),
-					)
-				)->save();
+					) )->save();
 			}
 
 			if ( $log_storage ) {
@@ -70,12 +69,10 @@ class Import {
 
 		ob_start();
 
-		$response = $import->set(
-			array(
+		$response = $import->set( array(
 				'canceled' => 0,
 				'failed'   => 0,
-			)
-		)->execute( $logger, true, $history_log->id );
+			) )->execute( $logger, true, $history_log->id );
 
 		$log_data = ob_get_clean();
 
@@ -86,16 +83,17 @@ class Import {
 				@fclose( $log );
 			}
 		}
+
 		return $response;
 	}
 
 	/**
 	 * @param $import
+	 *
 	 * @return \PMXI_History_Record
 	 */
 	function trigger( $import ) {
-		$import->set(
-			array(
+		$import->set( array(
 				'triggered'          => 1,
 				'imported'           => 0,
 				'created'            => 0,
@@ -105,18 +103,16 @@ class Import {
 				'changed_missing'    => 0,
 				'queue_chunk_number' => 0,
 				'last_activity'      => date( 'Y-m-d H:i:s' ),
-			)
-		)->update();
+			) )->update();
 
 		$history_log = new \PMXI_History_Record();
-		$history_log->set(
-			array(
+		$history_log->set( array(
 				'import_id' => $import->id,
 				'date'      => date( 'Y-m-d H:i:s' ),
 				'type'      => 'trigger',
 				'summary'   => __( 'triggered by cron', 'wp-all-import-pro' ),
-			)
-		)->save();
+			) )->save();
+
 		return $history_log;
 	}
 }

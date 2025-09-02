@@ -9,7 +9,6 @@
  *
  * @abstract
  */
-abstract class XmlImportAstExpression
-{
-  
+abstract class XmlImportAstExpression {
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace ZipStream\Option;
 
@@ -13,9 +13,8 @@ use MyCLabs\Enum\Enum;
  * @method static DEFLATE(): Method
  * @psalm-immutable
  */
-class Method extends Enum
-{
-    public const STORE = 0x00;
+class Method extends Enum {
+	public const STORE = 0x00;
 
-    public const DEFLATE = 0x08;
+	public const DEFLATE = 0x08;
 }

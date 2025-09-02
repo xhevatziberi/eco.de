@@ -5,7 +5,7 @@
  * @package General
  */
 
-require_once dirname(__FILE__) . '/XmlImportConfig.php';
+require_once dirname( __FILE__ ) . '/XmlImportConfig.php';
 
 /**
  * Represents a template
@@ -25,7 +25,7 @@ class XmlImportTemplate {
 	 */
 	protected $cachedTemplate;
 
-    protected $trimValues = TRUE;
+	protected $trimValues = true;
 
 	/**
 	 * Creates new instance
@@ -33,11 +33,10 @@ class XmlImportTemplate {
 	 * @param SimpleXmlElement $xml
 	 * @param string $cachedTemplate
 	 */
-	public function __construct($xml, $cachedTemplate)
-	{
-		$this->xml = $xml;
+	public function __construct( $xml, $cachedTemplate ) {
+		$this->xml            = $xml;
 		$this->cachedTemplate = $cachedTemplate;
-        $this->trimValues = apply_filters('wp_all_import_is_trim_parsed_data', $this->trimValues);
+		$this->trimValues     = apply_filters( 'wp_all_import_is_trim_parsed_data', $this->trimValues );
 	}
 
 	/**
@@ -45,14 +44,13 @@ class XmlImportTemplate {
 	 *
 	 * @return string
 	 */
-	public function parse()
-	{			
-		
+	public function parse() {
+
 		ob_start();
-		$err_lvl = error_reporting(E_ALL);
+		$err_lvl = error_reporting( E_ALL );
 		include $this->cachedTemplate;
-		error_reporting($err_lvl);
-		
+		error_reporting( $err_lvl );
+
 		return ob_get_clean();
 	}
 
@@ -60,19 +58,20 @@ class XmlImportTemplate {
 	 * Get the value by XPath expression
 	 *
 	 * @param SimpleXmlElement $xpath XPath result
+	 *
 	 * @return mixed
 	 */
-	protected function getValue($xpath = array())
-	{
-				
-		if (is_array($xpath) && count($xpath) > 0) {
+	protected function getValue( $xpath = array() ) {
+
+		if ( is_array( $xpath ) && count( $xpath ) > 0 ) {
 			$result = array();
-			foreach ($xpath as $xp) { // concatenate multiple elements into 1 string
+			foreach ( $xpath as $xp ) { // concatenate multiple elements into 1 string
 				ob_start();
 				echo $xp;
-				$result[] = $this->trimValues ? trim(ob_get_clean()) : ob_get_clean();
-			}			
-			return implode(XmlImportConfig::getInstance()->getMultiGlue(), $result);
+				$result[] = $this->trimValues ? trim( ob_get_clean() ) : ob_get_clean();
+			}
+
+			return implode( XmlImportConfig::getInstance()->getMultiGlue(), $result );
 		} else {
 			// return null if nothing found
 			return null;

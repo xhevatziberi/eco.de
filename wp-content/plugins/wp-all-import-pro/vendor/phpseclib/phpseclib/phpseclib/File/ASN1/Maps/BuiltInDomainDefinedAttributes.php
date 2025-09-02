@@ -20,12 +20,11 @@ use phpseclib3\File\ASN1;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class BuiltInDomainDefinedAttributes
-{
-    const MAP = [
-        'type' => ASN1::TYPE_SEQUENCE,
-        'min' => 1,
-        'max' => 4, // ub-domain-defined-attributes
-        'children' => BuiltInDomainDefinedAttribute::MAP
-    ];
+abstract class BuiltInDomainDefinedAttributes {
+	const MAP = [
+		'type'     => ASN1::TYPE_SEQUENCE,
+		'min'      => 1,
+		'max'      => 4, // ub-domain-defined-attributes
+		'children' => BuiltInDomainDefinedAttribute::MAP,
+	];
 }

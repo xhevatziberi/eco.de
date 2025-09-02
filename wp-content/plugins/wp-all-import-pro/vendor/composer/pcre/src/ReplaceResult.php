@@ -11,33 +11,31 @@
 
 namespace Composer\Pcre;
 
-final class ReplaceResult
-{
-    /**
-     * @readonly
-     * @var string
-     */
-    public $result;
+final class ReplaceResult {
+	/**
+	 * @readonly
+	 * @var string
+	 */
+	public $result;
 
-    /**
-     * @readonly
-     * @var 0|positive-int
-     */
-    public $count;
+	/**
+	 * @readonly
+	 * @var 0|positive-int
+	 */
+	public $count;
 
-    /**
-     * @readonly
-     * @var bool
-     */
-    public $matched;
+	/**
+	 * @readonly
+	 * @var bool
+	 */
+	public $matched;
 
-    /**
-     * @param 0|positive-int $count
-     */
-    public function __construct(int $count, string $result)
-    {
-        $this->count = $count;
-        $this->matched = (bool) $count;
-        $this->result = $result;
-    }
+	/**
+	 * @param 0|positive-int $count
+	 */
+	public function __construct( int $count, string $result ) {
+		$this->count   = $count;
+		$this->matched = (bool) $count;
+		$this->result  = $result;
+	}
 }

@@ -584,34 +584,16 @@ class VamtamEnqueues {
 			}
 		";
 
-		if ( current_theme_supports( 'vamtam-split-icons' ) ) {
-			$theme_icon_ranges = include VAMTAM_ASSETS_DIR . 'fonts/theme-icons/split/ranges.php';
-
-			foreach ( $theme_icon_ranges as $name => $ranges ) {
-				$theme_icons_css .= "
-					@font-face {
-						font-family: 'vamtam-theme';
-						src: url({$theme_url}vamtam/assets/fonts/theme-icons/split/{$name}.woff2) format('woff2'),
-							url({$theme_url}vamtam/assets/fonts/theme-icons/split/{$name}.woff) format('woff');
-						font-weight: normal;
-						font-style: normal;
-						font-display: swap;
-						unicode-range: {$ranges},U+20;
-					}
-				";
+		$theme_icons_css .= "
+			@font-face {
+				font-family: 'vamtam-theme';
+				src: url({$theme_url}vamtam/assets/fonts/theme-icons/theme-icons.woff2) format('woff2'),
+					url({$theme_url}vamtam/assets/fonts/theme-icons/theme-icons.woff) format('woff');
+				font-weight: normal;
+				font-style: normal;
+				font-display: swap;
 			}
-		} else {
-			$theme_icons_css .= "
-				@font-face {
-					font-family: 'vamtam-theme';
-					src: url({$theme_url}vamtam/assets/fonts/theme-icons/theme-icons.woff2) format('woff2'),
-						url({$theme_url}vamtam/assets/fonts/theme-icons/theme-icons.woff) format('woff');
-					font-weight: normal;
-					font-style: normal;
-					font-display: swap;
-				}
-			";
-		}
+		";
 
 		return $theme_icons_css;
 	}

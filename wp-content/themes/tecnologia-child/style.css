@@ -3,7 +3,7 @@ Theme Name: Tecnologia Child
 Author: VamTam
 Author URI: https://vamtam.com
 Template: tecnologia
-Version: 1.0.1
+Version: 1.0.15
 */
 
 /* define colors */
@@ -19,7 +19,13 @@ Version: 1.0.1
     display: block !important;
 }
 
-.single-event #sub-header {
+#sfm-sidebar .sfm-menu li a, #sfm-sidebar .sfm-chapter, #sfm-sidebar .sfm-back-parent {
+    text-transform: none !important;
+}
+
+.single-event #sub-header,
+.single-post .post-media.post-media-image,
+body.single-podcast .elementor-page-title {
     display: none !important;
 }
 
@@ -28,26 +34,6 @@ Version: 1.0.1
     -webkit-columns: 2;
     -moz-columns: 2;
 }
-
-/* .flyout-menus {
-    background-color: #fff;
-}
-
-.flyout-menus .flyout-logo-head,
-.menu-trigger,
-[data-elementor-type="header"] .elementor-nav-menu .menu-item {
-    display: none !important;
-}
-
-[data-elementor-type="header"] .menu-trigger {
-    display: block !important;
-    position: relative;
-    z-index: 9999;
-}
-
-[data-elementor-type="header"] .elementor-nav-menu .menu-item:last-child {
-    display: block !important;
-} */
 
 #the-menu-trigger .elementor-icon-wrapper {
     line-height: 0;
@@ -63,4 +49,87 @@ Version: 1.0.1
 .sfm-view {
     border-right: 1px solid #d1d1d1;
     border-left: 1px solid #d1d1d1;
+}
+
+/* li.green:before,
+li.sfm-menu-item-10932:before,
+li.sfm-menu-item-10271:before,
+li.sfm-menu-item-10391:before,
+li.sfm-menu-item-10509:before,
+li.sfm-menu-item-10472:before,
+li.sfm-menu-item-11731:before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    left: 20px;
+    top: 30px;
+    background: var(--eco-color);
+    border-radius: 50%;
+    z-index: 1;
+} */
+
+.disabled-button,
+.disabled-button a {
+    /* pointer-events: none; */
+    cursor: not-allowed;
+}
+
+figure.elementor-image-box-img {
+    margin-bottom: -6px !important;
+}
+
+.slider_box .elementor-heading-title {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.slider_box:hover .elementor-heading-title {
+    opacity: 1;
+}
+
+.elementor-testimonial__content {
+    align-content: space-evenly;
+}
+
+.elementor-testimonial__content:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 32vw;
+    width: calc(50vw + 25%);
+    max-width: 70vw;
+    height: 100%;
+    transform: translateX(-50vw);
+    background-color: #e2001a;
+    z-index: -1;
+    color: #fff;
+}
+
+.elementor-testimonial:after {
+    content: url(img/quotes.svg);
+    position: absolute;
+    top: 0;
+}
+.elementor-testimonial--layout-image_right .elementor-testimonial__footer {
+    padding-inline-start: 0;
+}
+.elementor-widget-testimonial-carousel.vamtam-has-theme-widget-styles.elementor-arrows-yes .elementor-swiper-button.elementor-swiper-button-prev {
+    left: -10px;
+}
+.elementor-widget-testimonial-carousel.vamtam-has-theme-widget-styles.elementor-arrows-yes .elementor-swiper-button.elementor-swiper-button-next {
+    right: -10px;
+}
+
+@media (max-width: 768px) {
+    .elementor-testimonial__content:before {
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        transform: none;
+    }
+
+    .elementor-testimonial {
+        flex-direction: column !important;
+    }
 }

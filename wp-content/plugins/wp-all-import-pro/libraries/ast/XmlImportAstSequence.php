@@ -4,158 +4,146 @@
  * @package AST
  */
 
-require_once dirname(__FILE__) . '/XmlImportAstStatement.php';
+require_once dirname( __FILE__ ) . '/XmlImportAstStatement.php';
 
 /**
  * Represents statement sequence
  */
-class XmlImportAstSequence extends XmlImportAstStatement
-{
+class XmlImportAstSequence extends XmlImportAstStatement {
 
-  /**
-   * Sequence instance number
-   *
-   * @var int
-   */
-  private static $sequenceInstanceNumber = 0;
+	/**
+	 * Sequence instance number
+	 *
+	 * @var int
+	 */
+	private static $sequenceInstanceNumber = 0;
 
-  /**
-   * Current sequence number
-   *
-   * @var int
-   */
-  private $sequenceNumber;
+	/**
+	 * Current sequence number
+	 *
+	 * @var int
+	 */
+	private $sequenceNumber;
 
-  /**
-   * Current variable number
-   *
-   * @var int 
-   */
-  private $varNumber = 0;
-  
-  /**
-   * List of statements
-   *
-   * @var array
-   */
-  private $statements = array();
+	/**
+	 * Current variable number
+	 *
+	 * @var int
+	 */
+	private $varNumber = 0;
 
-  /**
-   * Variable definitions
-   *
-   * @var array
-   */
-  private $variableDefinitions = array();
+	/**
+	 * List of statements
+	 *
+	 * @var array
+	 */
+	private $statements = array();
 
-  /**
-   * Variables
-   *
-   * @var array
-   */
-  private $variables = array();
+	/**
+	 * Variable definitions
+	 *
+	 * @var array
+	 */
+	private $variableDefinitions = array();
 
-  /**
-   * Creates new instance
-   */
-  public function __construct()
-  {
-    $this->sequenceNumber = self::$sequenceInstanceNumber++;
-  }
+	/**
+	 * Variables
+	 *
+	 * @var array
+	 */
+	private $variables = array();
 
-  /**
-   * Adds statement to a sequence
-   *
-   * @param XmlImportAstStatement $statement
-   */
-  public function addStatement(XmlImportAstStatement $statement)
-  {
-    $this->statements[] = $statement;
-  }
+	/**
+	 * Creates new instance
+	 */
+	public function __construct() {
+		$this->sequenceNumber = self::$sequenceInstanceNumber ++;
+	}
 
-  /**
-   * Gets the list of statements
-   *
-   * @return array
-   */
-  public function getStatements()
-  {
-    return $this->statements;
-  }
+	/**
+	 * Adds statement to a sequence
+	 *
+	 * @param XmlImportAstStatement $statement
+	 */
+	public function addStatement( XmlImportAstStatement $statement ) {
+		$this->statements[] = $statement;
+	}
 
-  /**
-   * Adds variable to a sequence
-   *
-   * @param XmlImportAstXPath $xpath
-   */
-  public function addVariable(XmlImportAstXPath $xpath)
-  {
-    if (!array_key_exists($xpath->getValue(), $this->variables))
-    {
-      $var = '$v' . $this->sequenceNumber . '_' . $this->varNumber++;
-      $value =     $escapedValue = strtr($xpath->getValue(), array(
-    	"\n" => "\\n",
-    	"\t" => "\\t",
-    	"\r" => "\\r",
-    	"$" => "\\$",
-    	"\"" => "\\\"",
-    	"\\" => "\\\\",
-      ));
-      $result = $var . ' = {{XML}}->xpath("' . $value . '");';
-      $this->variables[$xpath->getValue()] = $var;
-      $this->variableDefinitions[] = $result;
-    }
-  }
+	/**
+	 * Gets the list of statements
+	 *
+	 * @return array
+	 */
+	public function getStatements() {
+		return $this->statements;
+	}
 
-  /**
-   * Gets variable definitions
-   *
-   * @return array
-   */
-  public function getVariableDefinitions()
-  {
-    return $this->variableDefinitions;
-  }
+	/**
+	 * Adds variable to a sequence
+	 *
+	 * @param XmlImportAstXPath $xpath
+	 */
+	public function addVariable( XmlImportAstXPath $xpath ) {
+		if ( ! array_key_exists( $xpath->getValue(), $this->variables ) ) {
+			$var                                   = '$v' . $this->sequenceNumber . '_' . $this->varNumber ++;
+			$value                                 = $escapedValue = strtr( $xpath->getValue(), array(
+				"\n" => "\\n",
+				"\t" => "\\t",
+				"\r" => "\\r",
+				"$"  => "\\$",
+				"\"" => "\\\"",
+				"\\" => "\\\\",
+			) );
+			$result                                = $var . ' = {{XML}}->xpath("' . $value . '");';
+			$this->variables[ $xpath->getValue() ] = $var;
+			$this->variableDefinitions[]           = $result;
+		}
+	}
 
-  /**
-   * Gets variables
-   *
-   * @return array
-   */
-  public function getVariables()
-  {
-    return $this->variables;
-  }
+	/**
+	 * Gets variable definitions
+	 *
+	 * @return array
+	 */
+	public function getVariableDefinitions() {
+		return $this->variableDefinitions;
+	}
 
-  /**
-   * Returns the number of current instance
-   *
-   * @return int
-   */
-  public function getSequenceNumber()
-  {
-    return $this->sequenceNumber;
-  }
+	/**
+	 * Gets variables
+	 *
+	 * @return array
+	 */
+	public function getVariables() {
+		return $this->variables;
+	}
 
-  /**
-   * String representation of a sequence node
-   *
-   * @return string
-   */
-  public function __toString()
-  {
-    $result = "--> begin " . get_class($this) . "\n";
-    foreach ($this->getStatements() as $statement)
-    {
-      $array = explode("\n", $statement);
-      for ($i = 0; $i < count($array); $i++)
-      {
-        $array[$i] = '  ' . $array[$i];
-      }
-      $result .= implode("\n", $array) . "\n";
-    }
+	/**
+	 * Returns the number of current instance
+	 *
+	 * @return int
+	 */
+	public function getSequenceNumber() {
+		return $this->sequenceNumber;
+	}
 
-    $result .= "--> end " . get_class($this);
+	/**
+	 * String representation of a sequence node
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		$result = "--> begin " . get_class( $this ) . "\n";
+		foreach ( $this->getStatements() as $statement ) {
+			$array = explode( "\n", $statement );
+			for ( $i = 0; $i < count( $array ); $i ++ ) {
+				$array[ $i ] = '  ' . $array[ $i ];
+			}
+			$result .= implode( "\n", $array ) . "\n";
+		}
 
-    return $result;
-  }
+		$result .= "--> end " . get_class( $this );
+
+		return $result;
+	}
 }

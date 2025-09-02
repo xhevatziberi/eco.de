@@ -21,75 +21,76 @@ use phpseclib3\Math\BigInteger\Engines\BCMath\Base;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class EvalBarrett extends Base
-{
-    /**
-     * Custom Reduction Function
-     *
-     * @see self::generateCustomReduction
-     */
-    private static $custom_reduction;
+abstract class EvalBarrett extends Base {
+	/**
+	 * Custom Reduction Function
+	 *
+	 * @see self::generateCustomReduction
+	 */
+	private static $custom_reduction;
 
-    /**
-     * Barrett Modular Reduction
-     *
-     * This calls a dynamically generated loop unrolled function that's specific to a given modulo.
-     * Array lookups are avoided as are if statements testing for how many bits the host OS supports, etc.
-     *
-     * @param string $n
-     * @param string $m
-     * @return string
-     */
-    protected static function reduce($n, $m)
-    {
-        $inline = self::$custom_reduction;
-        return $inline($n);
-    }
+	/**
+	 * Barrett Modular Reduction
+	 *
+	 * This calls a dynamically generated loop unrolled function that's specific to a given modulo.
+	 * Array lookups are avoided as are if statements testing for how many bits the host OS supports, etc.
+	 *
+	 * @param string $n
+	 * @param string $m
+	 *
+	 * @return string
+	 */
+	protected static function reduce( $n, $m ) {
+		$inline = self::$custom_reduction;
 
-    /**
-     * Generate Custom Reduction
-     *
-     * @param BCMath $m
-     * @param string $class
-     * @return callable|void
-     */
-    protected static function generateCustomReduction(BCMath $m, $class)
-    {
-        $m_length = strlen($m);
+		return $inline( $n );
+	}
 
-        if ($m_length < 5) {
-            $code = 'return bcmod($x, $n);';
-            eval('$func = function ($n) { ' . $code . '};');
-            self::$custom_reduction = $func;
-            return;
-        }
+	/**
+	 * Generate Custom Reduction
+	 *
+	 * @param BCMath $m
+	 * @param string $class
+	 *
+	 * @return callable|void
+	 */
+	protected static function generateCustomReduction( BCMath $m, $class ) {
+		$m_length = strlen( $m );
 
-        $lhs = '1' . str_repeat('0', $m_length + ($m_length >> 1));
-        $u = bcdiv($lhs, $m, 0);
-        $m1 = bcsub($lhs, bcmul($u, $m));
+		if ( $m_length < 5 ) {
+			$code = 'return bcmod($x, $n);';
+			eval( '$func = function ($n) { ' . $code . '};' );
+			self::$custom_reduction = $func;
 
-        $cutoff = $m_length + ($m_length >> 1);
+			return;
+		}
 
-        $m = "'$m'";
-        $u = "'$u'";
-        $m1 = "'$m1'";
+		$lhs = '1' . str_repeat( '0', $m_length + ( $m_length >> 1 ) );
+		$u   = bcdiv( $lhs, $m, 0 );
+		$m1  = bcsub( $lhs, bcmul( $u, $m ) );
 
-        $code = '
+		$cutoff = $m_length + ( $m_length >> 1 );
+
+		$m  = "'$m'";
+		$u  = "'$u'";
+		$m1 = "'$m1'";
+
+		$code = '
             $lsd = substr($n, -' . $cutoff . ');
             $msd = substr($n, 0, -' . $cutoff . ');
 
             $temp = bcmul($msd, ' . $m1 . ');
             $n = bcadd($lsd, $temp);
 
-            $temp = substr($n, 0, ' . (-$m_length + 1) . ');
+            $temp = substr($n, 0, ' . ( - $m_length + 1 ) . ');
             $temp = bcmul($temp, ' . $u . ');
-            $temp = substr($temp, 0, ' . (-($m_length >> 1) - 1) . ');
+            $temp = substr($temp, 0, ' . ( - ( $m_length >> 1 ) - 1 ) . ');
             $temp = bcmul($temp, ' . $m . ');
 
             $result = bcsub($n, $temp);
 
             if ($result[0] == \'-\') {
-                $temp = \'1' . str_repeat('0', $m_length + 1) . '\';
+                $temp = \'1' . str_repeat( '0', $m_length + 1 ) . '\';
                 $result = bcadd($result, $temp);
             }
 
@@ -99,10 +100,10 @@ abstract class EvalBarrett extends Base
 
             return $result;';
 
-        eval('$func = function ($n) { ' . $code . '};');
+		eval( '$func = function ($n) { ' . $code . '};' );
 
-        self::$custom_reduction = $func;
+		self::$custom_reduction = $func;
 
-        return $func;
-    }
+		return $func;
+	}
 }

@@ -20,6 +20,5 @@ use phpseclib3\Math\BigInteger\Engines\PHP\Reductions\EvalBarrett;
  *
  * @author  Jim Wigginton <terrafrost@php.net>
  */
-abstract class DefaultEngine extends EvalBarrett
-{
+abstract class DefaultEngine extends EvalBarrett {
 }
