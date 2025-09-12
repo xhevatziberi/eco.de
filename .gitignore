@@ -54,3 +54,7 @@ wp-config.php
 # Allow elementor-eco plugin only
 !/wp-content/plugins/elementor-eco
 !/wp-content/plugins/elementor-eco/**
+
+# Allow vamtam-elementor-integration-tecnologia plugin
+!/wp-content/plugins/vamtam-elementor-integration-tecnologia
+!/wp-content/plugins/vamtam-elementor-integration-tecnologia/**
