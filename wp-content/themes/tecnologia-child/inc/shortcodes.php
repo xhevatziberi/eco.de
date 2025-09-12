@@ -100,3 +100,123 @@ add_shortcode('eco_dynamic_people', function($atts) {
 	$widget = new \ElementorEco\Widgets\People();
 	return $widget->render_people_by_ids($ids);
 });
+
+
+// === Event Sponsors Carousel [eco_events_sponsors_carousel] ===
+// [eco_events_sponsors_carousel]
+add_shortcode('eco_events_sponsors_carousel', function($atts) {
+    $atts = shortcode_atts([
+        'acf_field'       => 'sponsors',       // ACF relationship field on current post
+        'post_id'         => get_the_ID(),     // Or pass another post id
+        'slides_to_show'  => 4,
+        'space_between'   => 16,               // px
+        'autoplay'        => 'true',           // 'true' | 'false'
+        'autoplay_delay'  => 2500,             // ms
+        'loop'            => 'false',           // 'true' | 'false'
+        'arrows'          => 'false',           // 'true' | 'false'
+        'dots'            => 'true',          // 'true' | 'false'
+        'img_size'        => 'medium_large',   // WP image size for logos
+        'nofollow'        => 'true',
+        'sponsored'       => 'true',
+    ], $atts, 'eco_events_sponsors_carousel');
+
+    $post_id  = (int) $atts['post_id'];
+    $field    = sanitize_key($atts['acf_field']);
+    $sponsors = function_exists('get_field') ? get_field($field, $post_id) : null;
+
+    if (!is_array($sponsors) || empty($sponsors)) {
+        return '';
+    }
+
+    // Enqueue assets only when shortcode is used
+    wp_enqueue_style('eco-sponsors');
+    wp_enqueue_script('eco-sponsors');
+
+    // Build slides
+    $slides_html = '';
+    foreach ($sponsors as $sponsor_post) {
+        $sid = is_object($sponsor_post) ? $sponsor_post->ID : (int) $sponsor_post;
+        if (!$sid) { continue; }
+
+        $img_id  = get_post_thumbnail_id($sid);
+        $img_src = $img_id ? wp_get_attachment_image_src($img_id, $atts['img_size']) : null;
+        $img_tag = $img_src ? sprintf(
+            '<img src="%s" alt="%s" loading="lazy" />',
+            esc_url($img_src[0]),
+            esc_attr(get_the_title($sid))
+        ) : sprintf('<div class="eco-sponsor-fallback">%s</div>', esc_html(get_the_title($sid)));
+
+        $website = function_exists('get_field') ? get_field('website', $sid) : '';
+        $website = $website ? esc_url($website) : '';
+
+        $rels = ['noopener','noreferrer'];
+        if ($atts['nofollow'] === 'true')  { $rels[] = 'nofollow'; }
+        if ($atts['sponsored'] === 'true') { $rels[] = 'sponsored'; }
+        $rel_attr = implode(' ', $rels);
+
+        $content = $website
+            ? sprintf('<a href="%s" target="_blank" rel="%s">%s</a>', $website, esc_attr($rel_attr), $img_tag)
+            : $img_tag;
+
+        $slides_html .= '<div class="swiper-slide eco-sponsor-slide">'.$content.'</div>';
+    }
+
+    // Unique wrapper
+    $uid = 'eco-sponsors-' . wp_generate_uuid4();
+
+    // Data attributes (JS reads these)
+    $data = sprintf(
+        'data-slides="%d" data-space="%d" data-autoplay="%s" data-delay="%d" data-loop="%s" data-arrows="%s" data-dots="%s"',
+        (int)$atts['slides_to_show'],
+        (int)$atts['space_between'],
+        esc_attr($atts['autoplay']),
+        (int)$atts['autoplay_delay'],
+        esc_attr($atts['loop']),
+        esc_attr($atts['arrows']),
+        esc_attr($atts['dots'])
+    );
+
+    // Markup with Swiper structure + Fallback grid
+    ob_start(); ?>
+    <div id="<?php echo esc_attr($uid); ?>" class="eco-sponsors-wrap" <?php echo $data; ?>>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <?php echo $slides_html; ?>
+            </div>
+            <div class="swiper-button-prev" aria-label="Previous"></div>
+            <div class="swiper-button-next" aria-label="Next"></div>
+            <div class="swiper-pagination" aria-label="Pagination"></div>
+        </div>
+
+        <div class="eco-sponsors-fallback">
+            <?php
+            // Simple grid fallback (same content without swiper wrappers)
+            foreach ($sponsors as $sponsor_post) {
+                $sid = is_object($sponsor_post) ? $sponsor_post->ID : (int) $sponsor_post;
+                if (!$sid) { continue; }
+                $img_id  = get_post_thumbnail_id($sid);
+                $img_src = $img_id ? wp_get_attachment_image_src($img_id, $atts['img_size']) : null;
+                $img_tag = $img_src ? sprintf(
+                    '<img src="%s" alt="%s" loading="lazy" />',
+                    esc_url($img_src[0]),
+                    esc_attr(get_the_title($sid))
+                ) : sprintf('<div class="eco-sponsor-fallback">%s</div>', esc_html(get_the_title($sid)));
+
+                $website = function_exists('get_field') ? get_field('website', $sid) : '';
+                $website = $website ? esc_url($website) : '';
+
+                $rels = ['noopener','noreferrer'];
+                if ($atts['nofollow'] === 'true')  { $rels[] = 'nofollow'; }
+                if ($atts['sponsored'] === 'true') { $rels[] = 'sponsored'; }
+                $rel_attr = implode(' ', $rels);
+
+                echo '<div class="eco-sponsor-item">';
+                echo $website ? sprintf('<a href="%s" target="_blank" rel="%s">%s</a>', $website, esc_attr($rel_attr), $img_tag) : $img_tag;
+                echo '</div>';
+            }
+            ?>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+});

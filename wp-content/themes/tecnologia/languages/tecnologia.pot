@@ -2,9 +2,9 @@
 # This file is distributed under the Envato.=!>
 msgid ""
 msgstr ""
-"Project-Id-Version: (VamTam) Tecnologia 18\n"
+"Project-Id-Version: (VamTam) Tecnologia 24\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/tecnologia\n"
-"POT-Creation-Date: 2025-07-09 21:15:16+00:00\n"
+"POT-Creation-Date: 2025-09-08 13:51:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -115,61 +115,61 @@ msgstr ""
 msgid "Wordpress SEO"
 msgstr ""
 
-#: samples/dependencies.php:67
+#: samples/dependencies.php:64
 msgid "Really Simple SSL"
 msgstr ""
 
-#: samples/dependencies.php:74
+#: samples/dependencies.php:71
 msgid "Loco Translate"
 msgstr ""
 
-#: samples/dependencies.php:81
+#: samples/dependencies.php:78
 msgid "UpDraftPlus"
 msgstr ""
 
-#: samples/dependencies.php:88
+#: samples/dependencies.php:85
 msgid "WP Super Cache"
 msgstr ""
 
-#: samples/dependencies.php:95
+#: samples/dependencies.php:92
 msgid "Limit Login Attempts Reloaded"
 msgstr ""
 
-#: samples/dependencies.php:102
+#: samples/dependencies.php:99
 msgid "Wordfence"
 msgstr ""
 
-#: samples/dependencies.php:109
+#: samples/dependencies.php:106
 msgid "CookieYes | GDPR Cookie Consent & Compliance Notice (CCPA Ready)"
 msgstr ""
 
-#: samples/dependencies.php:131 vamtam/admin/classes/plugin-manager.php:207
+#: samples/dependencies.php:149 vamtam/admin/classes/plugin-manager.php:207
 msgid "Name"
 msgstr ""
 
-#: samples/dependencies.php:132 vamtam/admin/classes/plugin-manager.php:209
+#: samples/dependencies.php:150 vamtam/admin/classes/plugin-manager.php:209
 msgid "Description"
 msgstr ""
 
-#: samples/dependencies.php:133 vamtam/admin/classes/plugin-manager.php:211
+#: samples/dependencies.php:151 vamtam/admin/classes/plugin-manager.php:211
 #: vamtam/classes/class-tgm-plugin-activation.php:2702
 msgid "Status"
 msgstr ""
 
-#: samples/dependencies.php:134 vamtam/admin/classes/plugin-manager.php:213
+#: samples/dependencies.php:152 vamtam/admin/classes/plugin-manager.php:213
 #: vamtam/classes/class-tgm-plugin-activation.php:2701
 msgid "Version"
 msgstr ""
 
-#: samples/dependencies.php:192
+#: samples/dependencies.php:210
 msgid "A simple WordPress Plugin."
 msgstr ""
 
-#: samples/dependencies.php:195
+#: samples/dependencies.php:213
 msgid "Theme Exclusive."
 msgstr ""
 
-#: samples/dependencies.php:266 vamtam/admin/classes/plugin-manager.php:301
+#: samples/dependencies.php:284 vamtam/admin/classes/plugin-manager.php:301
 #: vamtam/admin/classes/purchase-helper.php:432
 #: vamtam/classes/class-tgm-plugin-activation.php:341
 msgid "Install Plugins"
@@ -316,31 +316,31 @@ msgstr ""
 msgid "Unexpected HTTP response code: %s"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:314
+#: vamtam/admin/classes/diagnostics.php:313
 #: vamtam/admin/classes/purchase-helper.php:68
 msgid "PHP Version"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:317
+#: vamtam/admin/classes/diagnostics.php:316
 msgid "PHP version %s is below %s, which is the minimum recommended"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:320
+#: vamtam/admin/classes/diagnostics.php:319
 msgid "Mixed content"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:323
+#: vamtam/admin/classes/diagnostics.php:322
 msgid ""
 "This page was loaded over HTTPS, however URLs using HTTP were found in the "
 "database. Please replace all HTTP links with their HTTPS equivalents. This "
 "message will remain visible for up to 3 minutes after resolving the problem."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:326
+#: vamtam/admin/classes/diagnostics.php:325
 msgid "mbstring extension"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:329
+#: vamtam/admin/classes/diagnostics.php:328
 msgid ""
 "The <strong>mbstring</strong> extension must be enabled for all features to "
 "work correctly. Please ask your hosting provider to enable this if you "
@@ -348,11 +348,11 @@ msgid ""
 "if it is disabled by default."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:332
+#: vamtam/admin/classes/diagnostics.php:331
 msgid "zip extension"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:335
+#: vamtam/admin/classes/diagnostics.php:334
 msgid ""
 "The <strong>zip</strong> extension must be enabled before uploading custom "
 "icons. Please ask your hosting provider to enable this if you cannot do it "
@@ -360,91 +360,91 @@ msgid ""
 "disabled by default."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:345
+#: vamtam/admin/classes/diagnostics.php:344
 msgid "Memory limit (frontend)"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:348
-#: vamtam/admin/classes/diagnostics.php:362
+#: vamtam/admin/classes/diagnostics.php:347
+#: vamtam/admin/classes/diagnostics.php:361
 msgid ""
 "The memory limit for this site is too low, we recommend a minimum of 256MB. "
 "Please contact your hosting provider if you are unsure how to change this."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:359
+#: vamtam/admin/classes/diagnostics.php:358
 msgid "Memory limit (admin)"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:365
+#: vamtam/admin/classes/diagnostics.php:364
 msgid "Post Max Size"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:368
+#: vamtam/admin/classes/diagnostics.php:367
 msgid ""
 "post_max_size is too low, we recommend setting it to at least 32MB to avoid "
 "problems with large pages. Please contact your hosting provider if you are "
 "unsure how to change this."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:371
+#: vamtam/admin/classes/diagnostics.php:370
 msgid "Upload Max File Size"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:374
+#: vamtam/admin/classes/diagnostics.php:373
 msgid ""
 "upload_max_filesize is too low, we recommend setting it to at least 32MB so "
 "that you can upload large images and videos. Please contact your hosting "
 "provider if you are unsure how to change this."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:396
+#: vamtam/admin/classes/diagnostics.php:395
 msgid "WP-Cron replacement"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:399
+#: vamtam/admin/classes/diagnostics.php:398
 msgid ""
 "WP-Cron is managed by the %s plugin. This is usually not an issue. However, "
 "please disable the plugin if you have any problems importing the demo "
 "content images."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:410
+#: vamtam/admin/classes/diagnostics.php:409
 msgid "WP-Cron active"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:413
+#: vamtam/admin/classes/diagnostics.php:412
 msgid ""
 "The <strong>DISABLE_WP_CRON</strong> constant is set to true. This will "
 "prevent the demo content images from being imported."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:416
+#: vamtam/admin/classes/diagnostics.php:415
 msgid "Standard WP-Cron"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:419
+#: vamtam/admin/classes/diagnostics.php:418
 msgid ""
 "The <strong>ALTERNATE_WP_CRON</strong> constant is set to true. "
 "Non-standard WP-Cron may prevent the demo content images from being "
 "imported."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:422
+#: vamtam/admin/classes/diagnostics.php:421
 msgid "Basic Auth"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:425
+#: vamtam/admin/classes/diagnostics.php:424
 msgid ""
 "Basic access authentication detected. Please ensure that "
 "<strong>%s</strong>. <strong>%s</strong>, and <strong>%s</strong> are "
 "accessible without a password."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:433
+#: vamtam/admin/classes/diagnostics.php:432
 msgid "WP-Cron test call"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:436
+#: vamtam/admin/classes/diagnostics.php:435
 msgid ""
 "We couldn't perform a test call to WP-Cron on this server. We received the "
 "following error message when attempting to load %s: "
@@ -452,11 +452,11 @@ msgid ""
 "assistance."
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:442
+#: vamtam/admin/classes/diagnostics.php:441
 msgid "Using HTTPS"
 msgstr ""
 
-#: vamtam/admin/classes/diagnostics.php:445
+#: vamtam/admin/classes/diagnostics.php:444
 msgid ""
 "It seems that this site is using an HTTP URL. If you plan to migrate to "
 "HTTPS in the future, we strongly recommend that you do this before "
@@ -1627,48 +1627,48 @@ msgstr ""
 msgid "Thumbnail image"
 msgstr ""
 
-#: woocommerce/cart/cart.php:29 woocommerce/cart/cart.php:70
+#: woocommerce/cart/cart.php:29 woocommerce/cart/cart.php:82
 msgid "Product"
 msgstr ""
 
-#: woocommerce/cart/cart.php:30 woocommerce/cart/cart.php:95
-msgid "Price"
-msgstr ""
-
-#: woocommerce/cart/cart.php:31 woocommerce/cart/cart.php:101
+#: woocommerce/cart/cart.php:30 woocommerce/cart/cart.php:113
 msgid "Quantity"
 msgstr ""
 
-#: woocommerce/cart/cart.php:32 woocommerce/cart/cart.php:127
+#: woocommerce/cart/cart.php:31 woocommerce/cart/cart.php:139
 msgid "Subtotal"
 msgstr ""
 
-#: woocommerce/cart/cart.php:33
+#: woocommerce/cart/cart.php:32
 msgid "Remove item"
 msgstr ""
 
-#: woocommerce/cart/cart.php:90
+#: woocommerce/cart/cart.php:102
 msgid "Available on backorder"
 msgstr ""
 
-#: woocommerce/cart/cart.php:141
+#: woocommerce/cart/cart.php:107
+msgid "Price"
+msgstr ""
+
+#: woocommerce/cart/cart.php:153
 #. translators: %s is the product name
 msgid "Remove %s from cart"
 msgstr ""
 
-#: woocommerce/cart/cart.php:162
+#: woocommerce/cart/cart.php:174
 msgid "Coupon:"
 msgstr ""
 
-#: woocommerce/cart/cart.php:162
+#: woocommerce/cart/cart.php:174
 msgid "Coupon code"
 msgstr ""
 
-#: woocommerce/cart/cart.php:162
+#: woocommerce/cart/cart.php:174
 msgid "Apply coupon"
 msgstr ""
 
-#: woocommerce/cart/cart.php:167
+#: woocommerce/cart/cart.php:179
 msgid "Update cart"
 msgstr ""
 

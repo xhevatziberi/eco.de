@@ -303,7 +303,7 @@ module.exports = function(grunt) {
 				file.async('string').then(function(content) {
 					content = content.replace(
 						'https://go.elementor.com/acc-add-visits',
-						'https://be.elementor.com/visit/?bta=13981&nci=5741'
+						'https://be.elementor.com/visit/?bta=13981&brand=elementor&landingPage=https%253A%252F%252Fmy.elementor.com%252Fupgrade-ally%252F'
 					);
 
 					zip.file(file_path, content);
@@ -335,6 +335,10 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build-plugins', function() {
 		grunt.task.run( 'makepot:elements' );
+
+		if ( grunt.task.current.nameArgs !== 'package' ) {
+			grunt.task.run('terser:vei');
+		}
 
 		var done = this.async();
 		var prefix = 'vamtam/plugins/';
@@ -368,5 +372,31 @@ module.exports = function(grunt) {
 		});
 
 		done();
+	});
+
+	grunt.registerTask('extract-plugin-versions', function() {
+		function getPluginVersion(file) {
+			const content = grunt.file.read( file );
+			const match = content.match(/^[ \t\/*#@]*Version:\s*([\d.]+)/mi);
+			return match ? match[1] : null;
+		}
+
+		const pluginFiles = grunt.file.expand(path.join(basedir, 'vamtam/plugins/*/*.php'));
+
+		const versions = {};
+
+		pluginFiles.forEach( file => {
+			const version = getPluginVersion( file );
+
+			if ( version ) {
+				const slug = path.basename( path.dirname( file ) );
+
+				versions[slug] = version;
+			}
+		});
+
+		grunt.file.write( path.join( builddir, 'samples', 'bundled-versions.json' ), JSON.stringify( versions ) );
+
+		console.log('Bundled plugin versions:', versions);
 	});
 };

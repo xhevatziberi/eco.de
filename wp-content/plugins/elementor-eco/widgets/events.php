@@ -235,7 +235,13 @@ class EventList extends Widget_Base {
 				</div>
 
 				<div id="calendar-days"></div>
+
+				<div class="calendar-this-month">
+					<button id="this-month-button" class="event-this-month active"><?php _e('Monatsübersicht', 'elementor-eco'); ?></button>
+				</div>
+
 				<div id="events"></div>
+
 			</div>
 
 		</div>

@@ -3,12 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let calendar = () => {
+	let thisMonthMode = true; // Default mode
+
 	const calendarMonthYear = document.getElementById('calendar-month-year');
 	const calendarDays = document.getElementById('calendar-days');
 	const eventsDiv = document.getElementById('events');
 	const prevBtn = document.getElementById('prev-month');
 	const nextBtn = document.getElementById('next-month');
 	const categorySelect = document.getElementById('category-select');
+	const thisMonthBtn = document.getElementById('this-month-button');
 
 	let currentMonthOffset = 0;
 	let selectedDate = new Date().toISOString().split('T')[0]; // Default to today
@@ -45,10 +48,12 @@ let calendar = () => {
 			dayDiv.classList.toggle('active', dateStr === selectedDate);
 			dayDiv.addEventListener('click', () => {
 				selectedDate = dayDiv.dataset.date;
-				document.querySelectorAll('#calendar-days div').forEach(d => d.classList.remove('active'));
+				thisMonthMode = false;
+				document.querySelectorAll('#calendar-days div, #this-month-button').forEach(d => d.classList.remove('active'));
 				dayDiv.classList.add('active');
 				loadEvents();
 			});
+
 			calendarDays.appendChild(dayDiv);
 		}
 
@@ -69,11 +74,13 @@ let calendar = () => {
 			});
 
 		});
+
+
 	}
 
 
 	function loadEvents() {
-		if (!selectedDate) return;
+		if (!selectedDate && !thisMonthMode) return;
 
 		const category = categorySelect?.value || '';
 		const tag = selectedTag || '';
@@ -81,7 +88,20 @@ let calendar = () => {
 		// show loading message
 		eventsDiv.innerHTML = '<p>Lade Veranstaltungen...</p>';
 
-		fetch(`${ecoEvents.ajaxurl}?action=eco_load_events&date=${selectedDate}&category=${category}&tag=${tag}`)
+		let fetchUrl = `${ecoEvents.ajaxurl}?action=eco_load_events&category=${category}&tag=${tag}`;
+
+		if (thisMonthMode) {
+			// Send year & month instead of a specific date
+			const baseDate = new Date();
+			baseDate.setMonth(baseDate.getMonth() + currentMonthOffset);
+			const year = baseDate.getFullYear();
+			const month = (baseDate.getMonth() + 1).toString().padStart(2, '0');
+			fetchUrl += `&month=${year}-${month}`;
+		} else {
+			fetchUrl += `&date=${selectedDate}`;
+		}
+
+		fetch(fetchUrl)
 			.then(res => res.json())
 			.then(data => {
 				// if data is empty, show a message
@@ -100,10 +120,19 @@ let calendar = () => {
 	function _template(event) {
 		console.log(event);
 		let dateStr = event.start_date;
-		const year = parseInt(dateStr.substring(0, 4));
-		const month = parseInt(dateStr.substring(4, 6)) - 1; // Months are 0-indexed in JS
-		const day = parseInt(dateStr.substring(6, 8));
-		let _date = `${day}.${month}.${year}`;
+		// Format date from YYYYMMDD to DD.MM.YYYY
+		// Example: 20240415 -> 15.04.2024
+		// Ensure dateStr is 8 characters long
+		let _date = '';
+		if (dateStr.length !== 8) {
+			_date = event.start_date; // Fallback to original if format is unexpected
+		} else {
+			const year = dateStr.substring(0, 4);
+			// const month = parseInt(dateStr.substring(4, 6)) - 1; // Months are 0-indexed in JS
+			const month = dateStr.substring(4, 6);
+			const day = dateStr.substring(6, 8);
+			_date = `${day}.${month}.${year}`;
+		}
 		
 		
 		return `
@@ -134,10 +163,27 @@ let calendar = () => {
 		`;
 	}
 
+	thisMonthBtn?.addEventListener('click', () => {
+		// thisMonthMode = true;
+		// document.querySelectorAll('#calendar-days div').forEach(d => d.classList.remove('active'));
+		// thisMonthBtn.classList.add('active');
+		// loadEvents();
+		loadMonth();
+	});
+
+	function loadMonth() {
+		thisMonthMode = true;
+		document.querySelectorAll('#calendar-days div').forEach(d => d.classList.remove('active'));
+		thisMonthBtn.classList.add('active');
+		loadEvents();
+	}
+
+
 	prevBtn.addEventListener('click', () => {
 		if (currentMonthOffset > -10) {
 			currentMonthOffset--;
 			renderCalendar();
+			loadMonth();
 		}
 	});
 
@@ -145,6 +191,7 @@ let calendar = () => {
 		if (currentMonthOffset < 10) {
 			currentMonthOffset++;
 			renderCalendar();
+			loadMonth();
 		}
 	});
 

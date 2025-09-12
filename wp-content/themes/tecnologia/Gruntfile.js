@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 
 	require('matchdep').filterDev('grunt-*').forEach( grunt.loadNpmTasks );
 
-	grunt.registerTask('buildjs', ['concat', 'uglify']);
+	grunt.registerTask('buildjs', ['concat', 'terser']);
 	grunt.registerTask('dev', [ 'buildjs', 'less', 'parallel:dev']);
 	grunt.registerTask('dev-live', [ 'buildjs', 'less', 'parallel:dev-live']);
 
@@ -51,6 +51,8 @@ module.exports = function(grunt) {
 		'download-elementor-styles',
 		'download-elementor-global-defaults',
 		'download-elementor-icons',
+
+		'extract-plugin-versions',
 
 		'pojo-affiliate-links',
 

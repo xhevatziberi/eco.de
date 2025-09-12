@@ -294,8 +294,7 @@ class VamtamDiagnostics {
 				set_transient( 'vamtam-mixed-content-test-running', $hash, 60 );
 
 				add_action( 'shutdown', function() use ( $hash ) {
-					echo 'will run mixed content test';
-					$post_result = wp_remote_post( admin_url( 'admin-ajax.php?action=vamtam_run_mixed_content_test' ), [
+					wp_remote_post( admin_url( 'admin-ajax.php?action=vamtam_run_mixed_content_test' ), [
 						'timeout' => 60,
 						'body' => [
 							'hash' => $hash,

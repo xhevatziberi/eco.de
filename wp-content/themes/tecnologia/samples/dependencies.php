@@ -61,9 +61,6 @@ function vamtam_register_required_plugins() {
 		),
 
 		array(
-		),
-
-		array(
 			'name'     => esc_html__( 'Really Simple SSL', 'tecnologia' ),
 			'slug'     => 'really-simple-ssl',
 			'required' => false,
@@ -118,6 +115,27 @@ function vamtam_register_required_plugins() {
 		'is_automatic' => true,  // Automatically activate plugins after installation or not
 		'parent_slug' => 'vamtam_theme_setup',
 	);
+
+	// for bundled plugins the versions of the included zip files are extracted when the theme was built
+	$bundled_versions_path = __DIR__ . '/bundled-versions.json';
+	if ( file_exists( $bundled_versions_path ) ) {
+		if ( $bundled_versions = json_decode( file_get_contents( $bundled_versions_path ), true ) ) {
+			foreach ( $plugins as &$plugin ) {
+				if ( isset( $bundled_versions[ $plugin['slug'] ] ) ) {
+
+					$bundled_version = $bundled_versions[ $plugin['slug'] ];
+
+					if (
+						! isset( $plugin['version'] ) ||
+						version_compare( $bundled_version, $plugin['version'], '>' )
+					) {
+						$plugin['version'] = $bundled_version;
+					}
+				}
+			}
+			unset( $plugin );
+		}
+	}
 
 	tgmpa( $plugins, $config );
 }

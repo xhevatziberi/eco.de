@@ -1477,16 +1477,12 @@ class VamtamElementorBridge {
 	}
 
 	/*
-		1 - Fixes an issue where for some elements the "Improved CSS Loading" experiment does not properly inline
-		the required styles.
-
-		2 - If "e_font_icon_svg" feature is active, force-enqueue eicons when widgets that need them are present on the page.
+		If "e_font_icon_svg" feature is active, force-enqueue eicons when widgets that need them are present on the page.
 	*/
 	public static function optim_features_widget_fixes() {
-		$is_optimized_css_loading    = \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_css_loading' );
 		$is_inline_font_icons_active = \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_font_icon_svg' );
 
-		if ( $is_inline_font_icons_active || $is_optimized_css_loading ) {
+		if ( $is_inline_font_icons_active ) {
 			add_filter( 'elementor/frontend/widget/after_render', [ __CLASS__, 'get_registered_runtime_widgets' ] );
 			add_action( 'wp_footer', [ __CLASS__, 'print_registered_widgets_assets_data' ] );
 		}
@@ -1524,11 +1520,6 @@ class VamtamElementorBridge {
 	public static function print_registered_widgets_assets_data() {
 		$widgets_data             = self::get_registered_widgets_assets_data();
 		$registered_widgets       = array_values( self::$registered_runtime_widgets );
-		$is_optimized_css_loading = \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_css_loading' );
-
-		if ( $is_optimized_css_loading ) {
-			wp_add_inline_script( 'vamtam-all', "VAMTAM_FRONT.widgets_assets_data = " . json_encode( $widgets_data ) . ";", 'after' );
-		}
 
 		if ( in_array( 'forms', $registered_widgets ) || isset( $widgets_data['forms'] ) ) {
 			$inline_font_icons_active = \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_font_icon_svg' );
