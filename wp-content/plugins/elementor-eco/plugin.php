@@ -75,6 +75,22 @@ class Plugin {
 
 		wp_enqueue_script( 'elementor-eco-script' );
 		wp_enqueue_style( 'elementor-eco-style' );
+
+		// Localization
+		wp_localize_script('eco-events-script', 'ecoEventsL10n', [
+			'loading_events'      => __('Lade Veranstaltungen...', 'elementor-eco'),
+			'loading_month'       => __('Lade Monatsübersicht...', 'elementor-eco'),
+			'no_events_month' => __('Keine Veranstaltungen in diesem Monat.', 'elementor-eco'),
+			'no_events_today' => __('Heute keine Veranstaltungen.', 'elementor-eco'),
+			'no_events'     => __('Keine Veranstaltungen gefunden.', 'elementor-eco'),
+			'error_loading'        => __('Fehler beim Laden der Veranstaltungen. Bitte später erneut versuchen.', 'elementor-eco'),
+			'monthOverview'=> __('Monatsübersicht', 'elementor-eco'),
+			'today'        => __('Heute', 'elementor-eco'),
+			'thisMonth'    => __('Diesen Monat', 'elementor-eco'),
+			'all'          => __('Alle', 'elementor-eco'),
+			'more_info'    => __('Mehr Infos', 'elementor-eco'),
+			'ticket_shop'  => __('Zum Ticketshop', 'elementor-eco'),
+		]);
 	}
 
 	/**

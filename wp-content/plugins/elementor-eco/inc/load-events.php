@@ -7,7 +7,6 @@ function eco_load_events_callback() {
     $month    = isset($_GET['month']) ? sanitize_text_field($_GET['month']) : ''; // new
     $category = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
     $tag      = isset($_GET['tag']) ? sanitize_text_field($_GET['tag']) : '';
-    $nonce    = isset($_GET['nonce']) ? sanitize_text_field($_GET['nonce']) : '';
 
     if (!$date && !$month) {
         wp_send_json([]); // no date or month provided
@@ -18,6 +17,10 @@ function eco_load_events_callback() {
     if ($month) {
         // Example: '2025-08' → 20250801 to 20250831
         $month = preg_replace('/[^0-9\-]/', '', $month);
+        if (!preg_match('/^\d{4}-\d{2}$/', $month)) {
+            wp_send_json([]); // invalid format
+        }
+
         [$y, $m] = explode('-', $month);
         $from = $y . $m . '01';
         $to = $y . $m . '31'; // safe assumption for WP date comparison
@@ -42,6 +45,9 @@ function eco_load_events_callback() {
         'post_type'      => 'event',
         'posts_per_page' => -1,
         'meta_query'     => $meta_query,
+        'orderby'        => 'meta_value',
+        'meta_key'       => 'start_date',
+        'order'          => 'DESC',
     ];
 
     if ($category) {
@@ -112,6 +118,9 @@ function eco_get_event_days() {
 				'type' => 'DATE'
 			]
 		],
+        'orderby'        => 'meta_value',
+        'meta_key'       => 'start_date',
+        'order'          => 'DESC',
 		'fields' => 'ids'
 	]);
 
@@ -126,5 +135,4 @@ function eco_get_event_days() {
     }
 
     wp_send_json(array_values(array_unique($event_dates)));
-
 }

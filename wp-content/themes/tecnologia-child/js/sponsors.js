@@ -18,9 +18,6 @@
         spaceBetween: space,
         loop: loop,
         autoplay: autoplay ? { delay: delay, disableOnInteraction: false } : false,
-        hashNavigation: {
-            watchState: true,
-        },
         breakpoints: {
           0:    { slidesPerView: Math.min(2, slides), spaceBetween: Math.min(12, space) },
           480:  { slidesPerView: Math.max(2, Math.min(slides, 3)), spaceBetween: space },

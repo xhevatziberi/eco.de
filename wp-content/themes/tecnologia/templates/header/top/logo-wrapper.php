@@ -3,7 +3,7 @@
 		$logo_type = 'image';
 
 		$logo_id = get_theme_mod( 'custom_logo' );
-		$logo    = $logo_id ? wp_get_attachment_image_src( $core_logo_id, 'full' ) : '';
+		$logo    = $logo_id ? wp_get_attachment_image_src( $logo_id, 'full' ) : '';
 
 		if ( ! empty( $logo ) ) {
 			$logo = $logo[0];

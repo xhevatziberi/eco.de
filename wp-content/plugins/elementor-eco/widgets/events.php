@@ -206,7 +206,7 @@ class EventList extends Widget_Base {
 
 				<div class="calendar-filters">
 					<select id="category-select">
-						<option value=""><?php echo esc_html__( 'All', 'elementor-eco' ); ?></option>
+						<option value=""><?php echo esc_html__( 'Alle', 'elementor-eco' ); ?></option>
 						<?php
 						$categories = get_terms( array(
 							'taxonomy' => 'event-category',
@@ -226,7 +226,7 @@ class EventList extends Widget_Base {
 							'taxonomy' => 'event-tag',
 							'hide_empty' => false,
 						) );
-						echo '<span class="event-tag" data-tag="">' . esc_html__( 'All', 'elementor-eco' ) . '</span>';
+						echo '<span class="event-tag" data-tag="">' . esc_html__( 'Alle', 'elementor-eco' ) . '</span>';
 						foreach ( $tags as $tag ) {
 							echo '<span class="event-tag" data-tag="' . esc_attr( $tag->slug ) . '">' . esc_html( $tag->name ) . '</span>';
 						}

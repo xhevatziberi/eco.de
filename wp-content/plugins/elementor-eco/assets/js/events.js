@@ -66,16 +66,16 @@ let calendar = () => {
 		.then(res => res.json())
 		.then(data => {
 			data.forEach(date => {
-				const parts = date.split('.');
-				if (parts.length !== 3) return;
-				const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+				if (!/^\d{8}$/.test(date)) return; // basic check
+				const year = date.substring(0, 4);
+				const month = date.substring(4, 6);
+				const day = date.substring(6, 8);
+				const isoDate = `${year}-${month}-${day}`;
 				const el = document.querySelector(`#calendar-days div[data-date="${isoDate}"]`);
 				if (el) el.classList.add('has-news');
 			});
 
 		});
-
-
 	}
 
 
@@ -86,7 +86,7 @@ let calendar = () => {
 		const tag = selectedTag || '';
 
 		// show loading message
-		eventsDiv.innerHTML = '<p>Lade Veranstaltungen...</p>';
+		eventsDiv.innerHTML = thisMonthMode ? `<p>${ecoEventsL10n.loading_month}</p>` : `<p>${ecoEventsL10n.loading_events}</p>`;
 
 		let fetchUrl = `${ecoEvents.ajaxurl}?action=eco_load_events&category=${category}&tag=${tag}`;
 
@@ -106,14 +106,14 @@ let calendar = () => {
 			.then(data => {
 				// if data is empty, show a message
 				if (data.length === 0) {
-					eventsDiv.innerHTML = '<p>Keine Veranstaltungen gefunden.</p>';
+					eventsDiv.innerHTML = `<p>${thisMonthMode ? ecoEventsL10n.no_events_month : ecoEventsL10n.no_events}</p>`;
 					return;
 				}
 				eventsDiv.innerHTML = data.map(event => _template(event)).join('');
 			})
 			.catch(err => {
 				console.error('Error loading events:', err);
-				eventsDiv.innerHTML = '<p>Error loading events. Please try again later.</p>';
+				eventsDiv.innerHTML = `<p>${ecoEventsL10n.error_loading}</p>`;
 			});
 	}
 
@@ -149,7 +149,7 @@ let calendar = () => {
 					<h4 class="event-title">${event.title}</h4>
 					${event.teaser_short_description ? `<div class="event-teaser">${event.teaser_short_description}</div>` : ''}
 					<div class="event-ticketshop">
-						<a href="${event.link}#ticket">Link zum Ticketshop</a>
+						<a data-no-anchor href="${event.link}#ticket">${ecoEventsL10n.ticket_shop}</a>
 					</div>
 					
 					<div class="event-tags">
@@ -157,17 +157,13 @@ let calendar = () => {
 					</div>
 				</div>
 				<div class="event-link">
-					<a href="${event.link}" class="event-button">Mehr Infos</a>
+					<a href="${event.link}" class="event-button">${ecoEventsL10n.more_info}</a>
 				</div>
 			</div>
 		`;
 	}
 
 	thisMonthBtn?.addEventListener('click', () => {
-		// thisMonthMode = true;
-		// document.querySelectorAll('#calendar-days div').forEach(d => d.classList.remove('active'));
-		// thisMonthBtn.classList.add('active');
-		// loadEvents();
 		loadMonth();
 	});
 
@@ -197,14 +193,15 @@ let calendar = () => {
 
 	categorySelect?.addEventListener('change', loadEvents);
 
-	document.querySelectorAll('.event-tag').forEach(tagElement => {
-		tagElement.addEventListener('click', () => {
-			selectedTag = tagElement.dataset.tag || '';
+	document.querySelector('.calendar-tags')?.addEventListener('click', e => {
+		if (e.target.classList.contains('event-tag')) {
+			selectedTag = e.target.dataset.tag || '';
 			document.querySelectorAll('.event-tag').forEach(el => el.classList.remove('active'));
-			tagElement.classList.add('active');
+			e.target.classList.add('active');
 			loadEvents();
-		});
+		}
 	});
+
 
 	renderCalendar();
 };
