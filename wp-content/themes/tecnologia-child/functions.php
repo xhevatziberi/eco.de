@@ -7,7 +7,8 @@ function child_styles() {
 	wp_enqueue_style('eco-agenda', get_stylesheet_directory_uri() . '/css/agenda.css', array(), $version, 'all');
 	
 	// swiper styles
-	wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), '11.0.0', 'all' );
+	wp_enqueue_style( 'swiper-css', '/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.css?ver=8.4.5', array(), '11.0.0', 'all' ); //temporary fix
+	// wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), '11.0.0', 'all' );
 	wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0.0', true );
 
 	wp_register_style('eco-sponsors', get_stylesheet_directory_uri() . '/css/sponsors.css', array(), $version, 'all');
@@ -22,4 +23,4 @@ include_once( get_stylesheet_directory() . '/inc/hide-internal-elementor-templat
 include_once( get_stylesheet_directory() . '/inc/shortcodes.php' );
 include_once( get_stylesheet_directory() . '/inc/elementor_queries.php' );
 
-add_image_size( 'events-small', 267, 150, true ); // Crop
+add_image_size( 'events-small', 267, 150, true ); // Crop mode
