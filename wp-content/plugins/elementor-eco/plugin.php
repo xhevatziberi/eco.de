@@ -46,10 +46,10 @@ class Plugin {
 	 * @access public
 	 */
 	public function widget_scripts() {
-		$version = '1.2.6';
+		$version = '1.2.7';
 		wp_register_script( 'eco-widget-page', plugins_url( basename( __DIR__ ) . '/assets/js/page.js' ), [ 'elementor-frontend' ], $version, true );
 
-		wp_register_style( 'eco-events-style', plugins_url( '/assets/css/events.css', __FILE__  ) );
+		wp_register_style( 'eco-events-style', plugins_url( '/assets/css/events.css', __FILE__  ), [], $version );
 		wp_register_script( 'eco-events-script', plugins_url( '/assets/js/events.js', __FILE__ ), [ 'jquery' ], $version, true );
 		wp_localize_script( 'eco-events-script', 'ecoEvents', [
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),

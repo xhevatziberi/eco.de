@@ -31,7 +31,7 @@ final class Elementor_Eco {
 	 * @since 1.2.0
 	 * @var string The plugin version.
 	 */
-	const VERSION = '1.2.6';
+	const VERSION = '1.2.7';
 
 	/**
 	 * Minimum Elementor Version
