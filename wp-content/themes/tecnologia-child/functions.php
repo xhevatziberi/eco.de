@@ -22,5 +22,6 @@ include_once( get_stylesheet_directory() . '/inc/admin-menu-hide-items.php' );
 include_once( get_stylesheet_directory() . '/inc/hide-internal-elementor-templates.php' );
 include_once( get_stylesheet_directory() . '/inc/shortcodes.php' );
 include_once( get_stylesheet_directory() . '/inc/elementor_queries.php' );
+include_once( get_stylesheet_directory() . '/inc/misc.php' );
 
 add_image_size( 'events-small', 267, 150, true ); // Crop mode

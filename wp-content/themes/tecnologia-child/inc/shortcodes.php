@@ -220,3 +220,8 @@ add_shortcode('eco_events_sponsors_carousel', function($atts) {
     <?php
     return ob_get_clean();
 });
+
+// test
+add_shortcode('xhevat', function($atts) {
+    return '';
+});

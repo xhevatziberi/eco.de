@@ -3,7 +3,7 @@ Theme Name: Tecnologia Child
 Author: VamTam
 Author URI: https://vamtam.com
 Template: tecnologia
-Version: 1.0.18
+Version: 1.0.19
 */
 
 /* define colors */
@@ -123,6 +123,16 @@ figure.elementor-image-box-img {
 
 .swiper-pagination {
     transform: translate(0, -50%) !important;
+}
+
+.e-filter-item[aria-pressed="true"] {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: default;
+}
+#homepage-tiles .elementor-loop-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    justify-content: center;
 }
 
 @media (max-width: 768px) {

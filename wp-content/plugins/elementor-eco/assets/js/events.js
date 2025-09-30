@@ -13,6 +13,11 @@ let calendar = () => {
 	const categorySelect = document.getElementById('category-select');
 	const thisMonthBtn = document.getElementById('this-month-button');
 
+	if (!calendarMonthYear || !calendarDays || !eventsDiv || !prevBtn || !nextBtn) {
+		console.error('Calendar elements not found');
+		return;
+	}
+
 	let currentMonthOffset = 0;
 	let selectedDate = new Date().toISOString().split('T')[0]; // Default to today
 	// click today's date

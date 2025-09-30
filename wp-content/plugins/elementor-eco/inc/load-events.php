@@ -47,7 +47,7 @@ function eco_load_events_callback() {
         'meta_query'     => $meta_query,
         'orderby'        => 'meta_value',
         'meta_key'       => 'start_date',
-        'order'          => 'DESC',
+        'order'          => 'ASC',
     ];
 
     if ($category) {
