@@ -9,10 +9,6 @@
 			this.VamtamMainNavHandler.init();
 			this.VamtamActionLinksHandler.init();
 			this.VamtamPopupsHandler.disablePopupAutoFocus();
-
-			if ( elementorFrontend.config.experimentalFeatures.e_optimized_css_loading ) {
-				this.VamtamImprovedCSSLoadingHandler.init();
-			}
 		},
 		pageLoaded: function () {
 			this.VamtamPopupsHandler.init();
@@ -632,40 +628,6 @@
 				}
 			},
 		},
-		VamtamImprovedCSSLoadingHandler: {
-			init: () => {
-				const widgetData = { ...VAMTAM_FRONT.widgets_assets_data }; // Added from server.
-
-
-				if ( ! widgetData ) {
-					return; // Nothing to do.
-				} else {
-					// So the paths are not displayed.
-					$( '#vamtam-all-js-after' ).remove(); // Could be problematic if we need to add more inline stuff (wp_add_inline_script) to "vamtam-all" script.
-					delete( VAMTAM_FRONT.widgets_assets_data );
-				}
-
-				let out = '';
-				Object.keys(widgetData).forEach( widget => {
-					const content = widgetData[ widget ][ 'content' ],
-						widgetSelector = `.elementor-widget-${widget} > .elementor-widget-container`;
-
-					if ( content ) {
-						if ( $( `${widgetSelector} > style, ${widgetSelector} > link`).length ) {
-							return; // Inline style has been added for widget.
-						}
-
-						// Add to fallback.
-						out = out + '\r\n' + content;
-					}
-				});
-
-				// Add fallback inline CSS to DOM.
-				if ( out ) {
-					$( 'body' ).append( `<div id="vamtam-css-opt-fallback">${out}</div>` );
-				}
-			}
-		},
 		WidgetsObserver: {
 			observer: null,
 
@@ -809,7 +771,7 @@
 
 		elementorFrontend.hooks.addAction( 'frontend/element_ready/global', addHandler );
 
-		// elementorFrontend.on( 'components:init', overrideInitializeStickyAndAnchorTrackingMethod );
+		elementorFrontend.on( 'components:init', overrideInitializeStickyAndAnchorTrackingMethod );
 	});
 
 	// Override anchor_scroll_margin.initializeStickyAndAnchorTracking method to imitate previous (<3.25.0) behavior (jQuery's animate()).
@@ -830,6 +792,7 @@
 
 			// Add click event listener for initializing scrolling to target anchor using scrollTo() (works good with CSS smooth-scrolling).
 			anchorLinks.forEach(link => {
+				if (link.dataset.noAnchor !== undefined) return; // Xhevat. Skip it, as it overrides our custom link (e.g. #ticket).
 				link.addEventListener('click', (e) => {
 					e.preventDefault();
 					const target = this.getAnchorTarget(link);

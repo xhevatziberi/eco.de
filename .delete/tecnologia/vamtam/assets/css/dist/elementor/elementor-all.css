@@ -1167,6 +1167,10 @@ body.e--ua-isTouchDevice.e--ua-appleWebkit a {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
 }
+body.e--ua-appleWebkit .vamtam-saf-fnl,
+body.e--ua-appleWebkit .vamtam-saf-fnl .elementor-widget-container {
+  will-change: transform;
+}
 /*
 
 !! --- Don't remove when initializing a new theme. --- !!

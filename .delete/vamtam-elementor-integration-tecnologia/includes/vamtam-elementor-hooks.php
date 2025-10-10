@@ -13,6 +13,11 @@ add_filter( 'elementor/image_size/get_attachment_image_html', __NAMESPACE__ . '\
 function elementor_init() {
 	// Theme-dependant.
 	set_experiments_default_state();
+
+	// temporarily allow this only on internal sites
+	if ( ! function_exists( 'vamtam_internal_adminbar' ) ) {
+		set_performance_options();
+	}
 }
 
 /*
@@ -34,7 +39,7 @@ function set_experiments_default_state() {
 			// Features to force-disable.
 			$fdisable = [
 				'additional_custom_breakpoints',
-				'e_font_icon_svg'
+				'e_font_icon_svg',
 			];
 
 			if ( in_array( $fname, $fdisable ) ) {
@@ -58,6 +63,41 @@ function set_experiments_default_state() {
 	}
 
 	update_option( 'vamtam-set-experiments-default-state', true );
+}
+
+function __return_inactive_experiment( $state ) {
+	return \Elementor\Plugin::$instance->experiments::STATE_INACTIVE;
+}
+
+function set_performance_options() {
+	add_filter( 'pre_option_elementor_element_cache_ttl', function( $ttl ) {
+		return 'disable';
+	}, 999 );
+
+	$fdisable = [
+		'e_element_cache',
+		'e_optimized_markup',
+	];
+
+	$selectors = [];
+
+	// Features to force-disable.
+	foreach ( $fdisable as $fname ) {
+		update_option( 'elementor_experiment-' . $fname, \Elementor\Plugin::$instance->experiments::STATE_INACTIVE );
+		add_filter( 'pre_option_elementor_experiment-' . $fname, __NAMESPACE__ . '\__return_inactive_experiment' );
+		$selectors[] = '.elementor_experiment-' . $fname;
+	}
+
+	add_action( 'admin_enqueue_scripts', function() use ( $selectors ) {
+		$screen = get_current_screen();
+		if ( $screen && $screen->id === 'elementor_page_elementor-settings' ) {
+			$css = implode( ', ', $selectors ) . ' {
+					display: none;
+				}
+			';
+			wp_add_inline_style( 'elementor-admin', $css );
+		}
+	} );
 }
 
 function vamtam_elementor_additional_animations( $additional_anims ) {

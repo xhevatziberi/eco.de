@@ -3,6 +3,51 @@
 [data-elementor-device-mode="mobile"] .elementor-widget-archive-posts.vamtam-has-theme-widget-styles[data-widget_type="archive-posts.vamtam_classic"]:not(.elementor-element-edit-mode).elementor-hidden-mobile {
   display: none;
 }
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left .elementor-image-box-wrapper,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right .elementor-image-box-wrapper {
+  display: flex;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-top .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-top .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-middle .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-middle .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-bottom .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-bottom .elementor-image-box-content {
+  display: flex;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-top .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-top .elementor-image-box-content {
+  align-items: flex-start;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-middle .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-middle .elementor-image-box-content {
+  align-items: center;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-bottom .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-bottom .elementor-image-box-content {
+  align-items: flex-end;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.vamtam-text-align-mobile-left .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.vamtam-text-align-mobile-left .elementor-image-box-content {
+  justify-content: flex-start;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.vamtam-text-align-mobile-right .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.vamtam-text-align-mobile-right .elementor-image-box-content {
+  justify-content: flex-end;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.vamtam-text-align-mobile-center .elementor-image-box-content,
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.vamtam-text-align-mobile-center .elementor-image-box-content {
+  justify-content: center;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left .elementor-image-box-img {
+  margin-right: var(--vamtam-img-spacing, 20px) !important;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right .elementor-image-box-wrapper {
+  flex-direction: row-reverse;
+}
+.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right .elementor-image-box-img {
+  margin-left: var(--vamtam-img-spacing, 20px) !important;
+}
 .elementor-widget.vamtam-has-theme-widget-styles.vamtam-has-hr-layout.vamtam-has-nav.vamtam-nav-pos-mobile-top-left .vamtam-nav-btn-prev,
 .elementor-widget.vamtam-has-theme-widget-styles.vamtam-has-hr-layout.vamtam-has-nav.vamtam-nav-pos-mobile-bottom-left .vamtam-nav-btn-prev {
   left: 0;
@@ -71,55 +116,6 @@
   left: auto;
   bottom: auto;
 }
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left .elementor-image-box-wrapper,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right .elementor-image-box-wrapper {
-  display: flex;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-top .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-top .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-middle .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-middle .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-bottom .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-bottom .elementor-image-box-content {
-  display: flex;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-top .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-top .elementor-image-box-content {
-  align-items: flex-start;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-middle .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-middle .elementor-image-box-content {
-  align-items: center;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-bottom .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.elementor-vertical-align-bottom .elementor-image-box-content {
-  align-items: flex-end;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.vamtam-text-align-mobile-left .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.vamtam-text-align-mobile-left .elementor-image-box-content {
-  justify-content: flex-start;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.vamtam-text-align-mobile-right .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.vamtam-text-align-mobile-right .elementor-image-box-content {
-  justify-content: flex-end;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left.vamtam-text-align-mobile-center .elementor-image-box-content,
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right.vamtam-text-align-mobile-center .elementor-image-box-content {
-  justify-content: center;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-left .elementor-image-box-img {
-  margin-right: var(--vamtam-img-spacing, 20px) !important;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right .elementor-image-box-wrapper {
-  flex-direction: row-reverse;
-}
-.elementor-widget-image-box.vamtam-has-theme-widget-styles.elementor-position-right .elementor-image-box-img {
-  margin-left: var(--vamtam-img-spacing, 20px) !important;
-}
-[data-elementor-device-mode="mobile"] .elementor-widget-posts.vamtam-has-theme-widget-styles[data-widget_type="posts.vamtam_classic"]:not(.elementor-element-edit-mode).elementor-hidden-mobile,
-[data-elementor-device-mode="mobile"] .elementor-widget-posts.vamtam-has-theme-widget-styles[data-widget_type="archive-posts.vamtam_classic"]:not(.elementor-element-edit-mode).elementor-hidden-mobile {
-  display: none;
-}
 .elementor-widget-post-comments.vamtam-has-theme-widget-styles #commentform .form-submit {
   margin: 0 !important;
 }
@@ -148,6 +144,10 @@
 .elementor-widget-post-navigation.vamtam-has-theme-widget-styles .elementor-post-navigation .elementor-post-navigation__separator-wrapper .elementor-post-navigation__separator {
   width: 100%;
   height: 1px;
+}
+[data-elementor-device-mode="mobile"] .elementor-widget-posts.vamtam-has-theme-widget-styles[data-widget_type="posts.vamtam_classic"]:not(.elementor-element-edit-mode).elementor-hidden-mobile,
+[data-elementor-device-mode="mobile"] .elementor-widget-posts.vamtam-has-theme-widget-styles[data-widget_type="archive-posts.vamtam_classic"]:not(.elementor-element-edit-mode).elementor-hidden-mobile {
+  display: none;
 }
 .elementor-section.elementor-element {
   padding: 0 20px;

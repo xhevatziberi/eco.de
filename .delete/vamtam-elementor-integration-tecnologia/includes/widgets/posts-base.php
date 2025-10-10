@@ -62,32 +62,10 @@ if ( vamtam_theme_supports( 'posts-base--extra-pagination-controls' ) ) {
         );
         $widget->end_injection();
 
-        // Due to injection points getting messed up cause of the insertions of the tabs, we add the rest
-        // at before_section_end cause otherwise the ACTIVE tab won't show.
-        \Vamtam_Elementor_Utils::remove_tabs( $controls_manager, $widget, 'pagination_colors' );
-        \Vamtam_Elementor_Utils::remove_control( $controls_manager, $widget, 'pagination_spacing' );
-        \Vamtam_Elementor_Utils::remove_control( $controls_manager, $widget, 'pagination_spacing_top' );
-
-        $widget->start_controls_tabs( 'pagination_colors' );
-
-        $widget->start_controls_tab(
-            'pagination_color_normal',
-            [
-                'label' => __( 'Normal', 'vamtam-elementor-integration' ),
-            ]
-        );
-
-        $widget->add_control(
-            'pagination_color',
-            [
-                'label' => __( 'Color', 'vamtam-elementor-integration' ),
-                'type' => $controls_manager::COLOR,
-                'selectors' => [
-                    '{{WRAPPER}} .elementor-pagination .page-numbers:not(.dots)' => 'color: {{VALUE}};',
-                ],
-            ]
-        );
-
+		// Inject into the Pagination Colors Normal tab.
+		$widget->start_injection( [
+            'of' => 'pagination_color',
+        ] );
         $widget->add_control(
             'pagination_bg_color',
             [
@@ -98,27 +76,12 @@ if ( vamtam_theme_supports( 'posts-base--extra-pagination-controls' ) ) {
                 ],
             ]
         );
+        $widget->end_injection();
 
-        $widget->end_controls_tab();
-
-        $widget->start_controls_tab(
-            'pagination_color_hover',
-            [
-                'label' => __( 'Hover', 'vamtam-elementor-integration' ),
-            ]
-        );
-
-        $widget->add_control(
-            'pagination_hover_color',
-            [
-                'label' => __( 'Color', 'vamtam-elementor-integration' ),
-                'type' => $controls_manager::COLOR,
-                'selectors' => [
-                    '{{WRAPPER}} .elementor-pagination a.page-numbers:hover' => 'color: {{VALUE}};',
-                ],
-            ]
-        );
-
+		// Inject into the Pagination Colors Hover tab.
+		$widget->start_injection( [
+            'of' => 'pagination_hover_color',
+        ] );
         $widget->add_control(
             'pagination_hover_bg_color',
             [
@@ -129,27 +92,12 @@ if ( vamtam_theme_supports( 'posts-base--extra-pagination-controls' ) ) {
                 ],
             ]
         );
+        $widget->end_injection();
 
-        $widget->end_controls_tab();
-
-        $widget->start_controls_tab(
-            'pagination_color_active',
-            [
-                'label' => __( 'Active', 'vamtam-elementor-integration' ),
-            ]
-        );
-
-        $widget->add_control(
-            'pagination_active_color',
-            [
-                'label' => __( 'Color', 'vamtam-elementor-integration' ),
-                'type' => $controls_manager::COLOR,
-                'selectors' => [
-                    '{{WRAPPER}} .elementor-pagination .page-numbers.current' => 'color: {{VALUE}};',
-                ],
-            ]
-        );
-
+		// Inject into the Pagination Colors Active tab.
+		$widget->start_injection( [
+			'of' => 'pagination_active_color',
+		] );
         $widget->add_control(
             'pagination_active_bg_color',
             [
@@ -160,50 +108,8 @@ if ( vamtam_theme_supports( 'posts-base--extra-pagination-controls' ) ) {
                 ],
             ]
         );
+		$widget->end_injection();
 
-        $widget->end_controls_tab();
-        $widget->end_controls_tabs();
-
-        $widget->add_responsive_control(
-            'pagination_spacing',
-            [
-                'label' => __( 'Space Between', 'vamtam-elementor-integration' ),
-                'type' => $controls_manager::SLIDER,
-                'separator' => 'before',
-                'default' => [
-                    'size' => 10,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                ],
-                'selectors' => [
-                    'body:not(.rtl) {{WRAPPER}} .elementor-pagination .page-numbers:not(:first-child)' => 'margin-left: calc( {{SIZE}}{{UNIT}}/2 );',
-                    'body:not(.rtl) {{WRAPPER}} .elementor-pagination .page-numbers:not(:last-child)' => 'margin-right: calc( {{SIZE}}{{UNIT}}/2 );',
-                    'body.rtl {{WRAPPER}} .elementor-pagination .page-numbers:not(:first-child)' => 'margin-right: calc( {{SIZE}}{{UNIT}}/2 );',
-                    'body.rtl {{WRAPPER}} .elementor-pagination .page-numbers:not(:last-child)' => 'margin-left: calc( {{SIZE}}{{UNIT}}/2 );',
-                ],
-            ]
-        );
-
-        $widget->add_responsive_control(
-            'pagination_spacing_top',
-            [
-                'label' => __( 'Spacing', 'vamtam-elementor-integration' ),
-                'type' => $controls_manager::SLIDER,
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .elementor-pagination' => 'margin-top: {{SIZE}}{{UNIT}}',
-                ],
-            ]
-        );
     }
     // Style - Pagination Section.
     function section_pagination_style_before_section_end( $widget, $args ) {
@@ -445,6 +351,21 @@ if ( vamtam_theme_supports( 'posts-base--horizontal-layout' ) ) {
 		}
 	}
 	add_action( 'vamtam_posts_base_before_render_content', __NAMESPACE__ . '\posts_base_add_script_depends', 10, 2 );
+
+	function posts_base_add_item_ratio_class( $widget_name, $widget ) {
+		// Theme settings are checked on vamtam_before_posts_widget_before_render_content (do_action)
+		$settings = $widget->get_settings();
+		$skin_id  = $settings['_skin'];
+
+		$thumb_ratio = $widget->get_settings( "{$skin_id}_item_ratio" );
+
+		if ( ! empty( $thumb_ratio ) && ! empty( $thumb_ratio[ 'size' ] ) ) {
+			$widget->add_render_attribute( 'container', [
+				'class' => 'elementor-has-item-ratio',
+			] );
+		}
+	}
+	add_action( 'vamtam_posts_base_before_render_content', __NAMESPACE__ . '\posts_base_add_item_ratio_class', 10, 2 );
 
 
 	function update_columns_control_for_skin( $controls_manager, $widget, $skin_prefix ) {

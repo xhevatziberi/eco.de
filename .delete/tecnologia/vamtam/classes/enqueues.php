@@ -224,7 +224,7 @@ class VamtamEnqueues {
 		?>
 		<script type="text/javascript">
 			document.addEventListener( 'DOMContentLoaded', function() {
-				const $services_link = jQuery( 'a[href="admin.php?page=vamtam_theme_services"' );
+				const $services_link = jQuery( 'a[href="admin.php?page=vamtam_theme_services"]' );
 				if ( $services_link.length ) {
 					$services_link.on( 'click', function( event ) {
 						event.preventDefault(); // Prevent the default link behavior

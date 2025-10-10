@@ -515,3 +515,10 @@ body.e--ua-isTouchDevice.e--ua-appleWebkit a {
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 }
+
+// Safari - force new layer
+body.e--ua-appleWebkit .vamtam-saf-fnl {
+	&, .elementor-widget-container { // keep .elementor-widget-container
+		will-change: transform;
+	}
+}

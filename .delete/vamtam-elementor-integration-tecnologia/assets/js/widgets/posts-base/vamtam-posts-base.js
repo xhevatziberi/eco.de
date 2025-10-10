@@ -52,26 +52,25 @@ var defaultPosts = elementorModules.frontend.handlers.Base.extend({
 	},
 
 	fitImages() {
-	  var $ = jQuery,
-		  self = this,
-		  itemRatio = getComputedStyle(this.$element[0], ':after').content,
-		  settings = this.getSettings();
-	  this.elements.$postsContainer.toggleClass(settings.classes.hasItemRatio, !!itemRatio.match(/\d/));
-
-	  if (self.isMasonryEnabled()) {
+		var $ = jQuery,
+		self = this,
+		itemRatio = getComputedStyle(this.$element[0], ':after').content,
+		settings = this.getSettings();
+		if (self.isMasonryEnabled()) {
+		this.elements.$postsContainer.removeClass(settings.classes.hasItemRatio);
 		return;
-	  }
-
-	  // Update posts.
-	  this.elements.$posts = this.elements.$postsContainer.find( settings.selectors.post );
-	  this.elements.$posts.each(function () {
+		}
+		this.elements.$postsContainer.toggleClass(settings.classes.hasItemRatio, !!itemRatio.match(/\d/));
+		// Update posts.
+	  	this.elements.$posts = this.elements.$postsContainer.find( settings.selectors.post );
+		this.elements.$posts.each(function () {
 		var $post = $(this),
 			$image = $post.find(settings.selectors.postThumbnailImage);
 		self.fitImage($post);
 		$image.on('load', function () {
-		  self.fitImage($post);
+			self.fitImage($post);
 		});
-	  });
+		});
 	},
 
 	setColsCountSettings() {

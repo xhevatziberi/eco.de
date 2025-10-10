@@ -2,18 +2,18 @@
 # This file is distributed under the same license as the VamTam Elementor Integration (Tecnologia) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: VamTam Elementor Integration (Tecnologia) 1.1.9\n"
+"Project-Id-Version: VamTam Elementor Integration (Tecnologia) 1.1.13\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/vamtam-elementor-integration-"
 "tecnologia\n"
-"POT-Creation-Date: 2025-06-10 20:17:46+00:00\n"
+"POT-Creation-Date: 2025-09-08 13:51:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"X-Generator: grunt-wp-i18n 1.0.4\n"
 
 #: includes/dynamic-tags/vamtam-author-profile-picture.php:29
 msgid "Author Profile Picture (Large)"
@@ -150,19 +150,19 @@ msgid ""
 "everytime the popup is opened."
 msgstr ""
 
-#: includes/vamtam-elementor-hooks.php:69
+#: includes/vamtam-elementor-hooks.php:109
 msgid "Image - Grow With Scale (Left)"
 msgstr ""
 
-#: includes/vamtam-elementor-hooks.php:70
+#: includes/vamtam-elementor-hooks.php:110
 msgid "Image - Grow With Scale (Right)"
 msgstr ""
 
-#: includes/vamtam-elementor-hooks.php:71
+#: includes/vamtam-elementor-hooks.php:111
 msgid "Image - Grow With Scale (Top)"
 msgstr ""
 
-#: includes/vamtam-elementor-hooks.php:72
+#: includes/vamtam-elementor-hooks.php:112
 msgid "Image - Grow With Scale (Bottom)"
 msgstr ""
 
@@ -186,14 +186,14 @@ msgstr ""
 msgid "Content Padding"
 msgstr ""
 
-#: includes/widgets/archive-posts.php:107 includes/widgets/posts-base.php:76
+#: includes/widgets/archive-posts.php:107
 #: includes/widgets/testimonial-carousel.php:27
 msgid "Normal"
 msgstr ""
 
 #: includes/widgets/archive-posts.php:122
-#: includes/widgets/archive-posts.php:160 includes/widgets/posts-base.php:94
-#: includes/widgets/posts-base.php:125 includes/widgets/posts-base.php:156
+#: includes/widgets/archive-posts.php:160 includes/widgets/posts-base.php:72
+#: includes/widgets/posts-base.php:88 includes/widgets/posts-base.php:104
 msgid "Background Color"
 msgstr ""
 
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Border Color"
 msgstr ""
 
-#: includes/widgets/archive-posts.php:145 includes/widgets/posts-base.php:107
+#: includes/widgets/archive-posts.php:145
 #: includes/widgets/testimonial-carousel.php:54
 msgid "Hover"
 msgstr ""
@@ -219,7 +219,7 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: includes/widgets/button.php:52 includes/widgets/posts-base.php:194
+#: includes/widgets/button.php:52
 msgid "Spacing"
 msgstr ""
 
@@ -231,7 +231,7 @@ msgstr ""
 msgid "Overflow"
 msgstr ""
 
-#: includes/widgets/column.php:19 includes/widgets/posts-base.php:529
+#: includes/widgets/column.php:19 includes/widgets/posts-base.php:450
 #: includes/widgets/testimonial-carousel.php:103
 msgid "Default"
 msgstr ""
@@ -336,128 +336,113 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: includes/widgets/posts-base.php:83 includes/widgets/posts-base.php:114
-#: includes/widgets/posts-base.php:145
-#: includes/widgets/testimonial-carousel.php:37
-#: includes/widgets/testimonial-carousel.php:64
-msgid "Color"
-msgstr ""
-
-#: includes/widgets/posts-base.php:138
-msgid "Active"
-msgstr ""
-
-#: includes/widgets/posts-base.php:170
-msgid "Space Between"
-msgstr ""
-
-#: includes/widgets/posts-base.php:233
+#: includes/widgets/posts-base.php:139
 msgid "Classic (Vamtam)"
 msgstr ""
 
-#: includes/widgets/posts-base.php:324
+#: includes/widgets/posts-base.php:230
 msgid "Categories"
 msgstr ""
 
-#: includes/widgets/posts-base.php:332
+#: includes/widgets/posts-base.php:238
 msgid "Tags"
 msgstr ""
 
-#: includes/widgets/posts-base.php:467
+#: includes/widgets/posts-base.php:388
 msgid "Use Horizontal Layout"
 msgstr ""
 
-#: includes/widgets/posts-base.php:481
+#: includes/widgets/posts-base.php:402
 msgid "Additional Columns Hint"
 msgstr ""
 
-#: includes/widgets/posts-base.php:508
+#: includes/widgets/posts-base.php:429
 msgid "Show Navigation"
 msgstr ""
 
-#: includes/widgets/posts-base.php:509
+#: includes/widgets/posts-base.php:430
 msgid "Disabled by default on mobile devices."
 msgstr ""
 
-#: includes/widgets/posts-base.php:526
+#: includes/widgets/posts-base.php:447
 #: includes/widgets/testimonial-carousel.php:100
 msgid "Position"
 msgstr ""
 
-#: includes/widgets/posts-base.php:530
+#: includes/widgets/posts-base.php:451
 #: includes/widgets/testimonial-carousel.php:104
 msgid "Top Left"
 msgstr ""
 
-#: includes/widgets/posts-base.php:531
+#: includes/widgets/posts-base.php:452
 #: includes/widgets/testimonial-carousel.php:105
 msgid "Top Right"
 msgstr ""
 
-#: includes/widgets/posts-base.php:532
+#: includes/widgets/posts-base.php:453
 #: includes/widgets/testimonial-carousel.php:106
 msgid "Top Center"
 msgstr ""
 
-#: includes/widgets/posts-base.php:533
+#: includes/widgets/posts-base.php:454
 #: includes/widgets/testimonial-carousel.php:107
 msgid "Bottom Left"
 msgstr ""
 
-#: includes/widgets/posts-base.php:534
+#: includes/widgets/posts-base.php:455
 #: includes/widgets/testimonial-carousel.php:108
 msgid "Bottom Right"
 msgstr ""
 
-#: includes/widgets/posts-base.php:535
+#: includes/widgets/posts-base.php:456
 #: includes/widgets/testimonial-carousel.php:109
 msgid "Bottom Center"
 msgstr ""
 
-#: includes/widgets/posts-base.php:536
+#: includes/widgets/posts-base.php:457
 #: includes/widgets/testimonial-carousel.php:110
 msgid "Custom"
 msgstr ""
 
-#: includes/widgets/posts-base.php:571
+#: includes/widgets/posts-base.php:492
 #: includes/widgets/testimonial-carousel.php:141
 msgid "Previous Button X"
 msgstr ""
 
-#: includes/widgets/posts-base.php:586
+#: includes/widgets/posts-base.php:507
 #: includes/widgets/testimonial-carousel.php:156
 msgid "Previous Button Y"
 msgstr ""
 
-#: includes/widgets/posts-base.php:601
+#: includes/widgets/posts-base.php:522
 #: includes/widgets/testimonial-carousel.php:171
 msgid "Next Button X"
 msgstr ""
 
-#: includes/widgets/posts-base.php:616
+#: includes/widgets/posts-base.php:537
 #: includes/widgets/testimonial-carousel.php:186
 msgid "Next Button Y"
 msgstr ""
 
-#: includes/widgets/posts-base.php:650
+#: includes/widgets/posts-base.php:571
 #: includes/widgets/testimonial-carousel.php:218
 msgid "Buttons Gap"
 msgstr ""
 
-#: includes/widgets/posts-base.php:664
+#: includes/widgets/posts-base.php:585
 #: includes/widgets/testimonial-carousel.php:232
 msgid "Buttons Spacing"
 msgstr ""
 
-#: includes/widgets/posts-base.php:678
+#: includes/widgets/posts-base.php:599
 msgid "Always Visible"
 msgstr ""
 
-#: includes/widgets/posts-base.php:679
+#: includes/widgets/posts-base.php:600
 msgid "Disables the default \"Show on Hover\" animation."
 msgstr ""
 
-#: includes/widgets/posts-base.php:697
+#: includes/widgets/posts-base.php:618
 msgid "Enable on Mobile Devices"
 msgstr ""
 
@@ -490,6 +475,30 @@ msgstr ""
 
 #: includes/widgets/tabs.php:18
 msgid "Disables the default tab switching animation."
+msgstr ""
+
+#: includes/widgets/testimonial-carousel.php:37
+#: includes/widgets/testimonial-carousel.php:64
+msgid "Color"
+msgstr ""
+
+#: includes/widgets/testimonial-carousel.php:258
+msgid "Reserve Slide Height"
+msgstr ""
+
+#: includes/widgets/testimonial-carousel.php:259
+msgid "Reserve space for the slide height to avoid content jumps on page load."
+msgstr ""
+
+#: includes/widgets/testimonial-carousel.php:271
+msgid "Slide Height"
+msgstr ""
+
+#: includes/widgets/testimonial-carousel.php:272
+msgid ""
+"To find the proper slide height to reserve, check the height of the "
+"\"swiper-wrapper\" element after the carousel has finished loading the "
+"content."
 msgstr ""
 
 #: vamtam-elementor-integration.php:111

@@ -321,18 +321,20 @@
 		window.addEventListener( 'resize', window.VAMTAM.debounce( window.VAMTAM.resizeElements, 100 ), false );
 		window.VAMTAM.resizeElements();
 
-		$( document ).ajaxSuccess(function( event, xhr, settings ) {
-			const args = settings.data
-			                   .split( '&' )
-			                   .map( pair => pair.split( '=' ) )
-			                   .reduce( (prev, curr) => { prev[ curr[0] ] = curr[1]; return prev; }, {} );
+		$( document ).on( 'ajaxSuccess', function( event, xhr, settings ) {
+			if (settings.data && typeof settings.data === 'string') {
+				const args = settings.data
+				               .split( '&' )
+				               .map( pair => pair.split( '=' ) )
+				               .reduce( (prev, curr) => { prev[ curr[0] ] = curr[1]; return prev; }, {} );
 
-			if ( args.action === 'wishlist_remove' ) {
-				const response = JSON.parse( xhr.responseText );
+				if ( args.action === 'wishlist_remove' ) {
+					const response = JSON.parse( xhr.responseText );
 
-				if ( response.status === 1 && response.count === 0 ) {
-					$( '.vamtam-empty-wishlist-notice' ).show();
-					$( 'table.woosw-items' ).hide();
+					if ( response.status === 1 && response.count === 0 ) {
+						$( '.vamtam-empty-wishlist-notice' ).show();
+						$( 'table.woosw-items' ).hide();
+					}
 				}
 			}
 		});

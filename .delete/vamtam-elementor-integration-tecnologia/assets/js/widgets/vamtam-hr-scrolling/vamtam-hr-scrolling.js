@@ -2,7 +2,6 @@ class VamtamHrScrolling extends elementorModules.frontend.handlers.Base {
 	getDefaultSettings() {
 		return {
 			selectors: {
-				container: '.elementor-widget-container',
 				items: '.products.elementor-grid, .elementor-posts-container',
 			},
 		};
@@ -11,7 +10,6 @@ class VamtamHrScrolling extends elementorModules.frontend.handlers.Base {
 	getDefaultElements() {
 		const selectors = this.getSettings( 'selectors' );
 		return {
-			$container: this.$element.find( selectors.container ),
 			$items: this.$element.find( selectors.items ),
 		};
 	}

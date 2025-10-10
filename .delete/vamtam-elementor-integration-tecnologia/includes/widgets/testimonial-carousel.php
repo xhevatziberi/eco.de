@@ -247,3 +247,45 @@ if ( vamtam_theme_supports( 'testimonial-carousel--custom-nav-arrows-controls' )
 	}
 	add_action( 'elementor/element/testimonial-carousel/section_navigation/before_section_end', __NAMESPACE__ . '\section_navigation_before_section_end', 10, 2 );
 }
+
+if ( vamtam_theme_supports( 'testimonial-carousel--reserve-slide-height' ) ) {
+
+	function add_reserve_slide_height_controls( $controls_manager, $widget ) {
+		// 'Reserve Slide Height
+		$widget->add_control(
+			'vamtam_reserve_slide_height',
+			[
+				'label' => esc_html__( 'Reserve Slide Height', 'vamtam-elementor-integration' ),
+				'description' => esc_html__( 'Reserve space for the slide height to avoid content jumps on page load.', 'vamtam-elementor-integration' ),
+				'type' => $controls_manager::SWITCHER,
+				'default' => '',
+				'prefix_class' => 'vamtam-has-',
+				'return_value' => 'slide-height',
+			]
+		);
+
+		// Slide Height
+		$widget->add_responsive_control(
+			'vamtam_slide_height',
+			[
+				'label' => esc_html__( 'Slide Height', 'vamtam-elementor-integration' ),
+				'description' => esc_html__( 'To find the proper slide height to reserve, check the height of the "swiper-wrapper" element after the carousel has finished loading the content.', 'vamtam-elementor-integration' ),
+				'type' => $controls_manager::SLIDER,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors' => [
+					'{{WRAPPER}} .elementor-swiper' => '--vamtam-slide-height: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+					'vamtam_reserve_slide_height!' => '',
+				],
+			]
+		);
+	}
+
+	// Content - Additional Options section
+	function section_additional_options_before_section_end( $widget, $args ) {
+		$controls_manager = \Elementor\Plugin::instance()->controls_manager;
+		add_reserve_slide_height_controls( $controls_manager, $widget );
+	}
+	add_action( 'elementor/element/testimonial-carousel/section_additional_options/before_section_end', __NAMESPACE__ . '\section_additional_options_before_section_end', 10, 2 );
+}

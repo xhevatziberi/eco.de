@@ -43,12 +43,30 @@ module.exports = function(grunt) {
 		return `// build: ${head}`;
 	}
 
+	const vei_dir = grunt.file.expand({ filter: 'isDirectory' }, path.join(basedir, 'vamtam/plugins/vamtam-elementor-integration*'));
+
 	return {
 		pkg: grunt.file.readJSON('package.json'),
 		basedir,
-		uglify: {
+		terser: {
 			options: {
-				screwIE8: true,
+				ecma: 2020, // Ensures Terser can handle modern JS, including optional chaining (?.)
+				compress: {
+					drop_console: true
+				},
+				mangle: true,
+				output: {
+					comments: false,
+				},
+			},
+			vei: {
+				files: [{
+					expand: true,
+					cwd: path.join( vei_dir[0], 'assets/js/' ),
+					src: ['**/*.js', '!**/*.min.js'],
+					dest: path.join(vei_dir[0], 'assets/js/'),
+					ext: '.min.js'
+				}],
 			},
 			front: {
 				src: '<%= pkg.jsLocation %>all.js',
@@ -162,9 +180,11 @@ module.exports = function(grunt) {
 				files: [
 					'<%= concat.dist.src %>',
 					'<%= concat.admin.src %>',
-					'<%= uglify.wc_gallery.src %>',
-					'<%= uglify.theme_elementor.src %>',
-					'<%= pkg.jsLocation %>src/**',
+					'<%= terser.wc_gallery.src %>',
+					'<%= terser.theme_elementor.src %>',
+					'<%= pkg.jsLocation %>src/**/*.js',
+					path.join(vei_dir[0], 'assets/js/**/*.js'),
+					'!**/*.min.js',
 				],
 				tasks: ['buildjs'],
 			},
