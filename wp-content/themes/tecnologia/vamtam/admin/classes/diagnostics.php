@@ -408,14 +408,14 @@ class VamtamDiagnostics {
 				'disable_wp_cron' => [
 					'title'  => esc_html__( 'WP-Cron active', 'tecnologia' ),
 					'result' => $wp_cron_disabled ? 'no' : 'yes',
-					'pass'   => ! $wp_cron_disabled,
-					'msg'    => wp_kses_post( __( 'The <strong>DISABLE_WP_CRON</strong> constant is set to true. This will prevent the demo content images from being imported.', 'tecnologia' ) ),
+					'pass'   => ! $wp_cron_disabled || defined( 'PAGELYBIN' ) || defined( 'WP_WPAAS_PREPENDED' ),
+					'msg'    => wp_kses_post( __( 'The <strong>DISABLE_WP_CRON</strong> constant is set to true. This may prevent the demo content images from being imported, or the import process may be slower, depending on your server\'s configuration. If you can\'t change the value of DISABLE_WP_CRON, please try importing the demo content anyway.', 'tecnologia' ) ),
 				],
 				'alternate_wp_cron' => [
 					'title'  => esc_html__( 'Standard WP-Cron', 'tecnologia' ),
 					'result' => $alternate_wp_cron ? 'no' : 'yes',
 					'pass'   => ! $alternate_wp_cron,
-					'msg'    => wp_kses_post( __( 'The <strong>ALTERNATE_WP_CRON</strong> constant is set to true. Non-standard WP-Cron may prevent the demo content images from being imported.', 'tecnologia' ) ),
+					'msg'    => wp_kses_post( __( 'The <strong>ALTERNATE_WP_CRON</strong> constant is set to true. Non-standard WP-Cron may prevent the demo content images from being imported, depending on your server\'s configuration.', 'tecnologia' ) ),
 				],
 				'basicauth' => [
 					'title'  => esc_html__( 'Basic Auth', 'tecnologia' ),
