@@ -13,6 +13,8 @@ function child_styles() {
 
 	wp_register_style('eco-sponsors', get_stylesheet_directory_uri() . '/css/sponsors.css', array(), $version, 'all');
 	wp_register_script('eco-sponsors', get_stylesheet_directory_uri() . '/js/sponsors.js', array('jquery', 'swiper-js'), $version, true);
+
+	wp_enqueue_style('eco-events', get_stylesheet_directory_uri() . '/css/events.css', array(), $version, 'all');
 }
 add_action( 'wp_enqueue_scripts', 'child_styles', 11 );
 
@@ -21,6 +23,7 @@ add_editor_style( 'css/editor-style.css' );
 include_once( get_stylesheet_directory() . '/inc/admin-menu-hide-items.php' );
 include_once( get_stylesheet_directory() . '/inc/hide-internal-elementor-templates.php' );
 include_once( get_stylesheet_directory() . '/inc/shortcodes.php' );
+include_once( get_stylesheet_directory() . '/inc/ical.php' );
 include_once( get_stylesheet_directory() . '/inc/elementor_queries.php' );
 include_once( get_stylesheet_directory() . '/inc/misc.php' );
 

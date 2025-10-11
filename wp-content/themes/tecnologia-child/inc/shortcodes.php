@@ -221,6 +221,138 @@ add_shortcode('eco_events_sponsors_carousel', function($atts) {
     return ob_get_clean();
 });
 
+// [event_slots] – display all event dates/times/locations in single event template
+add_shortcode('event_slots', function () {
+  if (!is_singular('event')) return '';
+
+  $post_id = get_the_ID();
+
+  // helpers
+  $norm_date = function($s){
+    if (!$s) return '';
+    if (preg_match('/^\d{8}$/', $s)) return substr($s,0,4).'-'.substr($s,4,2).'-'.substr($s,6,2);
+    if (preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $s)) { [$d,$m,$y]=explode('.',$s); return "$y-$m-$d"; }
+    return $s;
+  };
+  $norm_time = function($t){
+    if (!$t) return '';
+    if (preg_match('/^\d{2}:\d{2}(:\d{2})?$/',$t)) return substr($t,0,5);
+    $dt = date_create($t);
+    return $dt ? $dt->format('H:i') : '';
+  };
+
+  // main (meta fields)
+  $main = [[
+    'start_date' => $norm_date(get_post_meta($post_id, 'start_date', true)),
+    'end_date'   => $norm_date(get_post_meta($post_id, 'end_date', true) ?: get_post_meta($post_id, 'start_date', true)),
+    'start_time' => $norm_time(get_post_meta($post_id, 'start_time', true)),
+    'end_time'   => $norm_time(get_post_meta($post_id, 'end_time', true)),
+    'location'   => get_post_meta($post_id, 'city', true),
+  ]];
+
+  // other_dates repeater (ACF)
+  $other = [];
+  if (function_exists('get_field')) {
+    $raw = get_field('other_dates', $post_id);
+    if ($raw && is_array($raw)) {
+      foreach ($raw as $r) {
+        $other[] = [
+          'start_date' => $norm_date($r['start_date'] ?? ''),
+          'end_date'   => $norm_date($r['end_date'] ?? ($r['start_date'] ?? '')),
+          'start_time' => $norm_time($r['start_time'] ?? ''),
+          'end_time'   => $norm_time($r['end_time'] ?? ''),
+          'location'   => $r['location'] ?? ($r['city'] ?? ''),
+        ];
+      }
+    }
+  }
+
+  // merge + sort
+  $slots = array_merge($main, $other);
+  usort($slots, function($a,$b){
+    return strcmp(($a['start_date'] ?? '') . ($a['start_time'] ?? ''), ($b['start_date'] ?? '') . ($b['start_time'] ?? ''));
+  });
+
+  if (empty($slots)) return '';
+
+  // render
+  ob_start(); ?>
+  <div class="event-terms-list" data-count="<?php echo count($slots); ?>">
+    <ul class="etl">
+      <?php foreach ($slots as $s):
+        $sd = $s['start_date'] ? date_i18n('d.m.Y', strtotime($s['start_date'])) : '';
+        $ed = $s['end_date'] ? date_i18n('d.m.Y', strtotime($s['end_date'])) : '';
+        $st = $s['start_time']; $et = $s['end_time']; $loc = $s['location'];
+      ?>
+      <li class="etl-item">
+        <span class="etl-date">📅 <?php echo esc_html($sd . ($ed && $ed !== $sd ? ' – '.$ed : '')); ?></span>
+        <?php if ($st): ?>
+        <span class="etl-time">⏰ <?php echo esc_html($st . ($et && $et !== $st ? '–'.$et : '')); ?></span>
+        <?php endif; ?>
+        <?php if ($loc): ?>
+        <span class="etl-loc">📍 <?php echo esc_html($loc); ?></span>
+        <?php endif; ?>
+      </li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+  <?php return ob_get_clean();
+});
+
+// [event_location_block color="white"] – display event venue details in single event template
+add_shortcode('event_location_block', function($atts){
+  if (!is_singular('event')) return '';
+
+  $post_id = get_the_ID();
+
+    $atts = shortcode_atts([
+        'color' => '' // white | black
+    ], $atts);
+
+  // read exactly your field keys
+  $venue    = get_field('venue', $post_id)          ?: get_post_meta($post_id,'venue',true);
+  $street   = get_field('street_1', $post_id)       ?: get_post_meta($post_id,'street_1',true);
+  $zip      = get_field('zip_plz', $post_id)        ?: get_post_meta($post_id,'zip_plz',true);
+  $city     = get_field('venue_city', $post_id)     ?: get_post_meta($post_id,'venue_city',true);
+  $country  = get_field('venue_country', $post_id)  ?: get_post_meta($post_id,'venue_country',true);
+  $venueUrl = get_field('venue_url', $post_id)      ?: get_post_meta($post_id,'venue_url',true);
+
+  ob_start(); ?>
+  <div class="eco-loc eco-loc--compact eco-loc--<?php echo esc_attr($atts['color']); ?>">
+    <?php if ($venue): ?>
+      <div class="eco-loc__row">
+        <span class="eco-loc__label">Venue</span>
+        <span class="eco-loc__val"><?php echo esc_html($venue); ?></span>
+      </div>
+    <?php endif; ?>
+
+    <?php if ($street): ?>
+      <div class="eco-loc__row">
+        <span class="eco-loc__label">Street</span>
+        <span class="eco-loc__val"><?php echo esc_html($street); ?></span>
+      </div>
+    <?php endif; ?>
+
+    <?php if ($zip || $city): ?>
+      <div class="eco-loc__row">
+        <span class="eco-loc__label">City</span>
+        <span class="eco-loc__val"><?php echo esc_html(trim($zip.' '.$city)); ?></span>
+      </div>
+    <?php endif; ?>
+
+    <?php if ($country): ?>
+      <div class="eco-loc__row">
+        <span class="eco-loc__label">Country</span>
+        <span class="eco-loc__val"><?php echo esc_html($country); ?></span>
+      </div>
+    <?php endif; ?>
+  </div>
+  <?php
+  return ob_get_clean();
+});
+
+
+
 // test
 add_shortcode('xhevat', function($atts) {
     return '';

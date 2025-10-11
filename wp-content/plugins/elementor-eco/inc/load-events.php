@@ -72,20 +72,50 @@ function eco_load_events_callback() {
     if ($query->have_posts()) {
         while ($query->have_posts()) {
             $query->the_post();
+
+            $raw_other = get_field('other_dates') ?: [];
+            $other_dates = array_map(function($d){
+                $d = array_change_key_case((array)$d, CASE_LOWER);
+                $start = $d['start_date'] ?? '';
+                $end   = $d['end_date']   ?? $start;              // fallback
+                $loc   = $d['location']   ?? ($d['city'] ?? '');
+                return [
+                    'start_date' => $start,
+                    'end_date'   => $end,
+                    'start_time' => $d['start_time'] ?? '',
+                    'end_time'   => $d['end_time']   ?? '',
+                    'location'   => $loc,
+                ];
+            }, $raw_other);
+
+            // Sort by start_date (works for DD.MM.YYYY or YYYYMMDD)
+            usort($other_dates, function($a,$b){
+                $norm = function($s){
+                    if (preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $s)) { [$dd,$mm,$yy] = explode('.',$s); return $yy.$mm.$dd; }
+                    return $s;
+                };
+                return strcmp($norm($a['start_date'] ?? ''), $norm($b['start_date'] ?? ''));
+            });
+
             $results[] = [
-                'title'                    => get_the_title(),
-                'link'                     => get_permalink(),
-                'start_date'               => get_post_meta(get_the_ID(), 'start_date', true),
-                'end_date'                 => get_post_meta(get_the_ID(), 'end_date', true),
-                'time'                     => get_post_meta(get_the_ID(), 'time', true),
-                'location'                 => get_post_meta(get_the_ID(), 'location', true),
-                'description'              => get_the_excerpt(),
-                'thumbnail'                => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
-                'categories'               => wp_get_post_terms(get_the_ID(), 'event-category', ['fields' => 'names']),
-                'tags'                     => wp_get_post_terms(get_the_ID(), 'event-tag', ['fields' => 'names']),
-                'id'                       => get_the_ID(),
+                'title'        => get_the_title(),
+                'link'         => get_permalink(),
+                'start_date'   => get_post_meta(get_the_ID(), 'start_date', true),
+                'end_date'     => get_post_meta(get_the_ID(), 'end_date', true) ?: get_post_meta(get_the_ID(), 'start_date', true),
+                'start_time'   => get_post_meta(get_the_ID(), 'start_time', true),
+                'end_time'     => get_post_meta(get_the_ID(), 'end_time', true),
+                'location'     => get_post_meta(get_the_ID(), 'city', true),  // consistent
+                'description'  => get_the_excerpt(),
+                'thumbnail'    => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
+                'categories'   => wp_get_post_terms(get_the_ID(), 'event-category', ['fields' => 'names']),
+                'tags'         => wp_get_post_terms(get_the_ID(), 'event-tag', ['fields' => 'names']),
+                'id'           => get_the_ID(),
+                'teaser_title' => get_field('teaser_title') ?: get_the_title(),
                 'teaser_short_description' => get_field('teaser_short_description'),
+                'has_tickets'  => (bool) get_field('pretix_shortcode'),
+                'other_dates'  => $other_dates,
             ];
+
         }
     }
 

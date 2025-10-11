@@ -124,49 +124,128 @@ let calendar = () => {
 
 	function _template(event) {
 		console.log(event);
-		let dateStr = event.start_date;
-		// Format date from YYYYMMDD to DD.MM.YYYY
-		// Example: 20240415 -> 15.04.2024
-		// Ensure dateStr is 8 characters long
-		let _date = '';
-		if (dateStr.length !== 8) {
-			_date = event.start_date; // Fallback to original if format is unexpected
-		} else {
-			const year = dateStr.substring(0, 4);
-			// const month = parseInt(dateStr.substring(4, 6)) - 1; // Months are 0-indexed in JS
-			const month = dateStr.substring(4, 6);
-			const day = dateStr.substring(6, 8);
-			_date = `${day}.${month}.${year}`;
-		}
 		
-		
+		// ---------------- helpers ----------------
+		const isYmd = s => /^\d{8}$/.test(s || "");
+		const isDotted = s => /^\d{2}\.\d{2}\.\d{4}$/.test(s || "");
+		const fmtDate = s => {
+			if (!s) return "";
+			if (isDotted(s)) return s;                         // already DD.MM.YYYY
+			if (isYmd(s)) return `${s.slice(6,8)}.${s.slice(4,6)}.${s.slice(0,4)}`;
+			return s;                                          // fallback
+		};
+		const fmtTime = t => {
+			if (!t) return "";
+			const s = String(t).trim();
+			// 24h with/without seconds
+			const m24 = /^(\d{1,2}):(\d{2})(?::\d{2})?$/.exec(s);
+			if (m24 && !/[ap]m$/i.test(s)) {
+			return `${m24[1].padStart(2, "0")}:${m24[2]}`;
+			}
+			// 12h am/pm -> 24h
+			const m12 = /^(\d{1,2}):(\d{2})\s*([ap]m)$/i.exec(s);
+			if (m12) {
+			let h = parseInt(m12[1], 10);
+			const m = m12[2];
+			const ampm = m12[3].toLowerCase();
+			if (ampm === "pm" && h !== 12) h += 12;
+			if (ampm === "am" && h === 12) h = 0;
+			return `${String(h).padStart(2, "0")}:${m}`;
+			}
+			return s; // fallback
+		};
+
+		const metaRow = (sDate, eDate, sTime, eTime, location) => {
+			const dateTxt = `${fmtDate(sDate)} – ${fmtDate(eDate || sDate)}`; // ALWAYS show range
+			const timeTxt = sTime ? `${fmtTime(sTime)}${eTime ? ` – ${fmtTime(eTime)}` : ""}` : "";
+			return `
+			<div class="event-meta-row">
+				<span class="meta meta-date"><span class="meta-icon" aria-hidden="true">📅</span>${dateTxt}</span>
+				${timeTxt ? `<span class="meta meta-time"><span class="meta-icon" aria-hidden="true">⏰</span>${timeTxt}</span>` : `<span></span>`}
+				${location ? `<span class="meta meta-loc"><span class="meta-icon" aria-hidden="true">📍</span>${location}</span>` : `<span></span>`}
+			</div>
+			`;
+		};
+
+		// --------------- left-rail badge ---------------
+		const primary = event.start_date || "";
+		const day   = isYmd(primary) ? primary.slice(6,8) : (isDotted(primary) ? primary.slice(0,2) : "");
+		const month = isYmd(primary) ? primary.slice(4,6) : (isDotted(primary) ? primary.slice(3,5) : "");
+		const year  = isYmd(primary) ? primary.slice(0,4) : (isDotted(primary) ? primary.slice(6,10) : "");
+
+		// --------------- meta rows ---------------
+		// Main row (always with range, even if same)
+		let rowsHtml = metaRow(
+			event.start_date,
+			event.end_date, // your PHP already falls back to start_date
+			event.start_time,
+			event.end_time,
+			event.location
+		);
+
+		// Additional rows (normalized/sorted in PHP ideally; we’ll still handle whatever comes)
+		const others = Array.isArray(event.other_dates) ? event.other_dates : [];
+		// sort by start_date if comparable
+		const toYmd = (s) => {
+			if (isYmd(s)) return s;
+			if (isDotted(s)) { const [dd,mm,yy] = s.split('.'); return `${yy}${mm}${dd}`; }
+			return '';
+		};
+		others.sort((a,b) => toYmd(a?.start_date).localeCompare(toYmd(b?.start_date)));
+
+		others.forEach(d => {
+			rowsHtml += metaRow(
+			d.start_date,
+			d.end_date || d.start_date,            // fallback here too
+			d.start_time,
+			d.end_time,
+			d.location
+			);
+		});
+
+		// --------------- template ----------------
 		return `
-			<div class="event-item grid">
-				<div class="event-datetime">
-					<span class="event-date">${_date}</span>
-					<span class="event-time">${event.time}</span>
-					<span class="event-location">${event.location}</span>
+			<div class="event-item">
+			<aside class="event-rail">
+				<div class="date-badge" aria-label="${fmtDate(primary)}">
+				<span class="day">${day}</span>
+				<span class="month-year">${month}.${year}</span>
 				</div>
-				<div class="event-details">
-					<div class="event-category">
-						${event.categories.map(cat => `<span class="event-category-item" data-category="${cat}">${cat}</span>`).join(' | ')}
-					</div>
-					<h4 class="event-title">${event.title}</h4>
-					${event.teaser_short_description ? `<div class="event-teaser">${event.teaser_short_description}</div>` : ''}
-					<div class="event-ticketshop">
-						<a data-no-anchor href="${event.link}#ticket">${ecoEventsL10n.ticket_shop}</a>
-					</div>
-					
-					<div class="event-tags">
-						${event.tags.map(tag => `<span class="event-tag-inside" data-tag="${tag}">${tag}</span>`).join(' ')}
-					</div>
+			</aside>
+
+			<section class="event-main">
+				<div class="event-category">
+				${event.categories.map(cat => `<span class="event-category-item" data-category="${cat}">${cat}</span>`).join(' | ')}
 				</div>
-				<div class="event-link">
-					<a href="${event.link}" class="event-button">${ecoEventsL10n.more_info}</a>
+
+				<h4 class="event-title"><a href="${event.link}">${event.title}</a></h4>
+
+				<div class="event-meta-rows">
+				${rowsHtml}
 				</div>
+
+				${event.teaser_short_description ? `<div class="event-teaser">${event.teaser_short_description}</div>` : ''}
+
+				<div class="event-actions">
+				${event.has_tickets ? `<a class="link-underline" data-no-anchor href="${event.link}#tickets">${ecoEventsL10n.ticket_shop}</a>` : ''}
+				<a class="link-underline" href="${event.link}">${ecoEventsL10n.more_info}</a>
+				</div>
+
+				<div class="event-tags">
+				${event.tags.map(tag => `<span class="event-tag-inside" data-tag="${tag}">${tag}</span>`).join(' ')}
+				</div>
+			</section>
+
+			${event.thumbnail ? `
+			<aside class="event-media">
+				<img src="${event.thumbnail}" alt="${event.teaser_title || event.title}">
+			</aside>` : ''}
 			</div>
 		`;
 	}
+
+
+
 
 	thisMonthBtn?.addEventListener('click', () => {
 		loadMonth();

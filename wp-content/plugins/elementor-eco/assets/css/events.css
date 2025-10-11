@@ -116,9 +116,9 @@
   background-color: #e0e0e0;
   border: 1px solid #bdbdbd;
   color: #000;
-  padding: 5px 10px;
+  padding: 0 10px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 12px;
 }
 .event-tag {
   cursor: pointer;
@@ -132,65 +132,104 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* EVENT ITEM */
+/* Layout: left rail | main | (optional) media */
 .event-item {
-	display: grid;
-	grid-template-columns: 1fr 2fr 1fr;
-	padding: 10px;
-}
-.event-item > div {
-	padding: 20px;
-}
-/* col 1 */
-.event-item .event-datetime {
-	border: 1px solid #bdbdbd;
-	display: flex;
-	gap: 10px;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	color: #000;
-}
-.event-item .event-datetime .event-date {
-	font-weight: bold;
-}
-.event-item .event-datetime .event-time {
-	font-style: italic;
-}
-/* col 2 */
-.event-item .event-details {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) 260px;
   border: 1px solid #bdbdbd;
-  border-left: none;
-  row-gap: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: #fff;
 }
-.event-item .event-details .event-category {
-  margin-bottom: 1rem;
-	text-transform: uppercase;
-	font-weight: normal;
-	color: #E2001A;
-	letter-spacing: 2px;
+
+/* LEFT RAIL */
+.event-rail {
+  border-right: 1px solid #bdbdbd;
+  padding: 16px;
+  display: grid;
+  align-content: start;
+  gap: 12px;
 }
-.event-item .event-details .event-teaser {
+.date-badge {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  width: 88px;
+  min-height: 88px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  font-weight: 700;
+  line-height: 1;
+  background: #fff;
+}
+.date-badge .day { font-size: 2.1rem; }
+.date-badge .month-year { font-size: 0.9rem; opacity: .85; }
+
+/* MAIN */
+.event-main {
+  padding: 10px 20px;
+  display: grid;
+  align-content: center;
+  gap: 10px;
   text-align: left;
-  font-size: 1rem;
 }
-.event-item .event-details .event-ticketshop a {
-  margin-bottom: 1rem;
-  font-weight: bold;
-  border-bottom: #E2001A 1px solid;
+.event-category { text-transform: uppercase; font-size: 0.8rem; color: #E2001A; }
+.event-title { margin: 0; }
+
+/* Meta rows container */
+.event-meta-rows { display: grid; gap: 6px; }
+
+/* One meta row as 3 columns: date | time | location */
+.event-meta-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  column-gap: 16px;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #000;
+  border-bottom: 1px dashed #ccc;
 }
-/* col 3 */
-.event-item .event-link {
-	border: 1px solid #bdbdbd;
-	border-left: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.event-meta-row .meta { display: inline-flex; align-items: center; gap: 6px; }
+.meta-icon { width: 18px; text-align: center; }
+
+/* Teaser + actions */
+.event-teaser { font-size: 1rem; }
+.event-teaser p { margin: 0; }
+.event-actions { display: flex; gap: 18px; }
+.link-underline { font-weight: bold; border-bottom: 1px solid #E2001A; text-decoration: none; }
+
+/* RIGHT (MEDIA) */
+.event-media {
+  border-left: 1px solid #bdbdbd;
+  padding: 16px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
 }
-.event-item .event-link a {
-	font-weight: bold;
-	border-bottom: #E2001A 1px solid;
+.event-media img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .event-item { grid-template-columns: 110px 1fr; }
+  .event-media { grid-column: 1 / -1; border-left: none; border-top: 1px solid #bdbdbd; }
+}
+@media (max-width: 600px) {
+  .event-item { grid-template-columns: 1fr; }
+  .event-rail {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    align-items: center;
+    border-right: none;
+    border-bottom: 1px solid #bdbdbd;
+  }
+  .date-badge { width: 72px; min-height: 72px; }
+  .event-meta-row { grid-template-columns: 1fr; row-gap: 4px; } /* stack date/time/location on narrow screens */
 }

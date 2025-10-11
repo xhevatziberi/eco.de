@@ -117,6 +117,7 @@ function vamtam_elementor_additional_animations( $additional_anims ) {
 
 function frontend_before_enqueue_scripts() {
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	$suffix = ''; // Xhevat. We need the non-minified version for now, as it has a fix.
 
 	// Enqueue JS for Elementor (frontend).
 	wp_enqueue_script(

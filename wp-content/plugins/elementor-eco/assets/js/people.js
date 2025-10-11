@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const modal = document.getElementById("eco-biography-modal");
+	if (!modal) return;
 	const titleEl = modal.querySelector(".eco-modal-title");
 	const bodyEl = modal.querySelector(".eco-modal-body");
 	const closeBtn = modal.querySelector(".eco-modal-close");
