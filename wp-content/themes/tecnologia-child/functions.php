@@ -4,6 +4,7 @@ function child_styles() {
 	$version = wp_get_theme()->get( 'Version' );
 	wp_enqueue_style( 'my-child-theme-style', get_stylesheet_directory_uri() . '/style.css', array( 'vamtam-front-all' ), $version, 'all' );
 	wp_enqueue_script( 'my-child-theme-script', get_stylesheet_directory_uri() . '/js/custom.js', array( 'jquery' ), $version, true );
+	wp_enqueue_style('eco-loops', get_stylesheet_directory_uri() . '/css/loops.css', array(), $version, 'all');
 	wp_enqueue_style('eco-agenda', get_stylesheet_directory_uri() . '/css/agenda.css', array(), $version, 'all');
 	
 	// swiper styles
@@ -27,4 +28,10 @@ include_once( get_stylesheet_directory() . '/inc/ical.php' );
 include_once( get_stylesheet_directory() . '/inc/elementor_queries.php' );
 include_once( get_stylesheet_directory() . '/inc/misc.php' );
 
-add_image_size( 'events-small', 267, 150, true ); // Crop mode
+add_image_size( 'events-small', 267, 150, true ); // Crop mode, 16:9 ratio
+add_image_size( 'post-medium', 480, 270, true ); // Crop mode, 16:9 ratio
+add_image_size( 'post-large', 1920, 1080, true ); // Crop mode, 16:9 ratio
+add_filter( 'intermediate_image_sizes_advanced', function( $sizes ) {
+    unset( $sizes['1536x1536'], $sizes['2048x2048'] );
+    return $sizes;
+});

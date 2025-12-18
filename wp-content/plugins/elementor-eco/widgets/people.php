@@ -52,6 +52,44 @@ class People extends Widget_Base {
 			]
 		);
 
+		// --- NEW: ACF fallback (backward compatible) ---
+		$this->add_control(
+			'use_acf_fallback',
+			[
+				'label' => __( 'Auto-select from ACF when manual list is empty', 'elementor-eco' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Yes', 'elementor-eco' ),
+				'label_off' => __( 'No', 'elementor-eco' ),
+				'return_value' => 'yes',
+				'default' => '',
+			]
+		);
+
+		$this->add_control(
+			'acf_field_name',
+			[
+				'label' => __( 'ACF field name', 'elementor-eco' ),
+				'type' => Controls_Manager::TEXT,
+				'default' => 'responsible_persons',
+				'placeholder' => 'responsible_persons',
+				'condition' => [
+					'use_acf_fallback' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'acf_fallback_notice',
+			[
+				'type' => Controls_Manager::RAW_HTML,
+				'raw' => __( '<strong>Note:</strong> Manual selection has priority. ACF is only used if no people are selected above.', 'elementor-eco' ),
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+				'condition' => [
+					'use_acf_fallback' => 'yes',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -76,12 +114,73 @@ class People extends Widget_Base {
 		return $options;
 	}
 
+	/**
+	 * NEW helper: Resolve people IDs from an ACF Post Object (multiple) field.
+	 * Supports return values of:
+	 * - array of WP_Post objects
+	 * - array of IDs
+	 * - single WP_Post
+	 * - single ID
+	 */
+	protected function get_people_ids_from_acf_field(string $field_name, $context = null): array {
+		if (!function_exists('get_field') || empty($field_name)) return [];
+
+		$value = ($context !== null && $context !== '')
+			? get_field($field_name, $context)
+			: get_field($field_name);
+
+		if (empty($value)) return [];
+
+		$ids = [];
+
+		if (is_array($value)) {
+			foreach ($value as $item) {
+				if (is_object($item) && isset($item->ID)) $ids[] = (int) $item->ID;
+				elseif (is_numeric($item)) $ids[] = (int) $item;
+			}
+		} else {
+			if (is_object($value) && isset($value->ID)) $ids[] = (int) $value->ID;
+			elseif (is_numeric($value)) $ids[] = (int) $value;
+		}
+
+		return array_values(array_unique(array_filter($ids)));
+	}
 
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$ids = $settings['people'];
+		// Manual selection (default behavior)
+		$ids = isset($settings['people']) ? (array) $settings['people'] : [];
+		$ids = array_values(array_filter(array_map('intval', $ids)));
+
+		// If manual is empty AND fallback enabled → pull from ACF
+		if (empty($ids) && !empty($settings['use_acf_fallback']) && $settings['use_acf_fallback'] === 'yes') {
+			$field_name = isset($settings['acf_field_name']) ? trim((string) $settings['acf_field_name']) : 'responsible_persons';
+
+			$qo = get_queried_object();
+			$context = null;
+
+			// ✅ If we are on a category/term archive, ACF stores values on "taxonomy_termId"
+			if ($qo instanceof \WP_Term) {
+				$context = $qo->taxonomy . '_' . $qo->term_id; // e.g. category_12
+			} else {
+				// Otherwise: try current post
+				$post_id = (int) get_the_ID();
+				if ($post_id > 0) {
+					$context = $post_id;
+				}
+			}
+
+			$acf_ids = $this->get_people_ids_from_acf_field($field_name, $context);
+
+
+
+
+			if (!empty($acf_ids)) {
+				$ids = $acf_ids;
+			}
+		}
 
 		$args = [
 			'post_type' => 'people',
@@ -89,7 +188,6 @@ class People extends Widget_Base {
 			'post__in' => !empty($ids) ? $ids : [0],
 			'orderby' => 'post__in'
 		];
-
 
 		$query = new \WP_Query($args);
 
@@ -123,32 +221,29 @@ class People extends Widget_Base {
 						<div class="eco-person-content">
 							<h3><?php echo esc_html($name); ?></h3>
 							<?php if ($position) : ?>
-								<p><strong><?php echo $position; ?></strong></p>
+								<p><strong><?php echo wp_kses_post((string) $position); ?></strong></p>
 							<?php endif; ?>
 							<?php if ($company) : ?>
 								<p><?php echo esc_html($company); ?></p>
 							<?php endif; ?>
 
-							<?php if (
-								$address || $phone || $email || $social || $biography
-							) : ?>
+							<?php if ($address || $phone || $email || $social || $biography) : ?>
 								<p>
 									<a href="#"
 										class="eco-biography-link"
 										data-name="<?php echo esc_attr($name); ?>"
-										data-position="<?php echo esc_attr($position); ?>"
-										data-company="<?php echo esc_attr($company); ?>"
-										data-address="<?php echo $address; ?>"
-										data-phone="<?php echo esc_attr($phone); ?>"
-										data-email="<?php echo esc_attr($email); ?>"
-										data-facebook="<?php echo $social_facebook; ?>"
-										data-twitter="<?php echo $social_twitter; ?>"
-										data-linkedin="<?php echo $social_linkedin; ?>"
-										data-xing="<?php echo $social_xing; ?>"
-										data-biography="<?php echo esc_attr(wp_strip_all_tags($biography)); ?>">
+										data-position="<?php echo esc_attr((string) $position); ?>"
+										data-company="<?php echo esc_attr((string) $company); ?>"
+										data-address="<?php echo esc_attr((string) $address); ?>"
+										data-phone="<?php echo esc_attr((string) $phone); ?>"
+										data-email="<?php echo esc_attr((string) $email); ?>"
+										data-facebook="<?php echo esc_attr($social_facebook); ?>"
+										data-twitter="<?php echo esc_attr($social_twitter); ?>"
+										data-linkedin="<?php echo esc_attr($social_linkedin); ?>"
+										data-xing="<?php echo esc_attr($social_xing); ?>"
+										data-biography="<?php echo esc_attr(wp_strip_all_tags((string) $biography)); ?>">
 										<i class="fas fa-info-circle"></i> <?php _e('More Information', 'elementor-eco'); ?>
 									</a>
-
 								</p>
 							<?php endif; ?>
 						</div>
@@ -265,7 +360,7 @@ class People extends Widget_Base {
 						<div class="eco-person-content">
 							<h3><?php echo esc_html($name); ?></h3>
 							<?php if ($position): ?>
-								<p><strong><?php echo esc_html($position); ?></strong></p>
+								<p><strong><?php echo wp_kses_post((string) $position); ?></strong></p>
 							<?php endif; ?>
 							<?php if ($company): ?>
 								<p><?php echo esc_html($company); ?></p>
@@ -275,16 +370,16 @@ class People extends Widget_Base {
 									<a href="#"
 									class="eco-biography-link"
 									data-name="<?php echo esc_attr($name); ?>"
-									data-position="<?php echo esc_attr($position); ?>"
-									data-company="<?php echo esc_attr($company); ?>"
-									data-address="<?php echo esc_attr($address); ?>"
-									data-phone="<?php echo esc_attr($phone); ?>"
-									data-email="<?php echo esc_attr($email); ?>"
-									data-facebook="<?php echo $social_facebook; ?>"
-									data-twitter="<?php echo $social_twitter; ?>"
-									data-linkedin="<?php echo $social_linkedin; ?>"
-									data-xing="<?php echo $social_xing; ?>"
-									data-biography="<?php echo esc_attr(wp_strip_all_tags($biography)); ?>">
+									data-position="<?php echo esc_attr((string) $position); ?>"
+									data-company="<?php echo esc_attr((string) $company); ?>"
+									data-address="<?php echo esc_attr((string) $address); ?>"
+									data-phone="<?php echo esc_attr((string) $phone); ?>"
+									data-email="<?php echo esc_attr((string) $email); ?>"
+									data-facebook="<?php echo esc_attr($social_facebook); ?>"
+									data-twitter="<?php echo esc_attr($social_twitter); ?>"
+									data-linkedin="<?php echo esc_attr($social_linkedin); ?>"
+									data-xing="<?php echo esc_attr($social_xing); ?>"
+									data-biography="<?php echo esc_attr(wp_strip_all_tags((string) $biography)); ?>">
 										<i class="fas fa-info-circle"></i> <?php _e('More Information', 'elementor-eco'); ?>
 									</a>
 								</p>

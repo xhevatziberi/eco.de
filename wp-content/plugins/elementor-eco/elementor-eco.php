@@ -3,7 +3,7 @@
  * Plugin Name: Elementor Eco
  * Description: Elementor plugin with widgets for Eco website.
  * Plugin URI:  #!
- * Version:     1.0.0
+ * Version:     1.2.10
  * Elementor tested up to: 3.15.0
  * Author:      Eco
  * Author URI:  https://eco.de/
@@ -31,7 +31,7 @@ final class Elementor_Eco {
 	 * @since 1.2.0
 	 * @var string The plugin version.
 	 */
-	const VERSION = '1.2.7';
+	const VERSION = '1.2.10';
 
 	/**
 	 * Minimum Elementor Version
@@ -119,6 +119,7 @@ final class Elementor_Eco {
 	public function widget_scripts() {
 		include_once( 'inc/load-events.php' );
 		include_once( 'inc/events.php' );
+		include_once( 'inc/load-events-carousel.php' );
 	}
 
 	/**

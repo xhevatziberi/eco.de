@@ -1,0 +1,140 @@
+/* Grid columns */
+.eco-people-vertical {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(var(--eco-pv-cols, 2), minmax(0, 1fr));
+
+  /* Fix “huge expanded fonts” caused by theme typography */
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Default item layout: photo + content */
+.eco-pv-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.eco-pv-photo {
+  width: 140px;
+  height: auto;
+  display: block;
+}
+
+.eco-pv-name {
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0 0 6px;
+}
+
+.eco-pv-position,
+.eco-pv-company {
+  font-size: 15px;
+  margin: 0 0 8px;
+}
+
+.eco-pv-bio {
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+  /* white-space: pre-wrap; */
+}
+
+.eco-pv-toggle {
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.eco-pv-info {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0,0,0,.12);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* Reduce typography inside biography HTML */
+.eco-pv-info h1,
+.eco-pv-info h2,
+.eco-pv-info h3 {
+  font-size: 18px;
+  line-height: 1.25;
+  margin: 14px 0 8px;
+}
+
+.eco-pv-info h4,
+.eco-pv-info h5,
+.eco-pv-info h6 {
+  font-size: 16px;
+  line-height: 1.25;
+  margin: 12px 0 6px;
+}
+
+.eco-pv-info p {
+  margin: 0 0 10px;
+}
+
+/* When using many columns, cards should stack (more like the “old manual” look) */
+.eco-people-vertical[data-cols="3"] .eco-pv-item,
+.eco-people-vertical[data-cols="4"] .eco-pv-item,
+.eco-people-vertical[data-cols="5"] .eco-pv-item,
+.eco-people-vertical[data-cols="6"] .eco-pv-item {
+  grid-template-columns: 1fr;
+}
+
+.eco-people-vertical[data-cols="3"] .eco-pv-photo,
+.eco-people-vertical[data-cols="4"] .eco-pv-photo,
+.eco-people-vertical[data-cols="5"] .eco-pv-photo,
+.eco-people-vertical[data-cols="6"] .eco-pv-photo {
+  width: 100%;
+  max-width: none;
+}
+
+/* Modal */
+.eco-pv-modal[hidden] { display: none; }
+.eco-pv-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.eco-pv-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+}
+
+.eco-pv-modal__dialog {
+  position: relative;
+  max-width: 920px;
+  margin: 6vh auto;
+  background: #fff;
+  padding: 26px;
+  z-index: 1;
+
+  /* ✅ allow long content to scroll inside the modal */
+  max-height: 88vh;
+  overflow: auto;
+}
+
+.eco-pv-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 22px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* ✅ prevent page behind modal from scrolling */
+html.eco-pv-modal-open,
+body.eco-pv-modal-open {
+  overflow: hidden;
+}
+
+.eco-people-vertical.eco-people-vertical--expanded .eco-pv-item {
+  align-content: start;
+}

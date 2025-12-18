@@ -90,7 +90,22 @@ class Plugin {
 			'all'          => __('Alle', 'elementor-eco'),
 			'more_info'    => __('Mehr Infos', 'elementor-eco'),
 			'ticket_shop'  => __('Zum Ticketshop', 'elementor-eco'),
+			'past_event'   => __('Vergangene Veranstaltung', 'elementor-eco'),
 		]);
+
+		wp_register_script( 'eco-events-carousel-script', plugins_url( '/assets/js/events-carousel.js', __FILE__ ), [ 'jquery' ], $version, true );
+		wp_register_style( 'eco-events-carousel-style', plugins_url( '/assets/css/events-carousel.css', __FILE__  ), [], $version );
+		wp_localize_script('eco-events-carousel-script', 'ecoEventsCarousel', [
+			'ajaxurl' => admin_url('admin-ajax.php'),
+			'loading' => __('Lade Veranstaltungen...', 'elementor-eco'),
+			'more_info' => __('Mehr Infos', 'elementor-eco'),
+			'ticket_shop' => __('Zum Ticketshop', 'elementor-eco'),
+			'empty' => __('Keine Veranstaltungen gefunden.', 'elementor-eco'),
+			'error' => __('Fehler beim Laden.', 'elementor-eco'),
+		]);
+
+		wp_register_script( 'eco-people-vertical-script', plugins_url( '/assets/js/people-vertical.js', __FILE__ ), [ 'jquery' ], $version, true );
+		wp_register_style( 'eco-people-vertical-style', plugins_url( '/assets/css/people-vertical.css', __FILE__  ), [], $version );
 	}
 
 	/**
@@ -112,6 +127,8 @@ class Plugin {
 		require_once( __DIR__ . '/widgets/logo-cloud.php' );
 		require_once( __DIR__ . '/widgets/podcast-player.php' );
 		require_once( __DIR__ . '/widgets/podcast-rss.php' );
+		require_once( __DIR__ . '/widgets/eco-events-carousel.php' );
+		require_once( __DIR__ . '/widgets/people-vertical.php' );
 	}
 
 	/**
@@ -136,6 +153,8 @@ class Plugin {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\LogoCloud() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PodcastPlayer() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PodcastRSS() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \ECO_Events_Carousel_Widget() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PeopleVertical() );
 	}
 
 	function add_elementor_widget_categories( $elements_manager ) {

@@ -3,7 +3,7 @@ Theme Name: Tecnologia Child
 Author: VamTam
 Author URI: https://vamtam.com
 Template: tecnologia
-Version: 1.0.19
+Version: 1.0.24
 */
 
 /* define colors */
@@ -79,12 +79,31 @@ figure.elementor-image-box-img {
     margin-bottom: -6px !important;
 }
 
-.slider_box .elementor-heading-title {
+/* .slider_box .elementor-heading-title {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
 .slider_box:hover .elementor-heading-title {
     opacity: 1;
+} */
+
+.slider_box__img::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 1%, rgb(0 0 0 / 74%) 79%, rgb(0 0 0 / 88%) 100%);
+}
+
+.slider_shape {
+    -webkit-mask: url(#svg-mask-eco) no-repeat center / 100% 100%;
+    mask: url(#svg-mask-eco) no-repeat center / 100% 100%;
+    -webkit-mask-mode: luminance;
+    mask-mode: luminance;
+    width: 500px;
+    height: 500px;
 }
 
 .elementor-testimonial__content {
@@ -130,9 +149,17 @@ figure.elementor-image-box-img {
   opacity: 0.6;
   cursor: default;
 }
-#homepage-tiles .elementor-loop-container {
-    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
-    justify-content: center;
+
+input[type="checkbox"] {
+    border: none !important;
+    padding: 0 !important;
+}
+
+.wpforms-field-gdpr-checkbox .wpforms-field-label-inline,
+.datenschutz-text label {
+    font-size: 0.7em !important;
+    color: #666 !important;
+
 }
 
 @media (max-width: 768px) {
@@ -145,5 +172,10 @@ figure.elementor-image-box-img {
 
     .elementor-testimonial {
         flex-direction: column !important;
+    }
+
+    .slider_shape {
+        width: 360px;
+        height: 360px;
     }
 }

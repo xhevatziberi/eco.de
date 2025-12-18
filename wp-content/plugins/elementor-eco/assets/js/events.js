@@ -122,9 +122,7 @@ let calendar = () => {
 			});
 	}
 
-	function _template(event) {
-		console.log(event);
-		
+	function _template(event) {		
 		// ---------------- helpers ----------------
 		const isYmd = s => /^\d{8}$/.test(s || "");
 		const isDotted = s => /^\d{2}\.\d{2}\.\d{4}$/.test(s || "");
@@ -173,6 +171,11 @@ let calendar = () => {
 		const month = isYmd(primary) ? primary.slice(4,6) : (isDotted(primary) ? primary.slice(3,5) : "");
 		const year  = isYmd(primary) ? primary.slice(0,4) : (isDotted(primary) ? primary.slice(6,10) : "");
 
+		const eventDate = new Date(`${year}-${month}-${day}`);
+		const today = new Date();
+		const isPast = eventDate < today.setHours(0, 0, 0, 0);
+
+
 		// --------------- meta rows ---------------
 		// Main row (always with range, even if same)
 		let rowsHtml = metaRow(
@@ -206,6 +209,7 @@ let calendar = () => {
 		// --------------- template ----------------
 		return `
 			<div class="event-item">
+			${isPast ? `<div class="event-ribbon">${ecoEventsL10n.past_event}</div>` : ''}
 			<aside class="event-rail">
 				<div class="date-badge" aria-label="${fmtDate(primary)}">
 				<span class="day">${day}</span>
