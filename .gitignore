@@ -55,6 +55,10 @@ wp-config.php
 !/wp-content/plugins/elementor-eco
 !/wp-content/plugins/elementor-eco/**
 
+# Allow eco-search plugin only
+!/wp-content/plugins/eco-search
+!/wp-content/plugins/eco-search/**
+
 # Allow vamtam-elementor-integration-tecnologia plugin
 !/wp-content/plugins/vamtam-elementor-integration-tecnologia
 !/wp-content/plugins/vamtam-elementor-integration-tecnologia/**

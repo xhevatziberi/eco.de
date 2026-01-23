@@ -183,3 +183,45 @@ add_action('elementor/query/tiles_in_category', function ( $query ) {
     }
     // Leave default ordering for tiles
 });
+
+
+/**
+ * Modify all Tile CPT queries to disable include_children for tile-category taxonomy
+ */
+add_action( 'pre_get_posts', function ( $query ) {
+    // Frontend only
+    if ( is_admin() || ! $query instanceof WP_Query ) {
+        return;
+    }
+
+    // Only affect queries that fetch the Tiles CPT
+    $post_type = $query->get( 'post_type' );
+    $is_tile   = ($post_type === 'tile') || (is_array($post_type) && in_array('tile', $post_type, true));
+    if ( ! $is_tile ) {
+        return;
+    }
+
+    // Only if there is a tax_query
+    $tax_query = (array) $query->get( 'tax_query' );
+    if ( empty( $tax_query ) ) {
+        return;
+    }
+
+    $changed = false;
+
+    foreach ( $tax_query as $key => $clause ) {
+        if ( ! is_array( $clause ) ) {
+            continue;
+        }
+
+        // Your taxonomy slug
+        if ( ($clause['taxonomy'] ?? '') === 'tile-category' ) {
+            $tax_query[$key]['include_children'] = false;
+            $changed = true;
+        }
+    }
+
+    if ( $changed ) {
+        $query->set( 'tax_query', $tax_query );
+    }
+}, 20 );

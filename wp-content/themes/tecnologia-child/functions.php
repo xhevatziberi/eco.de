@@ -35,3 +35,4 @@ add_filter( 'intermediate_image_sizes_advanced', function( $sizes ) {
     unset( $sizes['1536x1536'], $sizes['2048x2048'] );
     return $sizes;
 });
+
