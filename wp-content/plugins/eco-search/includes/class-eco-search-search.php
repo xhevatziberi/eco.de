@@ -13,14 +13,18 @@ class Search {
         return Taxonomy::supported_post_types();
     }
 
+    /**
+     * UI labels for "Content" filter.
+     * We show "Other" instead of "Pages" (but pages are still searched).
+     */
     public static function content_type_labels() {
         return apply_filters('eco_search_content_type_labels', [
             'post'     => __('News', 'eco-search'),
-            'page'     => __('Pages', 'eco-search'),
+            'page'     => __('Other', 'eco-search'), // was "Pages"
             'event'    => __('Events', 'eco-search'),
             'podcast'  => __('Podcasts', 'eco-search'),
             'press'    => __('Press', 'eco-search'),
-            'tile'     => __('Tiles', 'eco-search'),
+            // 'tile'     => __('Tiles', 'eco-search'),
             'download' => __('Downloads', 'eco-search'),
             'paper'    => __('Papers', 'eco-search'),
             'study'    => __('Studies', 'eco-search'),
@@ -107,6 +111,29 @@ class Search {
         ];
     }
 
+    /**
+     * Normalize types selection:
+     * - If none selected => use all supported
+     * - If selected => keep only supported
+     * - Always allow "page" (it will appear in UI as "Other")
+     */
+    private static function normalize_types(array $requested_types, array $supported): array {
+        $types = array_values(array_filter(array_map('sanitize_key', $requested_types)));
+
+        if (empty($types)) {
+            $types = $supported;
+        }
+
+        $types = array_values(array_intersect($types, $supported));
+
+        // Ensure 'page' stays searchable if supported (so "Other" works reliably)
+        if (in_array('page', $supported, true) && !in_array('page', $types, true)) {
+            $types[] = 'page';
+        }
+
+        return array_values(array_unique($types));
+    }
+
     public static function run($args = []) {
         $req = self::parse_request();
 
@@ -115,11 +142,8 @@ class Search {
 
         $supported = self::supported_post_types();
 
-        // If user didn't tick any types -> search all supported
-        $types = $req['types'] ?: $supported;
-
-        // Keep only supported types
-        $types = array_values(array_intersect($types, $supported));
+        // Normalize types (pages always included if supported)
+        $types = self::normalize_types((array)$req['types'], (array)$supported);
 
         $max_pool = (int) apply_filters('eco_search_searchwp_pool_size', 1000);
         $ids_in_relevance = [];
@@ -165,6 +189,7 @@ class Search {
             $ids_in_relevance = array_map('intval', (array) $fallback_q->posts);
         }
 
+        // de-dupe relevance IDs
         $ids_in_relevance = self::unique_ids_preserve_order($ids_in_relevance);
 
         $cutoff = self::date_cutoff_timestamp($req['date']);

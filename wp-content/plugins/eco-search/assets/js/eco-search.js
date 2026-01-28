@@ -87,6 +87,36 @@
     }
   });
 
+  // Quick topic pills in header searchbar
+  document.addEventListener('click', function (e) {
+    const pill = e.target.closest('.eco-topic-pill[data-eco-topic]');
+    if (!pill) return;
+
+    const container = pill.closest('[data-eco-search-container="1"]');
+    if (!container) return;
+
+    const topic = pill.getAttribute('data-eco-topic') || '';
+    const hidden = container.querySelector('input[name="topic"]');
+    const form = container.querySelector('form');
+
+    if (hidden) {
+      // Toggle off if clicking active again
+      if (pill.classList.contains('is-active')) {
+        hidden.value = '';
+      } else {
+        hidden.value = topic;
+      }
+    }
+
+    // Update active state UI
+    container.querySelectorAll('.eco-topic-pill').forEach(btn => btn.classList.remove('is-active'));
+    if (hidden && hidden.value) pill.classList.add('is-active');
+
+    // Submit immediately (quick select behavior)
+    if (form) form.submit();
+  });
+
+
   // ESC closes currently open
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;

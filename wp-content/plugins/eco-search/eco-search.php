@@ -18,7 +18,10 @@ require_once ECO_SEARCH_PATH . 'includes/class-eco-search.php';
 // Template override loader (IMPORTANT)
 require_once ECO_SEARCH_PATH . 'includes/class-eco-search-template.php';
 
+require_once ECO_SEARCH_PATH . 'includes/class-eco-search-settings.php';
+
 add_action('plugins_loaded', function () {
     \ECO_Search\Plugin::instance();
     \ECO_Search\Template::init();
+    \ECO_Search\Settings::init();
 }, 20);

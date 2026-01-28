@@ -65,7 +65,6 @@ class Taxonomy {
             'event',
             'podcast',
             'press',
-            'tile',
             'download',
             'paper',
             'study',

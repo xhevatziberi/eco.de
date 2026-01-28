@@ -64,22 +64,49 @@ class Shortcodes {
         $action = home_url('/');
         $s = isset($_GET['s']) ? sanitize_text_field(wp_unslash($_GET['s'])) : '';
 
+        $quick_topics = \ECO_Search\Settings::get_quick_topics_terms();
+        $current_topic = isset($_GET['topic']) ? sanitize_text_field(wp_unslash($_GET['topic'])) : '';
+
         ob_start(); ?>
         <div id="<?php echo esc_attr($id); ?>" class="eco-searchbar" data-eco-search-container="1" aria-hidden="true">
             <div class="eco-searchbar__inner">
                 <form class="eco-searchbar__form" method="get" action="<?php echo esc_url($action); ?>">
-                    <label class="eco-sr-only" for="eco-searchbar-s">Keyword</label>
-                    <input
-                        id="eco-searchbar-s"
-                        class="eco-searchbar__input"
-                        type="text"
-                        name="s"
-                        value="<?php echo esc_attr($s); ?>"
-                        placeholder="<?php echo esc_attr($atts['placeholder']); ?>"
-                        autocomplete="off"
-                    />
-                    <button type="submit" class="eco-searchbar__btn">find</button>
+                    <div class="eco-searchbar__row">
+                        <label class="eco-sr-only" for="eco-searchbar-s">Keyword</label>
+
+                        <input
+                            id="eco-searchbar-s"
+                            class="eco-searchbar__input"
+                            type="text"
+                            name="s"
+                            value="<?php echo esc_attr($s); ?>"
+                            placeholder="<?php echo esc_attr($atts['placeholder']); ?>"
+                            autocomplete="off"
+                        />
+
+                        <input type="hidden" name="topic" value="<?php echo esc_attr($current_topic); ?>" />
+
+                        <button type="submit" class="eco-searchbar__btn">find</button>
+                    </div>
+
+                    <?php if (!empty($quick_topics)): ?>
+                        <div class="eco-searchbar__topics-hint">Or pick a topic:</div>
+
+                        <div class="eco-searchbar__topics" aria-label="Quick topics">
+                            <?php foreach ($quick_topics as $t): ?>
+                                <?php $is_active = ($current_topic === $t->slug); ?>
+                                <button
+                                    type="button"
+                                    class="eco-topic-pill <?php echo $is_active ? 'is-active' : ''; ?>"
+                                    data-eco-topic="<?php echo esc_attr($t->slug); ?>"
+                                >
+                                    <?php echo esc_html($t->name); ?>
+                                </button>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
                 </form>
+
             </div>
         </div>
         <?php
