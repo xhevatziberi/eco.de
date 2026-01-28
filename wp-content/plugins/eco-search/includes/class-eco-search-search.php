@@ -37,9 +37,15 @@ class Search {
     }
 
     public static function parse_request() {
-        $s = isset($_GET['s']) ? sanitize_text_field(wp_unslash($_GET['s'])) : '';
+        $s     = isset($_GET['s']) ? sanitize_text_field(wp_unslash($_GET['s'])) : '';
         $topic = isset($_GET['topic']) ? sanitize_text_field(wp_unslash($_GET['topic'])) : '';
-        $date = isset($_GET['date']) ? sanitize_text_field(wp_unslash($_GET['date'])) : '6m';
+        $date  = isset($_GET['date']) ? sanitize_key(wp_unslash($_GET['date'])) : '6m';
+
+        // Validate date
+        $allowed_dates = array_keys(self::date_options());
+        if (!in_array($date, $allowed_dates, true)) {
+            $date = '6m';
+        }
 
         $types = [];
         if (!empty($_GET['types'])) {
@@ -53,7 +59,7 @@ class Search {
 
         return [
             's'     => $s,
-            'topic' => $topic, // topic-tag term slug
+            'topic' => $topic,
             'date'  => $date,
             'types' => array_values(array_unique($types)),
             'pg'    => $page,
@@ -76,9 +82,6 @@ class Search {
         }
     }
 
-    /**
-     * IMPORTANT: preserves relevance order while removing duplicates
-     */
     private static function unique_ids_preserve_order(array $ids): array {
         $seen = [];
         $out  = [];
@@ -104,9 +107,6 @@ class Search {
         ];
     }
 
-    /**
-     * Main runner (Approach 2 with SearchWP\Query)
-     */
     public static function run($args = []) {
         $req = self::parse_request();
 
@@ -121,7 +121,6 @@ class Search {
         // Keep only supported types
         $types = array_values(array_intersect($types, $supported));
 
-        // 1) Get SearchWP results (IDs in relevance order)
         $max_pool = (int) apply_filters('eco_search_searchwp_pool_size', 1000);
         $ids_in_relevance = [];
 
@@ -134,7 +133,6 @@ class Search {
                         'fields'    => 'all',
                         'page'      => 1,
                         'per_page'  => $max_pool,
-                        // SearchWP may or may not fully enforce this; we enforce later strictly
                         'post_type' => $types,
                     ]
                 );
@@ -142,7 +140,6 @@ class Search {
                 $results = method_exists($query, 'get_results') ? $query->get_results() : [];
 
                 foreach ($results as $r) {
-                    // Your var_dump shows WP_Post objects
                     if (is_object($r) && isset($r->ID)) {
                         $ids_in_relevance[] = (int) $r->ID;
                     } elseif (is_numeric($r)) {
@@ -156,29 +153,24 @@ class Search {
             }
         }
 
-        // Fallback if SearchWP unavailable/failed
         if (!$ids_in_relevance) {
             $fallback_q = new \WP_Query([
-                's'                   => $req['s'],
-                'post_type'            => $types,
-                'post_status'          => 'publish',
-                'posts_per_page'       => $max_pool,
-                'ignore_sticky_posts'  => true,
-                'fields'               => 'ids',
+                's'                  => $req['s'],
+                'post_type'           => $types,
+                'post_status'         => 'publish',
+                'posts_per_page'      => $max_pool,
+                'ignore_sticky_posts' => true,
+                'fields'              => 'ids',
             ]);
             $ids_in_relevance = array_map('intval', (array) $fallback_q->posts);
         }
 
-        // ✅ CRITICAL FIX: remove duplicates while keeping relevance order
         $ids_in_relevance = self::unique_ids_preserve_order($ids_in_relevance);
 
-        // 2) Apply filters strictly: topic-tag, date, post type
         $cutoff = self::date_cutoff_timestamp($req['date']);
         $filtered_ids = [];
 
         if ($ids_in_relevance) {
-            // Get posts matching IDs + post types + topic filter
-            // ORDER BY post__in keeps the SearchWP relevance order
             $posts = get_posts([
                 'post__in'       => $ids_in_relevance,
                 'posts_per_page' => -1,
@@ -190,96 +182,93 @@ class Search {
             ]);
 
             foreach ($posts as $p) {
-                // Date filter based on PUBLISHED date for all types (including events for now)
+                // Published date filter for all types (including events for now)
                 // === CHANGE HERE LATER (events start_date) ===
-                // If you later want event date start:
-                // if ($p->post_type === 'event') {
-                //   $start = get_field('start_date', $p->ID); // example (ACF)
-                //   $ts = $start ? strtotime($start) : strtotime($p->post_date_gmt . ' GMT');
-                // } else {
-                //   $ts = strtotime($p->post_date_gmt ? $p->post_date_gmt . ' GMT' : $p->post_date);
-                // }
-
                 $ts = strtotime($p->post_date_gmt ? ($p->post_date_gmt . ' GMT') : $p->post_date);
 
-                if ($cutoff && $ts < $cutoff) {
-                    continue;
-                }
-
+                if ($cutoff && $ts < $cutoff) continue;
                 $filtered_ids[] = (int) $p->ID;
             }
         }
 
-        // ✅ Also dedupe filtered list (extra safety)
         $filtered_ids = self::unique_ids_preserve_order($filtered_ids);
 
         $total     = count($filtered_ids);
         $max_pages = $per_page ? (int) ceil($total / $per_page) : 1;
 
-        // 3) Paginate IDs
         $pg = min(max(1, (int)$req['pg']), max(1, $max_pages));
-        $offset = ($pg - 1) * $per_page;
+        $offset   = ($pg - 1) * $per_page;
         $page_ids = array_slice($filtered_ids, $offset, $per_page);
 
-        // 4) Fetch posts for the current page preserving order
         $page_posts = [];
         if ($page_ids) {
             $q = new \WP_Query([
-                'post__in'             => $page_ids,
-                'post_type'            => $types,
-                'post_status'          => 'publish',
-                'posts_per_page'       => count($page_ids),
-                'orderby'              => 'post__in',
-                'ignore_sticky_posts'  => true,
+                'post__in'            => $page_ids,
+                'post_type'           => $types,
+                'post_status'         => 'publish',
+                'posts_per_page'      => count($page_ids),
+                'orderby'             => 'post__in',
+                'ignore_sticky_posts' => true,
             ]);
             $page_posts = $q->posts;
         }
 
         return [
-            'request'    => $req,
-            'engine'     => $engine,
-            'per_page'   => $per_page,
-            'total'      => $total,
-            'max_pages'  => $max_pages,
-            'page'       => $pg,
-            'ids'        => $filtered_ids,
-            'posts'      => $page_posts,
-            'types'      => $types,
+            'request'   => $req,
+            'engine'    => $engine,
+            'per_page'  => $per_page,
+            'total'     => $total,
+            'max_pages' => $max_pages,
+            'page'      => $pg,
+            'ids'       => $filtered_ids,
+            'posts'     => $page_posts,
+            'types'     => $types,
         ];
     }
 
     /**
      * Build URL for pagination while keeping filters.
-     * NOTE: This uses the current page URL (good for your dedicated search page).
+     * For global WP search override, always build from home_url('/').
      */
     public static function build_page_url($overrides = []) {
         $req = self::parse_request();
         $merged = array_merge($req, $overrides);
 
-        $q = [
-            's'     => $merged['s'],
-            'topic' => $merged['topic'],
-            'date'  => $merged['date'],
-            'pg'    => (int) $merged['pg'],
-        ];
+        $base = home_url('/');
 
-        $base = remove_query_arg(['s','topic','date','pg','types'], self::current_url());
-        $url = add_query_arg($q, $base);
+        $args = [];
 
-        // Add types[] as repeated query vars
+        if ($merged['s'] !== '') {
+            $args['s'] = $merged['s'];
+        }
+
+        if (!empty($merged['topic'])) {
+            $args['topic'] = $merged['topic'];
+        }
+
+        // omit default date to keep URLs clean
+        if (!empty($merged['date']) && $merged['date'] !== '6m') {
+            $args['date'] = $merged['date'];
+        }
+
+        // omit pg=1
+        $pg = (int) ($merged['pg'] ?? 1);
+        if ($pg > 1) {
+            $args['pg'] = $pg;
+        }
+
+        $url = add_query_arg($args, $base);
+
+        // Keep types only when user specified them
         if (!empty($merged['types'])) {
-            foreach ((array)$merged['types'] as $t) {
-                $url = add_query_arg('types[]', $t, $url);
+            foreach ((array) $merged['types'] as $t) {
+                $t = sanitize_key($t);
+                if ($t) {
+                    $url = add_query_arg('types[]', $t, $url);
+                }
             }
         }
 
         return $url;
-    }
-
-    private static function current_url() {
-        $scheme = is_ssl() ? 'https' : 'http';
-        $host = $_SERVER['HTTP_HOST'] ?? '';
-        $uri  = $_SERVER['REQUEST_URI'] ?? '';
-        return esc_url_raw($scheme . '://' . $host . $uri);
     }
 }

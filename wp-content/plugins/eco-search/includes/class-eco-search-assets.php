@@ -28,10 +28,12 @@ class Assets {
         wp_enqueue_style('eco-search-ui');
         wp_enqueue_script('eco-search-ui');
 
+        // If your JS uses this, make it match your real containers.
         wp_localize_script('eco-search-ui', 'EcoSearch', [
-            'containerId' => 'search-container',
+            'defaultTargetId' => 'eco-searchbar',
         ]);
 
-        wp_add_inline_style('eco-search-ui', '.eco-search-scope{ }');
+        // Ensures our stylesheet block is emitted and we get last-word ordering.
+        wp_add_inline_style('eco-search-ui', '.eco-search-scope{}');
     }
 }

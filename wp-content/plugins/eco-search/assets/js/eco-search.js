@@ -1,23 +1,39 @@
 (function () {
   const body = document.body;
+  let openTargetId = null;
 
   function getContainer(targetId) {
+    if (!targetId) return null;
     return document.getElementById(targetId) || document.querySelector('#' + CSS.escape(targetId));
   }
 
   function setExpanded(btn, expanded) {
+    if (!btn) return;
     btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  }
+
+  function findToggleButton(targetId) {
+    if (!targetId) return null;
+    return document.querySelector(
+      '[data-eco-search-toggle="1"][data-eco-search-target="' + CSS.escape(targetId) + '"]'
+    );
   }
 
   function openSearch(targetId, btn) {
     const el = getContainer(targetId);
     if (!el) return;
 
+    // Close previously open container if different
+    if (openTargetId && openTargetId !== targetId) {
+      closeSearch(openTargetId, findToggleButton(openTargetId));
+    }
+
     body.classList.add('eco-search-open');
     el.classList.add('is-open');
     el.setAttribute('aria-hidden', 'false');
+    setExpanded(btn, true);
 
-    if (btn) setExpanded(btn, true);
+    openTargetId = targetId;
 
     const input = el.querySelector('input[name="s"]');
     if (input) setTimeout(() => input.focus(), 30);
@@ -27,17 +43,24 @@
     const el = getContainer(targetId);
     if (!el) return;
 
-    body.classList.remove('eco-search-open');
     el.classList.remove('is-open');
     el.setAttribute('aria-hidden', 'true');
+    setExpanded(btn, false);
 
-    if (btn) setExpanded(btn, false);
+    // If this was the open one, clear state
+    if (openTargetId === targetId) {
+      openTargetId = null;
+    }
+
+    // If none is open, remove body class
+    if (!openTargetId) {
+      body.classList.remove('eco-search-open');
+    }
   }
 
   function toggleSearch(targetId, btn) {
     const el = getContainer(targetId);
     if (!el) return;
-
     el.classList.contains('is-open') ? closeSearch(targetId, btn) : openSearch(targetId, btn);
   }
 
@@ -51,31 +74,34 @@
       return;
     }
 
-    // Click outside to close (if open)
-    if (body.classList.contains('eco-search-open')) {
-      const targetId = 'eco-searchbar';
-      const el = getContainer(targetId);
-      const toggleBtn = document.querySelector('[data-eco-search-toggle="1"][data-eco-search-target="' + CSS.escape(targetId) + '"]');
-
+    // Click outside to close currently open
+    if (openTargetId) {
+      const el = getContainer(openTargetId);
       if (el && el.classList.contains('is-open')) {
-        const insideBar = e.target.closest('#' + CSS.escape(targetId));
+        const insideBar = e.target.closest('#' + CSS.escape(openTargetId));
         const insideToggle = e.target.closest('[data-eco-search-toggle="1"]');
         if (!insideBar && !insideToggle) {
-          closeSearch(targetId, toggleBtn);
+          closeSearch(openTargetId, findToggleButton(openTargetId));
         }
       }
     }
   });
 
-  // ESC closes
+  // ESC closes currently open
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
+    if (!openTargetId) return;
+    closeSearch(openTargetId, findToggleButton(openTargetId));
+  });
 
-    const targetId = 'eco-searchbar';
-    const el = getContainer(targetId);
-    if (!el || !el.classList.contains('is-open')) return;
-
-    const btn = document.querySelector('[data-eco-search-toggle="1"][data-eco-search-target="' + CSS.escape(targetId) + '"]');
-    closeSearch(targetId, btn || null);
+  // Close on submit (nice UX)
+  document.addEventListener('submit', function (e) {
+    const form = e.target;
+    if (!openTargetId) return;
+    const el = getContainer(openTargetId);
+    if (!el) return;
+    if (form && el.contains(form)) {
+      closeSearch(openTargetId, findToggleButton(openTargetId));
+    }
   });
 })();

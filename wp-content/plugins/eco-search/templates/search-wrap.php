@@ -3,22 +3,32 @@ if (!defined('ABSPATH')) exit;
 
 use ECO_Search\Search;
 
-$req         = $data['request'];
-$labels      = Search::content_type_labels();
-$date_opts   = Search::date_options();
+$req       = $data['request'];
+$labels    = Search::content_type_labels();
+$date_opts = Search::date_options();
 
 $topics = get_terms([
     'taxonomy'   => 'topic-tag',
     'hide_empty' => false,
 ]);
+if (is_wp_error($topics) || !is_array($topics)) {
+    $topics = [];
+}
 
-// Submit to this page (your dedicated search page)
-$action_url = get_permalink(get_queried_object_id());
+/**
+ * IMPORTANT:
+ * We're overriding default WP search (?s=...) so always submit to home_url('/').
+ * This avoids queried_object_id() issues and prevents 404/canonical weirdness.
+ */
+$action_url = home_url('/');
 
 // Helpers
 $human_label = function($pt) use ($labels) {
-    return $labels[$pt] ?? ucfirst($pt);
+    return $labels[$pt] ?? ucfirst((string)$pt);
 };
+
+// If user didn't specify any types in URL, render all as checked (matches backend default behavior)
+$has_type_filters = !empty($req['types']);
 
 // Group posts by post_type while preserving their original (relevance) order
 $grouped = [];
@@ -85,7 +95,11 @@ uksort($grouped, function($a, $b) use ($order) {
                     <span class="eco-search__label">Content</span>
                     <div class="eco-search__chips">
                         <?php foreach ($labels as $pt => $pt_label): ?>
-                            <?php $checked = in_array($pt, (array)$req['types'], true); ?>
+                            <?php
+                            $checked = $has_type_filters
+                                ? in_array($pt, (array)$req['types'], true)
+                                : true;
+                            ?>
                             <label class="eco-search__chip">
                                 <input type="checkbox" name="types[]" value="<?php echo esc_attr($pt); ?>" <?php checked($checked); ?>>
                                 <span><?php echo esc_html($pt_label); ?></span>
@@ -108,7 +122,7 @@ uksort($grouped, function($a, $b) use ($order) {
                 </div>
             <?php endif; ?>
             <div class="eco-search__meta-line eco-search__meta-line--count">
-                <?php echo esc_html($data['total']); ?> results
+                <?php echo esc_html((string)$data['total']); ?> results
             </div>
         </div>
 
@@ -147,23 +161,23 @@ uksort($grouped, function($a, $b) use ($order) {
             <?php endif; ?>
         </div>
 
-        <?php if ($data['max_pages'] > 1): ?>
+        <?php if (!empty($data['max_pages']) && (int)$data['max_pages'] > 1): ?>
             <div class="eco-search__pager">
                 <?php
                 $current = (int)$data['page'];
-                $max = (int)$data['max_pages'];
+                $max     = (int)$data['max_pages'];
 
-                // Simple pager with prev/next and window
                 $prev = max(1, $current - 1);
                 $next = min($max, $current + 1);
 
-                $win = 3;
+                $win   = 3;
                 $start = max(1, $current - $win);
                 $end   = min($max, $current + $win);
                 ?>
 
                 <a class="eco-search__page eco-search__page--nav <?php echo ($current === 1) ? 'is-disabled' : ''; ?>"
-                   href="<?php echo esc_url(Search::build_page_url(['pg' => $prev])); ?>" aria-disabled="<?php echo $current===1?'true':'false'; ?>">
+                   href="<?php echo esc_url(Search::build_page_url(['pg' => $prev])); ?>"
+                   aria-disabled="<?php echo $current === 1 ? 'true' : 'false'; ?>">
                     Prev
                 </a>
 
@@ -175,7 +189,8 @@ uksort($grouped, function($a, $b) use ($order) {
                 <?php endfor; ?>
 
                 <a class="eco-search__page eco-search__page--nav <?php echo ($current === $max) ? 'is-disabled' : ''; ?>"
-                   href="<?php echo esc_url(Search::build_page_url(['pg' => $next])); ?>" aria-disabled="<?php echo $current===$max?'true':'false'; ?>">
+                   href="<?php echo esc_url(Search::build_page_url(['pg' => $next])); ?>"
+                   aria-disabled="<?php echo $current === $max ? 'true' : 'false'; ?>">
                     Next
                 </a>
             </div>

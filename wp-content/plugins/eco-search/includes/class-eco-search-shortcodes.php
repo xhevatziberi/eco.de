@@ -7,21 +7,27 @@ class Shortcodes {
 
     public static function init() {
         add_shortcode('eco_search_toggle', [__CLASS__, 'toggle_shortcode']);
-        add_shortcode('eco_search_bar', [__CLASS__, 'search_bar_shortcode']);   // NEW
-        add_shortcode('eco_search_page', [__CLASS__, 'search_page_shortcode']); // RENAMED
-        // Back-compat (optional)
-        add_shortcode('eco_search', [__CLASS__, 'search_page_shortcode']);
+        add_shortcode('eco_search_bar', [__CLASS__, 'search_bar_shortcode']);
+        add_shortcode('eco_search_page', [__CLASS__, 'search_page_shortcode']);
+        add_shortcode('eco_search', [__CLASS__, 'search_page_shortcode']); // back-compat
+    }
+
+    private static function sanitize_classes($class_string) {
+        $class_string = (string) $class_string;
+        $parts = preg_split('/\s+/', trim($class_string));
+        $parts = array_filter(array_map('sanitize_html_class', $parts));
+        return implode(' ', $parts);
     }
 
     public static function toggle_shortcode($atts = []) {
         $atts = shortcode_atts([
-            'target' => 'eco-searchbar', // default to header bar
+            'target' => 'eco-searchbar',
             'class'  => '',
             'label'  => 'Search',
         ], $atts, 'eco_search_toggle');
 
         $target = sanitize_html_class($atts['target']);
-        $class  = sanitize_html_class($atts['class']);
+        $class  = self::sanitize_classes($atts['class']);
 
         ob_start(); ?>
         <button
@@ -48,31 +54,14 @@ class Shortcodes {
         return ob_get_clean();
     }
 
-    /**
-     * Header bar: ONLY keyword input. Submits to the Search Page.
-     * Usage:
-     * [eco_search_bar id="eco-searchbar" search_page="/uber-eco/"]
-     */
     public static function search_bar_shortcode($atts = []) {
         $atts = shortcode_atts([
-            'id'         => 'eco-searchbar',
-            'search_page'=> '', // slug or full URL or "/uber-eco/"
-            'placeholder'=> 'Keyword',
+            'id'          => 'eco-searchbar',
+            'placeholder' => 'Keyword',
         ], $atts, 'eco_search_bar');
 
         $id = sanitize_html_class($atts['id']);
-
-        // Determine the search page URL
-        $action = '';
-        $raw = trim((string)$atts['search_page']);
-        if ($raw) {
-            // allow "/uber-eco/" or full URL
-            $action = (strpos($raw, 'http') === 0) ? $raw : home_url($raw);
-        } else {
-            // fallback: WP search (not recommended for your custom page)
-            $action = home_url('/');
-        }
-
+        $action = home_url('/');
         $s = isset($_GET['s']) ? sanitize_text_field(wp_unslash($_GET['s'])) : '';
 
         ob_start(); ?>
@@ -97,15 +86,10 @@ class Shortcodes {
         return ob_get_clean();
     }
 
-    /**
-     * Full search page (filters + results).
-     * Put this shortcode on your WP page /uber-eco/
-     */
     public static function search_page_shortcode($atts = []) {
         $atts = shortcode_atts([
             'engine'   => 'default',
             'per_page' => 10,
-            'title'    => '',
         ], $atts, 'eco_search_page');
 
         $engine   = sanitize_key($atts['engine']);

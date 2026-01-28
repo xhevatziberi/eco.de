@@ -4,24 +4,19 @@ if (!defined('ABSPATH')) exit;
 $post_id = get_the_ID();
 $pt      = get_post_type($post_id);
 
-// Thumb
 $img = '';
 if (has_post_thumbnail($post_id)) {
     $img = get_the_post_thumbnail_url($post_id, 'medium');
 }
 
-// Date (published date for now)
 $date = get_the_date('d.m.Y', $post_id);
 
-// Topic-tag
 $topic_terms = get_the_terms($post_id, 'topic-tag');
 $topic_name = '';
 if (!is_wp_error($topic_terms) && !empty($topic_terms)) {
     $topic_name = $topic_terms[0]->name;
 }
 
-// Type label (use Search::content_type_labels if you want consistent labels)
-// Fallback to CPT singular label
 $type_label = '';
 $pt_obj = get_post_type_object($pt);
 if ($pt_obj && !empty($pt_obj->labels->singular_name)) {
@@ -30,7 +25,6 @@ if ($pt_obj && !empty($pt_obj->labels->singular_name)) {
     $type_label = strtoupper($pt ?: 'post');
 }
 
-// Keyword highlight (lightweight)
 $q = isset($_GET['s']) ? trim((string) wp_unslash($_GET['s'])) : '';
 $highlight = function($text) use ($q) {
     $q = trim($q);
@@ -42,6 +36,10 @@ $highlight = function($text) use ($q) {
 $title   = get_the_title($post_id);
 $excerpt = get_the_excerpt($post_id);
 $excerpt = $excerpt ? wp_trim_words($excerpt, 26) : '';
+
+$allowed = [
+    'mark' => ['class' => true],
+];
 ?>
 <article class="eco-card">
     <a class="eco-card__media" href="<?php the_permalink(); ?>" aria-hidden="true">
@@ -66,12 +64,14 @@ $excerpt = $excerpt ? wp_trim_words($excerpt, 26) : '';
         </div>
 
         <h3 class="eco-card__title">
-            <a href="<?php the_permalink(); ?>"><?php echo wp_kses_post($highlight(esc_html($title))); ?></a>
+            <a href="<?php the_permalink(); ?>">
+                <?php echo wp_kses($highlight(esc_html($title)), $allowed); ?>
+            </a>
         </h3>
 
         <?php if ($excerpt): ?>
             <div class="eco-card__excerpt">
-                <?php echo wp_kses_post($highlight(esc_html($excerpt))); ?>
+                <?php echo wp_kses($highlight(esc_html($excerpt)), $allowed); ?>
             </div>
         <?php endif; ?>
     </div>
