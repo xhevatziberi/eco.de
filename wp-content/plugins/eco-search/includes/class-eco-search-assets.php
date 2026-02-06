@@ -34,6 +34,6 @@ class Assets {
         ]);
 
         // Ensures our stylesheet block is emitted and we get last-word ordering.
-        wp_add_inline_style('eco-search-ui', '.eco-search-scope{}');
+        wp_add_inline_style('eco-search-ui', '#eco-search-scope{}');
     }
 }

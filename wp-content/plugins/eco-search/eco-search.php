@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ECO Search UI (SearchWP)
  * Description: Toggleable header search UI + custom SearchWP-powered search template with filters.
- * Version: 1.0.1
+ * Version: 1.0.3
  * Author: Batlab
  */
 
@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) exit;
 
 define('ECO_SEARCH_PATH', plugin_dir_path(__FILE__));
 define('ECO_SEARCH_URL', plugin_dir_url(__FILE__));
-define('ECO_SEARCH_VER', '1.0.1');
+define('ECO_SEARCH_VER', '1.0.3');
 
 // Core loader
 require_once ECO_SEARCH_PATH . 'includes/class-eco-search.php';

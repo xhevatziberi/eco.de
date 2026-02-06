@@ -50,7 +50,7 @@ uksort($grouped, function($a, $b) use ($order) {
 });
 ?>
 
-<div class="eco-search-page eco-search-scope">
+<div class="eco-search-page" id="eco-search-scope">
     <div class="eco-search__inner">
 
         <form class="eco-search__form" method="get" action="<?php echo esc_url($action_url); ?>">

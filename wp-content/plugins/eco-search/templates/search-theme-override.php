@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
 get_header();
 ?>
 
-<div class="page-wrapper eco-search-scope">
+<div class="page-wrapper" id="eco-search-scope">
 	<div class="elementor-section elementor-section-boxed">
 		<div class="elementor-container">
 			<main id="primary" class="site-main">
