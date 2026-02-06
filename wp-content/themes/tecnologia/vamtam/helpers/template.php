@@ -76,6 +76,12 @@ function vamtam_body_classes( $body_class ) {
 		'vamtam-font-smoothing'              => vamtam_extra_features() && \Vamtam_Elementor_Utils::get_general_theme_site_setting( 'font_smoothing' ),
 	);
 
+	$isbp = VamtamElementorBridge::get_immediate_scroll_blocking_popup();
+
+	if ( $isbp ) {
+		$body_class_conditions[ "dialog-prevent-scroll vamtam-has-isbp vamtam-isbp-{$isbp}" ] = true;
+	}
+
 	foreach ( $body_class_conditions as $class => $cond ) {
 		if ( $cond ) {
 			$body_class[] = $class;

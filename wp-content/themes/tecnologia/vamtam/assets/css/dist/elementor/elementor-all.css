@@ -846,7 +846,8 @@ These are general-purpose style fixes used across themes.
   font-size: 15px;
   top: 0px;
 }
-.vamtam-disable-scroll {
+.vamtam-disable-scroll,
+.dialog-prevent-scroll {
   overflow: hidden;
   max-height: 100vh;
   box-sizing: border-box;
@@ -854,6 +855,13 @@ These are general-purpose style fixes used across themes.
 html.ios-safari .vamtam-disable-scroll {
   position: fixed;
   width: 100%;
+}
+.dialog-prevent-scroll .elementor-popup-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 ol,
 ul {
@@ -1418,9 +1426,6 @@ These are general-purpose anims used across themes.
 .elementor-widget-form.vamtam-has-theme-widget-styles .flatpickr-mobile:is([type=date],[type=time]) {
   -webkit-appearance: initial;
 }
-.elementor-widget-gallery .elementor-gallery-item {
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-}
 .elementor-widget.vamtam-has-theme-widget-styles.vamtam-has-hr-layout :is( ul.products, .elementor-posts-container ) {
   --scroller-padding: 20px;
   --col-size: calc((100% / var(--vamtam-cols)) - var(--vamtam-col-gap, var(--grid-column-gap)) - calc(var(--vamtam-col-hint) / var(--vamtam-cols)));
@@ -1575,6 +1580,9 @@ These are general-purpose anims used across themes.
     opacity: 1;
   }
 }
+.elementor-widget-gallery .elementor-gallery-item {
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
 .elementor-widget-icon-box.vamtam-has-theme-widget-styles.elementor-position-left.elementor-vertical-align-top .elementor-icon-box-title {
   margin-top: 0;
 }
@@ -1622,57 +1630,6 @@ These are general-purpose anims used across themes.
 }
 .elementor-widget-login.vamtam-has-theme-widget-styles.vamtam-popup-login-form form.elementor-form input::placeholder {
   color: var(--vamtam-accent-color-5);
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles .sub-arrow {
-  font-size: 16px;
-}
-html.ios-safari .elementor-widget-nav-menu.vamtam-has-theme-widget-styles li {
-  outline: 0 !important;
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-hr-underline .elementor-nav-menu--main .elementor-nav-menu .menu-item .elementor-item::after {
-  bottom: 20px;
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-icon.elementor-nav-menu--toggle .eicon-menu-bar {
-  font-family: theme-icons;
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-icon.elementor-nav-menu--toggle .eicon-menu-bar:before {
-  content: "\e90c";
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-icon.elementor-nav-menu--toggle .eicon-close {
-  font-family: theme-icons;
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-icon.elementor-nav-menu--toggle .eicon-close:before {
-  content: "\e904";
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li.menu-item-has-children::before,
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li[class*="mega-menu"]::before {
-  content: "\f0d7";
-  color: var(--vamtam-menu-color);
-  display: inline-block;
-  font-family: "Font Awesome 5 Free";
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
-  position: absolute;
-  right: calc(var(--e-nav-menu-horizontal-menu-item-margin, 0px) - 7.5px);
-  align-self: center;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li.menu-item-has-children:last-child::before,
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li[class*="mega-menu"]:last-child::before {
-  right: -7.5px;
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li.menu-item-has-children:hover::before,
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li[class*="mega-menu"]:hover::before {
-  color: var(--vamtam-menu-color-hover);
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li.menu-item-has-children:active::before,
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li[class*="mega-menu"]:active::before {
-  color: var(--vamtam-menu-color-active);
-}
-.elementor-widget-nav-menu.vamtam-has-theme-widget-styles:not(.vamtam-has-submenu-icon) .elementor-nav-menu .sub-arrow {
-  display: none;
 }
 .elementor-widget-post-comments.vamtam-has-theme-widget-styles .respond-box {
   position: relative;
@@ -2004,6 +1961,57 @@ body:not(.vamtam-is-elementor) .elementor-widget-post-comments.vamtam-has-theme-
 .elementor-widget-post-comments.vamtam-has-theme-widget-styles .comments {
   border-bottom: solid 1px var(--vamtam-accent-color-7);
   margin-bottom: var(--vamtam-content-space-l);
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles .sub-arrow {
+  font-size: 16px;
+}
+html.ios-safari .elementor-widget-nav-menu.vamtam-has-theme-widget-styles li {
+  outline: 0 !important;
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-hr-underline .elementor-nav-menu--main .elementor-nav-menu .menu-item .elementor-item::after {
+  bottom: 20px;
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-icon.elementor-nav-menu--toggle .eicon-menu-bar {
+  font-family: theme-icons;
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-icon.elementor-nav-menu--toggle .eicon-menu-bar:before {
+  content: "\e90c";
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-icon.elementor-nav-menu--toggle .eicon-close {
+  font-family: theme-icons;
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-icon.elementor-nav-menu--toggle .eicon-close:before {
+  content: "\e904";
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li.menu-item-has-children::before,
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li[class*="mega-menu"]::before {
+  content: "\f0d7";
+  color: var(--vamtam-menu-color);
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  position: absolute;
+  right: calc(var(--e-nav-menu-horizontal-menu-item-margin, 0px) - 7.5px);
+  align-self: center;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li.menu-item-has-children:last-child::before,
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li[class*="mega-menu"]:last-child::before {
+  right: -7.5px;
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li.menu-item-has-children:hover::before,
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li[class*="mega-menu"]:hover::before {
+  color: var(--vamtam-menu-color-hover);
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li.menu-item-has-children:active::before,
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles.vamtam-menu-indicator ul.elementor-nav-menu > li[class*="mega-menu"]:active::before {
+  color: var(--vamtam-menu-color-active);
+}
+.elementor-widget-nav-menu.vamtam-has-theme-widget-styles:not(.vamtam-has-submenu-icon) .elementor-nav-menu .sub-arrow {
+  display: none;
 }
 .elementor-widget-post-navigation.vamtam-has-theme-widget-styles .post-navigation__next--label,
 .elementor-widget-post-navigation.vamtam-has-theme-widget-styles .post-navigation__next--title,

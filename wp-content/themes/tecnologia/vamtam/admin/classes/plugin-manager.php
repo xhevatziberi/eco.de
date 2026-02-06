@@ -384,23 +384,33 @@ class VamtamPluginManager {
 
 	    $key = sanitize_key( 'vamtam_plugin_data_'.$slug );
 
-	    if ( false === ( $plugins = get_transient( $key ) ) ) {
+	    if ( true|| false === ( $plugins = get_transient( $key ) ) ) {
 			$args = array(
 				'slug' => $slug,
 				'fields' => array(
 			 		'short_description' => true
 				)
 			);
-			$response = wp_remote_post(
-				'http://api.wordpress.org/plugins/info/1.0/',
+
+			$url = 'https://api.wordpress.org/plugins/info/1.2/';
+
+			$url = add_query_arg(
 				array(
-					'body' => array(
-						'action' => 'plugin_information',
-						'request' => serialize( (object) $args )
-					)
+					'action'  => 'plugin_information',
+					'request' => (object) $args,
+				),
+				$url
+			);
+
+			$response = wp_remote_get(
+				$url,
+				array(
+					'timeout'    => 15,
+					'user-agent' => 'WordPress/' . wp_get_wp_version() . '; ' . home_url( '/' ),
 				)
 			);
-			$data    = unserialize( wp_remote_retrieve_body( $response ) );
+
+			$data    = json_decode( wp_remote_retrieve_body( $response ) );
 
 			$plugins = is_object( $data ) ? array( 'Description' => $data->short_description , 'Version' => $data->version ) : false;
 

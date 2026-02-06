@@ -223,7 +223,6 @@ class Version_Checker {
 						VamtamFramework::license( self::$VALID_LICENSE );
 						if ( $is_token ) {
 							update_option( VamtamFramework::get_token_option_key(), '1' );
-							delete_option( VamtamFramework::get_purchase_code_option_key() );
 						} else {
 							delete_option( VamtamFramework::get_token_option_key() );
 						}

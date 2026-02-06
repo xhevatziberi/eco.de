@@ -1179,6 +1179,7 @@ class VamtamElementorBridge {
 			'nav-menu'                                   => [ 'label' => __( 'Nav Menu', 'tecnologia' ) ],
 			'section'                                    => [ 'label' => __( 'Section', 'tecnologia' ) ],
 			'toggle'                                     => [ 'label' => __( 'Toggle', 'tecnologia' ) ],
+			'text-editor'                          		 => [ 'label' => __( 'Text Editor', 'tecnologia' ) ],
 			'testimonial-carousel'						 => [ 'label' => __( 'Testimonial Carousel', 'tecnologia' ) ],
 			'search-form'                                => [ 'label' => __( 'Search Form', 'tecnologia' ) ],
 			'archive-posts'                              => [ 'label' => __( 'Archive Posts', 'tecnologia' ) ],
@@ -1529,5 +1530,60 @@ class VamtamElementorBridge {
 				wp_enqueue_style( 'elementor-icons' );
 			}
 		}
+	}
+
+	/**
+	 * Check if current page has an immediate scroll-blocking popup.
+	 *
+	 * Checks for Elementor popups that load immediately on page load (0 delay)
+	 * with scroll prevention enabled.
+	 *
+	 * @return int|false Popup ID if found, false otherwise.
+	 */
+	public static function get_immediate_scroll_blocking_popup() {
+		// Frontend, visitors only.
+		if ( is_admin() || is_user_logged_in() ) {
+			return false;
+		}
+
+		if ( ! did_action( 'elementor/loaded' ) || ! class_exists( '\ElementorPro\Plugin' ) ) {
+			return false;
+		}
+
+		// Get conditions manager instance.
+		$conditions_manager = \ElementorPro\Modules\ThemeBuilder\Module::instance()->get_conditions_manager();
+
+		// Get popup documents for current location.
+		$popup_documents = $conditions_manager->get_documents_for_location( 'popup' );
+
+		foreach ( $popup_documents as $document ) {
+			$popup_id = $document->get_id();
+			$settings = $document->get_settings();
+
+			// Get popup display settings from post meta.
+			$popup_display_settings = get_post_meta( $popup_id, '_elementor_popup_display_settings', true );
+
+			if ( empty( $popup_display_settings ) ) {
+				continue;
+			}
+
+			// Check prevent_scroll setting.
+			$prevent_scroll = isset( $settings['prevent_scroll'] ) ? $settings['prevent_scroll'] : '';
+
+			// Get triggers array.
+			$triggers = $popup_display_settings['triggers'];
+
+			if ( isset( $triggers ) && is_array( $triggers ) ) {
+				$has_page_load   = isset( $triggers['page_load'] ) && 'yes' === $triggers['page_load'];
+				$page_load_delay = isset( $triggers['page_load_delay'] ) ? intval( $triggers['page_load_delay'] ) : 0;
+
+				// Check if popup qualifies.
+				if ( 'yes' === $prevent_scroll && $has_page_load && 0 === $page_load_delay ) {
+					return $popup_id;
+				}
+			}
+		}
+
+		return false;
 	}
 }

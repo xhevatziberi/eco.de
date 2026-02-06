@@ -125,6 +125,13 @@ class VamtamDiagnostics {
 	 * Wrapper for mixed_content_test_real() which returns a fast negative result, if cached
 	 */
 	public static function mixed_content_test() {
+		// allow skipping the test via filter
+		// only to be used in exceptional cases, where the test produces false positives with no actual issues
+		// ** please always check which data is causing the issue before skipping the test **
+		if ( apply_filters( 'vamtam_skip_mixed_content_test', false ) ) {
+			return false;
+		}
+
 		$cached_status = get_transient( 'vamtam-mixed-content-test-passed' );
 
 		if ( $cached_status ) {
@@ -158,7 +165,8 @@ class VamtamDiagnostics {
 						'vamtam_import_attachments_url_remap',
 						'vamtam_import_attachments_todo',
 						'vamtam_attachments_imported',
-						'bsr_data'
+						'bsr_data',
+						'elementor_log'
 					)
 					and
 						option_name not like '_transient_%'

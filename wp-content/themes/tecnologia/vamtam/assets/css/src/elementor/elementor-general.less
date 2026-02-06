@@ -104,7 +104,7 @@ These are general-purpose style fixes used across themes.
 }
 
 // Disable Scoll.
-.vamtam-disable-scroll {
+.vamtam-disable-scroll, .dialog-prevent-scroll {
 	overflow: hidden;
 	max-height: 100vh;
 	box-sizing: border-box;
@@ -113,6 +113,14 @@ These are general-purpose style fixes used across themes.
 html.ios-safari .vamtam-disable-scroll {
 	position: fixed;
 	width: 100%;
+}
+
+.dialog-prevent-scroll .elementor-popup-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 // Lists.

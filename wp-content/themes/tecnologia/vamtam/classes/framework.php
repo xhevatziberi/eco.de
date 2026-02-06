@@ -56,6 +56,10 @@ class VamtamFramework {
 		require_once VAMTAM_DIR . 'classes/class-tgm-plugin-activation.php';
 		require_once VAMTAM_SAMPLES_DIR . 'dependencies.php';
 
+		if ( file_exists( VAMTAM_ADMIN_DIR . 'classes/token-restoration.php' ) ) {
+			require_once VAMTAM_ADMIN_DIR . 'classes/token-restoration.php';
+		}
+
 		add_action( 'after_setup_theme', [ __CLASS__, 'setup_options' ], 5 );
 		add_action( 'after_setup_theme', array( __CLASS__, 'theme_supports' ) );
 		add_action( 'after_setup_theme', array( __CLASS__, 'load_languages' ) );
@@ -332,6 +336,7 @@ class VamtamFramework {
 				'testimonial-carousel--custom-nav-arrows-controls',
 				'testimonial-carousel--reserve-slide-height',
 				'nav-menu--toggle-sticky-hover-state-on-touch-fix',
+				'text-editor--selectors-include-links',
 			];
 
 			// Supported features for "vamtam-elementor-widgets" theme support.

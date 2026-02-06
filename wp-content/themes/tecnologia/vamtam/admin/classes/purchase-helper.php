@@ -477,6 +477,9 @@ class VamtamPurchaseHelper extends VamtamAjax {
 
 		$content_imported = ! ! get_option( 'vamtam_last_import_map', false );
 
+		$is_token   = get_option( VamtamFramework::get_token_option_key() );
+		$el_pro_nci = $is_token ? '5756' : '5757';
+
 		$messages = array(
 			'success-msg' => esc_html__( 'Imported.', 'tecnologia' ),
 			'error-msg  ' => esc_html__( 'Failed to import. Please <a href="{fullimport}" target="_blank">click here</a> in order to see the full error message.', 'tecnologia' ),
@@ -486,7 +489,7 @@ class VamtamPurchaseHelper extends VamtamAjax {
 			array(
 				'test'   => defined( 'ELEMENTOR_PRO__FILE__' ),
 				'title'  => esc_html__( 'Posts, Pages and Site Layout', 'tecnologia' ),
-				'failed' => wp_kses( __( "This theme requires Elementor Pro. If you don't have Elementor Pro, please <a href='https://be.elementor.com/visit/?bta=13981&nci=5383' target='_blank'>download it here</a>. Install and activate it, and then proceed with importing the demo content. If you have any issues with the importer please <a href='https://elementor.support.vamtam.com/support/solutions/articles/245218-vamtam-elementor-themes-how-to-install-the-theme-via-the-admin-panel-' target='_blank'>read this article</a> or reach out to us using <a href='https://vamtam.com/contact-us/' target='_blank'>the form on this page</a>.", 'tecnologia' ), 'vamtam-a-span' ),
+				'failed' => wp_kses( __( "This theme requires Elementor Pro. If you don't have Elementor Pro, please <a href='https://be.elementor.com/visit/?bta=13981&nci={$el_pro_nci}' target='_blank'>download it here</a>. Install and activate it, and then proceed with importing the demo content. If you have any issues with the importer please <a href='https://elementor.support.vamtam.com/support/solutions/articles/245218-vamtam-elementor-themes-how-to-install-the-theme-via-the-admin-panel-' target='_blank'>read this article</a> or reach out to us using <a href='https://vamtam.com/contact-us/' target='_blank'>the form on this page</a>.", 'tecnologia' ), 'vamtam-a-span' ),
 			),
 		);
 
