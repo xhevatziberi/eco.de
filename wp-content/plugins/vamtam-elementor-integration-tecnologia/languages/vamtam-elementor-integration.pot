@@ -1,16 +1,16 @@
-# Copyright (C) 2025 VamTam
+# Copyright (C) 2026 VamTam
 # This file is distributed under the same license as the VamTam Elementor Integration (Tecnologia) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: VamTam Elementor Integration (Tecnologia) 1.1.13\n"
+"Project-Id-Version: VamTam Elementor Integration (Tecnologia) 1.1.14\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/vamtam-elementor-integration-"
 "tecnologia\n"
-"POT-Creation-Date: 2025-09-29 15:07:59+00:00\n"
+"POT-Creation-Date: 2026-01-31 19:36:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 1.0.4\n"
@@ -150,19 +150,19 @@ msgid ""
 "everytime the popup is opened."
 msgstr ""
 
-#: includes/vamtam-elementor-hooks.php:109
+#: includes/vamtam-elementor-hooks.php:110
 msgid "Image - Grow With Scale (Left)"
 msgstr ""
 
-#: includes/vamtam-elementor-hooks.php:110
+#: includes/vamtam-elementor-hooks.php:111
 msgid "Image - Grow With Scale (Right)"
 msgstr ""
 
-#: includes/vamtam-elementor-hooks.php:111
+#: includes/vamtam-elementor-hooks.php:112
 msgid "Image - Grow With Scale (Top)"
 msgstr ""
 
-#: includes/vamtam-elementor-hooks.php:112
+#: includes/vamtam-elementor-hooks.php:113
 msgid "Image - Grow With Scale (Bottom)"
 msgstr ""
 

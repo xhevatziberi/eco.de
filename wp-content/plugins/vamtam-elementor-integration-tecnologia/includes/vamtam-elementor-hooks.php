@@ -14,10 +14,7 @@ function elementor_init() {
 	// Theme-dependant.
 	set_experiments_default_state();
 
-	// temporarily allow this only on internal sites
-	if ( ! function_exists( 'vamtam_internal_adminbar' ) ) {
-		set_performance_options();
-	}
+	set_performance_options();
 }
 
 /*
@@ -76,8 +73,12 @@ function set_performance_options() {
 
 	$fdisable = [
 		'e_element_cache',
-		'e_optimized_markup',
 	];
+
+	// temporarily allow this only on internal sites
+	if ( ! function_exists( 'vamtam_internal_adminbar' ) ) {
+		$fdisable[] = 'e_optimized_markup';
+	}
 
 	$selectors = [];
 
@@ -117,7 +118,6 @@ function vamtam_elementor_additional_animations( $additional_anims ) {
 
 function frontend_before_enqueue_scripts() {
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-	$suffix = ''; // Xhevat. We need the non-minified version for now, as it has a fix.
 
 	// Enqueue JS for Elementor (frontend).
 	wp_enqueue_script(
