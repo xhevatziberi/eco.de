@@ -136,6 +136,33 @@ class VamtamFramework {
 	}
 
 	/**
+	 * Get a unique signature for this site,
+	 * so that the update server can differentiate between different sites installed on the same domain
+	 *
+	 * @return string
+	 */
+	public static function get_signature() {
+		$option = 'vamtam_site_signature';
+		$signature = get_option( $option );
+
+		if ( empty( $signature ) ) {
+			mt_srand( crc32( serialize( [ microtime( true ), VAMTAM_THEME_NAME, VAMTAM_THEME_URI, VAMTAM_THEME_DIR, NONCE_KEY, NONCE_SALT ] ) ) );
+
+			$signature = microtime( true ) . '--' . wp_generate_uuid4();
+
+			update_option( $option, $signature );
+		}
+
+		return $signature;
+	}
+
+	public static function get_user_agent() {
+		global $wp_version;
+
+		return 'WordPress/' . $wp_version . '; ' . get_option( 'home' ) . '; ' . self::get_signature();
+	}
+
+	/**
 	 * Defines constants used by the theme
 	 *
 	 * @param array $options framework options

@@ -61,4 +61,4 @@ function vamtam_woocommerce_paypal_payments_single_product_renderer_hook( $hook 
 }
 add_filter( 'woocommerce_paypal_payments_single_product_renderer_hook', 'vamtam_woocommerce_paypal_payments_single_product_renderer_hook' );
 
-// build: 1c1257ad4981eaab0450799f5b64db75a19fd504
+// build: 5359a81dd0ec3bd6004444c66c786592b4e22b08

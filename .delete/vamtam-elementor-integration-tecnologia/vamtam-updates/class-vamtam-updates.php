@@ -217,6 +217,7 @@ class Vamtam_Updates_4 {
 		}
 
 		$response = json_decode( wp_remote_retrieve_body( $raw_response ), true );
+		if ( empty( $response['plugins'] ) || ! is_array( $response['plugins'] ) ) $response['plugins'] = []; // Xhevat. Prevent foreach on false
 		foreach ( $response['plugins'] as &$plugin ) {
 			$plugin = (object) $plugin;
 		}

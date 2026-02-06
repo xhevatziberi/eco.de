@@ -2,9 +2,9 @@
 # This file is distributed under the Envato.=!>
 msgid ""
 msgstr ""
-"Project-Id-Version: (VamTam) Tecnologia 24\n"
+"Project-Id-Version: (VamTam) Tecnologia 27\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/tecnologia\n"
-"POT-Creation-Date: 2025-09-08 13:51:37+00:00\n"
+"POT-Creation-Date: 2025-09-29 15:08:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -414,8 +414,11 @@ msgstr ""
 
 #: vamtam/admin/classes/diagnostics.php:412
 msgid ""
-"The <strong>DISABLE_WP_CRON</strong> constant is set to true. This will "
-"prevent the demo content images from being imported."
+"The <strong>DISABLE_WP_CRON</strong> constant is set to true. This may "
+"prevent the demo content images from being imported, or the import process "
+"may be slower, depending on your server's configuration. If you can't "
+"change the value of DISABLE_WP_CRON, please try importing the demo content "
+"anyway."
 msgstr ""
 
 #: vamtam/admin/classes/diagnostics.php:415
@@ -426,7 +429,7 @@ msgstr ""
 msgid ""
 "The <strong>ALTERNATE_WP_CRON</strong> constant is set to true. "
 "Non-standard WP-Cron may prevent the demo content images from being "
-"imported."
+"imported, depending on your server's configuration."
 msgstr ""
 
 #: vamtam/admin/classes/diagnostics.php:421
@@ -658,7 +661,7 @@ msgid ""
 msgstr ""
 
 #: vamtam/admin/classes/purchase-helper.php:205
-#: vamtam/classes/framework.php:618
+#: vamtam/classes/framework.php:645
 msgid "Register Now"
 msgstr ""
 
@@ -1384,47 +1387,47 @@ msgstr ""
 msgid "View Changelog"
 msgstr ""
 
-#: vamtam/classes/framework.php:335
+#: vamtam/classes/framework.php:362
 msgid "Menu Header"
 msgstr ""
 
-#: vamtam/classes/framework.php:494
+#: vamtam/classes/framework.php:521
 msgid "Valid Purchase Key."
 msgstr ""
 
-#: vamtam/classes/framework.php:496
+#: vamtam/classes/framework.php:523
 msgid "Congratulations! You have succesfully registered your product."
 msgstr ""
 
-#: vamtam/classes/framework.php:503
+#: vamtam/classes/framework.php:530
 msgid "Incorrect Purchase Key."
 msgstr ""
 
-#: vamtam/classes/framework.php:505
+#: vamtam/classes/framework.php:532
 msgid "Please check your purchase code and re-enter."
 msgstr ""
 
-#: vamtam/classes/framework.php:512
+#: vamtam/classes/framework.php:539
 msgid ""
 "Cannot validate Purchase Key. Please try again later. If the problem "
 "persists your server might not have the curl PHP extension enabled."
 msgstr ""
 
-#: vamtam/classes/framework.php:535 vamtam/classes/framework.php:567
+#: vamtam/classes/framework.php:562 vamtam/classes/framework.php:594
 msgid " <a href=\"%s\" target=\"_blank\"> this link</a>"
 msgstr ""
 
-#: vamtam/classes/framework.php:583
+#: vamtam/classes/framework.php:610
 msgid "Unregistered Token."
 msgstr ""
 
-#: vamtam/classes/framework.php:589
+#: vamtam/classes/framework.php:616
 msgid ""
 "Failed to unregister token. Please try again later. If this issue persists "
 "please contact support."
 msgstr ""
 
-#: vamtam/classes/framework.php:595
+#: vamtam/classes/framework.php:622
 msgid "Unregistered Key."
 msgstr ""
 

@@ -127,8 +127,6 @@ class Version_Checker {
 	}
 
 	private function update_api_request( $update_cache ) {
-		global $wp_version;
-
 		$theme_name = wp_get_theme()->get_template();
 
 		$raw_response = wp_remote_post( $this->update_api_url, array(
@@ -137,7 +135,7 @@ class Version_Checker {
 				'version'      => isset( $update_cache->checked[ $theme_name ] ) ? $update_cache->checked[ $theme_name ] : VamtamFramework::get_version(),
 				'purchase_key' => self::is_valid_purchase_code() ? apply_filters( 'vamtam_purchase_code', '' ) : '',
 			),
-			'user-agent' => 'WordPress/' . $wp_version . '; ' . get_option( 'home' ),
+			'user-agent' => VamtamFramework::get_user_agent(),
 		) );
 
 		if ( is_wp_error( $raw_response ) || 200 !== wp_remote_retrieve_response_code( $raw_response ) ) {
@@ -158,8 +156,6 @@ class Version_Checker {
 			check_ajax_referer( 'vamtam-check-license', 'nonce' );
 		}
 
-		global $wp_version;
-
 		$should_unregister = isset( $_POST['unregister'] ) && vamtam_sanitize_bool( $_POST['unregister'] );
 		$is_token          = isset( $_POST['is_token'] ) && vamtam_sanitize_bool( $_POST['is_token'] );
 
@@ -174,7 +170,7 @@ class Version_Checker {
 						'theme' => wp_get_theme()->get( 'Name' ),
 						'unregister' => '1',
 					],
-					'user-agent' => 'WordPress/' . $wp_version . '; ' . get_option( 'home' ),
+					'user-agent' => VamtamFramework::get_user_agent(),
 				) );
 
 				if ( ! is_wp_error( $raw_response ) ) {
@@ -216,7 +212,7 @@ class Version_Checker {
 
 				$raw_response = wp_remote_post( $this->validate_api_url, array(
 					'body' => $args,
-					'user-agent' => 'WordPress/' . $wp_version . '; ' . get_option( 'home' ),
+					'user-agent' => VamtamFramework::get_user_agent(),
 				) );
 
 				if ( ! is_wp_error( $raw_response ) ) {
@@ -261,8 +257,6 @@ class Version_Checker {
 	}
 
 	public function check_banned_key( $args ) {
-		global $wp_version;
-
 		$key = VamtamFramework::get_purchase_code();
 
 		if ( ! empty( $key ) ) {
@@ -274,7 +268,7 @@ class Version_Checker {
 					'body' => [
 						'purchase_key' => $key,
 					],
-					'user-agent' => 'WordPress/' . $wp_version . '; ' . get_option( 'home' ),
+					'user-agent' => VamtamFramework::get_user_agent(),
 				] );
 
 				set_transient( $transient_key, $raw_response, DAY_IN_SECONDS );
@@ -308,10 +302,8 @@ class Version_Checker {
 		$system_status_opt_out     = get_option( 'vamtam-system-status-opt-in', true );
 
 		if ( $last_license_key !== $current_license_key || $system_status_opt_out_old != $system_status_opt_out || false === get_transient( $key ) ) {
-			global $wp_version;
-
 			$data = array(
-				'user-agent' => 'WordPress/' . $wp_version . '; ' . get_option( 'home' ) . '; ',
+				'user-agent' => VamtamFramework::get_user_agent(),
 				'blocking'   => false,
 				'body'       => array(
 					'theme_version'  => $local_version,
@@ -340,10 +332,8 @@ class Version_Checker {
 	}
 
 	public function check_version_crm() {
-		global $wp_version;
-
 		$data = array(
-			'user-agent' => 'WordPress/' . $wp_version . '; ' . get_option( 'home' ) . '; ',
+			'user-agent' => VamtamFramework::get_user_agent(),
 			'blocking'   => false,
 			'body'       => array(
 				'theme_version'  => VamtamFramework::get_version(),
