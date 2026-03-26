@@ -16,6 +16,8 @@ function child_styles() {
 	wp_register_script('eco-sponsors', get_stylesheet_directory_uri() . '/js/sponsors.js', array('jquery', 'swiper-js'), $version, true);
 
 	wp_enqueue_style('eco-events', get_stylesheet_directory_uri() . '/css/events.css', array(), $version, 'all');
+
+	wp_register_style('eco-downloads', get_stylesheet_directory_uri() . '/css/downloads.css', array(), $version, 'all');
 }
 add_action( 'wp_enqueue_scripts', 'child_styles', 11 );
 
