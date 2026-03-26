@@ -62,3 +62,7 @@ wp-config.php
 # Allow vamtam-elementor-integration-tecnologia plugin
 !/wp-content/plugins/vamtam-elementor-integration-tecnologia
 !/wp-content/plugins/vamtam-elementor-integration-tecnologia/**
+
+# Allow download-monitor plugin
+!/wp-content/plugins/download-monitor
+!/wp-content/plugins/download-monitor/**

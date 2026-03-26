@@ -18,6 +18,9 @@ let calendar = () => {
 		return;
 	}
 
+	let daysAbort = null;
+	let eventsAbort = null;
+
 	let currentMonthOffset = 0;
 	let selectedDate = new Date().toISOString().split('T')[0]; // Default to today
 	// click today's date
@@ -63,15 +66,19 @@ let calendar = () => {
 		}
 
 		// Fetch dates that have events
+		if (daysAbort) daysAbort.abort();
+		daysAbort = new AbortController();
+
 		fetch(`${ecoEvents.ajaxurl}?action=eco_get_event_days`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ dates: monthDates })
+			body: JSON.stringify({ dates: monthDates }),
+			signal: daysAbort.signal,
 		})
 		.then(res => res.json())
 		.then(data => {
 			data.forEach(date => {
-				if (!/^\d{8}$/.test(date)) return; // basic check
+				if (!/^\d{8}$/.test(date)) return;
 				const year = date.substring(0, 4);
 				const month = date.substring(4, 6);
 				const day = date.substring(6, 8);
@@ -79,10 +86,13 @@ let calendar = () => {
 				const el = document.querySelector(`#calendar-days div[data-date="${isoDate}"]`);
 				if (el) el.classList.add('has-news');
 			});
-
+		})
+		.catch(err => {
+			if (err?.name === 'AbortError') return; // expected on fast clicks
+			console.error('eco_get_event_days failed:', err);
 		});
-	}
 
+	}
 
 	function loadEvents() {
 		if (!selectedDate && !thisMonthMode) return;
@@ -90,13 +100,11 @@ let calendar = () => {
 		const category = categorySelect?.value || '';
 		const tag = selectedTag || '';
 
-		// show loading message
 		eventsDiv.innerHTML = thisMonthMode ? `<p>${ecoEventsL10n.loading_month}</p>` : `<p>${ecoEventsL10n.loading_events}</p>`;
 
 		let fetchUrl = `${ecoEvents.ajaxurl}?action=eco_load_events&category=${category}&tag=${tag}`;
 
 		if (thisMonthMode) {
-			// Send year & month instead of a specific date
 			const baseDate = new Date();
 			baseDate.setMonth(baseDate.getMonth() + currentMonthOffset);
 			const year = baseDate.getFullYear();
@@ -106,10 +114,13 @@ let calendar = () => {
 			fetchUrl += `&date=${selectedDate}`;
 		}
 
-		fetch(fetchUrl)
+		// abort previous eco_load_events
+		if (eventsAbort) eventsAbort.abort();
+		eventsAbort = new AbortController();
+
+		fetch(fetchUrl, { signal: eventsAbort.signal })
 			.then(res => res.json())
 			.then(data => {
-				// if data is empty, show a message
 				if (data.length === 0) {
 					eventsDiv.innerHTML = `<p>${thisMonthMode ? ecoEventsL10n.no_events_month : ecoEventsL10n.no_events}</p>`;
 					return;
@@ -117,10 +128,12 @@ let calendar = () => {
 				eventsDiv.innerHTML = data.map(event => _template(event)).join('');
 			})
 			.catch(err => {
+				if (err?.name === 'AbortError') return; // expected on fast clicks
 				console.error('Error loading events:', err);
 				eventsDiv.innerHTML = `<p>${ecoEventsL10n.error_loading}</p>`;
 			});
 	}
+
 
 	function _template(event) {		
 		// ---------------- helpers ----------------

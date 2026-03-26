@@ -792,6 +792,7 @@
 
 			// Add click event listener for initializing scrolling to target anchor using scrollTo() (works good with CSS smooth-scrolling).
 			anchorLinks.forEach(link => {
+				if (link.dataset.noAnchor !== undefined) return; // Xhevat. Skip it, as it overrides our custom link (e.g. #ticket).
 				link.addEventListener('click', (e) => {
 					e.preventDefault();
 					const target = this.getAnchorTarget(link);
