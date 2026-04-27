@@ -106,6 +106,8 @@ class Plugin {
 
 		wp_register_script( 'eco-people-vertical-script', plugins_url( '/assets/js/people-vertical.js', __FILE__ ), [ 'jquery' ], $version, true );
 		wp_register_style( 'eco-people-vertical-style', plugins_url( '/assets/css/people-vertical.css', __FILE__  ), [], $version );
+
+		wp_register_style( 'eco-downloads-style', plugins_url( '/assets/css/downloads.css', __FILE__  ), [], $version );
 	}
 
 	/**
@@ -129,6 +131,7 @@ class Plugin {
 		require_once( __DIR__ . '/widgets/podcast-rss.php' );
 		require_once( __DIR__ . '/widgets/eco-events-carousel.php' );
 		require_once( __DIR__ . '/widgets/people-vertical.php' );
+		require_once( __DIR__ . '/widgets/downloads.php' );
 	}
 
 	/**
@@ -155,6 +158,7 @@ class Plugin {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PodcastRSS() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \ECO_Events_Carousel_Widget() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PeopleVertical() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Downloads() );
 	}
 
 	function add_elementor_widget_categories( $elements_manager ) {
