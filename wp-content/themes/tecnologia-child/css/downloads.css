@@ -1,0 +1,197 @@
+/* =========================================================
+   eco-downloads – Download library with category filters
+   Follows the .eco- BEM naming convention of the child theme
+   ========================================================= */
+
+/* Wrapper */
+.eco-downloads {
+    width: 100%;
+}
+
+/* ---- Filter bar ---- */
+.eco-downloads__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid #eee;
+}
+
+.eco-downloads__filter {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    border: 2px solid #0a2142;
+    border-radius: 2rem;
+    background: transparent;
+    color: #0a2142;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+
+.eco-downloads__filter:hover {
+    background: #0a2142;
+    color: #fff;
+}
+
+.eco-downloads__filter--active {
+    background: var(--eco-color, #E2001A);
+    border-color: var(--eco-color, #E2001A);
+    color: #fff;
+}
+
+.eco-downloads__filter--active:hover {
+    background: #b50015;
+    border-color: #b50015;
+    color: #fff;
+}
+
+/* ---- List ---- */
+.eco-downloads__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* ---- Single item ---- */
+.eco-downloads__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid #eee;
+    transition: background 0.15s;
+}
+
+.eco-downloads__item:first-child {
+    border-top: 1px solid #eee;
+}
+
+/* ---- File icon ---- */
+.eco-downloads__icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--eco-color, #E2001A);
+    margin-top: 0.125rem;
+}
+
+.eco-downloads__icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ---- Info block ---- */
+.eco-downloads__info {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.eco-downloads__title {
+    margin: 0 0 0.3rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0a2142;
+    line-height: 1.3;
+}
+
+.eco-downloads__excerpt {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* ---- Meta (size · count · category) ---- */
+.eco-downloads__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.eco-downloads__meta span::before {
+    content: '';
+}
+
+.eco-downloads__size,
+.eco-downloads__count {
+    white-space: nowrap;
+}
+
+.eco-downloads__categories {
+    font-style: italic;
+}
+
+/* ---- Action (DLM download button) ---- */
+.eco-downloads__action {
+    flex-shrink: 0;
+    align-self: center;
+}
+
+/* Style the DLM output button to match eco primary button */
+.eco-downloads__action a,
+.eco-downloads__action .dlm-button,
+.eco-downloads__action button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.25rem;
+    background: var(--eco-color, #E2001A);
+    color: #fff !important;
+    border: 2px solid var(--eco-color, #E2001A);
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none !important;
+    line-height: 1.4;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.eco-downloads__action a:hover,
+.eco-downloads__action .dlm-button:hover,
+.eco-downloads__action button:hover {
+    background: #b50015;
+    border-color: #b50015;
+    color: #fff !important;
+}
+
+/* Empty state */
+.eco-downloads__empty {
+    color: #777;
+    font-size: 0.95rem;
+    padding: 1.5rem 0;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 600px) {
+    .eco-downloads__item {
+        flex-wrap: wrap;
+    }
+
+    .eco-downloads__action {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    .eco-downloads__action a,
+    .eco-downloads__action .dlm-button,
+    .eco-downloads__action button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .eco-downloads__icon {
+        width: 2rem;
+        height: 2rem;
+    }
+}
