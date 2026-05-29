@@ -46,7 +46,7 @@ class Plugin {
 	 * @access public
 	 */
 	public function widget_scripts() {
-		$version = '1.2.7';
+		$version = '1.2.8';
 		wp_register_script( 'eco-widget-page', plugins_url( basename( __DIR__ ) . '/assets/js/page.js' ), [ 'elementor-frontend' ], $version, true );
 
 		wp_register_style( 'eco-events-style', plugins_url( '/assets/css/events.css', __FILE__  ), [], $version );
@@ -108,6 +108,29 @@ class Plugin {
 		wp_register_style( 'eco-people-vertical-style', plugins_url( '/assets/css/people-vertical.css', __FILE__  ), [], $version );
 
 		wp_register_style( 'eco-downloads-style', plugins_url( '/assets/css/downloads.css', __FILE__  ), [], $version );
+		wp_register_style( 'eco-tile-icon-grid-style', plugins_url( '/assets/css/tile-icon-grid.css', __FILE__ ), [], $version );
+		wp_register_style( 'eco-number-box-style', plugins_url( '/assets/css/number-box.css', __FILE__ ), [], $version );
+
+		wp_register_style( 'eco-logo-grid-style', plugins_url( '/assets/css/logo-grid.css', __FILE__ ), [], $version );
+		wp_register_script( 'eco-logo-grid-script', plugins_url( '/assets/js/logo-grid.js', __FILE__ ), [], $version, true );
+
+		wp_register_style( 'eco-content-cards-style', plugins_url( '/assets/css/content-cards.css', __FILE__ ), [], $version );
+		wp_register_script( 'eco-content-cards-script', plugins_url( '/assets/js/content-cards.js', __FILE__ ), [ 'jquery' ], $version, true );
+		wp_localize_script(
+			'eco-content-cards-script',
+			'ecoContentCards',
+			[
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'eco_content_cards_nonce' ),
+			]
+		);
+
+		wp_register_style( 'eco-featured-slider-style', plugins_url( '/assets/css/featured-slider.css', __FILE__ ), [], $version );
+		wp_register_script( 'eco-featured-slider-script', plugins_url( '/assets/js/featured-slider.js', __FILE__ ), [], $version, true );
+
+		wp_register_style( 'eco-tile-feature-list-style', plugins_url( '/assets/css/tile-feature-list.css', __FILE__ ), [], $version );
+
+		wp_register_style( 'eco-eyebrow-heading-style', plugins_url( '/assets/css/eyebrow-heading.css', __FILE__ ), [], $version );
 	}
 
 	/**
@@ -132,6 +155,13 @@ class Plugin {
 		require_once( __DIR__ . '/widgets/eco-events-carousel.php' );
 		require_once( __DIR__ . '/widgets/people-vertical.php' );
 		require_once( __DIR__ . '/widgets/downloads.php' );
+		require_once( __DIR__ . '/widgets/tile-icon-grid.php' );
+		require_once( __DIR__ . '/widgets/number-box.php' );
+		require_once( __DIR__ . '/widgets/logo-grid.php' );
+		require_once( __DIR__ . '/widgets/content-cards.php' );
+		require_once( __DIR__ . '/widgets/featured-slider.php' );
+		require_once( __DIR__ . '/widgets/tile-feature-list.php' );
+		require_once( __DIR__ . '/widgets/eyebrow-heading.php' );
 	}
 
 	/**
@@ -159,6 +189,13 @@ class Plugin {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \ECO_Events_Carousel_Widget() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PeopleVertical() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Downloads() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\TileIconGrid() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\NumberBox() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\LogoGrid() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\ContentCards() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedSlider() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\TileFeatureList() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\EyebrowHeading() );
 	}
 
 	function add_elementor_widget_categories( $elements_manager ) {
@@ -192,6 +229,8 @@ class Plugin {
 	 * @access public
 	 */
 	public function __construct() {
+		
+		require_once __DIR__ . '/inc/content-cards-ajax.php';
 
 		// Register widget scripts
 		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'widget_scripts' ] );

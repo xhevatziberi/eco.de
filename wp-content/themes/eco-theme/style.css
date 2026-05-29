@@ -1,0 +1,164 @@
+/*
+Theme Name: ECO Theme
+Theme URI: https://eco.de
+Author: Batlab
+Description: Child theme for ECO based on Hello Elementor.
+Template: hello-elementor
+Version: 1.0.0
+Text Domain: eco-theme
+*/
+
+/**
+ * DELETE START
+**/
+/* add left and right line for container border */
+/* :root {
+  --container-max-width-test: 1280px;
+  --content-width-test: min(100%, var(--container-max-width-test, 1140px));
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--content-width-test) - 20px);
+  height: 100%;
+
+  border-left: 1px solid #c30101;
+  border-right: 1px solid #c30101;
+
+  pointer-events: none;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  body::before {
+    width: calc(100% - 40px);
+  }
+} */
+
+.page-header .entry-title {
+  display: none !important;
+}
+
+nav.elementor-nav-menu--main {
+  z-index: 9999;
+}
+nav.elementor-nav-menu--main ul.sub-menu {
+  /* border: 1px solid #c30101; */
+}
+nav.elementor-nav-menu--main .elementor-sub-item.elementor-item-active,
+nav.elementor-nav-menu--main .elementor-sub-item:hover,
+nav.elementor-nav-menu--main .elementor-sub-item:focus {
+  background-color: #c30101;
+  color: #fff;
+}
+
+.pagetitle .elementor-icon-box-title:before {
+    content: "⸺";
+    padding-right: 8px;
+}
+
+.elementor-testimonial__content {
+    align-content: space-evenly;
+}
+
+.elementor-testimonial__content:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 32vw;
+    width: calc(50vw + 25%);
+    max-width: 70vw;
+    height: 100%;
+    transform: translateX(-50vw);
+    background-color: #e2001a;
+    z-index: -1;
+    color: #fff;
+}
+
+.elementor-testimonial:after {
+    content: url(img/quotes.svg);
+    position: absolute;
+    top: 0;
+}
+.elementor-testimonial--layout-image_right .elementor-testimonial__footer {
+    padding-inline-start: 0;
+}
+.elementor-widget-testimonial-carousel.vamtam-has-theme-widget-styles.elementor-arrows-yes .elementor-swiper-button.elementor-swiper-button-prev {
+    left: -10px;
+}
+.elementor-widget-testimonial-carousel.vamtam-has-theme-widget-styles.elementor-arrows-yes .elementor-swiper-button.elementor-swiper-button-next {
+    right: -10px;
+}
+
+.swiper-pagination {
+    transform: translate(0, -50%) !important;
+}
+
+.e-filter-item[aria-pressed="true"] {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: default;
+}
+
+input[type="checkbox"] {
+    border: none !important;
+    padding: 0 !important;
+}
+
+.wpforms-field-gdpr-checkbox .wpforms-field-label-inline,
+.datenschutz-text label {
+    font-size: 0.7em !important;
+    color: #666 !important;
+
+}
+
+@media (max-width: 768px) {
+    .elementor-testimonial__content:before {
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        transform: none;
+    }
+
+    .elementor-testimonial {
+        flex-direction: column !important;
+    }
+
+    .slider_shape {
+        width: 360px;
+        height: 360px;
+    }
+}
+
+/* typography */
+/* small */
+.postcontent h1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+.postcontent h2 {
+  font-size: 32px;
+  line-height: 36px;
+}
+.postcontent h3 {
+  font-size: 26px;
+  line-height: 30px;
+}
+.postcontent h4 {
+  font-size: 22px;
+  line-height: 26px;
+}
+.postcontent h5 {
+  font-size: 18px;
+  line-height: 22px;
+}
+.postcontent h6 {
+  font-size: 16px;
+  line-height: 20px;
+}

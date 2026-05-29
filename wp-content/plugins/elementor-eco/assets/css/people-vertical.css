@@ -21,6 +21,8 @@
   width: 140px;
   height: auto;
   display: block;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 .eco-pv-name {

@@ -1,0 +1,71 @@
+.eco-number-box {
+	display: flex;
+	align-items: flex-start;
+	gap: 18px;
+	width: 100%;
+}
+
+.eco-number-box__number {
+	flex: 0 0 auto;
+	min-width: 48px;
+	color: #fde7f3;
+	font-size: 30px;
+	font-weight: 800;
+	line-height: 1;
+	letter-spacing: -0.04em;
+}
+
+.eco-number-box__content {
+	min-width: 0;
+	flex: 1 1 auto;
+}
+
+.eco-number-box__title {
+	margin: 0 0 8px;
+	color: #1d1d1f;
+	font-size: 19px;
+	font-weight: 800;
+	line-height: 1.25;
+}
+
+.eco-number-box__text {
+	margin: 0;
+	color: #6f6f6f;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.65;
+}
+
+.eco-number-box--center {
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.eco-number-box--center .eco-number-box__number {
+	min-width: 0;
+}
+
+.eco-number-box--center .eco-number-box__content {
+	max-width: 620px;
+}
+
+@media (max-width: 767px) {
+	.eco-number-box {
+		gap: 14px;
+	}
+
+	.eco-number-box__number {
+		min-width: 42px;
+		font-size: 28px;
+	}
+
+	.eco-number-box__title {
+		font-size: 18px;
+	}
+
+	.eco-number-box__text {
+		font-size: 15px;
+		line-height: 1.6;
+	}
+}

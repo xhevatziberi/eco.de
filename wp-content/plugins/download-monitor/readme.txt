@@ -2,8 +2,8 @@
 Contributors: wpchill, silkalns, barrykooij, mikejolley  
 Tags: download manager, file manager, digital store, ecommerce, password protection  
 Requires at least: 5.5  
-Tested up to: 6.9
-Stable tag: 5.1.12
+Tested up to: 7.0
+Stable tag: 5.1.15
 License: GPLv3  
 Requires PHP: 7.4
 
@@ -114,6 +114,19 @@ Admin hits are not counted, log out and try again!
 4. The quick add panel can be opened via a link about the post editor. This lets you quickly add a file and insert it into a post.
 
 == Changelog ==
+= 5.1.15 - 19.05.2026 =
+Fixed: Compatibility with Divi builder. No longer loading XHR javascript in builder.
+Added: Windows Server (IIS) support for dlm_uploads directory protection via web.config using requestFiltering.
+Fixed: session_start() failure when server session directory is missing, with graceful fallback to sys_get_temp_dir().
+
+= 5.1.14 - 14.04.2026 =
+Fixed: Polylang includes language prefix and any subdirectory.
+Fixed: Error handler returns HTTP 500 instead of 404/403.
+Fixed: No-access modal missing CSS when dlm-frontend was not pre-loaded on the page
+
+= 5.1.13 - 14.04.2026 =
+Fixed: Admin styles compatibility with WordPress 7.0.
+
 = 5.1.12 - 25.03.2026 =
 Removed: Settings page sidebar upsells.
 Added: Blacklist protection upsell in settings page.

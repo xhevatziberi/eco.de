@@ -162,9 +162,9 @@
     content: "ZIP";
 }
 
-.eco-download-card-title {
+.eco-download-card-title-row .eco-download-card-title {
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.3;
 }
 

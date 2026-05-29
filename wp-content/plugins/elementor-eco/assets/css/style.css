@@ -1,3 +1,73 @@
+.eco-empty-state {
+	--eco-empty-state-accent: #F9B000;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	max-width: 560px;
+	min-height: 180px;
+	padding: 34px 38px;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: 14px;
+	background: #ffffff;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.eco-empty-state .eco-empty-state__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 42px;
+	height: 42px;
+	margin-bottom: 16px;
+	border-radius: 999px;
+	background: rgba(0, 0, 0, 0.04);
+	color: var(--eco-empty-state-accent);
+}
+
+.eco-empty-state .eco-empty-state__icon svg {
+	width: 20px;
+	height: 20px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.eco-empty-state .eco-empty-state__title {
+	margin: 0 0 8px;
+	color: #1d1d1f;
+	font-size: 22px;
+	font-weight: 800;
+	line-height: 1.25;
+}
+
+.eco-empty-state .eco-empty-state__text {
+	margin: 0;
+	color: #6f6f6f;
+	font-size: 16px;
+	line-height: 1.6;
+}
+
+@media (max-width: 767px) {
+	.eco-empty-state {
+		max-width: none;
+		min-height: 150px;
+		padding: 26px 24px;
+	}
+
+	.eco-empty-state .eco-empty-state__title {
+		font-size: 20px;
+	}
+}
+
+
+
+
+
+
 .elementor-widget-container .qodef-custom-list .qodef-custom-list-items {
     padding: 15px 5px;
     gap: 1rem;

@@ -22,12 +22,17 @@ body .eco-search-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #d7d7d7;
+  border: none;
+  background: #fff;
   cursor: pointer;
-  padding: 9px;
+  padding: 6px;
   line-height: 1;
 }
-body .eco-search-toggle svg { fill: currentColor; }
+body .eco-search-toggle:hover {
+  border: none;
+}
+body .eco-search-toggle svg { fill: #000; }
+body .eco-search-toggle:hover svg { fill: #E2001A }
 
 body .eco-search-ico--close { display: none; }
 body.eco-search-open .eco-search-ico--search { display: none; }

@@ -48,13 +48,18 @@ class PeopleVertical extends Widget_Base {
 			],
 		]);
 
-		$this->add_control('columns', [
+		$this->add_responsive_control('columns', [
 			'label' => __( 'Columns', 'elementor-eco' ),
 			'type' => Controls_Manager::NUMBER,
 			'min' => 1,
 			'max' => 6,
 			'step' => 1,
 			'default' => 2,
+			'tablet_default' => 2,
+			'mobile_default' => 1,
+			'selectors' => [
+				'{{WRAPPER}} .eco-people-vertical' => '--eco-pv-cols: {{VALUE}};',
+			],
 		]);
 
 		$this->add_control('info_label', [
@@ -159,8 +164,7 @@ class PeopleVertical extends Widget_Base {
 		<div id="<?php echo esc_attr($widget_id); ?>"
 		     class="eco-people-vertical"
 		     data-cols="<?php echo esc_attr($cols); ?>"
-		     data-info-display="<?php echo esc_attr($info_display); ?>"
-		     style="--eco-pv-cols: <?php echo (int) $cols; ?>;">
+		     data-info-display="<?php echo esc_attr($info_display); ?>">
 			<?php
 			foreach ($items as $it) {
 				$pid = !empty($it['person_id']) ? (int) $it['person_id'] : 0;
@@ -177,7 +181,7 @@ class PeopleVertical extends Widget_Base {
 				$email    = get_field('email', $pid);
 				$bio      = get_field('biography', $pid);
 				$social   = get_field('social_media', $pid);
-				$photo    = get_the_post_thumbnail_url($pid, 'medium');
+				$photo    = get_the_post_thumbnail_url($pid, 'large');
 
 				$facebook = !empty($social['facebook']) ? esc_url($social['facebook']) : '';
 				$twitter  = !empty($social['twitter']) ? esc_url($social['twitter']) : '';
@@ -194,7 +198,7 @@ class PeopleVertical extends Widget_Base {
 					</div>
 
 					<div class="eco-pv-right">
-						<h3 class="eco-pv-name"><?php echo esc_html($name); ?></h3>
+						<h5 class="eco-pv-name"><?php echo esc_html($name); ?></h5>
 
 						<?php if ($position): ?>
 							<div class="eco-pv-position"><?php echo wp_kses_post((string) $position); ?></div>

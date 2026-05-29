@@ -1,0 +1,120 @@
+{
+  "version": 2,
+  "settings": {
+    "color": {
+      "custom": true,
+      "palette": [
+        {
+          "slug": "geschaeftsfelder",
+          "color": "#E2007A",
+          "name": "Geschäftsfelder"
+        },
+        {
+          "slug": "geschaeftsfelder-light",
+          "color": "#FFEEF7",
+          "name": "Geschäftsfelder Light"
+        },
+        {
+          "slug": "politik-recht",
+          "color": "#009EE0",
+          "name": "Politik & Recht"
+        },
+        {
+          "slug": "politik-recht-light",
+          "color": "#DCF5FF",
+          "name": "Politik & Recht Light"
+        },
+        {
+          "slug": "veranstaltungen",
+          "color": "#C2CF00",
+          "name": "Veranstaltungen"
+        },
+        {
+          "slug": "veranstaltungen-light",
+          "color": "#EEF3A7",
+          "name": "Veranstaltungen Light"
+        },
+        {
+          "slug": "news",
+          "color": "#F9B000",
+          "name": "News"
+        },
+        {
+          "slug": "news-light",
+          "color": "#FFF2D1",
+          "name": "News Light"
+        },
+        {
+          "slug": "studien",
+          "color": "#42EBDD",
+          "name": "Studien"
+        },
+        {
+          "slug": "studien-light",
+          "color": "#C2FEF9",
+          "name": "Studien Light"
+        },
+        {
+          "slug": "interviews",
+          "color": "#FF7300",
+          "name": "Interviews"
+        },
+        {
+          "slug": "interviews-light",
+          "color": "#FFDCBF",
+          "name": "Interviews Light"
+        },
+        {
+          "slug": "digitale-infrastruktur",
+          "color": "#223FA1",
+          "name": "Digitale Infrastruktur"
+        },
+        {
+          "slug": "digitale-infrastruktur-light",
+          "color": "#F0F4FF",
+          "name": "Digitale Infrastruktur Light"
+        },
+        {
+          "slug": "it-sicherheit-vertrauen",
+          "color": "#6B21A8",
+          "name": "IT-Sicherheit und Vertrauen"
+        },
+        {
+          "slug": "it-sicherheit-vertrauen-light",
+          "color": "#F2EDF5",
+          "name": "IT-Sicherheit und Vertrauen Light"
+        },
+        {
+          "slug": "cloud-computing",
+          "color": "#5C97FF",
+          "name": "Cloud Computing"
+        },
+        {
+          "slug": "cloud-computing-light",
+          "color": "#DCE9FF",
+          "name": "Cloud Computing Light"
+        },
+        {
+          "slug": "digitale-geschaeftsmodelle",
+          "color": "#D419E0",
+          "name": "Digitale Geschäftsmodelle"
+        },
+        {
+          "slug": "digitale-geschaeftsmodelle-light",
+          "color": "#FEF2FF",
+          "name": "Digitale Geschäftsmodelle Light"
+        },
+        {
+          "slug": "domains-names-numbers",
+          "color": "#35FF7C",
+          "name": "Domains, Names & Numbers"
+        },
+        {
+          "slug": "domains-names-numbers-light",
+          "color": "#CEFCDE",
+          "name": "Domains, Names & Numbers Light"
+        }
+      ]
+    }
+  }
+}

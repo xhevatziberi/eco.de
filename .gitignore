@@ -35,6 +35,8 @@ wp-config.php
 # htaccess
 /.htaccess
 
+/.remove/
+
 # All plugins
 #
 # Note: If you wish to whitelist plugins,
@@ -45,7 +47,10 @@ wp-config.php
 #
 # Note: If you wish to whitelist themes,
 # uncomment the next line
-#/wp-content/themes
+/wp-content/themes/*
+
+# Allow eco-theme only
+!/wp-content/themes/eco-theme
 
 
 # All plugins
@@ -58,11 +63,3 @@ wp-config.php
 # Allow eco-search plugin only
 !/wp-content/plugins/eco-search
 !/wp-content/plugins/eco-search/**
-
-# Allow vamtam-elementor-integration-tecnologia plugin
-!/wp-content/plugins/vamtam-elementor-integration-tecnologia
-!/wp-content/plugins/vamtam-elementor-integration-tecnologia/**
-
-# Allow download-monitor plugin
-!/wp-content/plugins/download-monitor
-!/wp-content/plugins/download-monitor/**

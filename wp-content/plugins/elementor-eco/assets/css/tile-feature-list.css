@@ -1,0 +1,302 @@
+.eco-tile-feature-list {
+	--eco-tile-feature-accent: #e6007e;
+	--eco-tile-feature-number-bg: #e6007e;
+	--eco-tile-feature-number-color: #ffffff;
+	--eco-tile-feature-image-width: 40%;
+	--eco-tile-feature-placeholder-bg: #f3f4f6;
+	--eco-tile-feature-placeholder-color: #e6007e;
+
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 56px;
+	width: 100%;
+	height: auto;
+	min-height: 0;
+	overflow: visible;
+}
+
+.eco-tile-feature-list,
+.eco-tile-feature-list * {
+	box-sizing: border-box;
+}
+
+.eco-tile-feature-list__item {
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(0, var(--eco-tile-feature-image-width)) minmax(0, 1fr);
+	align-items: center;
+	column-gap: 48px;
+	min-height: 0;
+	color: inherit;
+	text-decoration: none;
+	overflow: visible;
+}
+.test-tile .eco-tile-feature-list__item--image-left {
+	grid-template-columns: minmax(0, 20%) minmax(0, 1fr);
+}
+.test-tile .eco-tile-feature-list__item--image-right {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 20%);
+}
+@media (max-width: 767px) {
+	.test-tile .eco-tile-feature-list__item--image-left,
+	.test-tile .eco-tile-feature-list__item--image-right {
+		grid-template-columns: 1fr;
+	}
+}
+
+.eco-tile-feature-list__item:hover,
+.eco-tile-feature-list__item:focus {
+	color: inherit;
+	text-decoration: none;
+}
+
+.eco-tile-feature-list__item--image-right {
+	grid-template-columns: minmax(0, 1fr) minmax(0, var(--eco-tile-feature-image-width));
+}
+
+.eco-tile-feature-list__item--image-right .eco-tile-feature-list__media {
+	order: 2;
+}
+
+.eco-tile-feature-list__item--image-right .eco-tile-feature-list__content {
+	order: 1;
+	text-align: right;
+	align-items: flex-end;
+}
+
+.eco-tile-feature-list__media {
+	min-width: 0;
+	width: 100%;
+}
+
+.eco-tile-feature-list__image {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+	border-radius: 6px;
+	background: #f1f1f1;
+}
+
+.eco-tile-feature-list__image--16-9 {
+	aspect-ratio: 16 / 9;
+}
+
+.eco-tile-feature-list__image--4-3 {
+	aspect-ratio: 4 / 3;
+}
+
+.eco-tile-feature-list__image--3-2 {
+	aspect-ratio: 3 / 2;
+}
+
+.eco-tile-feature-list__image--1-1 {
+	aspect-ratio: 1 / 1;
+}
+
+.eco-tile-feature-list__image--4-5 {
+	aspect-ratio: 4 / 5;
+}
+
+.eco-tile-feature-list__image img {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 320ms ease;
+}
+
+.eco-tile-feature-list__item:hover .eco-tile-feature-list__image img {
+	transform: scale(1.04);
+}
+
+.eco-tile-feature-list__image--placeholder {
+	background: var(--eco-tile-feature-placeholder-bg);
+}
+
+.eco-tile-feature-list__placeholder {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background:
+		linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0)),
+		var(--eco-tile-feature-placeholder-bg);
+}
+
+.eco-tile-feature-list__placeholder span {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 58px;
+	height: 58px;
+	border-radius: 999px;
+	background: #ffffff;
+	color: var(--eco-tile-feature-placeholder-color);
+	font-size: 26px;
+	font-weight: 800;
+	line-height: 1;
+}
+
+.eco-tile-feature-list__number {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	z-index: 2;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 30px;
+	height: 30px;
+	padding: 0 8px;
+	border-radius: 999px;
+	background: var(--eco-tile-feature-number-bg);
+	color: var(--eco-tile-feature-number-color);
+	font-size: 12px;
+	font-weight: 800;
+	line-height: 1;
+}
+
+.eco-tile-feature-list__item--image-right .eco-tile-feature-list__number {
+	left: auto;
+	right: 12px;
+}
+
+.eco-tile-feature-list__content {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	min-width: 0;
+	width: 100%;
+}
+
+.eco-tile-feature-list__line {
+	display: block;
+	width: 44px;
+	height: 3px;
+	margin-bottom: 10px;
+	background: var(--eco-tile-feature-accent);
+}
+
+.eco-tile-feature-list__title {
+	margin: 0 0 10px;
+	color: #1d1d1f;
+	font-size: 22px;
+	font-weight: 800;
+	line-height: 1.25;
+}
+
+.eco-tile-feature-list__description {
+	max-width: 620px;
+	color: #6f6f6f;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.6;
+}
+
+.eco-tile-feature-list__item--image-right .eco-tile-feature-list__description {
+	margin-left: auto;
+}
+
+@media (max-width: 1024px) {
+	.eco-tile-feature-list__item,
+	.eco-tile-feature-list__item--image-right {
+		grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+		column-gap: 32px;
+	}
+}
+
+@media (max-width: 767px) {
+	.eco-tile-feature-list {
+		display: flex;
+		flex-direction: column;
+		gap: 36px;
+		width: 100%;
+		height: auto;
+		min-height: 0;
+		overflow: visible;
+	}
+
+	.eco-tile-feature-list__item,
+	.eco-tile-feature-list__item--image-right {
+		display: grid;
+		grid-template-columns: 1fr;
+		row-gap: 18px;
+		width: 100%;
+		min-height: 0;
+		overflow: visible;
+	}
+
+	.eco-tile-feature-list__media,
+	.eco-tile-feature-list__content {
+		width: 100%;
+		min-width: 0;
+	}
+
+	.eco-tile-feature-list__image,
+	.eco-tile-feature-list__image--16-9,
+	.eco-tile-feature-list__image--4-3,
+	.eco-tile-feature-list__image--3-2,
+	.eco-tile-feature-list__image--1-1,
+	.eco-tile-feature-list__image--4-5 {
+		aspect-ratio: auto;
+		height: auto;
+		overflow: hidden;
+	}
+
+	.eco-tile-feature-list__image img {
+		position: static;
+		inset: auto;
+		display: block;
+		width: 100%;
+		height: auto;
+		object-fit: initial;
+	}
+
+	.eco-tile-feature-list__item:hover .eco-tile-feature-list__image img {
+		transform: none;
+	}
+
+	.eco-tile-feature-list__image--placeholder {
+		position: relative;
+		aspect-ratio: 16 / 9;
+		min-height: 180px;
+	}
+
+	.eco-tile-feature-list__image--placeholder .eco-tile-feature-list__placeholder {
+		position: absolute;
+		inset: 0;
+	}
+
+	.eco-tile-feature-list__item--image-right .eco-tile-feature-list__media,
+	.eco-tile-feature-list__item--image-right .eco-tile-feature-list__content {
+		order: initial;
+	}
+
+	.eco-tile-feature-list__item--image-right .eco-tile-feature-list__content {
+		text-align: left;
+		align-items: flex-start;
+	}
+
+	.eco-tile-feature-list__item--image-right .eco-tile-feature-list__description {
+		margin-left: 0;
+	}
+
+	.eco-tile-feature-list__item--image-right .eco-tile-feature-list__number {
+		left: 12px;
+		right: auto;
+	}
+
+	.eco-tile-feature-list__title {
+		font-size: 20px;
+	}
+
+	.eco-tile-feature-list__description {
+		max-width: none;
+		font-size: 15px;
+	}
+}

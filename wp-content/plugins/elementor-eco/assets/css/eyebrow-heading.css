@@ -1,0 +1,89 @@
+.eco-eyebrow-heading {
+	--eco-eyebrow-color: #009fe3;
+
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 12px;
+	padding-left: 6px;
+	width: 100%;
+	color: var(--eco-eyebrow-color);
+}
+
+.eco-eyebrow-heading__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	color: var(--eco-eyebrow-color);
+	font-size: 22px;
+	line-height: 1;
+}
+
+.eco-eyebrow-heading__icon i,
+.eco-eyebrow-heading__icon svg {
+	display: block;
+	color: inherit;
+	fill: currentColor;
+}
+
+.eco-eyebrow-heading__icon svg {
+	width: 1em;
+	height: 1em;
+}
+
+.eco-eyebrow-heading__icon svg * {
+	fill: currentColor;
+	stroke: currentColor;
+}
+
+.eco-eyebrow-heading__icon img {
+	display: block;
+	width: 1em;
+	height: 1em;
+	object-fit: contain;
+}
+
+.eco-eyebrow-heading__icon .dashicons {
+	width: 1em;
+	height: 1em;
+	font-size: 1em;
+	line-height: 1;
+	color: currentColor;
+}
+
+.eco-eyebrow-heading__icon i {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-style: normal;
+	line-height: 1;
+}
+
+.eco-eyebrow-heading__line {
+	display: inline-block;
+	flex: 0 0 auto;
+	width: 16px;
+	height: 1px;
+	background: var(--eco-eyebrow-color);
+}
+
+.eco-eyebrow-heading__text {
+	display: inline-block;
+	color: var(--eco-eyebrow-color);
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+	.eco-eyebrow-heading {
+		gap: 10px;
+	}
+
+	.eco-eyebrow-heading__text {
+		font-size: 11px;
+	}
+}
