@@ -1,6 +1,0 @@
-#dlm_reports_widget svg.recharts-surface:focus {
-    outline: none;
-}
-#dlm_reports_widget svg.recharts-surface:hover {
-    cursor: pointer;
-}
