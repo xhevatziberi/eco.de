@@ -5,7 +5,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 */
 @font-face {
   font-family: "Museo Sans";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/f0b167a1-93af-40e3-88d3-809f7ccc71dc.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/7c32bc80-f411-402c-bd22-08ef4915e13e.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/f0b167a1-93af-40e3-88d3-809f7ccc71dc.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/7c32bc80-f411-402c-bd22-08ef4915e13e.woff") format("woff");
   font-display: auto;
   font-style: normal;
   font-weight: 300;
@@ -13,7 +13,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 }
 @font-face {
   font-family: "Museo Sans";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/228fd49b-f09c-46eb-8903-c4d637f144ad.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/4b299517-b9e2-4e36-9fdb-7a379a3bea22.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/228fd49b-f09c-46eb-8903-c4d637f144ad.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/4b299517-b9e2-4e36-9fdb-7a379a3bea22.woff") format("woff");
   font-display: auto;
   font-style: italic;
   font-weight: 300;
@@ -21,7 +21,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 }
 @font-face {
   font-family: "Museo Sans";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/3747900f-e240-4e83-8088-0637c4b67814.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/8ab9fa94-7596-4078-9517-7a1cae50b613.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/3747900f-e240-4e83-8088-0637c4b67814.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/8ab9fa94-7596-4078-9517-7a1cae50b613.woff") format("woff");
   font-display: auto;
   font-style: normal;
   font-weight: 500;
@@ -29,7 +29,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 }
 @font-face {
   font-family: "Museo Sans";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/6cc7bb8c-dd0f-491d-9e8d-5a6fe8694c5c.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/0beb3b80-79b1-4245-94bb-03f01fed8c8f.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/6cc7bb8c-dd0f-491d-9e8d-5a6fe8694c5c.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/0beb3b80-79b1-4245-94bb-03f01fed8c8f.woff") format("woff");
   font-display: auto;
   font-style: italic;
   font-weight: 500;
@@ -37,7 +37,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 }
 @font-face {
   font-family: "Museo Sans";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/8daa98e0-8333-49b8-be22-0175ab681af9.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/daf6318a-3d2f-486a-a588-71f4e1f8a9d0.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/8daa98e0-8333-49b8-be22-0175ab681af9.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/daf6318a-3d2f-486a-a588-71f4e1f8a9d0.woff") format("woff");
   font-display: auto;
   font-style: normal;
   font-weight: 700;
@@ -45,7 +45,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 }
 @font-face {
   font-family: "Museo Sans";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/1eab21b5-d2df-4f85-8b18-6473ac7e253f.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/d84c9499-156e-44ad-885b-c662f4243f66.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/1eab21b5-d2df-4f85-8b18-6473ac7e253f.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/d84c9499-156e-44ad-885b-c662f4243f66.woff") format("woff");
   font-display: auto;
   font-style: normal;
   font-weight: 900;
@@ -53,7 +53,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 }
 @font-face {
   font-family: "Museo Sans Condensed";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/d0536b58-a050-49e5-b9bc-b5ca96e414ed.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/ae17c4ba-7735-442d-89b8-8ebf843122cf.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/d0536b58-a050-49e5-b9bc-b5ca96e414ed.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/ae17c4ba-7735-442d-89b8-8ebf843122cf.woff") format("woff");
   font-display: auto;
   font-style: normal;
   font-weight: 300;
@@ -61,7 +61,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 }
 @font-face {
   font-family: "Museo Sans Condensed";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/e605d207-3352-4fdf-a1a0-68ee644adb13.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/ff9555bc-f29d-4079-8445-79d37d06020c.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/e605d207-3352-4fdf-a1a0-68ee644adb13.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/ff9555bc-f29d-4079-8445-79d37d06020c.woff") format("woff");
   font-display: auto;
   font-style: normal;
   font-weight: 500;
@@ -69,7 +69,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 }
 @font-face {
   font-family: "Museo Sans Condensed";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/29b1b7e7-93b9-4975-8a97-6aba49431619.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/bc97ff41-911d-44ae-b853-8779b0dfbfde.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/29b1b7e7-93b9-4975-8a97-6aba49431619.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/bc97ff41-911d-44ae-b853-8779b0dfbfde.woff") format("woff");
   font-display: auto;
   font-style: normal;
   font-weight: 700;
@@ -77,7 +77,7 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
 }
 @font-face {
   font-family: "Museo Sans Condensed";
-  src: url("/wp-content/themes/eco-theme/assets/fonts/eco/af5bdaed-9694-4fb0-a5b1-455c00dd6564.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/eco/0801b008-77e0-4aec-8050-6bdaa031a1e5.woff") format("woff");
+  src: url("/wp-content/themes/eco-theme/assets/fonts/museo/af5bdaed-9694-4fb0-a5b1-455c00dd6564.woff2") format("woff2"), url("/wp-content/themes/eco-theme/assets/fonts/museo/0801b008-77e0-4aec-8050-6bdaa031a1e5.woff") format("woff");
   font-display: auto;
   font-style: normal;
   font-weight: 900;

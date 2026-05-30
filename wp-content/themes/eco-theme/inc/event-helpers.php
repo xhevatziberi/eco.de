@@ -297,3 +297,110 @@ function eco_event_the_content_area() {
 	</section>
 	<?php
 }
+
+function eco_event_get_ical_url( $post_id = null ): string {
+	$post_id = $post_id ?: get_the_ID();
+	return add_query_arg( 'ical', '1', get_permalink( $post_id ) );
+}
+
+function eco_event_escape_ical_text( string $text ): string {
+	$text = wp_strip_all_tags( $text );
+	$text = str_replace( [ "\\", ";", ",", "\r\n", "\r", "\n" ], [ "\\\\", "\\;", "\\,", "\\n", "\\n", "\\n" ], $text );
+	return $text;
+}
+
+function eco_event_format_ical_datetime( ?DateTimeInterface $date ): string {
+	if ( ! $date ) {
+		return '';
+	}
+	return $date->setTimezone( new DateTimeZone( 'UTC' ) )->format( 'Ymd\THis\Z' );
+}
+
+function eco_event_maybe_serve_ical(): void {
+	if ( ! is_singular( 'event' ) || empty( $_GET['ical'] ) ) {
+		return;
+	}
+
+	$post_id     = get_queried_object_id();
+	$occurrences = eco_event_get_occurrences( $post_id );
+
+	if ( empty( $occurrences ) ) {
+		status_header( 404 );
+		exit;
+	}
+
+	$title       = eco_event_escape_ical_text( get_the_title( $post_id ) );
+	$description = eco_event_escape_ical_text( eco_event_get_field( 'teaser_text', $post_id, '' ) ?: wp_strip_all_tags( get_the_excerpt( $post_id ) ) );
+	$location    = eco_event_escape_ical_text( eco_event_get_location_line( $post_id ) );
+	$permalink   = get_permalink( $post_id );
+	$now         = gmdate( 'Ymd\THis\Z' );
+
+	$lines = [
+		'BEGIN:VCALENDAR',
+		'VERSION:2.0',
+		'PRODID:-//eco//Events//DE',
+		'CALSCALE:GREGORIAN',
+		'METHOD:PUBLISH',
+	];
+
+	foreach ( $occurrences as $index => $occurrence ) {
+		$start = $occurrence['start'] ?? null;
+		$end   = $occurrence['end'] ?? null;
+
+		if ( ! $start instanceof DateTimeInterface ) {
+			continue;
+		}
+
+		if ( ! $end instanceof DateTimeInterface || $end <= $start ) {
+			$end = $start->modify( '+1 hour' );
+		}
+
+		$lines[] = 'BEGIN:VEVENT';
+		$lines[] = 'UID:' . $post_id . '-' . $index . '@' . wp_parse_url( home_url(), PHP_URL_HOST );
+		$lines[] = 'DTSTAMP:' . $now;
+		$lines[] = 'DTSTART:' . eco_event_format_ical_datetime( $start );
+		$lines[] = 'DTEND:' . eco_event_format_ical_datetime( $end );
+		$lines[] = 'SUMMARY:' . $title;
+		if ( $description ) {
+			$lines[] = 'DESCRIPTION:' . $description;
+		}
+		if ( $location ) {
+			$lines[] = 'LOCATION:' . $location;
+		}
+		$lines[] = 'URL:' . esc_url_raw( $permalink );
+		$lines[] = 'END:VEVENT';
+	}
+
+	$lines[] = 'END:VCALENDAR';
+
+	nocache_headers();
+	header( 'Content-Type: text/calendar; charset=utf-8' );
+	header( 'Content-Disposition: attachment; filename="event-' . $post_id . '.ics"' );
+	echo implode( "\r\n", $lines );
+	exit;
+}
+
+function eco_event_normalize_posts( $items ): array {
+	if ( empty( $items ) ) {
+		return [];
+	}
+
+	if ( $items instanceof WP_Post ) {
+		$items = [ $items ];
+	}
+
+	if ( ! is_array( $items ) ) {
+		$items = [ $items ];
+	}
+
+	$posts = [];
+
+	foreach ( $items as $item ) {
+		$post_id = $item instanceof WP_Post ? $item->ID : (int) $item;
+		if ( $post_id > 0 ) {
+			$posts[] = $post_id;
+		}
+	}
+
+	return array_values( array_unique( $posts ) );
+}

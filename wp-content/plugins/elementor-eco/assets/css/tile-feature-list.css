@@ -32,12 +32,12 @@
 	text-decoration: none;
 	overflow: visible;
 }
-.test-tile .eco-tile-feature-list__item--image-left {
+/* .test-tile .eco-tile-feature-list__item--image-left {
 	grid-template-columns: minmax(0, 20%) minmax(0, 1fr);
 }
 .test-tile .eco-tile-feature-list__item--image-right {
 	grid-template-columns: minmax(0, 1fr) minmax(0, 20%);
-}
+} */
 @media (max-width: 767px) {
 	.test-tile .eco-tile-feature-list__item--image-left,
 	.test-tile .eco-tile-feature-list__item--image-right {
@@ -205,8 +205,11 @@
 @media (max-width: 1024px) {
 	.eco-tile-feature-list__item,
 	.eco-tile-feature-list__item--image-right {
-		grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+		grid-template-columns: minmax(0, 1fr) minmax(0, 42%);
 		column-gap: 32px;
+	}
+	.eco-tile-feature-list__item--image-left {
+		grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
 	}
 }
 
@@ -243,7 +246,7 @@
 	.eco-tile-feature-list__image--3-2,
 	.eco-tile-feature-list__image--1-1,
 	.eco-tile-feature-list__image--4-5 {
-		aspect-ratio: auto;
+		/* aspect-ratio: auto; */
 		height: auto;
 		overflow: hidden;
 	}

@@ -1,25 +1,3 @@
-@font-face {
-	font-family: "eco-icons";
-	src: url("../fonts/eco/eco-icons.woff2") format("woff2"),
-		url("../fonts/eco/eco-icons.woff") format("woff"),
-		url("../fonts/eco/eco-icons.ttf") format("truetype");
-	font-weight: normal;
-	font-style: normal;
-	font-display: block;
-}
-
-
-.eco-event-single .eco_icon {
-	font-family: "eco-icons" !important;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
 .eco-event-single {
 	--eco-event-accent: #c2cf00;
 	--eco-event-accent-contrast: #111;
@@ -150,7 +128,7 @@
 	text-decoration: none;
 }
 
-.eco-event-single .eco-event-back::before { content: "\f0fc"; }
+.eco-event-single .eco-event-back::before { content: "←"; }
 .eco-event-single .eco-event-back:hover { color: var(--eco-event-accent); }
 .eco-event-single .eco-event-back--light { color: rgba(255, 255, 255, 0.72); }
 
@@ -310,49 +288,21 @@
 	gap: 8px;
 }
 
-.eco-event-single .eco-event-back::before,
-.eco-event-single .eco-event-button::before,
-.eco-event-single .eco-event-ical-link::before,
 .eco-event-single .eco-event-meta span::before,
 .eco-event-single .eco-event-info-box__item::before,
 .eco-event-single .eco-event-agenda-item__time::before,
-.eco-event-single .eco-event-agenda-meta span::before,
-.eco-event-single [class*="eco-icon-"]::before {
-	/* IcoMoon generated font from eco-icons. */
-	font-family: "eco-icons" !important;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-.eco-event-single .eco-event-meta span::before,
-.eco-event-single .eco-event-info-box__item::before,
-.eco-event-single .eco-event-agenda-item__time::before,
-.eco-event-single .eco-event-agenda-meta span::before,
-.eco-event-single [class*="eco-icon-"]::before {
+.eco-event-single .eco-event-agenda-meta span::before {
 	color: var(--eco-event-accent);
+	font-family: Arial, sans-serif;
+	font-weight: 900;
+	line-height: 1;
 }
 
-/* IcoMoon icon classes */
-.eco-event-single .eco-icon-navigation::before { content: "\f282"; }
-.eco-event-single .eco-icon-plane::before { content: "\f420"; }
-.eco-event-single .eco-icon-bus-front::before,
-.eco-event-single .eco-icon-bus::before { content: "\f018"; }
-.eco-event-single .eco-icon-car::before { content: "\f142"; }
-.eco-event-single .eco-icon-user::before,
-.eco-event-single .eco-icon-users::before { content: "\f53b"; }
-.eco-event-single .eco-icon-clock::before { content: "\f177"; }
-.eco-event-single .eco-icon-arrow-left::before { content: "\f0fc"; }
-.eco-event-single .eco-icon-external-link::before { content: "\f147"; }
-.eco-event-single .eco-icon-map-pin::before,
-.eco-event-single .eco-icon-location::before { content: "\f110"; }
-.eco-event-single .eco-icon-calendar::before { content: "\f102"; }
-.eco-event-single .eco-icon-circle-check::before,
-.eco-event-single .eco-icon-check::before { content: "\f364"; }
+.eco-event-single .eco-icon-calendar::before { content: "▣"; }
+.eco-event-single .eco-icon-clock::before { content: "◷"; }
+.eco-event-single .eco-icon-location::before { content: "●"; }
+.eco-event-single .eco-icon-users::before,
+.eco-event-single .eco-icon-user::before { content: "♙"; }
 
 .eco-event-single .eco-event-info-box {
 	display: grid;
@@ -390,8 +340,8 @@
 	text-decoration: none;
 }
 
-.eco-event-single .eco-event-button::before { content: "\f147"; }
-.eco-event-single .eco-event-ical-link::before { content: "\f102"; }
+.eco-event-single .eco-event-button::before { content: "→"; }
+.eco-event-single .eco-event-ical-link::before { content: "↧"; }
 
 .eco-event-single .eco-event-button:hover,
 .eco-event-single .eco-event-button:focus,

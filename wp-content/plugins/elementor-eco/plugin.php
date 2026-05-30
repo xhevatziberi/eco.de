@@ -46,7 +46,7 @@ class Plugin {
 	 * @access public
 	 */
 	public function widget_scripts() {
-		$version = '1.2.8';
+		$version = '1.2.12';
 		wp_register_script( 'eco-widget-page', plugins_url( basename( __DIR__ ) . '/assets/js/page.js' ), [ 'elementor-frontend' ], $version, true );
 
 		wp_register_style( 'eco-events-style', plugins_url( '/assets/css/events.css', __FILE__  ), [], $version );
@@ -131,6 +131,12 @@ class Plugin {
 		wp_register_style( 'eco-tile-feature-list-style', plugins_url( '/assets/css/tile-feature-list.css', __FILE__ ), [], $version );
 
 		wp_register_style( 'eco-eyebrow-heading-style', plugins_url( '/assets/css/eyebrow-heading.css', __FILE__ ), [], $version );
+
+		wp_register_style( 'eco-event-calendar-style', plugins_url( '/assets/css/event-calendar.css', __FILE__ ), [], $version );
+		wp_register_script( 'eco-event-calendar-script', plugins_url( '/assets/js/event-calendar.js', __FILE__ ), [ 'jquery' ], $version, true );
+		wp_localize_script('eco-event-calendar-script', 'ecoEventCalendar', [
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+		]);
 	}
 
 	/**
@@ -162,6 +168,7 @@ class Plugin {
 		require_once( __DIR__ . '/widgets/featured-slider.php' );
 		require_once( __DIR__ . '/widgets/tile-feature-list.php' );
 		require_once( __DIR__ . '/widgets/eyebrow-heading.php' );
+		require_once( __DIR__ . '/widgets/event-calendar.php' );
 	}
 
 	/**
@@ -196,6 +203,7 @@ class Plugin {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedSlider() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\TileFeatureList() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\EyebrowHeading() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\EventCalendar() );
 	}
 
 	function add_elementor_widget_categories( $elements_manager ) {
@@ -231,6 +239,9 @@ class Plugin {
 	public function __construct() {
 		
 		require_once __DIR__ . '/inc/content-cards-ajax.php';
+
+		require_once __DIR__ . '/inc/event-calendar-ajax.php';
+		\ElementorEco\EventCalendarAjax::init();
 
 		// Register widget scripts
 		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'widget_scripts' ] );
