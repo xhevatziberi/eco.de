@@ -82,7 +82,7 @@ nav.elementor-nav-menu--main .elementor-sub-item:focus {
 }
 
 .elementor-testimonial:after {
-    content: url(img/quotes.svg);
+    content: url(assets/img/quotes.svg);
     position: absolute;
     top: 0;
 }
