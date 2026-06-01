@@ -3,59 +3,69 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$partners = eco_event_get_field( 'partners', get_the_ID(), [] );
-$sponsors = eco_event_get_field( 'sponsors', get_the_ID(), [] );
+$post_id        = get_the_ID();
+$partner_groups = eco_event_get_partner_groups( $post_id );
 
-if ( empty( $partners ) && empty( $sponsors ) ) {
+if ( empty( $partner_groups ) ) {
 	return;
 }
-
-$render_members = static function ( $members ) {
-	if ( empty( $members ) || ! is_array( $members ) ) {
-		return;
-	}
-	?>
-	<div class="eco-event-logo-grid">
-		<?php foreach ( $members as $member ) : ?>
-			<?php
-			$member_id = is_object( $member ) ? $member->ID : (int) $member;
-			$image     = get_the_post_thumbnail_url( $member_id, 'medium' );
-			$website   = function_exists( 'get_field' ) ? get_field( 'website', $member_id ) : '';
-			$tag       = $website ? 'a' : 'div';
-			?>
-			<<?php echo esc_html( $tag ); ?> class="eco-event-logo" <?php echo $website ? 'href="' . esc_url( $website ) . '" target="_blank" rel="noopener noreferrer"' : ''; ?>>
-				<?php if ( $image ) : ?>
-					<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( get_the_title( $member_id ) ); ?>" loading="lazy">
-				<?php else : ?>
-					<span><?php echo esc_html( get_the_title( $member_id ) ); ?></span>
-				<?php endif; ?>
-			</<?php echo esc_html( $tag ); ?>>
-		<?php endforeach; ?>
-	</div>
-	<?php
-};
 ?>
 
-<?php if ( ! empty( $sponsors ) ) : ?>
-	<section class="eco-event-section eco-event-sponsors">
-		<div class="eco-event-container">
-			<div class="eco-event-section-head">
-				<span><?php esc_html_e( 'Unterstützer', 'eco-theme' ); ?></span>
-				<h2><?php esc_html_e( 'Sponsoren', 'eco-theme' ); ?></h2>
-			</div>
-			<?php $render_members( $sponsors ); ?>
+<section class="eco-event-section eco-event-partners">
+	<div class="eco-event-container">
+		<div class="eco-event-section-head">
+			<span><?php esc_html_e( 'Netzwerk', 'eco-theme' ); ?></span>
+			<h2><?php esc_html_e( 'Partner', 'eco-theme' ); ?></h2>
 		</div>
-	</section>
-<?php endif; ?>
 
-<?php if ( ! empty( $partners ) ) : ?>
-	<section class="eco-event-section eco-event-partners">
-		<div class="eco-event-container">
-			<div class="eco-event-section-head">
-				<span><?php esc_html_e( 'Netzwerk', 'eco-theme' ); ?></span>
-				<h2><?php esc_html_e( 'Partner', 'eco-theme' ); ?></h2>
-			</div>
-			<?php $render_members( $partners ); ?>
+		<div class="eco-event-partner-groups">
+			<?php foreach ( $partner_groups as $group ) : ?>
+				<?php
+				$heading  = $group['heading'] ?? '';
+				$color    = $group['color'] ?? '#000000';
+				$partners = $group['partners'] ?? [];
+
+				if ( empty( $partners ) ) {
+					continue;
+				}
+				?>
+
+				<div class="eco-event-partner-group" style="--eco-partner-tier-color: <?php echo esc_attr( $color ); ?>;">
+					<?php if ( $heading ) : ?>
+						<div class="eco-event-partner-group__head">
+							<span class="eco-event-partner-group__line" aria-hidden="true"></span>
+							<h3><?php echo esc_html( $heading ); ?></h3>
+						</div>
+					<?php endif; ?>
+
+					<div class="eco-event-logo-grid">
+						<?php foreach ( $partners as $partner ) : ?>
+							<?php
+							$name = $partner['name'] ?? '';
+							$logo = $partner['logo'] ?? '';
+							$url  = $partner['url'] ?? '';
+							$tag  = $url ? 'a' : 'div';
+
+							if ( ! $name && ! $logo ) {
+								continue;
+							}
+							?>
+
+							<<?php echo esc_html( $tag ); ?>
+								class="eco-event-logo"
+								<?php echo $url ? 'href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer"' : ''; ?>
+								aria-label="<?php echo esc_attr( $name ); ?>"
+							>
+								<?php if ( $logo ) : ?>
+									<img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $name ); ?>" loading="lazy">
+								<?php else : ?>
+									<span><?php echo esc_html( $name ); ?></span>
+								<?php endif; ?>
+							</<?php echo esc_html( $tag ); ?>>
+						<?php endforeach; ?>
+					</div>
+				</div>
+			<?php endforeach; ?>
 		</div>
-	</section>
-<?php endif; ?>
+	</div>
+</section>

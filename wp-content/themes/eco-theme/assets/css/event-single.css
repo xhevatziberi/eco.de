@@ -748,29 +748,82 @@
 
 .eco-event-single .eco-event-pretix { margin-top: 24px; }
 
-/* Logos */
+/* Event partner groups */
+.eco-event-single .eco-event-partner-groups {
+	display: grid;
+	gap: 42px;
+}
+
+.eco-event-single .eco-event-partner-group {
+	--eco-partner-tier-color: #000;
+}
+
+.eco-event-single .eco-event-partner-group__head {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 18px;
+}
+
+.eco-event-single .eco-event-partner-group__line {
+	display: inline-block;
+	width: 30px;
+	height: 5px;
+	border-radius: 999px;
+	background: var(--eco-partner-tier-color);
+}
+
+.eco-event-single .eco-event-partner-group__head h3 {
+	margin: 0;
+	/* color: var(--eco-partner-tier-color); */
+	font-size: clamp(20px, 2vw, 28px);
+	font-weight: 500;
+	line-height: 1.15;
+}
+
 .eco-event-single .eco-event-logo-grid {
 	display: grid;
-	grid-template-columns: repeat(6, minmax(0, 1fr));
-	gap: 12px;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 14px;
 }
 
 .eco-event-single .eco-event-logo {
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 90px;
-	padding: 20px;
-	border: 1px solid rgba(0, 0, 0, 0.08);
+	min-height: 104px;
+	padding: 22px;
 	border-radius: 8px;
 	background: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.035);
 	text-decoration: none;
+	transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+	overflow: hidden;
+}
+
+.eco-event-single .eco-event-logo::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 3px;
+	background: var(--eco-partner-tier-color);
+	opacity: 0.9;
+}
+
+.eco-event-single a.eco-event-logo:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+	border-color: color-mix(in srgb, var(--eco-partner-tier-color) 35%, rgba(0, 0, 0, 0.08));
 }
 
 .eco-event-single .eco-event-logo img {
 	display: block;
 	max-width: 100%;
-	max-height: 56px;
+	max-height: 58px;
 	object-fit: contain;
 }
 
@@ -778,10 +831,8 @@
 	color: var(--eco-event-dark);
 	font-weight: 850;
 	text-align: center;
+	line-height: 1.2;
 }
-
-.eco-event-single--small .eco-event-partners,
-.eco-event-single--small .eco-event-registration { background: #fff; }
 
 /* FAQ */
 .eco-event-single .eco-event-faq__list {
@@ -805,7 +856,7 @@
 
 .eco-event-single .eco-event-faq__item .eco-event-richtext { margin-top: 12px; }
 
-/* Tablet overrides must stay AFTER desktop rules */
+/* Tablet overrides */
 @media (max-width: 1024px) {
 	.eco-event-single .eco-event-container,
 	.eco-event-single .eco-event-container--narrow {
@@ -836,7 +887,7 @@
 	}
 }
 
-/* Mobile overrides must be last */
+/* Mobile overrides */
 @media (max-width: 767px) {
 	.eco-event-single .eco-event-container,
 	.eco-event-single .eco-event-container--narrow {
@@ -898,6 +949,24 @@
 	}
 	.eco-event-single--small .eco-event-people-grid--speaker {
 		grid-template-columns: 1fr;
+	}
+
+	.eco-event-single .eco-event-partner-groups {
+		gap: 32px;
+	}
+
+	.eco-event-single .eco-event-logo-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 10px;
+	}
+
+	.eco-event-single .eco-event-logo {
+		min-height: 86px;
+		padding: 18px;
+	}
+
+	.eco-event-single .eco-event-logo img {
+		max-height: 46px;
 	}
 
 	.eco-event-single .eco-event-gallery {

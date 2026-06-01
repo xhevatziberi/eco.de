@@ -404,3 +404,146 @@ function eco_event_normalize_posts( $items ): array {
 
 	return array_values( array_unique( $posts ) );
 }
+
+function eco_event_get_partner_tier_colors(): array {
+	return [
+		'platinum' => '#6E6F73',
+		'gold'     => '#D9AE30',
+		'silver'   => '#DADADA',
+		'other'    => '#000000',
+	];
+}
+
+function eco_event_get_partner_tier_color( $type ): string {
+	$colors = eco_event_get_partner_tier_colors();
+	$type   = is_string( $type ) ? trim( $type ) : '';
+
+	return $colors[ $type ] ?? $colors['other'];
+}
+
+function eco_event_normalize_image_url( $image, string $size = 'medium' ): string {
+	if ( is_array( $image ) ) {
+		if ( ! empty( $image['ID'] ) ) {
+			$url = wp_get_attachment_image_url( (int) $image['ID'], $size );
+			return $url ?: '';
+		}
+
+		if ( ! empty( $image['id'] ) ) {
+			$url = wp_get_attachment_image_url( (int) $image['id'], $size );
+			return $url ?: '';
+		}
+
+		if ( ! empty( $image['url'] ) ) {
+			return esc_url_raw( $image['url'] );
+		}
+	}
+
+	if ( is_numeric( $image ) ) {
+		$url = wp_get_attachment_image_url( (int) $image, $size );
+		return $url ?: '';
+	}
+
+	if ( is_string( $image ) && filter_var( $image, FILTER_VALIDATE_URL ) ) {
+		return esc_url_raw( $image );
+	}
+
+	return '';
+}
+
+function eco_event_normalize_post_id( $post ): int {
+	if ( $post instanceof WP_Post ) {
+		return (int) $post->ID;
+	}
+
+	if ( is_object( $post ) && ! empty( $post->ID ) ) {
+		return (int) $post->ID;
+	}
+
+	return is_numeric( $post ) ? (int) $post : 0;
+}
+
+function eco_event_get_partner_groups( $post_id = null ): array {
+	$post_id = $post_id ?: get_the_ID();
+	$groups  = eco_event_get_field( 'partner_groups', $post_id, [] );
+
+	if ( empty( $groups ) || ! is_array( $groups ) ) {
+		return [];
+	}
+
+	$normalized_groups = [];
+
+	foreach ( $groups as $group ) {
+		$heading    = trim( (string) ( $group['heading'] ?? '' ) );
+		$color_type = $group['color_type'] ?? 'other';
+		$partners   = [];
+
+		$members = $group['members'] ?? [];
+		if ( ! empty( $members ) && ! is_array( $members ) ) {
+			$members = [ $members ];
+		}
+
+		if ( is_array( $members ) ) {
+			foreach ( $members as $member ) {
+				$member_id = eco_event_normalize_post_id( $member );
+
+				if ( ! $member_id ) {
+					continue;
+				}
+
+				$name    = get_the_title( $member_id );
+				$logo    = get_the_post_thumbnail_url( $member_id, 'medium' ) ?: '';
+				$website = function_exists( 'get_field' ) ? get_field( 'website', $member_id ) : get_post_meta( $member_id, 'website', true );
+
+				$partners[] = [
+					'name' => $name,
+					'logo' => $logo,
+					'url'  => $website ?: '',
+				];
+			}
+		}
+
+		$custom_partners = $group['custom_partners'] ?? [];
+
+		if ( is_array( $custom_partners ) ) {
+			foreach ( $custom_partners as $custom ) {
+				$logo = eco_event_normalize_image_url( $custom['logo'] ?? '', 'medium' );
+				$name = trim( (string) ( $custom['name'] ?? '' ) );
+				$url  = trim( (string) ( $custom['url'] ?? '' ) );
+
+				if ( ! $name && ! $logo ) {
+					continue;
+				}
+
+				if ( ! $name && ! empty( $custom['logo']['alt'] ) ) {
+					$name = trim( (string) $custom['logo']['alt'] );
+				}
+
+				$partners[] = [
+					'name' => $name,
+					'logo' => $logo,
+					'url'  => $url,
+				];
+			}
+		}
+
+		if ( empty( $partners ) ) {
+			continue;
+		}
+
+		usort(
+			$partners,
+			static function ( $a, $b ) {
+				return strcasecmp( $a['name'] ?? '', $b['name'] ?? '' );
+			}
+		);
+
+		$normalized_groups[] = [
+			'heading'    => $heading,
+			'color_type' => $color_type,
+			'color'      => eco_event_get_partner_tier_color( $color_type ),
+			'partners'   => $partners,
+		];
+	}
+
+	return $normalized_groups;
+}
