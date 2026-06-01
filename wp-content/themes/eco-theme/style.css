@@ -4,41 +4,9 @@ Theme URI: https://eco.de
 Author: Batlab
 Description: Child theme for ECO based on Hello Elementor.
 Template: hello-elementor
-Version: 1.0.2
+Version: 1.0.3
 Text Domain: eco-theme
 */
-
-/**
- * DELETE START
-**/
-/* add left and right line for container border */
-/* :root {
-  --container-max-width-test: 1280px;
-  --content-width-test: min(100%, var(--container-max-width-test, 1140px));
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(var(--content-width-test) - 20px);
-  height: 100%;
-
-  border-left: 1px solid #c30101;
-  border-right: 1px solid #c30101;
-
-  pointer-events: none;
-  z-index: 999;
-  box-sizing: border-box;
-}
-
-@media (max-width: 1024px) {
-  body::before {
-    width: calc(100% - 40px);
-  }
-} */
 
 .page-header .entry-title {
   display: none !important;
@@ -46,9 +14,6 @@ body::before {
 
 nav.elementor-nav-menu--main {
   z-index: 9999;
-}
-nav.elementor-nav-menu--main ul.sub-menu {
-  /* border: 1px solid #c30101; */
 }
 nav.elementor-nav-menu--main .elementor-sub-item.elementor-item-active,
 nav.elementor-nav-menu--main .elementor-sub-item:hover,

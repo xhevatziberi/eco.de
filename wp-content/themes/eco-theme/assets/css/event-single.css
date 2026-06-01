@@ -809,7 +809,7 @@
 	left: 0;
 	top: 0;
 	width: 100%;
-	height: 3px;
+	height: 4px;
 	background: var(--eco-partner-tier-color);
 	opacity: 0.9;
 }
