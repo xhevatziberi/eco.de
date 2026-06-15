@@ -137,6 +137,18 @@ class Plugin {
 		wp_localize_script('eco-event-calendar-script', 'ecoEventCalendar', [
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 		]);
+
+		wp_register_style( 'eco-partner-logos-style', plugins_url( '/assets/css/partner-logos.css', __FILE__ ), [], $version );
+		wp_register_script( 'eco-partner-logos-script', plugins_url( '/assets/js/partner-logos.js', __FILE__ ), [ 'jquery' ], $version, true );
+
+		wp_register_style( 'eco-member-carousel-style', plugins_url( '/assets/css/member-carousel.css', __FILE__ ), [], $version );
+		wp_register_script( 'eco-member-carousel-script', plugins_url( '/assets/js/member-carousel.js', __FILE__ ), [ 'jquery' ], $version, true );
+
+
+		wp_register_style( 'eco-testimonial-showcase', plugins_url( '/assets/css/testimonial-showcase.css', __FILE__ ), [], $version );
+		wp_register_script( 'eco-testimonial-showcase', plugins_url( '/assets/js/testimonial-showcase.js', __FILE__ ), [ 'jquery' ], $version, true );
+
+		wp_register_style( 'eco-benefit-card-style', plugins_url( '/assets/css/benefit-card.css', __FILE__ ), [], $version );
 	}
 
 	/**
@@ -169,6 +181,10 @@ class Plugin {
 		require_once( __DIR__ . '/widgets/tile-feature-list.php' );
 		require_once( __DIR__ . '/widgets/eyebrow-heading.php' );
 		require_once( __DIR__ . '/widgets/event-calendar.php' );
+		require_once( __DIR__ . '/widgets/partner-logos.php' );
+		require_once( __DIR__ . '/widgets/member-carousel.php' );
+		require_once( __DIR__ . '/widgets/testimonial-showcase.php' );
+		require_once( __DIR__ . '/widgets/benefit-card.php' );
 	}
 
 	/**
@@ -204,6 +220,10 @@ class Plugin {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\TileFeatureList() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\EyebrowHeading() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\EventCalendar() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\PartnerLogos() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\MemberCarousel() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\TestimonialShowcase() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\BenefitCard() );
 	}
 
 	function add_elementor_widget_categories( $elements_manager ) {
@@ -237,6 +257,7 @@ class Plugin {
 	 * @access public
 	 */
 	public function __construct() {
+		require_once __DIR__ . '/inc/members-ajax.php';
 		
 		require_once __DIR__ . '/inc/content-cards-ajax.php';
 

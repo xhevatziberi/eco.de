@@ -1,0 +1,139 @@
+.eco-benefit-card,
+.eco-benefit-card * {
+	box-sizing: border-box;
+}
+
+.eco-benefit-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	min-width: 0;
+	/* min-height: 400px; */
+	padding: 30px;
+	background: #fff;
+	border: 1px solid #dedfe3;
+	border-top: 4px solid #85898d;
+	border-radius: 7px;
+	transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.eco-benefit-card:hover {
+	transform: translateY(-5px);
+	border-top-color: #ed0016;
+}
+
+.eco-benefit-card__top {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 20px;
+	margin-bottom: 42px;
+}
+
+.eco-benefit-card__icon {
+	display: grid;
+	width: 54px;
+	height: 54px;
+	flex: 0 0 54px;
+	place-items: center;
+	color: #ed0016;
+	background: #fdebed;
+	border-radius: 6px;
+}
+
+.eco-benefit-card__icon i,
+.eco-benefit-card__icon svg {
+	width: 27px;
+	height: 27px;
+	font-size: 27px;
+	fill: currentColor;
+	color: currentColor;
+}
+
+.eco-benefit-card__number {
+	color: #d2d4d8;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: .08em;
+}
+
+.eco-benefit-card__content {
+	min-width: 0;
+}
+
+.eco-benefit-card__label {
+	margin: 0 0 10px;
+	color: #ed0016;
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 1.35;
+	letter-spacing: .055em;
+	text-transform: uppercase;
+}
+
+.eco-benefit-card__title {
+	margin: 0 0 15px;
+	color: #171719;
+	font-size: clamp(22px, 2vw, 27px);
+	font-weight: 800;
+	line-height: 1.12;
+	letter-spacing: -.025em;
+}
+
+.eco-benefit-card__description {
+	margin: 0 0 28px;
+	color: #686b72;
+	font-size: 15px;
+	line-height: 1.65;
+}
+
+.eco-benefit-card__description > :first-child {
+	margin-top: 0;
+}
+
+.eco-benefit-card__description > :last-child {
+	margin-bottom: 0;
+}
+
+.eco-benefit-card__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	width: fit-content;
+	margin-top: auto;
+	color: #171719;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.3;
+	text-decoration: none;
+}
+
+.eco-benefit-card__link-arrow {
+	color: #ed0016;
+	transition: transform .2s ease;
+}
+
+.eco-benefit-card__link:not(.eco-benefit-card__link--disabled):hover {
+	color: #ed0016;
+}
+
+.eco-benefit-card__link:not(.eco-benefit-card__link--disabled):hover .eco-benefit-card__link-arrow {
+	transform: translateX(4px);
+}
+
+.eco-benefit-card__link--disabled {
+	cursor: default;
+}
+
+@media (max-width: 767px) {
+	.eco-benefit-card {
+		min-height: 0;
+		padding: 25px 22px;
+	}
+
+	.eco-benefit-card__top {
+		margin-bottom: 28px;
+	}
+}

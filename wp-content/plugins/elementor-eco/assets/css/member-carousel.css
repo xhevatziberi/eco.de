@@ -1,0 +1,155 @@
+.eco-member-carousel {
+	position: relative;
+	padding-inline: 42px;
+}
+
+.eco-member-carousel__swiper {
+	overflow: hidden;
+}
+
+.eco-member-carousel .swiper-wrapper {
+	align-items: stretch;
+}
+
+.eco-member-carousel .swiper-slide {
+	display: flex;
+	height: auto;
+	overflow: visible;
+}
+
+/*
+ * Higher specificity is required because Pro Elements applies:
+ * .swiper-slide a { display: inline; }
+ */
+.eco-member-carousel .swiper-slide .eco-member-carousel__item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	padding: 20px 24px 24px;
+	margin-top: 2px;
+	overflow: hidden;
+	border: 1px solid #e5e5e5;
+	border-top: 4px solid #85898d;
+	border-radius: 7px;
+	background: #fff;
+	color: #1d1d1f;
+	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.035);
+	text-decoration: none;
+	transition:
+		transform 180ms ease,
+		box-shadow 180ms ease,
+		border-color 180ms ease;
+}
+
+.eco-member-carousel .swiper-slide a.eco-member-carousel__item:hover {
+	color: #1d1d1f;
+	border-color: rgba(0, 0, 0, 0.18);
+	border-top-color: #85898d;
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+	transform: translateY(-2px);
+}
+
+.eco-member-carousel__image {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 82%;
+	max-height: 70%;
+	margin: 0;
+	border: 0;
+	object-fit: contain;
+}
+
+.eco-member-carousel__name {
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.25;
+	text-align: center;
+}
+
+/*
+ * Higher specificity prevents Elementor Kit button styles
+ * from changing the arrow background, border and padding.
+ */
+.eco-member-carousel button.eco-member-carousel__prev,
+.eco-member-carousel button.eco-member-carousel__next {
+	position: absolute;
+	top: 50%;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	color: #1d1d1f;
+	box-shadow: none;
+	cursor: pointer;
+	line-height: 1;
+	transform: translateY(-50%);
+}
+
+.eco-member-carousel button.eco-member-carousel__prev {
+	left: 0;
+}
+
+.eco-member-carousel button.eco-member-carousel__next {
+	right: 0;
+}
+
+.eco-member-carousel button.eco-member-carousel__prev:hover,
+.eco-member-carousel button.eco-member-carousel__prev:focus,
+.eco-member-carousel button.eco-member-carousel__next:hover,
+.eco-member-carousel button.eco-member-carousel__next:focus {
+	border: 0;
+	background: transparent;
+	color: #e2001a;
+	box-shadow: none;
+}
+
+.eco-member-carousel__prev::before,
+.eco-member-carousel__next::before {
+	content: "";
+	display: block;
+	width: 10px;
+	height: 10px;
+	border-top: 2px solid currentColor;
+	border-right: 2px solid currentColor;
+}
+
+.eco-member-carousel__prev::before {
+	transform: rotate(-135deg);
+}
+
+.eco-member-carousel__next::before {
+	transform: rotate(45deg);
+}
+
+.eco-member-carousel button.swiper-button-disabled {
+	opacity: 0.3;
+	cursor: default;
+	pointer-events: none;
+}
+
+.eco-member-carousel .swiper-pagination {
+	position: relative;
+	bottom: auto;
+	margin-top: 22px;
+}
+
+@media (max-width: 767px) {
+	.eco-member-carousel {
+		padding-inline: 32px;
+	}
+
+	.eco-member-carousel .swiper-slide .eco-member-carousel__item {
+		padding: 18px;
+	}
+}

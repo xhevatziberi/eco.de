@@ -1,292 +1,470 @@
 .eco-downloads-widget {
-    width: 100%;
-    font-size: 14px;
-    line-height: 1.45;
+	--eco-downloads-accent: #e2001a;
+	--eco-downloads-border: #e6e7ea;
+	--eco-downloads-muted: #6b6f76;
+	--eco-downloads-soft: #f5f6f8;
+
+	width: 100%;
+	min-width: 0;
+	font-size: 14px;
+	line-height: 1.55;
 }
 
-.eco-downloads-head {
-    margin-bottom: 18px;
+.eco-downloads-widget,
+.eco-downloads-widget *,
+.eco-downloads-widget *::before,
+.eco-downloads-widget *::after {
+	box-sizing: border-box;
 }
 
-.eco-downloads-title {
-    margin: 0 0 8px;
-    font-size: 28px;
-    line-height: 1.15;
+.eco-downloads-widget .eco-downloads-head {
+	max-width: 820px;
+	margin-bottom: 28px;
 }
 
-.eco-downloads-intro {
-    font-size: 14px;
-    line-height: 1.6;
+.eco-downloads-widget .eco-downloads-title {
+	margin: 0 0 10px;
+	color: #111;
+	font-size: clamp(28px, 3vw, 42px);
+	font-weight: 800;
+	line-height: 1.1;
+	letter-spacing: -0.025em;
 }
 
-.eco-downloads-intro > *:last-child {
-    margin-bottom: 0;
+.eco-downloads-widget .eco-downloads-intro {
+	color: #555a61;
+	font-size: 15px;
+	line-height: 1.65;
 }
 
-.eco-downloads-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 18px;
+.eco-downloads-widget .eco-downloads-intro > *:last-child {
+	margin-bottom: 0;
 }
 
-.eco-downloads-filter {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 32px;
-    padding: 0 12px;
-    border: 1px solid #e4e4e4;
-    border-radius: 999px;
-    text-decoration: none;
-    color: inherit;
-    font-size: 12px;
-    line-height: 1;
-    transition: all .2s ease;
+.eco-downloads-widget .eco-downloads-filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 9px;
+	margin-bottom: 24px;
 }
 
-.eco-downloads-filter:hover,
-.eco-downloads-filter.is-active {
-    border-color: #000;
-    background: #fafafa;
+.eco-downloads-widget .eco-downloads-filter {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 38px;
+	padding: 7px 15px;
+	border: 1px solid #dfe1e5;
+	border-radius: 999px;
+	background: #fff;
+	color: #24272c;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.2;
+	text-decoration: none;
+	transition:
+		background-color 180ms ease,
+		border-color 180ms ease,
+		color 180ms ease,
+		transform 180ms ease;
 }
 
-.eco-downloads-list {
-    display: grid;
-    gap: 12px;
+.eco-downloads-widget .eco-downloads-filter:hover {
+	border-color: color-mix(in srgb, var(--eco-downloads-accent) 55%, #dfe1e5);
+	color: var(--eco-downloads-accent);
+	transform: translateY(-1px);
 }
 
-.eco-download-card {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 18px;
-    align-items: center;
-    padding: 16px 18px;
-    border: 1px solid #ededed;
-    border-radius: 10px;
-    background: #fff;
+.eco-downloads-widget .eco-downloads-filter.is-active {
+	border-color: var(--eco-downloads-accent);
+	background: var(--eco-downloads-accent);
+	color: #fff;
 }
 
-.eco-download-card-main {
-    min-width: 0;
+.eco-downloads-widget .eco-downloads-list {
+	display: grid;
+	gap: 14px;
 }
 
-.eco-download-card-terms {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 8px;
+.eco-downloads-widget .eco-download-card {
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 28px;
+	padding: 22px;
+	border: 1px solid var(--eco-downloads-border);
+	border-radius: 10px;
+	background: #fff;
+	overflow: hidden;
+	transition:
+		transform 180ms ease,
+		box-shadow 180ms ease,
+		border-color 180ms ease;
 }
 
-.eco-download-card-term {
-    display: inline-flex;
-    align-items: center;
-    min-height: 22px;
-    padding: 0 8px;
-    border-radius: 999px;
-    background: #f5f5f5;
-    font-size: 11px;
-    line-height: 1;
+.eco-downloads-widget .eco-download-card::before {
+	content: "";
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 4px;
+	background: var(--eco-downloads-accent);
+	opacity: 0;
+	transition: opacity 180ms ease;
 }
 
-.eco-download-card-title-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
+.eco-downloads-widget .eco-download-card:hover {
+	border-color: color-mix(in srgb, var(--eco-downloads-accent) 24%, var(--eco-downloads-border));
+	box-shadow: 0 12px 34px rgba(17, 17, 17, 0.06);
+	transform: translateY(-2px);
 }
 
-.eco-download-card-file-icon {
-    flex: 0 0 auto;
-    width: 28px;
-    height: 28px;
-    border-radius: 7px;
-    background: #f3f3f3;
-    position: relative;
+.eco-downloads-widget .eco-download-card:hover::before {
+	opacity: 1;
 }
 
-.eco-download-card-file-icon::after {
-    content: "FILE";
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: .04em;
+.eco-downloads-widget .eco-download-card-main {
+	min-width: 0;
 }
 
-.eco-download-card-file-icon.is-pdf {
-    background: #fdecec;
-    color: #c62828;
+.eco-downloads-widget .eco-download-card-terms {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-bottom: 10px;
 }
 
-.eco-download-card-file-icon.is-pdf::after {
-    content: "PDF";
+.eco-downloads-widget .eco-download-card-term {
+	display: inline-flex;
+	align-items: center;
+	min-height: 24px;
+	padding: 4px 9px;
+	border-radius: 999px;
+	background: var(--eco-downloads-soft);
+	color: #555a61;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 1;
 }
 
-.eco-download-card-file-icon.is-doc {
-    background: #eaf2ff;
-    color: #1565c0;
+.eco-downloads-widget .eco-download-card-title-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 8px;
 }
 
-.eco-download-card-file-icon.is-doc::after {
-    content: "DOC";
+.eco-downloads-widget .eco-download-card-file-icon {
+	position: relative;
+	flex: 0 0 auto;
+	width: 34px;
+	height: 38px;
+	border-radius: 7px;
+	background: #f0f1f3;
+	color: #555a61;
+	overflow: hidden;
 }
 
-.eco-download-card-file-icon.is-xls {
-    background: #e8f5e9;
-    color: #2e7d32;
+.eco-downloads-widget .eco-download-card-file-icon::before {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 10px;
+	height: 10px;
+	background: rgba(255, 255, 255, 0.72);
+	clip-path: polygon(0 0, 100% 100%, 0 100%);
 }
 
-.eco-download-card-file-icon.is-xls::after {
-    content: "XLS";
+.eco-downloads-widget .eco-download-card-file-icon::after {
+	content: "FILE";
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 5px;
+	font-size: 8px;
+	font-weight: 800;
+	letter-spacing: 0.04em;
 }
 
-.eco-download-card-file-icon.is-ppt {
-    background: #fff1e8;
-    color: #ef6c00;
+.eco-downloads-widget .eco-download-card-file-icon.is-pdf {
+	background: #fdebed;
+	color: #c62828;
 }
 
-.eco-download-card-file-icon.is-ppt::after {
-    content: "PPT";
+.eco-downloads-widget .eco-download-card-file-icon.is-pdf::after {
+	content: "PDF";
 }
 
-.eco-download-card-file-icon.is-zip {
-    background: #f3e8ff;
-    color: #7b1fa2;
+.eco-downloads-widget .eco-download-card-file-icon.is-doc {
+	background: #eaf2ff;
+	color: #1565c0;
 }
 
-.eco-download-card-file-icon.is-zip::after {
-    content: "ZIP";
+.eco-downloads-widget .eco-download-card-file-icon.is-doc::after {
+	content: "DOC";
 }
 
-.eco-download-card-title-row .eco-download-card-title {
-    margin: 0;
-    font-size: 18px;
-    line-height: 1.3;
+.eco-downloads-widget .eco-download-card-file-icon.is-xls {
+	background: #e8f5e9;
+	color: #2e7d32;
 }
 
-.eco-download-card-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 14px;
-    margin-bottom: 8px;
-    font-size: 12px;
-    color: #666;
+.eco-downloads-widget .eco-download-card-file-icon.is-xls::after {
+	content: "XLS";
 }
 
-.eco-download-card-meta-item {
-    display: inline-flex;
-    align-items: center;
+.eco-downloads-widget .eco-download-card-file-icon.is-ppt {
+	background: #fff1e8;
+	color: #ef6c00;
 }
 
-.eco-download-card-excerpt {
-    color: inherit;
-    opacity: .82;
-    font-size: 13px;
-    line-height: 1.6;
+.eco-downloads-widget .eco-download-card-file-icon.is-ppt::after {
+	content: "PPT";
 }
 
-.eco-download-card-excerpt > *:last-child {
-    margin-bottom: 0;
+.eco-downloads-widget .eco-download-card-file-icon.is-zip {
+	background: #f3e8ff;
+	color: #7b1fa2;
 }
 
-.eco-download-card-action {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+.eco-downloads-widget .eco-download-card-file-icon.is-zip::after {
+	content: "ZIP";
 }
 
-.eco-download-card-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 38px;
-    padding: 0 14px;
-    border: 1px solid #d62d2d;
-    border-radius: 999px;
-    background: #d62d2d;
-    text-decoration: none;
-    color: #fff !important;
-    white-space: nowrap;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1;
-    transition: all .2s ease;
+.eco-downloads-widget .eco-download-card-title {
+	margin: 0;
+	color: #111;
+	font-size: clamp(18px, 1.6vw, 22px);
+	font-weight: 750;
+	line-height: 1.25;
+	letter-spacing: -0.015em;
 }
 
-.eco-download-card-button:hover {
-    background: #b92424;
-    border-color: #b92424;
-    color: #fff !important;
-    transform: translateY(-1px);
+.eco-downloads-widget .eco-download-card-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 16px;
+	margin-bottom: 9px;
+	color: var(--eco-downloads-muted);
+	font-size: 12px;
+	line-height: 1.45;
 }
 
-.eco-downloads-empty {
-    padding: 16px 18px;
-    border: 1px solid #ededed;
-    border-radius: 10px;
-    background: #fff;
-    font-size: 13px;
+.eco-downloads-widget .eco-download-card-meta span {
+	position: relative;
 }
 
-.eco-downloads-pagination {
-    margin-top: 18px;
+.eco-downloads-widget .eco-download-card-meta span:not(:last-child)::after {
+	content: "";
+	position: absolute;
+	right: -9px;
+	top: 50%;
+	width: 3px;
+	height: 3px;
+	border-radius: 50%;
+	background: #c7c9cd;
+	transform: translateY(-50%);
 }
 
-.eco-downloads-pagination ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 0;
-    padding: 0;
+.eco-downloads-widget .eco-download-card-excerpt {
+	max-width: 980px;
+	color: #565b62;
+	font-size: 14px;
+	line-height: 1.65;
 }
 
-.eco-downloads-pagination li {
-    margin: 0;
-    padding: 0;
+.eco-downloads-widget .eco-download-card-excerpt > *:last-child {
+	margin-bottom: 0;
 }
 
-.eco-downloads-pagination a,
-.eco-downloads-pagination span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 34px;
-    height: 34px;
-    padding: 0 10px;
-    border: 1px solid #e4e4e4;
-    border-radius: 999px;
-    text-decoration: none;
-    color: inherit;
-    font-size: 12px;
-    line-height: 1;
+.eco-downloads-widget .eco-download-card-action {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 }
 
-.eco-downloads-pagination .current {
-    border-color: #000;
-    background: #fafafa;
+.eco-downloads-widget .eco-download-card-button,
+.elementor .eco-downloads-widget .eco-download-card-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 9px;
+	min-height: 44px;
+	padding: 10px 18px;
+	border: 1px solid var(--eco-downloads-accent);
+	border-radius: 999px;
+	background: var(--eco-downloads-accent);
+	color: #fff !important;
+	font-size: 13px;
+	font-weight: 700;
+	line-height: 1;
+	text-decoration: none;
+	white-space: nowrap;
+	transition:
+		transform 180ms ease,
+		box-shadow 180ms ease,
+		filter 180ms ease;
+}
+
+.eco-downloads-widget .eco-download-card-button svg {
+	width: 17px;
+	height: 17px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.8;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.eco-downloads-widget .eco-download-card-button:hover {
+	color: #fff !important;
+	filter: brightness(0.9);
+	box-shadow: 0 8px 18px color-mix(in srgb, var(--eco-downloads-accent) 22%, transparent);
+	transform: translateY(-1px);
+}
+
+.eco-downloads-widget .eco-downloads-empty {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	padding: 26px;
+	border: 1px solid color-mix(in srgb, var(--eco-downloads-accent) 18%, #e6e7ea);
+	border-radius: 12px;
+	background: color-mix(in srgb, var(--eco-downloads-accent) 4%, #fff);
+}
+
+.eco-downloads-widget .eco-downloads-empty__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	background: var(--eco-downloads-accent);
+	color: #fff;
+}
+
+.eco-downloads-widget .eco-downloads-empty__icon svg {
+	width: 24px;
+	height: 24px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.8;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.eco-downloads-widget .eco-downloads-empty h3 {
+	margin: 0 0 5px;
+	color: #111;
+	font-size: 20px;
+	font-weight: 750;
+	line-height: 1.2;
+}
+
+.eco-downloads-widget .eco-downloads-empty p {
+	margin: 0;
+	color: var(--eco-downloads-muted);
+	font-size: 14px;
+	line-height: 1.55;
+}
+
+.eco-downloads-widget .eco-downloads-pagination {
+	margin-top: 24px;
+}
+
+.eco-downloads-widget .eco-downloads-pagination ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.eco-downloads-widget .eco-downloads-pagination li {
+	margin: 0;
+	padding: 0;
+}
+
+.eco-downloads-widget .eco-downloads-pagination a,
+.eco-downloads-widget .eco-downloads-pagination span {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 38px;
+	height: 38px;
+	padding: 0 12px;
+	border: 1px solid #dfe1e5;
+	border-radius: 999px;
+	background: #fff;
+	color: #24272c;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1;
+	text-decoration: none;
+}
+
+.eco-downloads-widget .eco-downloads-pagination a:hover,
+.eco-downloads-widget .eco-downloads-pagination .current {
+	border-color: var(--eco-downloads-accent);
+	background: var(--eco-downloads-accent);
+	color: #fff;
 }
 
 @media (max-width: 767px) {
-    .eco-downloads-title {
-        font-size: 24px;
-    }
+	.eco-downloads-widget .eco-downloads-head {
+		margin-bottom: 22px;
+	}
 
-    .eco-download-card {
-        grid-template-columns: 1fr;
-        align-items: start;
-        gap: 12px;
-    }
+	.eco-downloads-widget .eco-downloads-title {
+		font-size: 30px;
+	}
 
-    .eco-download-card-action {
-        justify-content: flex-start;
-    }
+	.eco-downloads-widget .eco-downloads-filters {
+		gap: 7px;
+		margin-bottom: 20px;
+	}
 
-    .eco-download-card-button {
-        min-height: 36px;
-    }
+	.eco-downloads-widget .eco-downloads-filter {
+		min-height: 34px;
+		padding: 6px 12px;
+		font-size: 12px;
+	}
+
+	.eco-downloads-widget .eco-download-card {
+		grid-template-columns: 1fr;
+		align-items: start;
+		gap: 16px;
+		padding: 18px;
+	}
+
+	.eco-downloads-widget .eco-download-card-title-row {
+		align-items: flex-start;
+	}
+
+	.eco-downloads-widget .eco-download-card-title {
+		font-size: 18px;
+	}
+
+	.eco-downloads-widget .eco-download-card-meta {
+		gap: 5px 12px;
+	}
+
+	.eco-downloads-widget .eco-download-card-action {
+		justify-content: flex-start;
+	}
+
+	.eco-downloads-widget .eco-download-card-button {
+		min-height: 40px;
+	}
+
+	.eco-downloads-widget .eco-downloads-empty {
+		align-items: flex-start;
+		padding: 20px;
+	}
 }

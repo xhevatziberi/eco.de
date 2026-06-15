@@ -1,0 +1,57 @@
+.eco-partner-logos {
+	--eco-partner-columns: 6;
+	display: grid;
+	grid-template-columns: repeat(var(--eco-partner-columns), minmax(0, 1fr));
+	gap: 16px;
+	width: 100%;
+}
+
+.eco-partner-logos__item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	padding: 2px;
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-top: 4px solid #85898d;
+	border-radius: 8px;
+	overflow: hidden;
+	text-decoration: none;
+	transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.eco-partner-logos__item[hidden] {
+	display: none;
+}
+
+a.eco-partner-logos__item:hover,
+a.eco-partner-logos__item:focus-visible {
+	transform: translateY(-2px);
+	text-decoration: none;
+}
+
+.eco-partner-logos__image {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 80%;
+	max-height: 65%;
+	object-fit: contain;
+}
+
+.eco-partner-logos__toggle {
+	display: block;
+	margin: 24px auto 0;
+	padding: 0;
+	background: none;
+	border: 0;
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.eco-partner-logos__toggle[hidden] {
+	display: none;
+}

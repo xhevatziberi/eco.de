@@ -1,118 +1,449 @@
-document.addEventListener("DOMContentLoaded", () => {
-	const letters = document.querySelectorAll(".member-filter-item");
-	const items = document.querySelectorAll(".member-item");
+(function () {
+	"use strict";
 
-	// Find first enabled letter
-	let firstLetter = '#';
-	for (const el of letters) {
-		if (!el.classList.contains("disabled")) {
-			firstLetter = el.dataset.letter;
-			el.classList.add("active");
-			break;
+	const SELECTORS = {
+		root: ".eco-member-list",
+		filter: ".member-filter-item[data-letter]",
+		grid: ".member-grid",
+		status: ".eco-members-status",
+		loadMore: ".eco-load-more-btn",
+		detailButton: ".member-description-link",
+		modal: ".eco-modal",
+		modalTitle: ".eco-modal-title",
+		modalBody: ".eco-modal-body",
+		modalClose: "[data-modal-close]"
+	};
+
+	function initMembersWidget(root) {
+		if (!root || root.dataset.ecoMembersInitialized === "true") {
+			return;
 		}
-	}
 
-	showMembers(firstLetter);
+		if (root.classList.contains("eco-member-list--editor")) {
+			return;
+		}
 
-	letters.forEach(letter => {
-		if (letter.classList.contains("disabled")) return;
+		root.dataset.ecoMembersInitialized = "true";
 
-		letter.addEventListener("click", () => {
-			letters.forEach(l => l.classList.remove("active"));
-			letter.classList.add("active");
-			showMembers(letter.dataset.letter);
+		const ajaxUrl = root.dataset.ajaxUrl;
+		const nonce = root.dataset.nonce;
+		const initialLetter = root.dataset.initialLetter || "";
+
+		const grid = root.querySelector(SELECTORS.grid);
+		const status = root.querySelector(SELECTORS.status);
+		const loadMoreButton = root.querySelector(SELECTORS.loadMore);
+		const filterButtons = Array.from(root.querySelectorAll(SELECTORS.filter));
+
+		const modal = root.querySelector(SELECTORS.modal);
+		const modalTitle = root.querySelector(SELECTORS.modalTitle);
+		const modalBody = root.querySelector(SELECTORS.modalBody);
+		const modalCloseElements = Array.from(
+			root.querySelectorAll(SELECTORS.modalClose)
+		);
+
+		let currentLetter = initialLetter;
+		let currentRequest = null;
+		let lastFocusedElement = null;
+
+		if (!ajaxUrl || !nonce || !grid) {
+			return;
+		}
+
+		filterButtons.forEach((button) => {
+			if (button.disabled) {
+				return;
+			}
+
+			button.addEventListener("click", () => {
+				const letter = button.dataset.letter || "";
+
+				if (!letter || letter === currentLetter) {
+					return;
+				}
+
+				setActiveFilter(filterButtons, button);
+				currentLetter = letter;
+
+				loadMembers({
+					root,
+					grid,
+					status,
+					loadMoreButton,
+					ajaxUrl,
+					nonce,
+					letter,
+					loadAll: false,
+					getCurrentRequest: () => currentRequest,
+					setCurrentRequest: (request) => {
+						currentRequest = request;
+					}
+				});
+			});
 		});
-	});
 
-	function showMembers(letter) {
-		const maxVisible = 8;
-		let visibleCount = 0;
+		loadMoreButton?.addEventListener("click", () => {
+			if (!currentLetter) {
+				return;
+			}
 
-		items.forEach(item => {
-			if (item.dataset.letter === letter) {
-				visibleCount++;
-				item.style.display = visibleCount <= maxVisible ? "block" : "none";
-			} else {
-				item.style.display = "none";
+			loadMembers({
+				root,
+				grid,
+				status,
+				loadMoreButton,
+				ajaxUrl,
+				nonce,
+				letter: currentLetter,
+				loadAll: true,
+				getCurrentRequest: () => currentRequest,
+				setCurrentRequest: (request) => {
+					currentRequest = request;
+				}
+			});
+		});
+
+		root.addEventListener("click", (event) => {
+			const detailButton = event.target.closest(SELECTORS.detailButton);
+
+			if (!detailButton || !root.contains(detailButton)) {
+				return;
+			}
+
+			event.preventDefault();
+
+			const memberId = detailButton.dataset.memberId;
+
+			if (!memberId) {
+				return;
+			}
+
+			lastFocusedElement = detailButton;
+
+			openModal(modal, modalTitle, modalBody);
+			loadMemberDetails({
+				ajaxUrl,
+				nonce,
+				memberId,
+				modalTitle,
+				modalBody
+			});
+		});
+
+		modalCloseElements.forEach((element) => {
+			element.addEventListener("click", () => {
+				closeModal(modal, modalTitle, modalBody, lastFocusedElement);
+			});
+		});
+
+		document.addEventListener("keydown", (event) => {
+			if (
+				event.key === "Escape" &&
+				modal &&
+				modal.getAttribute("aria-hidden") === "false"
+			) {
+				closeModal(modal, modalTitle, modalBody, lastFocusedElement);
 			}
 		});
 
-		// Show/hide load more button
-		const loadMoreBtn = document.getElementById("load-more-btn");
-		if (visibleCount > maxVisible) {
-			loadMoreBtn.style.display = "inline-block";
-			loadMoreBtn.dataset.letter = letter;
+		if (initialLetter) {
+			loadMembers({
+				root,
+				grid,
+				status,
+				loadMoreButton,
+				ajaxUrl,
+				nonce,
+				letter: initialLetter,
+				loadAll: false,
+				getCurrentRequest: () => currentRequest,
+				setCurrentRequest: (request) => {
+					currentRequest = request;
+				}
+			});
 		} else {
-			loadMoreBtn.style.display = "none";
+			grid.innerHTML =
+				'<p class="eco-members-empty">Keine Mitglieder gefunden.</p>';
+			grid.setAttribute("aria-busy", "false");
 		}
 	}
 
+	async function loadMembers(options) {
+		const {
+			root,
+			grid,
+			status,
+			loadMoreButton,
+			ajaxUrl,
+			nonce,
+			letter,
+			loadAll,
+			getCurrentRequest,
+			setCurrentRequest
+		} = options;
 
-	// Modal handling
-	const modal = document.getElementById("member-description-modal");
-	const modalTitle = modal.querySelector(".eco-modal-title");
-	const modalBody = modal.querySelector(".eco-modal-body");
-	const closeBtn = modal.querySelector(".eco-modal-close");
+		const previousRequest = getCurrentRequest();
 
-	document.querySelectorAll(".member-description-link").forEach(link => {
-		link.addEventListener("click", (e) => {
-			e.preventDefault();
-
-			const title = link.dataset.title || "";
-			const website = link.dataset.website || "";
-			const line1 = link.dataset.line1 || "";
-			const line2 = link.dataset.line2 || "";
-			const line3 = link.dataset.line3 || "";
-			const zip = link.dataset.zip || "";
-			const city = link.dataset.city || "";
-			const country = link.dataset.country || "";
-			const phone = link.dataset.phone || "";
-			const fax = link.dataset.fax || "";
-			const email = link.dataset.email || "";
-			const description = link.dataset.description || "";
-
-			let address = "";
-			if (line1) address += `<p>${line1}</p>`;
-			if (line2) address += `<p>${line2}</p>`;
-			if (line3) address += `<p>${line3}</p>`;
-			if (zip || city) address += `<p>${zip} ${city}</p>`;
-			if (country) address += `<p>${country}</p>`;
-
-			let modalHtml = "";
-			if (website) modalHtml += `<p><a href="${website}" target="_blank">Website besuchen</a></p>`;
-			if (address) modalHtml += address;
-			if (phone) modalHtml += `<p>Tel.: ${phone}</p>`;
-			if (fax) modalHtml += `<p>Fax: ${fax}</p>`;
-			if (email) modalHtml += `<p>Email: <a href="mailto:${email}">${email}</a></p>`;
-			if (description) modalHtml += `<hr><div>${description}</div>`;
-
-			modalTitle.textContent = title;
-			modalBody.innerHTML = modalHtml;
-			modal.style.display = "block";
-		});
-	});
-
-
-	closeBtn.addEventListener("click", () => {
-		modal.style.display = "none";
-	});
-
-	window.addEventListener("click", (e) => {
-		if (e.target === modal) {
-			modal.style.display = "none";
+		if (previousRequest) {
+			previousRequest.abort();
 		}
-	});
 
-	const loadMoreBtn = document.getElementById("load-more-btn");
+		const controller = new AbortController();
+		setCurrentRequest(controller);
 
-	loadMoreBtn?.addEventListener("click", () => {
-		const currentLetter = loadMoreBtn.dataset.letter;
-		items.forEach(item => {
-			if (item.dataset.letter === currentLetter) {
-				item.style.display = "block";
+		setLoadingState(root, grid, status, loadMoreButton, true, loadAll);
+
+		const formData = new FormData();
+		formData.append("action", "eco_load_members");
+		formData.append("nonce", nonce);
+		formData.append("letter", letter);
+		formData.append("load_all", loadAll ? "1" : "0");
+
+		try {
+			const response = await fetch(ajaxUrl, {
+				method: "POST",
+				credentials: "same-origin",
+				body: formData,
+				signal: controller.signal
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP ${response.status}`);
 			}
+
+			const result = await response.json();
+
+			if (!result.success || !result.data) {
+				throw new Error(
+					result?.data?.message || "Members could not be loaded."
+				);
+			}
+
+			grid.innerHTML = result.data.html || "";
+			grid.setAttribute("aria-busy", "false");
+
+			if (status) {
+				const total = Number(result.data.total || 0);
+
+				status.textContent =
+					total === 1
+						? "1 Mitglied gefunden"
+						: `${total} Mitglieder gefunden`;
+			}
+
+			if (loadMoreButton) {
+				loadMoreButton.hidden = !result.data.has_more;
+				loadMoreButton.disabled = false;
+				loadMoreButton.removeAttribute("aria-busy");
+			}
+		} catch (error) {
+			if (error.name === "AbortError") {
+				return;
+			}
+
+			grid.innerHTML =
+				'<p class="eco-members-error">Die Mitglieder konnten nicht geladen werden. Bitte versuchen Sie es erneut.</p>';
+
+			grid.setAttribute("aria-busy", "false");
+
+			if (status) {
+				status.textContent = "";
+			}
+
+			if (loadMoreButton) {
+				loadMoreButton.hidden = true;
+				loadMoreButton.disabled = false;
+				loadMoreButton.removeAttribute("aria-busy");
+			}
+
+			console.error("ECO Members:", error);
+		} finally {
+			if (getCurrentRequest() === controller) {
+				setCurrentRequest(null);
+			}
+
+			root.classList.remove("is-loading");
+		}
+	}
+
+	async function loadMemberDetails(options) {
+		const {
+			ajaxUrl,
+			nonce,
+			memberId,
+			modalTitle,
+			modalBody
+		} = options;
+
+		const formData = new FormData();
+		formData.append("action", "eco_load_member_details");
+		formData.append("nonce", nonce);
+		formData.append("member_id", memberId);
+
+		try {
+			const response = await fetch(ajaxUrl, {
+				method: "POST",
+				credentials: "same-origin",
+				body: formData
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP ${response.status}`);
+			}
+
+			const result = await response.json();
+
+			if (!result.success || !result.data) {
+				throw new Error(
+					result?.data?.message || "Member details could not be loaded."
+				);
+			}
+
+			if (modalTitle) {
+				modalTitle.textContent = result.data.title || "";
+			}
+
+			if (modalBody) {
+				modalBody.innerHTML = result.data.html || "";
+			}
+		} catch (error) {
+			if (modalBody) {
+				modalBody.innerHTML =
+					'<p class="eco-members-error">Die Informationen konnten nicht geladen werden.</p>';
+			}
+
+			console.error("ECO Member details:", error);
+		}
+	}
+
+	function setActiveFilter(buttons, activeButton) {
+		buttons.forEach((button) => {
+			const isActive = button === activeButton;
+
+			button.classList.toggle("active", isActive);
+			button.setAttribute("aria-pressed", isActive ? "true" : "false");
 		});
-		loadMoreBtn.style.display = "none";
+	}
+
+	function setLoadingState(
+		root,
+		grid,
+		status,
+		loadMoreButton,
+		isLoading,
+		loadAll
+	) {
+		root.classList.toggle("is-loading", isLoading);
+		grid.setAttribute("aria-busy", isLoading ? "true" : "false");
+
+		if (status) {
+			status.textContent = loadAll
+				? "Alle Mitglieder werden geladen…"
+				: "Mitglieder werden geladen…";
+		}
+
+		if (loadMoreButton) {
+			loadMoreButton.disabled = isLoading;
+			loadMoreButton.setAttribute(
+				"aria-busy",
+				isLoading ? "true" : "false"
+			);
+
+			if (!loadAll) {
+				loadMoreButton.hidden = true;
+			}
+		}
+
+		if (!loadAll) {
+			grid.innerHTML = createSkeletons(8);
+		}
+	}
+
+	function createSkeletons(count) {
+		let html = "";
+
+		for (let index = 0; index < count; index += 1) {
+			html += `
+				<div class="eco-member-skeleton" aria-hidden="true">
+					<div class="eco-member-skeleton__visual"></div>
+					<div class="eco-member-skeleton__line eco-member-skeleton__line--title"></div>
+					<div class="eco-member-skeleton__line"></div>
+				</div>
+			`;
+		}
+
+		return html;
+	}
+
+	function openModal(modal, modalTitle, modalBody) {
+		if (!modal) {
+			return;
+		}
+
+		if (modalTitle) {
+			modalTitle.textContent = "";
+		}
+
+		if (modalBody) {
+			modalBody.innerHTML =
+				'<div class="eco-member-modal-loading">Informationen werden geladen…</div>';
+		}
+
+		modal.classList.add("is-open");
+		modal.setAttribute("aria-hidden", "false");
+		document.documentElement.classList.add("eco-modal-open");
+
+		const closeButton = modal.querySelector(".eco-modal-close");
+		closeButton?.focus();
+	}
+
+	function closeModal(modal, modalTitle, modalBody, lastFocusedElement) {
+		if (!modal) {
+			return;
+		}
+
+		modal.classList.remove("is-open");
+		modal.setAttribute("aria-hidden", "true");
+		document.documentElement.classList.remove("eco-modal-open");
+
+		if (modalTitle) {
+			modalTitle.textContent = "";
+		}
+
+		if (modalBody) {
+			modalBody.innerHTML = "";
+		}
+
+		lastFocusedElement?.focus();
+	}
+
+	function initializeAllMembersWidgets(scope) {
+		const context = scope || document;
+
+		if (context.matches?.(SELECTORS.root)) {
+			initMembersWidget(context);
+		}
+
+		context.querySelectorAll?.(SELECTORS.root).forEach(initMembersWidget);
+	}
+
+	document.addEventListener("DOMContentLoaded", () => {
+		initializeAllMembersWidgets(document);
 	});
 
-});
+	/*
+	 * Elementor frontend support.
+	 */
+	window.addEventListener("elementor/frontend/init", () => {
+		if (!window.elementorFrontend?.hooks) {
+			return;
+		}
+
+		window.elementorFrontend.hooks.addAction(
+			"frontend/element_ready/members.default",
+			($scope) => {
+				const scopeElement = $scope?.[0] || $scope;
+				initializeAllMembersWidgets(scopeElement);
+			}
+		);
+	});
+})();

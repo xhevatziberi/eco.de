@@ -1,23 +1,22 @@
 <?php
-// plugins/elementor-eco/widgets/members.php
+/**
+ * Elementor Members widget.
+ *
+ * Path:
+ * plugins/elementor-eco/widgets/members.php
+ */
+
 namespace ElementorEco\Widgets;
 
-use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use Elementor\Widget_Base;
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Members extends Widget_Base {
 
-	/**
-	 * Retrieve the widgset name.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @access public
-	 *
-	 * @return string Widget name.
-	 */
 	public function get_name() {
 		return 'members';
 	}
@@ -33,10 +32,6 @@ class Members extends Widget_Base {
 	public function get_categories() {
 		return [ 'eco' ];
 	}
-
-	public function __construct($data = [], $args = null) {
-		parent::__construct($data, $args);
-   	}
 
 	public function get_script_depends() {
 		return [ 'eco-members-script' ];
@@ -57,157 +52,188 @@ class Members extends Widget_Base {
 		$this->add_control(
 			'title',
 			[
-				'label' => __( 'Title', 'elementor-eco' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => __( 'Title' , 'elementor-eco' ),
+				'label'       => __( 'Title', 'elementor-eco' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'Unsere Mitglieder', 'elementor-eco' ),
+				'label_block' => true,
 			]
 		);
-		
+
 		$this->end_controls_section();
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
+		$settings  = $this->get_settings_for_display();
+		$widget_id = 'eco-members-' . esc_attr( $this->get_id() );
 
-		// Get all Members
-		$args = [
-			'post_type' => 'member',
-			'posts_per_page' => -1,
-			'orderby' => 'title',
-			'order' => 'ASC'
-		];
-		$query = new \WP_Query($args);
+		/*
+		 * Do not run real member queries inside Elementor editor.
+		 */
+		$is_editor = (
+			class_exists( '\Elementor\Plugin' ) &&
+			\Elementor\Plugin::$instance->editor->is_edit_mode()
+		);
 
-		// Prepare member data
-		$members = [];
-		if ($query->have_posts()) {
-			while ($query->have_posts()) {
-				$query->the_post();
-
-				$title = get_the_title();
-				$first_letter = strtoupper(substr($title, 0, 1));
-				if (!preg_match('/[A-Z]/i', $first_letter)) {
-					$first_letter = '#';
-				}
-
-				$members[] = [
-					'id' => get_the_ID(),
-					'title' => $title,
-					'first_letter' => $first_letter,
-					'logo' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
-					'website' => get_field('website'),
-					'email' => get_field('email'),
-					'phone' => get_field('phone'),
-					'fax_number' => get_field('fax_number'),
-					'line_1' => get_field('line_1'),
-					'line_2' => get_field('line_2'),
-					'line_3' => get_field('line_3'),
-					'zip_code' => get_field('zip_code'),
-					'city' => get_field('city'),
-					'country' => get_field('country'),
-					'description' => get_field('description'),
-				];
-
-
-			}
-			wp_reset_postdata();
+		if ( $is_editor ) {
+			$this->render_editor_preview( $settings );
+			return;
 		}
 
-		// Collect all used letters
-		$letters = array_unique(array_column($members, 'first_letter'));
-		sort($letters);
+		$letters = class_exists( '\ElementorEco\Members_Ajax' )
+			? \ElementorEco\Members_Ajax::get_available_letters()
+			: [];
+
+		$first_letter = ! empty( $letters ) ? reset( $letters ) : '';
 		?>
+		<section
+			id="<?php echo esc_attr( $widget_id ); ?>"
+			class="eco-member-list"
+			data-ajax-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( \ElementorEco\Members_Ajax::NONCE_ACTION ) ); ?>"
+			data-initial-letter="<?php echo esc_attr( $first_letter ); ?>"
+		>
+			<?php if ( ! empty( $settings['title'] ) ) : ?>
+				<h2 class="eco-member-list__title">
+					<?php echo esc_html( $settings['title'] ); ?>
+				</h2>
+			<?php endif; ?>
 
-		<div class="eco-member-list">
-			<h2><?php echo esc_html($settings['title']); ?></h2>
-
-			<div class="member-filter">
-				<?php
-				// Print the filter bar
-				foreach (array_merge(['#'], range('A', 'Z')) as $letter) {
-					$is_active = in_array($letter, $letters);
-					echo sprintf(
-						'<span class="member-filter-item %s" data-letter="%s">%s</span>',
-						$is_active ? '' : 'disabled',
-						$letter,
-						$letter
-					);
-				}
-				?>
+			<div
+				class="member-filter"
+				role="group"
+				aria-label="<?php esc_attr_e( 'Mitglieder alphabetisch filtern', 'elementor-eco' ); ?>"
+			>
+				<?php foreach ( array_merge( [ '#' ], range( 'A', 'Z' ) ) as $letter ) : ?>
+					<?php
+					$is_enabled = in_array( $letter, $letters, true );
+					$is_active  = $is_enabled && $letter === $first_letter;
+					?>
+					<button
+						type="button"
+						class="member-filter-item<?php echo $is_active ? ' active' : ''; ?>"
+						data-letter="<?php echo esc_attr( $letter ); ?>"
+						<?php disabled( ! $is_enabled ); ?>
+						aria-pressed="<?php echo $is_active ? 'true' : 'false'; ?>"
+					>
+						<?php echo esc_html( $letter ); ?>
+					</button>
+				<?php endforeach; ?>
 			</div>
 
-			<div class="member-grid">
-				<?php
-				foreach ($members as $member) {
-					$website = esc_url($member['website']);
-					?>
-					<!-- start -->
-					 <div class="member-item" data-letter="<?php echo esc_attr($member['first_letter']); ?>">
-						<a href="<?php echo esc_url($member['website'] ?: '#'); ?>" target="_blank" rel="noopener">
-							<img src="<?php echo esc_url($member['logo']); ?>" alt="<?php echo esc_attr($member['title']); ?>" />
-						</a>
-						<h6><?php echo esc_html($member['title']); ?></h6>
+			<div
+				class="eco-members-status"
+				role="status"
+				aria-live="polite"
+			></div>
 
-						<?php if ($member['website']) : ?>
-							<p><a href="<?php echo esc_url($member['website']); ?>" target="_blank" rel="noopener">Website besuchen</a></p>
-						<?php endif; ?>
+			<div class="member-grid" aria-busy="true">
+				<?php echo $this->get_loading_skeletons(); ?>
+			</div>
 
-						<?php if (
-							$member['line_1'] || $member['line_2'] || $member['line_3'] ||
-							$member['zip_code'] || $member['city'] || $member['country'] ||
-							$member['phone'] || $member['fax_number'] || $member['email'] || $member['description']
-						) : ?>
-							<p>
-								<a href="#"
-								class="member-description-link"
-								data-title="<?php echo esc_attr($member['title']); ?>"
-								data-website="<?php echo esc_url($member['website']); ?>"
-								data-line1="<?php echo esc_attr($member['line_1']); ?>"
-								data-line2="<?php echo esc_attr($member['line_2']); ?>"
-								data-line3="<?php echo esc_attr($member['line_3']); ?>"
-								data-zip="<?php echo esc_attr($member['zip_code']); ?>"
-								data-city="<?php echo esc_attr($member['city']); ?>"
-								data-country="<?php echo esc_attr($member['country']); ?>"
-								data-phone="<?php echo esc_attr($member['phone']); ?>"
-								data-fax="<?php echo esc_attr($member['fax_number']); ?>"
-								data-email="<?php echo esc_attr($member['email']); ?>"
-								data-description="<?php echo esc_attr(wp_strip_all_tags($member['description'])); ?>">
-									<i class="fas fa-info-circle"></i> Mehr Informationen
-								</a>
-							</p>
-						<?php endif; ?>
-					</div>
-					<!-- end -->
-					<?php
-				}
-				?>
-			</div> <!-- end member-grid -->
-
-			<p style="text-align:center; margin-top: 20px;">
-				<button id="load-more-btn" style="display:none;" class="eco-load-more-btn">
-					Mehr anzeigen
+			<div class="eco-members-load-more">
+				<button
+					type="button"
+					class="eco-load-more-btn"
+					hidden
+				>
+					<?php esc_html_e( 'Mehr anzeigen', 'elementor-eco' ); ?>
 				</button>
-			</p>
+			</div>
 
+			<div
+				class="eco-modal"
+				role="dialog"
+				aria-modal="true"
+				aria-hidden="true"
+				aria-labelledby="<?php echo esc_attr( $widget_id ); ?>-modal-title"
+			>
+				<div class="eco-modal__backdrop" data-modal-close></div>
 
-			<div id="member-description-modal" class="eco-modal">
-				<div class="eco-modal-content">
-					<span class="eco-modal-close">&times;</span>
-					<h5 class="eco-modal-title"></h5>
+				<div class="eco-modal-content" role="document">
+					<button
+						type="button"
+						class="eco-modal-close"
+						data-modal-close
+						aria-label="<?php esc_attr_e( 'Dialog schließen', 'elementor-eco' ); ?>"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+					<h3
+						id="<?php echo esc_attr( $widget_id ); ?>-modal-title"
+						class="eco-modal-title"
+					></h3>
+
 					<div class="eco-modal-body"></div>
 				</div>
 			</div>
+		</section>
+		<?php
+	}
 
+	/**
+	 * Lightweight editor representation.
+	 */
+	private function render_editor_preview( $settings ) {
+		?>
+		<div class="eco-member-list eco-member-list--editor">
+			<?php if ( ! empty( $settings['title'] ) ) : ?>
+				<h2 class="eco-member-list__title">
+					<?php echo esc_html( $settings['title'] ); ?>
+				</h2>
+			<?php endif; ?>
 
+			<div class="member-filter member-filter--preview">
+				<?php foreach ( [ '#', 'A', 'B', 'C', 'D', 'E', 'F', 'G' ] as $index => $letter ) : ?>
+					<span class="member-filter-item<?php echo 0 === $index ? ' active' : ''; ?>">
+						<?php echo esc_html( $letter ); ?>
+					</span>
+				<?php endforeach; ?>
+
+				<span class="member-filter-item member-filter-item--more">…</span>
+			</div>
+
+			<div class="member-grid">
+				<?php echo $this->get_loading_skeletons( 4 ); ?>
+			</div>
+
+			<p class="eco-members-editor-note">
+				<?php
+				esc_html_e(
+					'Die Mitglieder werden auf der Website dynamisch geladen.',
+					'elementor-eco'
+				);
+				?>
+			</p>
 		</div>
 		<?php
 	}
 
+	/**
+	 * Generate loading placeholders.
+	 */
+	private function get_loading_skeletons( $count = 8 ) {
+		ob_start();
+
+		for ( $i = 0; $i < $count; $i++ ) {
+			?>
+			<div class="eco-member-skeleton" aria-hidden="true">
+				<div class="eco-member-skeleton__visual"></div>
+				<div class="eco-member-skeleton__line eco-member-skeleton__line--title"></div>
+				<div class="eco-member-skeleton__line"></div>
+			</div>
+			<?php
+		}
+
+		return ob_get_clean();
+	}
 
 	protected function content_template() {
-		?>
-		
-		
-		<?php
+		/*
+		 * Deliberately empty.
+		 *
+		 * Elementor uses the PHP editor preview rendered above, avoiding
+		 * an expensive client-side preview containing all members.
+		 */
 	}
 }

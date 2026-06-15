@@ -783,7 +783,7 @@
 
 .eco-event-single .eco-event-logo-grid {
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-columns: repeat(6, minmax(0, 1fr));
 	gap: 14px;
 }
 
@@ -792,7 +792,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 104px;
+	aspect-ratio: 1 / 1;
+	min-height: 0;
 	padding: 22px;
 	border-radius: 8px;
 	background: #fff;
@@ -822,8 +823,10 @@
 
 .eco-event-single .eco-event-logo img {
 	display: block;
-	max-width: 100%;
-	max-height: 58px;
+	width: auto;
+	height: auto;
+	max-width: 85%;
+	max-height: 70%;
 	object-fit: contain;
 }
 
@@ -874,9 +877,11 @@
 	.eco-event-single .eco-event-contacts .eco-event-people-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
-	.eco-event-single .eco-event-people-grid--speaker,
-	.eco-event-single .eco-event-logo-grid {
+	.eco-event-single .eco-event-people-grid--speaker {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+	.eco-event-single .eco-event-logo-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 	.eco-event-single--small .eco-event-people-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -961,12 +966,13 @@
 	}
 
 	.eco-event-single .eco-event-logo {
-		min-height: 86px;
+		min-height: 0;
 		padding: 18px;
 	}
 
 	.eco-event-single .eco-event-logo img {
-		max-height: 46px;
+		max-width: 85%;
+		max-height: 70%;
 	}
 
 	.eco-event-single .eco-event-gallery {

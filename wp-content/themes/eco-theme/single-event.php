@@ -31,6 +31,23 @@ wp_enqueue_script(
 
 get_header();
 
+/**
+ * Elementor editor fix.
+ *
+ * Elementor needs the_content() to work, but we don't want to use it for rendering the event content in the editor,
+ * because it would add unwanted markup and styles.
+ * So we check if we're in Elementor preview mode, and if so, we just output the content without the header and footer.
+ */
+if ( isset( $_GET['elementor-preview'] ) ) {
+	while ( have_posts() ) {
+		the_post();
+		the_content();
+	}
+
+	get_footer();
+	return;
+}
+
 while ( have_posts() ) :
 	the_post();
 
