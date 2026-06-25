@@ -489,13 +489,17 @@ class TileFeatureList extends Widget_Base {
 	}
 
 	private function get_description( $post_id ) {
-		$description = function_exists( 'get_field' ) ? get_field( 'description', $post_id ) : '';
-
-		if ( empty( $description ) ) {
-			$description = get_the_excerpt( $post_id );
+		if ( ! function_exists( 'get_field' ) ) {
+			return '';
 		}
 
-		return $description;
+		$overview_description = (string) get_field( 'theme_overview_description', $post_id );
+
+		if ( '' !== trim( $overview_description ) ) {
+			return $overview_description;
+		}
+
+		return (string) get_field( 'description', $post_id );
 	}
 
 	private function get_valid_hex_color( $color ) {
@@ -695,7 +699,7 @@ class TileFeatureList extends Widget_Base {
 
 						<?php if ( ! empty( $description ) ) : ?>
 							<div class="eco-tile-feature-list__description">
-								<?php echo esc_html( $description ); ?>
+								<?php echo wp_kses( $description, array( 'br' => array() ) ); ?>
 							</div>
 						<?php endif; ?>
 					</div>
