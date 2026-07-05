@@ -37,6 +37,10 @@ class Downloads extends Widget_Base {
 		return [ 'eco-downloads-style' ];
 	}
 
+	public function get_script_depends(): array {
+		return [ 'eco-downloads-script' ];
+	}
+
 	protected function register_controls(): void {
 		$this->register_content_controls();
 		$this->register_query_controls();
@@ -221,10 +225,10 @@ class Downloads extends Widget_Base {
 		$this->add_control(
 			'order',
 			[
-				'label'   => __( 'Order', 'elementor-eco' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'DESC',
-				'options' => [
+				'label'     => __( 'Order', 'elementor-eco' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'DESC',
+				'options'   => [
 					'ASC'  => __( 'Ascending', 'elementor-eco' ),
 					'DESC' => __( 'Descending', 'elementor-eco' ),
 				],
@@ -272,15 +276,23 @@ class Downloads extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'show_date',
-			[
-				'label'        => __( 'Show Date', 'elementor-eco' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'yes',
-				'default'      => 'yes',
-			]
-		);
+		foreach ( [
+			'show_date' => [ 'Show Date', 'yes' ],
+			'show_file_meta' => [ 'Show File Information', 'yes' ],
+			'show_excerpt' => [ 'Show Description', 'yes' ],
+			'show_terms' => [ 'Show Term Badges', 'yes' ],
+			'show_pagination' => [ 'Show Pagination', 'yes' ],
+		] as $id => $data ) {
+			$this->add_control(
+				$id,
+				[
+					'label'        => __( $data[0], 'elementor-eco' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'return_value' => 'yes',
+					'default'      => $data[1],
+				]
+			);
+		}
 
 		$this->add_control(
 			'date_label',
@@ -291,46 +303,6 @@ class Downloads extends Widget_Base {
 				'condition' => [
 					'show_date' => 'yes',
 				],
-			]
-		);
-
-		$this->add_control(
-			'show_file_meta',
-			[
-				'label'        => __( 'Show File Information', 'elementor-eco' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'yes',
-				'default'      => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'show_excerpt',
-			[
-				'label'        => __( 'Show Description', 'elementor-eco' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'yes',
-				'default'      => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'show_terms',
-			[
-				'label'        => __( 'Show Term Badges', 'elementor-eco' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'yes',
-				'default'      => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'show_pagination',
-			[
-				'label'        => __( 'Show Pagination', 'elementor-eco' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'return_value' => 'yes',
-				'default'      => 'yes',
 			]
 		);
 
@@ -463,7 +435,11 @@ class Downloads extends Widget_Base {
 		return $options;
 	}
 
-	private function get_context_post_id(): int {
+	private function get_context_post_id_from_settings( array $settings = [] ): int {
+		if ( ! empty( $settings['context_post_id'] ) ) {
+			return absint( $settings['context_post_id'] );
+		}
+
 		$post_id = get_the_ID();
 
 		if ( $post_id ) {
@@ -510,7 +486,7 @@ class Downloads extends Widget_Base {
 		$tags       = [];
 
 		if ( 'current_acf' === ( $settings['query_source'] ?? 'manual' ) ) {
-			$post_id = $this->get_context_post_id();
+			$post_id = $this->get_context_post_id_from_settings( $settings );
 
 			if ( $post_id && function_exists( 'get_field' ) ) {
 				$category_field = sanitize_key( $settings['acf_category_field'] ?? 'download_categories' );
@@ -563,8 +539,20 @@ class Downloads extends Widget_Base {
 		return $clauses;
 	}
 
-	private function get_widget_query_keys(): array {
-		$suffix = sanitize_key( $this->get_id() );
+	private function get_widget_query_keys( array $settings = [] ): array {
+		$suffix = '';
+
+		if ( ! empty( $settings['_widget_id'] ) ) {
+			$suffix = (string) $settings['_widget_id'];
+		} elseif ( method_exists( $this, 'get_id' ) ) {
+			$suffix = (string) $this->get_id();
+		}
+
+		$suffix = sanitize_key( $suffix );
+
+		if ( '' === $suffix ) {
+			$suffix = 'downloads';
+		}
 
 		return [
 			'filter' => 'eco_dl_filter_' . $suffix,
@@ -587,9 +575,7 @@ class Downloads extends Widget_Base {
 				$category_args['include'] = $selected['categories'];
 			}
 
-			$category_terms = get_terms(
-				$category_args
-			);
+			$category_terms = get_terms( $category_args );
 
 			if ( ! is_wp_error( $category_terms ) ) {
 				$terms = array_merge( $terms, $category_terms );
@@ -608,19 +594,14 @@ class Downloads extends Widget_Base {
 				$tag_args['include'] = $selected['tags'];
 			}
 
-			$tag_terms = get_terms(
-				$tag_args
-			);
+			$tag_terms = get_terms( $tag_args );
 
 			if ( ! is_wp_error( $tag_terms ) ) {
 				$terms = array_merge( $terms, $tag_terms );
 			}
 		}
 
-		usort(
-			$terms,
-			static fn( $a, $b ) => strcasecmp( $a->name, $b->name )
-		);
+		usort( $terms, static fn( $a, $b ) => strcasecmp( $a->name, $b->name ) );
 
 		return $terms;
 	}
@@ -732,8 +713,12 @@ class Downloads extends Widget_Base {
 	private function get_accent_color( array $settings ): string {
 		$color = trim( (string) ( $settings['accent_color'] ?? '' ) );
 
+		if ( '' === $color && ! empty( $settings['resolved_accent_color'] ) ) {
+			$color = trim( (string) $settings['resolved_accent_color'] );
+		}
+
 		if ( '' === $color && function_exists( 'get_field' ) ) {
-			$post_id = $this->get_context_post_id();
+			$post_id = $this->get_context_post_id_from_settings( $settings );
 			if ( $post_id ) {
 				$color = trim( (string) get_field( 'color', $post_id ) );
 			}
@@ -760,38 +745,62 @@ class Downloads extends Widget_Base {
 		<?php
 	}
 
-	protected function render(): void {
-		$settings     = $this->get_settings_for_display();
-		$title        = trim( (string) ( $settings['title'] ?? '' ) );
-		$intro        = trim( (string) ( $settings['intro'] ?? '' ) );
-		$button_text  = trim( (string) ( $settings['button_text'] ?? __( 'Download', 'elementor-eco' ) ) );
+	private function prepare_ajax_settings( array $settings ): array {
+		$settings['context_post_id']       = $this->get_context_post_id_from_settings( $settings );
+		$settings['resolved_accent_color'] = $this->get_accent_color( $settings );
+		$settings['_widget_id']            = sanitize_key( $this->get_id() ?: wp_unique_id( 'downloads_' ) );
+
+		return $settings;
+	}
+
+	private function normalize_ajax_settings( $raw ): array {
+		if ( is_string( $raw ) ) {
+			$decoded = json_decode( wp_unslash( $raw ), true );
+			$raw     = is_array( $decoded ) ? $decoded : [];
+		}
+
+		if ( ! is_array( $raw ) ) {
+			return [];
+		}
+
+		$settings = [];
+		$keys = [
+			'query_source', 'manual_categories', 'manual_tags', 'acf_category_field', 'acf_tag_field',
+			'tax_relation', 'empty_terms_behavior', 'posts_per_page', 'orderby', 'order',
+			'show_filters', 'filter_taxonomies', 'show_date', 'date_label', 'show_file_meta',
+			'show_excerpt', 'show_terms', 'show_pagination', 'button_text', 'accent_color',
+			'context_post_id', 'resolved_accent_color', '_widget_id',
+		];
+
+		foreach ( $keys as $key ) {
+			if ( array_key_exists( $key, $raw ) ) {
+				$settings[ $key ] = $raw[ $key ];
+			}
+		}
+
+		$settings['manual_categories'] = $this->normalize_term_ids( $settings['manual_categories'] ?? [] );
+		$settings['manual_tags']       = $this->normalize_term_ids( $settings['manual_tags'] ?? [] );
+		$settings['context_post_id']   = absint( $settings['context_post_id'] ?? 0 );
+		$settings['posts_per_page']    = max( 1, min( 100, absint( $settings['posts_per_page'] ?? 12 ) ) );
+
+		return $settings;
+	}
+
+	private function get_query_state( array $settings, int $page = 1, string $active_filter = '' ): array {
 		$selected     = $this->get_selected_terms( $settings );
 		$has_terms    = ! empty( $selected['categories'] ) || ! empty( $selected['tags'] );
-		$accent_color = $this->get_accent_color( $settings );
-		$query_keys   = $this->get_widget_query_keys();
-		$show_filters = 'yes' === ( $settings['show_filters'] ?? '' );
-		$show_date    = 'yes' === ( $settings['show_date'] ?? '' );
-		$show_meta    = 'yes' === ( $settings['show_file_meta'] ?? '' );
-		$show_excerpt = 'yes' === ( $settings['show_excerpt'] ?? '' );
-		$show_terms   = 'yes' === ( $settings['show_terms'] ?? '' );
-		$show_pages   = 'yes' === ( $settings['show_pagination'] ?? '' );
-		$date_label   = trim( (string) ( $settings['date_label'] ?? __( 'Published', 'elementor-eco' ) ) );
-		$per_page     = max( 1, min( 100, (int) ( $settings['posts_per_page'] ?? 12 ) ) );
 		$relation     = 'OR' === ( $settings['tax_relation'] ?? 'AND' ) ? 'OR' : 'AND';
 		$order        = 'ASC' === ( $settings['order'] ?? 'DESC' ) ? 'ASC' : 'DESC';
 		$orderby      = in_array( $settings['orderby'] ?? 'date', [ 'date', 'title', 'menu_order', 'rand' ], true ) ? $settings['orderby'] : 'date';
-		$paged        = isset( $_GET[ $query_keys['page'] ] ) ? max( 1, (int) $_GET[ $query_keys['page'] ] ) : 1;
-		$active_filter = isset( $_GET[ $query_keys['filter'] ] ) ? sanitize_text_field( wp_unslash( $_GET[ $query_keys['filter'] ] ) ) : '';
-
-		$tax_query = $this->build_base_tax_query( $selected, $relation );
+		$per_page     = max( 1, min( 100, (int) ( $settings['posts_per_page'] ?? 12 ) ) );
+		$page         = max( 1, $page );
+		$active_filter = sanitize_text_field( $active_filter );
+		$tax_query    = $this->build_base_tax_query( $selected, $relation );
 
 		if ( $active_filter && str_contains( $active_filter, ':' ) ) {
 			[ $filter_taxonomy, $filter_term_id ] = array_pad( explode( ':', $active_filter, 2 ), 2, '' );
 
-			if (
-				in_array( $filter_taxonomy, [ 'dlm_download_category', 'dlm_download_tag' ], true )
-				&& absint( $filter_term_id )
-			) {
+			if ( in_array( $filter_taxonomy, [ 'dlm_download_category', 'dlm_download_tag' ], true ) && absint( $filter_term_id ) ) {
 				$tax_query = [
 					[
 						'taxonomy' => $filter_taxonomy,
@@ -803,16 +812,16 @@ class Downloads extends Widget_Base {
 		}
 
 		$args = [
-			'post_type'                     => 'dlm_download',
-			'post_status'                   => 'publish',
-			'posts_per_page'                => $per_page,
-			'paged'                         => $paged,
-			'orderby'                       => $orderby,
-			'order'                         => $order,
-			'eco_require_download_version'  => 1,
-			'update_post_meta_cache'        => false,
-			'update_post_term_cache'        => true,
-			'ignore_sticky_posts'           => true,
+			'post_type'                    => 'dlm_download',
+			'post_status'                  => 'publish',
+			'posts_per_page'               => $per_page,
+			'paged'                        => $page,
+			'orderby'                      => $orderby,
+			'order'                        => $order,
+			'eco_require_download_version' => 1,
+			'update_post_meta_cache'       => false,
+			'update_post_term_cache'       => true,
+			'ignore_sticky_posts'          => true,
 		];
 
 		if ( ! empty( $tax_query ) ) {
@@ -821,15 +830,215 @@ class Downloads extends Widget_Base {
 			$args['post__in'] = [ 0 ];
 		}
 
+		return [
+			'args'          => $args,
+			'selected'      => $selected,
+			'has_terms'     => $has_terms,
+			'active_filter' => $active_filter,
+		];
+	}
+
+	private function run_download_query( array $args ): \WP_Query {
 		add_filter( 'posts_clauses', [ $this, 'filter_downloads_with_versions' ], 10, 2 );
 		$query = new \WP_Query( $args );
 		remove_filter( 'posts_clauses', [ $this, 'filter_downloads_with_versions' ], 10 );
 
+		return $query;
+	}
+
+	private function render_download_items( \WP_Query $query, array $settings, string $accent_color, ?int &$rendered = null ): void {
+		$rendered = 0;
+		$button_text  = trim( (string) ( $settings['button_text'] ?? __( 'Download', 'elementor-eco' ) ) );
+		$show_date    = 'yes' === ( $settings['show_date'] ?? '' );
+		$show_meta    = 'yes' === ( $settings['show_file_meta'] ?? '' );
+		$show_excerpt = 'yes' === ( $settings['show_excerpt'] ?? '' );
+		$show_terms   = 'yes' === ( $settings['show_terms'] ?? '' );
+		$date_label   = trim( (string) ( $settings['date_label'] ?? __( 'Published', 'elementor-eco' ) ) );
+
+		if ( $query->have_posts() ) :
+			while ( $query->have_posts() ) :
+				$query->the_post();
+
+				$post_id  = get_the_ID();
+				$download = $this->get_download_object( $post_id );
+
+				if ( ! $this->is_valid_download( $download ) ) {
+					continue;
+				}
+
+				++$rendered;
+
+				$url          = $this->get_download_url( $download );
+				$filetype     = $this->call_download_method( $download, 'get_the_filetype' );
+				$filesize     = $this->call_download_method( $download, 'get_the_filesize' );
+				$filename     = $this->call_download_method( $download, 'get_the_filename' );
+				$icon_class   = $this->get_file_icon_class( $filetype, $filename );
+				$excerpt      = get_the_excerpt();
+				$category_terms = wp_get_post_terms( $post_id, 'dlm_download_category' );
+				$tag_terms      = wp_get_post_terms( $post_id, 'dlm_download_tag' );
+				$item_terms     = array_merge(
+					is_wp_error( $category_terms ) ? [] : $category_terms,
+					is_wp_error( $tag_terms ) ? [] : $tag_terms
+				);
+				?>
+				<article class="eco-download-card">
+					<div class="eco-download-card-main">
+						<?php if ( $show_terms && ! empty( $item_terms ) && ! is_wp_error( $item_terms ) ) : ?>
+							<div class="eco-download-card-terms">
+								<?php foreach ( $item_terms as $term ) : ?>
+									<span class="eco-download-card-term"><?php echo esc_html( $term->name ); ?></span>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
+
+						<div class="eco-download-card-title-row">
+							<span class="eco-download-card-file-icon <?php echo esc_attr( $icon_class ); ?>" aria-hidden="true"></span>
+							<h3 class="eco-download-card-title"><?php the_title(); ?></h3>
+						</div>
+
+						<?php if ( $show_date || $show_meta ) : ?>
+							<div class="eco-download-card-meta">
+								<?php if ( $show_date ) : ?>
+									<span><?php echo esc_html( $date_label . ': ' . get_the_date() ); ?></span>
+								<?php endif; ?>
+								<?php if ( $show_meta && '' !== $filesize ) : ?><span><?php echo esc_html( $filesize ); ?></span><?php endif; ?>
+							</div>
+						<?php endif; ?>
+
+						<?php if ( $show_excerpt && $excerpt ) : ?>
+							<div class="eco-download-card-excerpt"><?php echo wp_kses_post( wpautop( $excerpt ) ); ?></div>
+						<?php endif; ?>
+					</div>
+
+					<div class="eco-download-card-action">
+						<a class="eco-download-card-button" href="<?php echo esc_url( $url ); ?>">
+							<span><?php echo esc_html( $button_text ); ?></span>
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11"></path><path d="m8 10 4 4 4-4"></path><path d="M5 19h14"></path></svg>
+						</a>
+					</div>
+				</article>
+			<?php endwhile; ?>
+			<?php wp_reset_postdata(); ?>
+		<?php endif; ?>
+
+		<?php if ( 0 === $rendered ) : ?>
+			<?php $this->render_empty_state( $accent_color ); ?>
+		<?php endif;
+	}
+
+	private function render_pagination( \WP_Query $query, array $settings, int $paged, string $active_filter = '' ): void {
+		$show_pages = 'yes' === ( $settings['show_pagination'] ?? '' );
+
+		if ( ! $show_pages || (int) $query->max_num_pages <= 1 ) {
+			return;
+		}
+
+		$query_keys = $this->get_widget_query_keys( $settings );
+		$args      = [ $query_keys['page'] => '%#%' ];
+
+		if ( '' !== $active_filter ) {
+			$args[ $query_keys['filter'] ] = $active_filter;
+		}
+		?>
+		<nav class="eco-downloads-pagination" aria-label="<?php echo esc_attr__( 'Downloads pagination', 'elementor-eco' ); ?>">
+			<?php
+			echo wp_kses_post(
+				paginate_links(
+					[
+						'base'      => esc_url_raw( add_query_arg( $args ) ),
+						'format'    => '',
+						'current'   => $paged,
+						'total'     => (int) $query->max_num_pages,
+						'prev_text' => __( 'Previous', 'elementor-eco' ),
+						'next_text' => __( 'Next', 'elementor-eco' ),
+						'type'      => 'list',
+					]
+				)
+			);
+			?>
+		</nav>
+		<?php
+	}
+
+	private function render_filters( array $filter_terms, string $active_filter, array $settings ): void {
+		if ( empty( $filter_terms ) ) {
+			return;
+		}
+
+		$query_keys = $this->get_widget_query_keys( $settings );
+		?>
+		<nav class="eco-downloads-filters" aria-label="<?php echo esc_attr__( 'Download filters', 'elementor-eco' ); ?>">
+			<a class="eco-downloads-filter <?php echo '' === $active_filter ? 'is-active' : ''; ?>" href="<?php echo esc_url( remove_query_arg( [ $query_keys['filter'], $query_keys['page'] ] ) ); ?>" data-filter="" data-page="1">
+				<?php esc_html_e( 'All', 'elementor-eco' ); ?>
+			</a>
+			<?php foreach ( $filter_terms as $term ) : ?>
+				<?php $filter_value = $term->taxonomy . ':' . $term->term_id; ?>
+				<a class="eco-downloads-filter <?php echo $filter_value === $active_filter ? 'is-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( [ $query_keys['filter'] => $filter_value, $query_keys['page'] => 1 ] ) ); ?>" data-filter="<?php echo esc_attr( $filter_value ); ?>" data-page="1">
+					<?php echo esc_html( $term->name ); ?>
+				</a>
+			<?php endforeach; ?>
+		</nav>
+		<?php
+	}
+
+	private function get_render_fragments( array $settings, int $page, string $active_filter ): array {
+		$accent_color = $this->get_accent_color( $settings );
+		$state        = $this->get_query_state( $settings, $page, $active_filter );
+		$query        = $this->run_download_query( $state['args'] );
+
+		ob_start();
+		$rendered = 0;
+		$this->render_download_items( $query, $settings, $accent_color, $rendered );
+		$list_html = ob_get_clean();
+
+		ob_start();
+		if ( $rendered > 0 ) {
+			$this->render_pagination( $query, $settings, $page, $state['active_filter'] );
+		}
+		$pagination_html = ob_get_clean();
+
+		return [
+			'list_html'       => $list_html,
+			'pagination_html' => $pagination_html,
+			'page'            => $page,
+			'max_pages'       => (int) $query->max_num_pages,
+			'active_filter'   => $state['active_filter'],
+		];
+	}
+
+	public static function ajax_render(): void {
+		$instance = new self();
+		$settings = $instance->normalize_ajax_settings( $_POST['settings'] ?? [] );
+		$page     = isset( $_POST['page'] ) ? max( 1, absint( $_POST['page'] ) ) : 1;
+		$filter   = isset( $_POST['filter'] ) ? sanitize_text_field( wp_unslash( $_POST['filter'] ) ) : '';
+
+		wp_send_json_success( $instance->get_render_fragments( $settings, $page, $filter ) );
+	}
+
+	protected function render(): void {
+		$settings     = $this->prepare_ajax_settings( $this->get_settings_for_display() );
+		$title        = trim( (string) ( $settings['title'] ?? '' ) );
+		$intro        = trim( (string) ( $settings['intro'] ?? '' ) );
+		$selected     = $this->get_selected_terms( $settings );
+		$has_terms    = ! empty( $selected['categories'] ) || ! empty( $selected['tags'] );
+		$accent_color = $this->get_accent_color( $settings );
+		$query_keys   = $this->get_widget_query_keys( $settings );
+		$show_filters = 'yes' === ( $settings['show_filters'] ?? '' );
+		$paged        = isset( $_GET[ $query_keys['page'] ] ) ? max( 1, (int) $_GET[ $query_keys['page'] ] ) : 1;
+		$active_filter = isset( $_GET[ $query_keys['filter'] ] ) ? sanitize_text_field( wp_unslash( $_GET[ $query_keys['filter'] ] ) ) : '';
+		$state        = $this->get_query_state( $settings, $paged, $active_filter );
+		$query        = $this->run_download_query( $state['args'] );
 		$filter_terms = $show_filters && ( $has_terms || 'all' === ( $settings['empty_terms_behavior'] ?? 'none' ) )
 			? $this->get_filter_terms( $selected, $settings['filter_taxonomies'] ?? 'both', ! $has_terms )
 			: [];
 		?>
-		<div class="eco-downloads-widget" style="--eco-downloads-accent: <?php echo esc_attr( $accent_color ); ?>;">
+		<div
+			class="eco-downloads-widget"
+			style="--eco-downloads-accent: <?php echo esc_attr( $accent_color ); ?>;"
+			data-settings="<?php echo esc_attr( wp_json_encode( $settings ) ); ?>"
+			data-page="<?php echo esc_attr( $paged ); ?>"
+			data-filter="<?php echo esc_attr( $state['active_filter'] ); ?>"
+		>
 			<?php if ( '' !== $title || '' !== $intro ) : ?>
 				<header class="eco-downloads-head">
 					<?php if ( '' !== $title ) : ?>
@@ -841,120 +1050,20 @@ class Downloads extends Widget_Base {
 				</header>
 			<?php endif; ?>
 
-			<?php if ( ! empty( $filter_terms ) ) : ?>
-				<nav class="eco-downloads-filters" aria-label="<?php echo esc_attr__( 'Download filters', 'elementor-eco' ); ?>">
-					<a class="eco-downloads-filter <?php echo '' === $active_filter ? 'is-active' : ''; ?>" href="<?php echo esc_url( remove_query_arg( [ $query_keys['filter'], $query_keys['page'] ] ) ); ?>">
-						<?php esc_html_e( 'All', 'elementor-eco' ); ?>
-					</a>
-					<?php foreach ( $filter_terms as $term ) : ?>
-						<?php $filter_value = $term->taxonomy . ':' . $term->term_id; ?>
-						<a class="eco-downloads-filter <?php echo $filter_value === $active_filter ? 'is-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( [ $query_keys['filter'] => $filter_value, $query_keys['page'] => 1 ] ) ); ?>">
-							<?php echo esc_html( $term->name ); ?>
-						</a>
-					<?php endforeach; ?>
-				</nav>
-			<?php endif; ?>
+			<?php $this->render_filters( $filter_terms, $state['active_filter'], $settings ); ?>
 
-			<div class="eco-downloads-list">
-				<?php
-				$rendered = 0;
+			<div class="eco-downloads-results" aria-live="polite">
+				<div class="eco-downloads-list">
+					<?php
+					$rendered = 0;
+					$this->render_download_items( $query, $settings, $accent_color, $rendered );
+					?>
+				</div>
 
-				if ( $query->have_posts() ) :
-					while ( $query->have_posts() ) :
-						$query->the_post();
-
-						$post_id  = get_the_ID();
-						$download = $this->get_download_object( $post_id );
-
-						if ( ! $this->is_valid_download( $download ) ) {
-							continue;
-						}
-
-						++$rendered;
-
-						$url          = $this->get_download_url( $download );
-						$filetype     = $this->call_download_method( $download, 'get_the_filetype' );
-						$filesize     = $this->call_download_method( $download, 'get_the_filesize' );
-						$filename     = $this->call_download_method( $download, 'get_the_filename' );
-						$download_cnt = $this->get_download_count( $download, $post_id );
-						$icon_class   = $this->get_file_icon_class( $filetype, $filename );
-						$excerpt      = get_the_excerpt();
-						$category_terms = wp_get_post_terms( $post_id, 'dlm_download_category' );
-						$tag_terms      = wp_get_post_terms( $post_id, 'dlm_download_tag' );
-						$item_terms     = array_merge(
-							is_wp_error( $category_terms ) ? [] : $category_terms,
-							is_wp_error( $tag_terms ) ? [] : $tag_terms
-						);
-						?>
-						<article class="eco-download-card">
-							<div class="eco-download-card-main">
-								<?php if ( $show_terms && ! empty( $item_terms ) && ! is_wp_error( $item_terms ) ) : ?>
-									<div class="eco-download-card-terms">
-										<?php foreach ( $item_terms as $term ) : ?>
-											<span class="eco-download-card-term"><?php echo esc_html( $term->name ); ?></span>
-										<?php endforeach; ?>
-									</div>
-								<?php endif; ?>
-
-								<div class="eco-download-card-title-row">
-									<span class="eco-download-card-file-icon <?php echo esc_attr( $icon_class ); ?>" aria-hidden="true"></span>
-									<h3 class="eco-download-card-title"><?php the_title(); ?></h3>
-								</div>
-
-								<?php if ( $show_date || $show_meta ) : ?>
-									<div class="eco-download-card-meta">
-										<?php if ( $show_date ) : ?>
-											<span><?php echo esc_html( $date_label . ': ' . get_the_date() ); ?></span>
-										<?php endif; ?>
-										<?php if ( $show_meta && '' !== $filename ) : ?><span><?php echo esc_html( $filename ); ?></span><?php endif; ?>
-										<?php if ( $show_meta && '' !== $filetype ) : ?><span><?php echo esc_html( $filetype ); ?></span><?php endif; ?>
-										<?php if ( $show_meta && '' !== $filesize ) : ?><span><?php echo esc_html( $filesize ); ?></span><?php endif; ?>
-										<?php if ( $show_meta && '' !== $download_cnt ) : ?>
-											<span><?php echo esc_html( sprintf( _n( '%s download', '%s downloads', $download_cnt, 'elementor-eco' ), number_format_i18n( $download_cnt ) ) ); ?></span>
-										<?php endif; ?>
-									</div>
-								<?php endif; ?>
-
-								<?php if ( $show_excerpt && $excerpt ) : ?>
-									<div class="eco-download-card-excerpt"><?php echo wp_kses_post( wpautop( $excerpt ) ); ?></div>
-								<?php endif; ?>
-							</div>
-
-							<div class="eco-download-card-action">
-								<a class="eco-download-card-button" href="<?php echo esc_url( $url ); ?>">
-									<span><?php echo esc_html( $button_text ); ?></span>
-									<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11"></path><path d="m8 10 4 4 4-4"></path><path d="M5 19h14"></path></svg>
-								</a>
-							</div>
-						</article>
-					<?php endwhile; ?>
-					<?php wp_reset_postdata(); ?>
-				<?php endif; ?>
-
-				<?php if ( 0 === $rendered ) : ?>
-					<?php $this->render_empty_state( $accent_color ); ?>
+				<?php if ( $rendered > 0 ) : ?>
+					<?php $this->render_pagination( $query, $settings, $paged, $state['active_filter'] ); ?>
 				<?php endif; ?>
 			</div>
-
-			<?php if ( $show_pages && $rendered > 0 && (int) $query->max_num_pages > 1 ) : ?>
-				<nav class="eco-downloads-pagination" aria-label="<?php echo esc_attr__( 'Downloads pagination', 'elementor-eco' ); ?>">
-					<?php
-					echo wp_kses_post(
-						paginate_links(
-							[
-								'base'      => esc_url_raw( add_query_arg( $query_keys['page'], '%#%' ) ),
-								'format'    => '',
-								'current'   => $paged,
-								'total'     => (int) $query->max_num_pages,
-								'prev_text' => __( 'Previous', 'elementor-eco' ),
-								'next_text' => __( 'Next', 'elementor-eco' ),
-								'type'      => 'list',
-							]
-						)
-					);
-					?>
-				</nav>
-			<?php endif; ?>
 		</div>
 		<?php
 	}

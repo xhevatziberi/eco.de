@@ -108,6 +108,16 @@ class Plugin {
 		wp_register_style( 'eco-people-vertical-style', plugins_url( '/assets/css/people-vertical.css', __FILE__  ), [], $version );
 
 		wp_register_style( 'eco-downloads-style', plugins_url( '/assets/css/downloads.css', __FILE__  ), [], $version );
+		wp_register_script( 'eco-downloads-script', plugins_url( '/assets/js/downloads.js', __FILE__ ), [ 'jquery' ], $version, true );
+		wp_localize_script(
+			'eco-downloads-script',
+			'ecoDownloads',
+			[
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'eco_downloads_nonce' ),
+				'error'   => __( 'Fehler beim Laden der Downloads.', 'elementor-eco' ),
+			]
+		);
 		wp_register_style( 'eco-tile-icon-grid-style', plugins_url( '/assets/css/tile-icon-grid.css', __FILE__ ), [], $version );
 		wp_register_style( 'eco-number-box-style', plugins_url( '/assets/css/number-box.css', __FILE__ ), [], $version );
 
@@ -237,6 +247,18 @@ class Plugin {
 		);
 	}
 
+	public function ajax_downloads_render() {
+		check_ajax_referer( 'eco_downloads_nonce', 'nonce' );
+
+		require_once __DIR__ . '/widgets/downloads.php';
+
+		if ( ! class_exists( '\ElementorEco\Widgets\Downloads' ) ) {
+			wp_send_json_error( [ 'message' => 'Downloads widget not available.' ], 500 );
+		}
+
+		\ElementorEco\Widgets\Downloads::ajax_render();
+	}
+
 	function add_elementor_page_settings_controls( \Elementor\Core\DocumentTypes\PageBase $page ) {
 		$page->start_controls_section(
 			'page_section',
@@ -263,6 +285,9 @@ class Plugin {
 
 		require_once __DIR__ . '/inc/event-calendar-ajax.php';
 		\ElementorEco\EventCalendarAjax::init();
+
+		add_action( 'wp_ajax_eco_downloads_render', [ $this, 'ajax_downloads_render' ] );
+		add_action( 'wp_ajax_nopriv_eco_downloads_render', [ $this, 'ajax_downloads_render' ] );
 
 		// Register widget scripts
 		add_action( 'elementor/frontend/after_register_scripts', [ $this, 'widget_scripts' ] );

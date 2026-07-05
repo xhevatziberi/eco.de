@@ -67,6 +67,7 @@ class ContentCards extends Widget_Base {
 				'options' => [
 					'manual'            => __( 'Manual / Widget Terms', 'elementor-eco' ),
 					'current_acf_terms' => __( 'Current ACF Terms', 'elementor-eco' ),
+					'current_taxonomy'  => __( 'Current Taxonomy Term', 'elementor-eco' ),
 				],
 			]
 		);
@@ -178,6 +179,21 @@ class ContentCards extends Widget_Base {
 		);
 
 		$this->add_control(
+			'highlight_filter',
+			[
+				'label'       => __( 'Highlight Filter', 'elementor-eco' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'all',
+				'options'     => [
+					'all'              => __( 'All', 'elementor-eco' ),
+					'highlighted_only' => __( 'Highlighted only', 'elementor-eco' ),
+					'skip_first'       => __( 'Skip first highlight', 'elementor-eco' ),
+				],
+				'description' => __( 'Uses the ACF/SCF true/false field is_highlight. “Skip first highlight” excludes only the newest highlighted item matching this widget query.', 'elementor-eco' ),
+			],
+		);
+
+		$this->add_control(
 			'exclude_current',
 			[
 				'label'        => __( 'Exclude Current Post', 'elementor-eco' ),
@@ -212,19 +228,6 @@ class ContentCards extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'featured_post_id',
-			[
-				'label'       => __( 'Featured Post', 'elementor-eco' ),
-				'type'        => Controls_Manager::SELECT2,
-				'label_block' => true,
-				'options'     => $this->get_manual_post_options(),
-				'description' => __( 'Used only for Featured Horizontal style. If empty, the normal query is used.', 'elementor-eco' ),
-				'condition'   => [
-					'card_style' => 'featured',
-				],
-			]
-		);
 
 		$this->add_control(
 			'featured_image_position',
@@ -752,21 +755,6 @@ class ContentCards extends Widget_Base {
 			$post_types = [ 'post' ];
 		}
 
-		$card_style       = $settings['card_style'] ?? 'default';
-		$featured_post_id = ! empty( $settings['featured_post_id'] ) ? absint( $settings['featured_post_id'] ) : 0;
-
-		if ( $card_style === 'featured' && $featured_post_id ) {
-			$featured_post_type = get_post_type( $featured_post_id );
-
-			return [
-				'post_type'           => $featured_post_type ? $featured_post_type : 'any',
-				'post_status'         => 'publish',
-				'posts_per_page'      => 1,
-				'post__in'            => [ $featured_post_id ],
-				'orderby'             => 'post__in',
-				'ignore_sticky_posts' => true,
-			];
-		}
 
 		$posts_per_page = ! empty( $settings['posts_per_page'] ) ? absint( $settings['posts_per_page'] ) : 3;
 		$base_offset    = ! empty( $settings['offset'] ) ? absint( $settings['offset'] ) : 0;
@@ -811,10 +799,20 @@ class ContentCards extends Widget_Base {
 			$args['order']   = $order;
 		}
 
-		if ( ( $settings['query_source'] ?? 'manual' ) === 'current_acf_terms' ) {
+		$query_source = $settings['query_source'] ?? 'manual';
+
+		if ( $query_source === 'current_acf_terms' ) {
 			$tax_query = self::build_tax_query_from_current_acf_terms( $settings );
 
 			if ( isset( $tax_query['__eco_empty_acf_terms'] ) ) {
+				$args['post__in'] = [ 0 ];
+			} elseif ( ! empty( $tax_query ) ) {
+				$args['tax_query'] = $tax_query;
+			}
+		} elseif ( $query_source === 'current_taxonomy' ) {
+			$tax_query = self::build_tax_query_from_current_taxonomy( $settings );
+
+			if ( isset( $tax_query['__eco_empty_current_taxonomy'] ) ) {
 				$args['post__in'] = [ 0 ];
 			} elseif ( ! empty( $tax_query ) ) {
 				$args['tax_query'] = $tax_query;
@@ -842,6 +840,8 @@ class ContentCards extends Widget_Base {
 			];
 		}
 
+		$args = self::apply_highlight_filter( $args, $settings );
+
 		return $args;
 	}
 
@@ -853,6 +853,112 @@ class ContentCards extends Widget_Base {
 		$ids = array_filter( array_map( 'absint', explode( ',', $ids_string ) ) );
 
 		return array_values( array_unique( $ids ) );
+	}
+
+	private static function get_highlight_meta_clause() {
+		return [
+			'key'     => 'is_highlight',
+			'value'   => '1',
+			'compare' => '=',
+		];
+	}
+
+	private static function append_meta_query_clause( $args, $clause ) {
+		if ( empty( $clause ) || ! is_array( $clause ) ) {
+			return $args;
+		}
+
+		if ( empty( $args['meta_query'] ) || ! is_array( $args['meta_query'] ) ) {
+			$args['meta_query'] = [ $clause ];
+
+			return $args;
+		}
+
+		$meta_query = $args['meta_query'];
+
+		if ( isset( $meta_query['relation'] ) ) {
+			$meta_query[] = $clause;
+		} else {
+			$normalized_meta_query = [
+				'relation' => 'AND',
+			];
+
+			foreach ( $meta_query as $existing_clause ) {
+				if ( is_array( $existing_clause ) ) {
+					$normalized_meta_query[] = $existing_clause;
+				}
+			}
+
+			$normalized_meta_query[] = $clause;
+			$meta_query               = $normalized_meta_query;
+		}
+
+		$args['meta_query'] = $meta_query;
+
+		return $args;
+	}
+
+	private static function apply_highlight_filter( $args, $settings ) {
+		$highlight_filter = ! empty( $settings['highlight_filter'] )
+			? sanitize_key( $settings['highlight_filter'] )
+			: 'all';
+
+		if ( ! in_array( $highlight_filter, [ 'all', 'highlighted_only', 'skip_first' ], true ) ) {
+			$highlight_filter = 'all';
+		}
+
+		if ( 'all' === $highlight_filter ) {
+			return $args;
+		}
+
+		if ( 'highlighted_only' === $highlight_filter ) {
+			return self::append_meta_query_clause( $args, self::get_highlight_meta_clause() );
+		}
+
+		$first_highlight_id = self::get_first_highlight_id_for_query( $args );
+
+		if ( $first_highlight_id ) {
+			$post__not_in = ! empty( $args['post__not_in'] ) && is_array( $args['post__not_in'] )
+				? array_map( 'absint', $args['post__not_in'] )
+				: [];
+
+			$post__not_in[] = $first_highlight_id;
+
+			$args['post__not_in'] = array_values( array_unique( array_filter( $post__not_in ) ) );
+		}
+
+		return $args;
+	}
+
+	private static function get_first_highlight_id_for_query( $args ) {
+		if ( ! empty( $args['post__in'] ) && is_array( $args['post__in'] ) && in_array( 0, array_map( 'absint', $args['post__in'] ), true ) ) {
+			return 0;
+		}
+
+		$highlight_args = $args;
+
+		unset( $highlight_args['offset'] );
+		unset( $highlight_args['paged'] );
+		unset( $highlight_args['meta_key'] );
+
+		$highlight_args['posts_per_page']         = 1;
+		$highlight_args['fields']                 = 'ids';
+		$highlight_args['no_found_rows']          = true;
+		$highlight_args['ignore_sticky_posts']    = true;
+		$highlight_args['update_post_meta_cache'] = false;
+		$highlight_args['update_post_term_cache'] = false;
+		$highlight_args['orderby']                = 'date';
+		$highlight_args['order']                  = 'DESC';
+
+		$highlight_args = self::append_meta_query_clause( $highlight_args, self::get_highlight_meta_clause() );
+
+		$query = new \WP_Query( $highlight_args );
+
+		if ( empty( $query->posts ) ) {
+			return 0;
+		}
+
+		return absint( $query->posts[0] );
 	}
 
 	private static function build_tax_query_from_settings( $settings ) {
@@ -893,6 +999,43 @@ class ContentCards extends Widget_Base {
 		}
 
 		return $tax_query;
+	}
+
+
+	private static function build_tax_query_from_current_taxonomy( $settings ) {
+		$query_source = $settings['query_source'] ?? 'manual';
+
+		if ( $query_source !== 'current_taxonomy' ) {
+			return [];
+		}
+
+		$term_id  = ! empty( $settings['context_term_id'] ) ? absint( $settings['context_term_id'] ) : 0;
+		$taxonomy = ! empty( $settings['context_taxonomy'] ) ? sanitize_key( $settings['context_taxonomy'] ) : '';
+
+		if ( $term_id && ! empty( $taxonomy ) && taxonomy_exists( $taxonomy ) ) {
+			$term = get_term( $term_id, $taxonomy );
+		} else {
+			$term = get_queried_object();
+		}
+
+		if ( ! $term || is_wp_error( $term ) || empty( $term->term_id ) || empty( $term->taxonomy ) ) {
+			return [ '__eco_empty_current_taxonomy' => true ];
+		}
+
+		$taxonomy = sanitize_key( $term->taxonomy );
+
+		if ( ! taxonomy_exists( $taxonomy ) ) {
+			return [ '__eco_empty_current_taxonomy' => true ];
+		}
+
+		return [
+			[
+				'taxonomy'         => $taxonomy,
+				'field'            => 'term_id',
+				'terms'            => [ absint( $term->term_id ) ],
+				'include_children' => true,
+			],
+		];
 	}
 
 	private static function build_tax_query_from_current_acf_terms( $settings ) {
@@ -1356,10 +1499,16 @@ class ContentCards extends Widget_Base {
 
 		$widget_id = 'eco-content-cards-' . $this->get_id();
 
+		$queried_object = get_queried_object();
+		$context_taxonomy = ( $queried_object instanceof \WP_Term ) ? $queried_object->taxonomy : '';
+		$context_term_id  = ( $queried_object instanceof \WP_Term ) ? absint( $queried_object->term_id ) : 0;
+
 		$ajax_settings = [
 			'query_source'     => $settings['query_source'] ?? 'manual',
 			'acf_term_fields'  => $settings['acf_term_fields'] ?? '',
 			'context_post_id'  => get_queried_object_id(),
+			'context_taxonomy' => $context_taxonomy,
+			'context_term_id'  => $context_term_id,
 			'post_types'       => $settings['post_types'] ?? [ 'post' ],
 			'include_terms'    => $settings['include_terms'] ?? [],
 			'manual_ids'       => $settings['manual_ids'] ?? '',
@@ -1368,9 +1517,9 @@ class ContentCards extends Widget_Base {
 			'orderby'          => $settings['orderby'] ?? 'date',
 			'order'            => $settings['order'] ?? 'DESC',
 			'event_filter'     => $settings['event_filter'] ?? 'all',
+			'highlight_filter' => $settings['highlight_filter'] ?? 'all',
 			'exclude_current'  => $settings['exclude_current'] ?? '',
 			'card_style'              => $settings['card_style'] ?? 'default',
-			'featured_post_id'        => $settings['featured_post_id'] ?? '',
 			'featured_image_position' => $settings['featured_image_position'] ?? 'left',
 			'image_ratio'             => $settings['image_ratio'] ?? '16-9',
 			'badge_source'     => $settings['badge_source'] ?? 'auto',
