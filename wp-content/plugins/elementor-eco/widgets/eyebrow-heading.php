@@ -17,7 +17,7 @@ class EyebrowHeading extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'ECO Eyebrow Heading', 'elementor-eco' );
+		return __( 'eco Eyebrow Heading', 'elementor-eco' );
 	}
 
 	public function get_icon() {

@@ -246,7 +246,7 @@ class Plugin {
 		$elements_manager->add_category(
 			'eco',
 			[
-				'title' => __( 'Eco Widgets', 'elementor-eco' ),
+				'title' => __( 'eco Widgets', 'elementor-eco' ),
 				'icon' => 'eicon-star',
 			]
 		);
@@ -268,7 +268,7 @@ class Plugin {
 		$page->start_controls_section(
 			'page_section',
 			[
-				'label' => __( 'Eco', 'elementor' ),
+				'label' => __( 'eco', 'elementor' ),
 				'tab' => \Elementor\Controls_Manager::TAB_SETTINGS,
 			]
 		);

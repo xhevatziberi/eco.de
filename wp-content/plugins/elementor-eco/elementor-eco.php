@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Elementor Eco
- * Description: Elementor plugin with widgets for Eco website.
+ * Plugin Name: Elementor eco
+ * Description: Elementor plugin with widgets for eco website.
  * Plugin URI:  #!
  * Version:     1.2.13
  * Elementor tested up to: 3.15.0
- * Author:      Eco
+ * Author:      eco
  * Author URI:  https://eco.de/
  * Text Domain: elementor-eco
  * Domain Path: /languages
@@ -14,9 +14,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * Main Elementor Eco Class
+ * Main Elementor eco Class
  *
- * The init class that runs the Eco World plugin.
+ * The init class that runs the eco World plugin.
  * Intended To make sure that the plugin's minimum requirements are met.
  *
  * You should only modify the constants to match your plugin's needs.
@@ -139,7 +139,7 @@ final class Elementor_Eco {
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor */
 			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'elementor-eco' ),
-			'<strong>' . esc_html__( 'Elementor Eco', 'elementor-eco' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor eco', 'elementor-eco' ) . '</strong>',
 			'<strong>' . esc_html__( 'Elementor', 'elementor-eco' ) . '</strong>'
 		);
 
@@ -162,7 +162,7 @@ final class Elementor_Eco {
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
 			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'elementor-eco' ),
-			'<strong>' . esc_html__( 'Elementor Eco', 'elementor-eco' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor eco', 'elementor-eco' ) . '</strong>',
 			'<strong>' . esc_html__( 'Elementor', 'elementor-eco' ) . '</strong>',
 			self::MINIMUM_ELEMENTOR_VERSION
 		);
@@ -186,7 +186,7 @@ final class Elementor_Eco {
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
 			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'elementor-eco' ),
-			'<strong>' . esc_html__( 'Elementor Eco', 'elementor-eco' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor eco', 'elementor-eco' ) . '</strong>',
 			'<strong>' . esc_html__( 'PHP', 'elementor-eco' ) . '</strong>',
 			self::MINIMUM_PHP_VERSION
 		);

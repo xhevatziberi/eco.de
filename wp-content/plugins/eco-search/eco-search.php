@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: ECO Search UI (SearchWP)
+ * Plugin Name: eco Search UI (SearchWP)
  * Description: Toggleable header search UI + custom SearchWP-powered search template with filters.
  * Version: 1.0.3
  * Author: Batlab

@@ -7,7 +7,7 @@ use Elementor\Widget_Base;
 class ECO_Events_Carousel_Widget extends Widget_Base {
 
   public function get_name()        { return 'eco-events-carousel'; }
-  public function get_title()       { return 'ECO – Events Carousel'; }
+  public function get_title()       { return 'eco – Events Carousel'; }
   public function get_icon()        { return 'eicon-slider-push'; }
   public function get_categories()  { return ['general']; }
   public function get_style_depends(){ return ['eco-events-carousel-style']; }

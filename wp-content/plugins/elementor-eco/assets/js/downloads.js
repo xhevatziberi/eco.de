@@ -123,7 +123,7 @@
 			})
 			.fail(function () {
 				if (window.console && console.warn) {
-					console.warn(ecoDownloads.error || 'ECO Downloads: Ajax request failed.');
+					console.warn(ecoDownloads.error || 'eco Downloads: Ajax request failed.');
 				}
 			})
 			.always(function () {

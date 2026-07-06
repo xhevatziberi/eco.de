@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Elementor Eco\n"
-"POT-Creation-Date: 2026-07-06 15:43+0200\n"
+"Project-Id-Version: Elementor eco\n"
+"POT-Creation-Date: 2026-07-06 18:26+0200\n"
 "PO-Revision-Date: 2026-07-06 14:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,7 +30,7 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 #: elementor-eco.php:142 elementor-eco.php:165 elementor-eco.php:189
-msgid "Elementor Eco"
+msgid "Elementor eco"
 msgstr ""
 
 #: elementor-eco.php:143 elementor-eco.php:166
@@ -270,12 +270,12 @@ msgid "Error loading downloads."
 msgstr ""
 
 #: plugin.php:249
-msgid "Eco Widgets"
+msgid "eco Widgets"
 msgstr ""
 
 #. Author of the plugin/theme
 #: plugin.php:271
-msgid "Eco"
+msgid "eco"
 msgstr ""
 
 #: widgets/benefit-card.php:22
@@ -496,7 +496,7 @@ msgid "Title #1"
 msgstr ""
 
 #: widgets/content-cards.php:20
-msgid "ECO Content Cards"
+msgid "eco Content Cards"
 msgstr ""
 
 #: widgets/content-cards.php:44 widgets/downloads.php:97
@@ -877,7 +877,7 @@ msgid "Loading..."
 msgstr ""
 
 #: widgets/downloads.php:21
-msgid "ECO Downloads"
+msgid "eco Downloads"
 msgstr ""
 
 #: widgets/downloads.php:64
@@ -1204,7 +1204,7 @@ msgid "Category 2"
 msgstr ""
 
 #: widgets/eyebrow-heading.php:20
-msgid "ECO Eyebrow Heading"
+msgid "eco Eyebrow Heading"
 msgstr ""
 
 #: widgets/eyebrow-heading.php:51
@@ -1272,7 +1272,7 @@ msgid "Typography"
 msgstr ""
 
 #: widgets/featured-slider.php:20
-msgid "ECO Featured Slider"
+msgid "eco Featured Slider"
 msgstr ""
 
 #: widgets/featured-slider.php:44
@@ -1765,7 +1765,7 @@ msgid "Play episode"
 msgstr ""
 
 #: widgets/testimonial-showcase.php:22
-msgid "ECO Testimonial Showcase"
+msgid "eco Testimonial Showcase"
 msgstr ""
 
 #: widgets/testimonial-showcase.php:58 widgets/testimonial-showcase.php:120
@@ -1978,7 +1978,7 @@ msgid "#!"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Elementor plugin with widgets for Eco website."
+msgid "Elementor plugin with widgets for eco website."
 msgstr ""
 
 #. Author URI of the plugin/theme

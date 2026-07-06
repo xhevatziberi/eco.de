@@ -1,4 +1,4 @@
-# Elementor Eco Plugin
+# Elementor eco Plugin
 
 This is a sample plugin to demonstrate how you can write extentions (plugins) to add custom functionality to [Elementor](https://github.com/pojome/elementor/)
 
@@ -22,7 +22,7 @@ plugin.php
   * `/js` directory - Holds plugin Javascript Files
   * `/css` directory - Holds plugin CSS Files
 * `widgets` directory - Holds Plugin widgets
-  * `/hello-world.php` - Eco Widget class
+  * `/hello-world.php` - eco Widget class
   * `/inline-editing.php` - Inline Editing demo Widget class
 * `index.php`	- Prevent direct access to directories
 * `elementor-eco.php`	- Main plugin file, used as a loader if plugin minimum requirements are met.

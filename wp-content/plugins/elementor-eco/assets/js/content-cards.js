@@ -45,7 +45,7 @@
 				}
 			})
 			.fail(function () {
-				console.warn('ECO Content Cards: Ajax load more failed.');
+				console.warn('eco Content Cards: Ajax load more failed.');
 			})
 			.always(function () {
 				$widget.removeClass('is-loading');

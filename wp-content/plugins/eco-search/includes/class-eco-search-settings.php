@@ -15,8 +15,8 @@ class Settings {
 
     public static function admin_menu() {
         add_options_page(
-            __('ECO Search', 'eco-search'),
-            __('ECO Search', 'eco-search'),
+            __('eco', 'eco-search'),
+            __('eco Search', 'eco-search'),
             'manage_options',
             'eco-search',
             [__CLASS__, 'render_page']
@@ -212,7 +212,7 @@ class Settings {
 
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html__('ECO Search', 'eco-search'); ?></h1>
+            <h1><?php echo esc_html__('eco Search', 'eco-search'); ?></h1>
 
             <form method="post" action="options.php">
                 <?php

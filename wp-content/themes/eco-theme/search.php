@@ -1,6 +1,6 @@
 <?php
 /**
- * Search results override (ECO Search UI)
+ * Search results override (eco Search UI)
  */
 
 get_header();

@@ -17,7 +17,7 @@ class FeaturedSlider extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'ECO Featured Slider', 'elementor-eco' );
+		return __( 'eco Featured Slider', 'elementor-eco' );
 	}
 
 	public function get_icon() {

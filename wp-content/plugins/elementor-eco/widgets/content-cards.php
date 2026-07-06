@@ -17,7 +17,7 @@ class ContentCards extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'ECO Content Cards', 'elementor-eco' );
+		return __( 'eco Content Cards', 'elementor-eco' );
 	}
 
 	public function get_icon() {

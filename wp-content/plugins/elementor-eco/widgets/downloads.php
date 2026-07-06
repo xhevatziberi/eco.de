@@ -18,7 +18,7 @@ class Downloads extends Widget_Base {
 	}
 
 	public function get_title(): string {
-		return __( 'ECO Downloads', 'elementor-eco' );
+		return __( 'eco Downloads', 'elementor-eco' );
 	}
 
 	public function get_icon(): string {

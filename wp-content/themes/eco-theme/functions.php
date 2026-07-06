@@ -1,6 +1,6 @@
 <?php
 /**
- * Eco Child Theme
+ * eco Child Theme
  * @package eco-child
  * @author Batlab
  */

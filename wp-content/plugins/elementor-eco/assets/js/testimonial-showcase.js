@@ -14,7 +14,7 @@
 			return JSON.parse(raw);
 		} catch (error) {
 			console.warn(
-				'ECO Testimonial Showcase: invalid settings.',
+				'eco Testimonial Showcase: invalid settings.',
 				error
 			);
 
@@ -171,7 +171,7 @@
 				root.ecoTestimonialShowcaseInitializing = false;
 
 				console.error(
-					'ECO Testimonial Showcase: Swiper initialization failed.',
+					'eco Testimonial Showcase: Swiper initialization failed.',
 					error
 				);
 			}
@@ -203,7 +203,7 @@
 						root.ecoTestimonialShowcaseInitializing = false;
 
 						console.error(
-							'ECO Testimonial Showcase: Swiper initialization failed.',
+							'eco Testimonial Showcase: Swiper initialization failed.',
 							error
 						);
 					});
@@ -216,7 +216,7 @@
 			root.ecoTestimonialShowcaseInitializing = false;
 
 			console.error(
-				'ECO Testimonial Showcase: Swiper initialization failed.',
+				'eco Testimonial Showcase: Swiper initialization failed.',
 				error
 			);
 		}

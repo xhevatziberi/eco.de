@@ -1,13 +1,15 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Project-Id-Version: ECO Search UI (SearchWP)\n"
-"POT-Creation-Date: 2026-07-06 16:45+0200\n"
-"PO-Revision-Date: 2026-07-06 17:01+0200\n"
+"Project-Id-Version: eco Search UI (SearchWP)\n"
+"POT-Creation-Date: 2026-07-06 18:34+0200\n"
+"PO-Revision-Date: 2026-07-06 18:36+0200\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -16,8 +18,6 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: \n"
-"Language: de_DE\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -70,10 +70,14 @@ msgid "All time"
 msgstr "Gesamter Zeitraum"
 
 #: includes/class-eco-search-settings.php:18
+msgid "eco"
+msgstr ""
+
 #: includes/class-eco-search-settings.php:19
 #: includes/class-eco-search-settings.php:215
-msgid "ECO Search"
-msgstr "eco Search"
+#, fuzzy
+msgid "eco Search"
+msgstr "Suche"
 
 #: includes/class-eco-search-settings.php:222
 msgid "Header quick topics"
@@ -107,11 +111,12 @@ msgid "Search"
 msgstr "Suche"
 
 #: includes/class-eco-search-shortcodes.php:60
-#: includes/class-eco-search-shortcodes.php:76 templates/search-wrap.php:65
+#: includes/class-eco-search-shortcodes.php:76 templates/search-wrap.php:59
+#: templates/search-wrap.php:67
 msgid "Keyword"
 msgstr "Suchbegriff"
 
-#: includes/class-eco-search-shortcodes.php:91 templates/search-wrap.php:112
+#: includes/class-eco-search-shortcodes.php:91 templates/search-wrap.php:114
 msgid "Find"
 msgstr "Suchen"
 
@@ -124,7 +129,7 @@ msgid "Quick topics"
 msgstr "Schnellthemen"
 
 #: includes/class-eco-search-taxonomy.php:15
-#: includes/class-eco-search-taxonomy.php:23 templates/search-wrap.php:72
+#: includes/class-eco-search-taxonomy.php:23 templates/search-wrap.php:74
 msgid "Topics"
 msgstr "Themen"
 
@@ -136,7 +141,7 @@ msgstr "Thema"
 msgid "Search Topics"
 msgstr "Themen suchen"
 
-#: includes/class-eco-search-taxonomy.php:18 templates/search-wrap.php:74
+#: includes/class-eco-search-taxonomy.php:18 templates/search-wrap.php:76
 msgid "All Topics"
 msgstr "Alle Themen"
 
@@ -156,39 +161,39 @@ msgstr "Neues Thema hinzufügen"
 msgid "New Topic Name"
 msgstr "Name des neuen Themas"
 
-#: templates/search-wrap.php:84
+#: templates/search-wrap.php:86
 msgid "Date"
 msgstr "Datum"
 
-#: templates/search-wrap.php:95
+#: templates/search-wrap.php:97
 msgid "Content"
 msgstr "Inhalt"
 
-#: templates/search-wrap.php:120
+#: templates/search-wrap.php:122
 msgid "Search results for"
 msgstr "Suchergebnisse für"
 
-#: templates/search-wrap.php:131
+#: templates/search-wrap.php:133
 #, php-format
 msgid "%s result"
 msgid_plural "%s results"
 msgstr[0] "%s Ergebnis"
 msgstr[1] "%s Ergebnisse"
 
-#: templates/search-wrap.php:173
+#: templates/search-wrap.php:175
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden."
 
-#: templates/search-wrap.php:195
+#: templates/search-wrap.php:197
 msgid "Prev"
 msgstr "Zurück"
 
-#: templates/search-wrap.php:208
+#: templates/search-wrap.php:210
 msgid "Next"
 msgstr "Weiter"
 
 #. Plugin Name of the plugin/theme
-msgid "ECO Search UI (SearchWP)"
+msgid "eco Search UI (SearchWP)"
 msgstr ""
 
 #. Description of the plugin/theme

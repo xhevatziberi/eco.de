@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: ECO Theme\n"
-"POT-Creation-Date: 2026-07-06 17:51+0200\n"
+"Project-Id-Version: eco Theme\n"
+"POT-Creation-Date: 2026-07-06 18:37+0200\n"
 "PO-Revision-Date: 2026-07-06 17:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,8 +16,8 @@ msgstr ""
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -215,7 +215,7 @@ msgid "Registration"
 msgstr ""
 
 #. Theme Name of the plugin/theme
-msgid "ECO Theme"
+msgid "eco Theme"
 msgstr ""
 
 #. Theme URI of the plugin/theme
@@ -223,7 +223,7 @@ msgid "https://eco.de"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Child theme for ECO based on Hello Elementor."
+msgid "Child theme for eco."
 msgstr ""
 
 #. Author of the plugin/theme

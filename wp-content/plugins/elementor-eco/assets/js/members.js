@@ -255,7 +255,7 @@
 				loadMoreButton.removeAttribute("aria-busy");
 			}
 
-			console.error("ECO Members:", error);
+			console.error("eco Members:", error);
 		} finally {
 			if (getCurrentRequest() === controller) {
 				setCurrentRequest(null);
@@ -311,7 +311,7 @@
 					`<p class="eco-members-error">${ecoMembersL10n.memberDetailsLoadError}</p>`;
 			}
 
-			console.error("ECO Member details:", error);
+			console.error("eco Member details:", error);
 		}
 	}
 
