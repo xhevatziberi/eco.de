@@ -332,13 +332,13 @@ class EventCalendarAjax {
 		</div>
 
 		<div class="eco-event-calendar__weekdays" aria-hidden="true">
-			<span><?php esc_html_e( 'Mon', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Tue', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Wed', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Thu', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Fri', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Sat', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Sun', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Mo', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Tu', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'We', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Th', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Fr', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Sa', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Su', 'elementor-eco' ); ?></span>
 		</div>
 
 		<div class="eco-event-calendar__days">

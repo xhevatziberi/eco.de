@@ -479,3 +479,118 @@
 		font-size: 21px;
 	}
 }
+
+@media (max-width: 767px) {
+	.eco-content-card--overlay {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	.eco-content-card--overlay .eco-content-card__image {
+		flex: 0 0 auto;
+	}
+
+	.eco-content-card--overlay .eco-content-card__body {
+		position: relative;
+		inset: auto;
+		z-index: 2;
+		width: 100%;
+		min-height: auto;
+		padding: 22px;
+		background: #19111f;
+		pointer-events: auto;
+	}
+
+	.eco-content-card--overlay .eco-content-card__image::after {
+		background:
+			linear-gradient(
+				180deg,
+				rgba(25, 17, 31, 0.08) 0%,
+				rgba(25, 17, 31, 0.42) 100%
+			),
+			linear-gradient(
+				90deg,
+				rgba(50, 8, 92, 0.62) 0%,
+				rgba(50, 8, 92, 0.18) 100%
+			);
+	}
+
+	.eco-content-card--overlay .eco-content-card__title {
+		font-size: 21px;
+		line-height: 1.25;
+	}
+
+	.eco-content-card--overlay .eco-content-card__meta {
+		margin-top: 12px;
+	}
+}
+
+@media (max-width: 767px) {
+	/* Let Elementor containers grow naturally on mobile */
+	.elementor-widget-eco-content-cards,
+	.elementor-widget-eco-content-cards > .elementor-widget-container,
+	.elementor-widget-eco-content-cards .eco-content-cards,
+	.elementor-widget-eco-content-cards .eco-content-cards__grid {
+		height: auto !important;
+		min-height: 0 !important;
+	}
+
+	/* Make overlay cards normal document-flow cards on mobile */
+	.elementor-widget-eco-content-cards .eco-content-card--overlay {
+		display: flex !important;
+		flex-direction: column !important;
+		height: auto !important;
+		min-height: 0 !important;
+		overflow: hidden;
+		background: #19111f;
+	}
+
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__image {
+		position: relative;
+		flex: 0 0 auto;
+		width: 100%;
+		height: auto !important;
+	}
+
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__body {
+		position: relative !important;
+		inset: auto !important;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		width: 100%;
+		height: auto !important;
+		min-height: 0 !important;
+		padding: 22px !important;
+		background: #19111f;
+		pointer-events: auto;
+	}
+
+	/* Stronger than Elementor widget style colors */
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__title,
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__title a,
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__meta,
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__meta-item {
+		color: #fff !important;
+	}
+
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__category {
+		color: #ff004f !important;
+	}
+
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__badge {
+		background: #ff004f !important;
+		color: #fff !important;
+	}
+
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__title {
+		font-size: 21px;
+		line-height: 1.25;
+	}
+
+	.elementor-widget-eco-content-cards .eco-content-card--overlay .eco-content-card__meta {
+		margin-top: 12px;
+	}
+}

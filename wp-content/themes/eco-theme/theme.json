@@ -113,6 +113,11 @@
           "slug": "domains-names-numbers-light",
           "color": "#CEFCDE",
           "name": "Domains, Names & Numbers Light"
+        },
+        {
+          "slug": "eco",
+          "color": "#E2001A",
+          "name": "eco"
         }
       ]
     }

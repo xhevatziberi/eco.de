@@ -404,10 +404,13 @@ class ContentCardsAjax {
 	}
 
 	private static function format_badge_value( $value ) {
-		$value = str_replace( '_', ' ', $value );
-		$value = str_replace( '-', ' ', $value );
+		$value = str_replace( [ '_', '-' ], ' ', $value );
+		$value = trim( $value );
 
-		return ucwords( $value );
+		$return = ucwords( $value );
+		$return = preg_replace( '/\bEco\b/u', 'eco', $return );
+
+		return $return;
 	}
 
 	private static function post_type_badge( $post_type ) {

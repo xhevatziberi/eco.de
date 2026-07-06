@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Elementor eco\n"
 "Report-Msgid-Bugs-To: xhevat@batlab.mk\n"
-"POT-Creation-Date: 2026-07-06 18:26+0200\n"
-"PO-Revision-Date: 2026-07-06 18:31+0200\n"
+"POT-Creation-Date: 2026-07-06 19:34+0200\n"
+"PO-Revision-Date: 2026-07-06 19:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -62,31 +62,31 @@ msgid "Next month"
 msgstr "Nächster Monat"
 
 #: inc/event-calendar-ajax.php:335
-msgid "Mon"
+msgid "Mo"
 msgstr "Mo"
 
 #: inc/event-calendar-ajax.php:336
-msgid "Tue"
+msgid "Tu"
 msgstr "Di"
 
 #: inc/event-calendar-ajax.php:337
-msgid "Wed"
+msgid "We"
 msgstr "Mi"
 
 #: inc/event-calendar-ajax.php:338
-msgid "Thu"
+msgid "Th"
 msgstr "Do"
 
 #: inc/event-calendar-ajax.php:339
-msgid "Fri"
+msgid "Fr"
 msgstr "Fr"
 
 #: inc/event-calendar-ajax.php:340
-msgid "Sat"
+msgid "Sa"
 msgstr "Sa"
 
 #: inc/event-calendar-ajax.php:341
-msgid "Sun"
+msgid "Su"
 msgstr "So"
 
 #: inc/event-calendar-ajax.php:400
@@ -873,19 +873,19 @@ msgstr "Podcast-Kategorien"
 msgid "Press Categories"
 msgstr "Pressekategorien"
 
-#: widgets/content-cards.php:1479
+#: widgets/content-cards.php:1482
 msgid "No content found"
 msgstr "Keine Inhalte gefunden"
 
-#: widgets/content-cards.php:1483
+#: widgets/content-cards.php:1486
 msgid "No matching content is currently available for this section."
 msgstr "Für diesen Bereich sind aktuell keine passenden Inhalte verfügbar."
 
-#: widgets/content-cards.php:1554
+#: widgets/content-cards.php:1557
 msgid "Load more"
 msgstr "Weitere laden"
 
-#: widgets/content-cards.php:1557
+#: widgets/content-cards.php:1560
 msgid "Loading..."
 msgstr "Lädt..."
 
