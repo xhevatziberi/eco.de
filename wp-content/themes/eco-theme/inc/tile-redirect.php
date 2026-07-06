@@ -47,8 +47,8 @@ add_action( 'template_redirect', function () {
 
 	// Fallback if the theme has no 404.php.
 	wp_die(
-		esc_html__( 'This page is not available.', 'elementor-eco' ),
-		esc_html__( 'Page not found', 'elementor-eco' ),
+		esc_html__( 'This page is not available.', 'eco-theme' ),
+		esc_html__( 'Page not found', 'eco-theme' ),
 		[ 'response' => 404 ]
 	);
 }, 1 );

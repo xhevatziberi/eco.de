@@ -1,0 +1,229 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: ECO Theme\n"
+"POT-Creation-Date: 2026-07-06 17:51+0200\n"
+"PO-Revision-Date: 2026-07-06 18:01+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: de_DE\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: inc/admin-post-featured-image-column.php:28
+#: inc/admin-post-featured-image-column.php:35
+msgid "Image"
+msgstr "Bild"
+
+#: inc/event-helpers.php:217 inc/event-helpers.php:222
+msgid "Online"
+msgstr "Online"
+
+#: inc/event-helpers.php:222
+msgid "Hybrid"
+msgstr "Hybrid"
+
+#: inc/event-helpers.php:230
+msgid "Event"
+msgstr "Veranstaltung"
+
+#: inc/event-helpers.php:231
+msgid "eco Event"
+msgstr "eco Veranstaltung"
+
+#: inc/event-helpers.php:232
+msgid "Partner Event"
+msgstr "Partner Veranstaltung"
+
+#: inc/event-helpers.php:233
+msgid "Webinar"
+msgstr "Webinar"
+
+#: inc/event-helpers.php:234
+msgid "Workshop"
+msgstr "Workshop"
+
+#: inc/event-helpers.php:235
+msgid "Conference"
+msgstr "Konferenz"
+
+#: inc/event-helpers.php:236
+msgid "Highlight"
+msgstr "Highlight"
+
+#: inc/event-helpers.php:237
+msgid "Training"
+msgstr "Training"
+
+#: inc/event-helpers.php:238
+msgid "Award"
+msgstr "Award"
+
+#: inc/event-helpers.php:261
+msgid "Register now"
+msgstr "Jetzt anmelden"
+
+#: inc/fonts.php:4
+msgid "Eco Fonts"
+msgstr "Eco Fonts"
+
+#: inc/tile-redirect.php:50
+msgid "This page is not available."
+msgstr "Diese Seite ist nicht verfügbar."
+
+#: inc/tile-redirect.php:51
+msgid "Page not found"
+msgstr "Seite nicht gefunden"
+
+#: template-parts/event/layout-big.php:23
+#: template-parts/event/layout-small.php:18
+msgid "Back to all events"
+msgstr "Zurück zu allen Veranstaltungen"
+
+#: template-parts/event/layout-big.php:29
+#: template-parts/event/layout-small.php:35
+msgid "Past Event"
+msgstr "Vergangene Veranstaltung"
+
+#: template-parts/event/layout-big.php:46
+#: template-parts/event/layout-small.php:59
+msgid "iCal"
+msgstr "iCal"
+
+#: template-parts/event/layout-small.php:52
+#: template-parts/event/section-registration.php:35
+#, php-format
+msgid "Max. %s participants"
+msgstr "Max. %s Teilnehmer"
+
+#: template-parts/event/section-agenda.php:13
+msgid "Day 1"
+msgstr "Tag 1"
+
+#: template-parts/event/section-agenda.php:44
+msgid "Program"
+msgstr "Programm"
+
+#: template-parts/event/section-agenda.php:45
+msgid "Agenda"
+msgstr "Agenda"
+
+#: template-parts/event/section-agenda.php:47
+msgid "Download iCal"
+msgstr "iCal herunterladen"
+
+#: template-parts/event/section-agenda.php:51
+msgid "Agenda days"
+msgstr "Programmtage"
+
+#: template-parts/event/section-agenda.php:57
+#: template-parts/event/section-agenda.php:74
+#, php-format
+msgid "Day %d"
+msgstr "Tag %d"
+
+#: template-parts/event/section-faq.php:16
+msgid "Questions"
+msgstr "Fragen"
+
+#: template-parts/event/section-faq.php:17
+msgid "Frequently asked questions"
+msgstr "Häufig gestellte Fragen"
+
+#: template-parts/event/section-gallery.php:15
+msgid "Impressions"
+msgstr "Impressionen"
+
+#: template-parts/event/section-intro.php:19
+msgid "About the event"
+msgstr "Über die Veranstaltung"
+
+#: template-parts/event/section-intro.php:26
+msgid "Your Benefits"
+msgstr "Ihre Vorteile"
+
+#: template-parts/event/section-location.php:29
+msgid "Place"
+msgstr "Ort"
+
+#: template-parts/event/section-location.php:30
+#: template-parts/event/section-location.php:64
+msgid "Location"
+msgstr "Standort"
+
+#: template-parts/event/section-location.php:35
+msgid "Online Participation"
+msgstr "Online-Teilnahme"
+
+#: template-parts/event/section-location.php:35
+msgid "Online Event"
+msgstr "Online-Veranstaltung"
+
+#: template-parts/event/section-location.php:40
+msgid "Open online link"
+msgstr "Online-Link öffnen"
+
+#: template-parts/event/section-location.php:52
+msgid "Plan route"
+msgstr "Route planen"
+
+#: template-parts/event/section-partners.php:17
+msgid "Network"
+msgstr "Netzwerk"
+
+#: template-parts/event/section-partners.php:18
+msgid "Partners"
+msgstr "Partner"
+
+#: template-parts/event/section-people.php:36
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: template-parts/event/section-people.php:50
+msgid "People"
+msgstr "Personen"
+
+#: template-parts/event/section-people.php:51
+msgid "Speakers"
+msgstr "Speaker"
+
+#: template-parts/event/section-people.php:62
+msgid "Contact"
+msgstr "Kontakt"
+
+#: template-parts/event/section-people.php:63
+msgid "Your Contacts"
+msgstr "Ihre Ansprechpartner"
+
+#: template-parts/event/section-registration.php:24
+msgid "Participation"
+msgstr "Teilnahme"
+
+#: template-parts/event/section-registration.php:25
+msgid "Registration"
+msgstr "Registrierung"
+
+#. Theme Name of the plugin/theme
+msgid "ECO Theme"
+msgstr "eco Theme"
+
+#. Theme URI of the plugin/theme
+msgid "https://eco.de"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Child theme for ECO based on Hello Elementor."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Batlab"
+msgstr ""

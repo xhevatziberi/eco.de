@@ -25,14 +25,14 @@ function eco_add_featured_image_admin_column($columns) {
 
         // Insert as 4th column if possible.
         if ($i === 3) {
-            $new_columns['featured_image'] = __('Image', 'eco');
+            $new_columns['featured_image'] = __('Image', 'eco-theme');
             $inserted = true;
         }
     }
 
     // Fallback: add last.
     if (!$inserted) {
-        $new_columns['featured_image'] = __('Image', 'eco');
+        $new_columns['featured_image'] = __('Image', 'eco-theme');
     }
 
     return $new_columns;

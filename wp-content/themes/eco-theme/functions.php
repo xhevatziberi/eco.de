@@ -11,6 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'ECO_VERSION', '2.0.0' );
 
+function eco_theme_load_textdomain() {
+	load_child_theme_textdomain( 'eco-theme', get_stylesheet_directory() . '/languages' );
+}
+add_action( 'after_setup_theme', 'eco_theme_load_textdomain' );
+
 function eco_child_scripts_styles() {
 	wp_enqueue_style( 'eco-fonts', get_stylesheet_directory_uri() . '/assets/css/ecofonts.css', [], ECO_VERSION );
 	wp_enqueue_style( 'eco-child-style', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor-theme-style'], ECO_VERSION );

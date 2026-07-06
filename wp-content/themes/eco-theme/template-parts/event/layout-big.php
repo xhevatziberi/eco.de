@@ -20,7 +20,7 @@ $is_past   = eco_event_is_past( $post_id );
 	<div class="eco-event-hero__overlay"></div>
 
 	<div class="eco-event-container eco-event-hero__inner">
-		<a class="eco-event-back eco-event-back--light" href="<?php echo esc_url( home_url( '/events/' ) ); ?>"><?php esc_html_e( 'Zurück zu allen Veranstaltungen', 'eco-theme' ); ?></a>
+		<a class="eco-event-back eco-event-back--light" href="<?php echo esc_url( home_url( '/events/' ) ); ?>"><?php esc_html_e( 'Back to all events', 'eco-theme' ); ?></a>
 
 		<div class="eco-event-hero__content">
 			<?php if ( $label || $is_past ) : ?>

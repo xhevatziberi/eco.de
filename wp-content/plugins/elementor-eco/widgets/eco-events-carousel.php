@@ -143,7 +143,7 @@ class ECO_Events_Carousel_Widget extends Widget_Base {
     echo '<div class="eco-events-carousel"'.$attr_html.'>';
     echo '  <div class="swiper">';
     echo '    <div class="swiper-wrapper">';
-    echo '      <div class="swiper-slide"><div class="event-item" style="padding:24px;text-align:center;"><span class="event-loading">'.esc_html__('Lade Veranstaltungen...','eco').'</span></div></div>';
+    echo '      <div class="swiper-slide"><div class="event-item" style="padding:24px;text-align:center;"><span class="event-loading">'.esc_html__('Loading events...','eco').'</span></div></div>';
     echo '    </div>';
     echo '    <div class="swiper-pagination"></div>';
     if (($s['show_arrows'] ?? 'yes') === 'yes') {

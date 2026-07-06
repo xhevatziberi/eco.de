@@ -258,7 +258,7 @@ function eco_event_get_registration_button( $post_id = null ): array {
 	}
 
 	$type  = eco_event_get_field( 'registration_type', $post_id, 'external' );
-	$label = eco_event_get_field( 'registration_button_label', $post_id, '' ) ?: __( 'Jetzt anmelden', 'eco-theme' );
+	$label = eco_event_get_field( 'registration_button_label', $post_id, '' ) ?: __( 'Register now', 'eco-theme' );
 
 	if ( $type === 'pretix' && eco_event_get_field( 'pretix_shortcode', $post_id, '' ) ) {
 		return [

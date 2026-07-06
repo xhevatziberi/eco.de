@@ -55,21 +55,23 @@ uksort($grouped, function($a, $b) use ($order) {
 
         <form class="eco-search__form" method="get" action="<?php echo esc_url($action_url); ?>">
             <div class="eco-search__row eco-search__row--keyword">
-                <label class="eco-search__label" for="eco-search-s">Keyword</label>
+                <label class="eco-search__label" for="eco-search-s">
+                    <?php esc_html_e('Keyword', 'eco-search'); ?>
+                </label>
                 <input
                     id="eco-search-s"
                     class="eco-search__input"
                     type="text"
                     name="s"
                     value="<?php echo esc_attr($req['s']); ?>"
-                    placeholder="Keyword"
+                    placeholder="<?php echo esc_attr__('Keyword', 'eco-search'); ?>"
                     autocomplete="off"
                 />
             </div>
 
             <div class="eco-search__filters">
                 <div class="eco-search__filter">
-                    <label class="eco-search__label" for="eco-search-topic">Topics</label>
+                    <label class="eco-search__label" for="eco-search-topic"><?php esc_html_e('Topics', 'eco-search'); ?></label>
                     <select id="eco-search-topic" class="eco-search__select" name="topic">
                         <option value=""><?php echo esc_html__('All Topics', 'eco-search'); ?></option>
                         <?php foreach ($topics as $t): ?>
@@ -81,7 +83,7 @@ uksort($grouped, function($a, $b) use ($order) {
                 </div>
 
                 <div class="eco-search__filter">
-                    <label class="eco-search__label" for="eco-search-date">Date</label>
+                    <label class="eco-search__label" for="eco-search-date"><?php esc_html_e('Date', 'eco-search'); ?></label>
                     <select id="eco-search-date" class="eco-search__select" name="date">
                         <?php foreach ($date_opts as $k => $v): ?>
                             <option value="<?php echo esc_attr($k); ?>" <?php selected($req['date'], $k); ?>>
@@ -92,7 +94,7 @@ uksort($grouped, function($a, $b) use ($order) {
                 </div>
 
                 <div class="eco-search__filter eco-search__filter--types">
-                    <span class="eco-search__label">Content</span>
+                    <span class="eco-search__label"><?php esc_html_e('Content', 'eco-search'); ?></span>
                     <div class="eco-search__chips">
                         <?php foreach ($labels as $pt => $pt_label): ?>
                             <?php
@@ -109,7 +111,7 @@ uksort($grouped, function($a, $b) use ($order) {
                 </div>
 
                 <div class="eco-search__filter eco-search__filter--submit">
-                    <button type="submit" class="eco-search__btn">find</button>
+                    <button type="submit" class="eco-search__btn"><?php esc_html_e('Find', 'eco-search'); ?></button>
                 </div>
             </div>
         </form>
@@ -117,12 +119,26 @@ uksort($grouped, function($a, $b) use ($order) {
         <div class="eco-search__meta">
             <?php if (!empty($req['s'])): ?>
                 <div class="eco-search__meta-line">
-                    <span class="eco-search__meta-title">Search results for</span>
+                    <span class="eco-search__meta-title"><?php esc_html_e('Search results for', 'eco-search'); ?></span>
                     <span class="eco-search__meta-keyword"><?php echo esc_html($req['s']); ?></span>
                 </div>
             <?php endif; ?>
             <div class="eco-search__meta-line eco-search__meta-line--count">
-                <?php echo esc_html((string)$data['total']); ?> results
+                <?php
+                $total = (int) $data['total'];
+
+                printf(
+                    esc_html(
+                        _n(
+                            '%s result',
+                            '%s results',
+                            $total,
+                            'eco-search'
+                        )
+                    ),
+                    esc_html( number_format_i18n( $total ) )
+                );
+                ?>
             </div>
         </div>
 
@@ -156,7 +172,7 @@ uksort($grouped, function($a, $b) use ($order) {
 
             <?php else: ?>
                 <div class="eco-search__empty">
-                    No results found.
+                    <?php esc_html_e('No results found.', 'eco-search'); ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -178,7 +194,7 @@ uksort($grouped, function($a, $b) use ($order) {
                 <a class="eco-search__page eco-search__page--nav <?php echo ($current === 1) ? 'is-disabled' : ''; ?>"
                    href="<?php echo esc_url(Search::build_page_url(['pg' => $prev])); ?>"
                    aria-disabled="<?php echo $current === 1 ? 'true' : 'false'; ?>">
-                    Prev
+                    <?php esc_html_e('Prev', 'eco-search'); ?>
                 </a>
 
                 <?php for ($i = $start; $i <= $end; $i++): ?>
@@ -191,7 +207,7 @@ uksort($grouped, function($a, $b) use ($order) {
                 <a class="eco-search__page eco-search__page--nav <?php echo ($current === $max) ? 'is-disabled' : ''; ?>"
                    href="<?php echo esc_url(Search::build_page_url(['pg' => $next])); ?>"
                    aria-disabled="<?php echo $current === $max ? 'true' : 'false'; ?>">
-                    Next
+                    <?php esc_html_e('Next', 'eco-search'); ?>
                 </a>
             </div>
         <?php endif; ?>

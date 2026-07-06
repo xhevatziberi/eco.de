@@ -738,8 +738,8 @@ class Downloads extends Widget_Base {
 				</svg>
 			</span>
 			<div>
-				<h3><?php esc_html_e( 'Keine Downloads gefunden', 'elementor-eco' ); ?></h3>
-				<p><?php esc_html_e( 'Für diesen Bereich sind aktuell keine passenden Downloads verfügbar.', 'elementor-eco' ); ?></p>
+				<h3><?php esc_html_e( 'No downloads found', 'elementor-eco' ); ?></h3>
+				<p><?php esc_html_e( 'No matching downloads are currently available for this section.', 'elementor-eco' ); ?></p>
 			</div>
 		</div>
 		<?php

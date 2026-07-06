@@ -15,7 +15,7 @@ $is_past   = eco_event_is_past( $post_id );
 
 <section class="eco-event-hero eco-event-hero--small">
 	<div class="eco-event-container eco-event-back-wrap">
-		<a class="eco-event-back" href="<?php echo esc_url( home_url( '/events/' ) ); ?>"><?php esc_html_e( 'Zurück zu allen Veranstaltungen', 'eco-theme' ); ?></a>
+		<a class="eco-event-back" href="<?php echo esc_url( home_url( '/events/' ) ); ?>"><?php esc_html_e( 'Back to all events', 'eco-theme' ); ?></a>
 	</div>
 
 	<div class="eco-event-container eco-event-hero__grid">
@@ -49,7 +49,7 @@ $is_past   = eco_event_is_past( $post_id );
 					<span class="eco-event-info-box__item eco-icon-clock"><?php echo esc_html( trim( eco_event_get_field( 'start_time', $post_id, '' ) . ( eco_event_get_field( 'end_time', $post_id, '' ) ? ' – ' . eco_event_get_field( 'end_time', $post_id, '' ) : '' ) ) ); ?></span>
 				<?php endif; ?>
 				<?php if ( $location ) : ?><span class="eco-event-info-box__item eco-icon-location"><?php echo esc_html( $location ); ?></span><?php endif; ?>
-				<?php if ( eco_event_get_field( 'max_participants', $post_id, '' ) ) : ?><span class="eco-event-info-box__item eco-icon-users"><?php printf( esc_html__( 'Max. %s Teilnehmer', 'eco-theme' ), esc_html( eco_event_get_field( 'max_participants', $post_id, '' ) ) ); ?></span><?php endif; ?>
+				<?php if ( eco_event_get_field( 'max_participants', $post_id, '' ) ) : ?><span class="eco-event-info-box__item eco-icon-users"><?php printf( esc_html__( 'Max. %s participants', 'eco-theme' ), esc_html( eco_event_get_field( 'max_participants', $post_id, '' ) ) ); ?></span><?php endif; ?>
 			</div>
 
 			<div class="eco-event-hero__buttons">
@@ -66,5 +66,6 @@ $is_past   = eco_event_is_past( $post_id );
 <?php get_template_part( 'template-parts/event/section', 'intro' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'agenda' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'people', [ 'type' => 'speakers' ] ); ?>
+<?php get_template_part( 'template-parts/event/section', 'people', [ 'type' => 'contacts' ] ); ?>
 <?php get_template_part( 'template-parts/event/section', 'partners' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'registration' ); ?>

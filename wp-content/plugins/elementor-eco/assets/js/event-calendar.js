@@ -121,7 +121,7 @@
 				root.setAttribute('data-page', page);
 			})
 			.catch(function (error) {
-				console.error('ECO Event Calendar:', error);
+				console.error('eco Event Calendar:', error);
 			})
 			.finally(function () {
 				root.classList.remove('is-loading');

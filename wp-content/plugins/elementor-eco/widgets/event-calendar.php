@@ -17,7 +17,7 @@ class EventCalendar extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'ECO Event Calendar', 'elementor-eco' );
+		return __( 'eco Event Calendar', 'elementor-eco' );
 	}
 
 	public function get_icon() {

@@ -299,7 +299,7 @@ class People extends Widget_Base {
 										data-linkedin="{{ person.social.linkedin }}"
 										data-xing="{{ person.social.xing }}"
 										data-biography="{{ person.biography }}">
-										<i class="fas fa-info-circle"></i> Mehr Informationen
+										<i class="fas fa-info-circle"></i> <?php _e('More information', 'elementor-eco'); ?>
 									</a>
 								</p>
 							<# } #>

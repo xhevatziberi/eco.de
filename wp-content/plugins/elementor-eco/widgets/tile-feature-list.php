@@ -574,11 +574,11 @@ class TileFeatureList extends Widget_Base {
 			</div>
 
 			<h3 class="eco-empty-state__title">
-				<?php esc_html_e( 'Keine Themen gefunden', 'elementor-eco' ); ?>
+				<?php esc_html_e( 'No topics found', 'elementor-eco' ); ?>
 			</h3>
 
 			<p class="eco-empty-state__text">
-				<?php esc_html_e( 'Für diesen Bereich sind aktuell keine passenden Themen verfügbar.', 'elementor-eco' ); ?>
+				<?php esc_html_e( 'No matching topics are currently available for this section.', 'elementor-eco' ); ?>
 			</p>
 		</div>
 		<?php

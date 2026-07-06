@@ -1476,11 +1476,11 @@ class ContentCards extends Widget_Base {
 			</div>
 
 			<h3 class="eco-empty-state__title">
-				<?php esc_html_e( 'Keine Inhalte gefunden', 'elementor-eco' ); ?>
+				<?php esc_html_e( 'No content found', 'elementor-eco' ); ?>
 			</h3>
 
 			<p class="eco-empty-state__text">
-				<?php esc_html_e( 'Für diesen Bereich sind aktuell keine passenden Inhalte verfügbar.', 'elementor-eco' ); ?>
+				<?php esc_html_e( 'No matching content is currently available for this section.', 'elementor-eco' ); ?>
 			</p>
 		</div>
 		<?php
@@ -1551,10 +1551,10 @@ class ContentCards extends Widget_Base {
 				<div class="eco-content-cards__load-more-wrap">
 					<button type="button" class="eco-content-cards__load-more">
 						<span class="eco-content-cards__load-more-text">
-							<?php echo esc_html( $settings['load_more_text'] ?? __( 'Weitere laden', 'elementor-eco' ) ); ?>
+							<?php echo esc_html( $settings['load_more_text'] ?? __( 'Load more', 'elementor-eco' ) ); ?>
 						</span>
 						<span class="eco-content-cards__load-more-loading">
-							<?php esc_html_e( 'Lädt...', 'elementor-eco' ); ?>
+							<?php esc_html_e( 'Loading...', 'elementor-eco' ); ?>
 						</span>
 					</button>
 				</div>

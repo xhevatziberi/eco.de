@@ -47,8 +47,8 @@ $render_people = static function ( array $people, string $variant = 'speaker' ) 
 	<section class="eco-event-section eco-event-people eco-event-people--speakers">
 		<div class="eco-event-container">
 			<div class="eco-event-section-head">
-				<span><?php esc_html_e( 'Menschen', 'eco-theme' ); ?></span>
-				<h2><?php esc_html_e( 'Speaker', 'eco-theme' ); ?></h2>
+				<span><?php esc_html_e( 'People', 'eco-theme' ); ?></span>
+				<h2><?php esc_html_e( 'Speakers', 'eco-theme' ); ?></h2>
 			</div>
 			<?php $render_people( $speakers, 'speaker' ); ?>
 		</div>
@@ -59,8 +59,8 @@ $render_people = static function ( array $people, string $variant = 'speaker' ) 
 	<section class="eco-event-section eco-event-contacts">
 		<div class="eco-event-container">
 			<div class="eco-event-section-head">
-				<span><?php esc_html_e( 'Kontakt', 'eco-theme' ); ?></span>
-				<h2><?php esc_html_e( 'Ihre Ansprechpartner', 'eco-theme' ); ?></h2>
+				<span><?php esc_html_e( 'Contact', 'eco-theme' ); ?></span>
+				<h2><?php esc_html_e( 'Your Contacts', 'eco-theme' ); ?></h2>
 			</div>
 			<?php $render_people( $contacts, 'contact' ); ?>
 		</div>

@@ -136,7 +136,7 @@ class Members extends Widget_Base {
 					class="eco-load-more-btn"
 					hidden
 				>
-					<?php esc_html_e( 'Mehr anzeigen', 'elementor-eco' ); ?>
+					<?php esc_html_e( 'Show more', 'elementor-eco' ); ?>
 				</button>
 			</div>
 
@@ -154,7 +154,7 @@ class Members extends Widget_Base {
 						type="button"
 						class="eco-modal-close"
 						data-modal-close
-						aria-label="<?php esc_attr_e( 'Dialog schließen', 'elementor-eco' ); ?>"
+						aria-label="<?php esc_attr_e( 'Close dialog', 'elementor-eco' ); ?>"
 					>
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -200,7 +200,7 @@ class Members extends Widget_Base {
 			<p class="eco-members-editor-note">
 				<?php
 				esc_html_e(
-					'Die Mitglieder werden auf der Website dynamisch geladen.',
+					'Members are loaded dynamically on the website.',
 					'elementor-eco'
 				);
 				?>

@@ -190,7 +190,7 @@ class Members_Ajax {
 		if ( ! $letter ) {
 			wp_send_json_error(
 				[
-					'message' => __( 'Ungültiger Filter.', 'elementor-eco' ),
+					'message' => __( 'Invalid filter.', 'elementor-eco' ),
 				],
 				400
 			);
@@ -218,7 +218,7 @@ class Members_Ajax {
 		) {
 			wp_send_json_error(
 				[
-					'message' => __( 'Mitglied nicht gefunden.', 'elementor-eco' ),
+					'message' => __( 'Member not found.', 'elementor-eco' ),
 				],
 				404
 			);
@@ -322,7 +322,7 @@ class Members_Ajax {
 		} else {
 			?>
 			<p class="eco-members-empty">
-				<?php esc_html_e( 'Keine Mitglieder gefunden.', 'elementor-eco' ); ?>
+				<?php esc_html_e( 'No members found.', 'elementor-eco' ); ?>
 			</p>
 			<?php
 		}
@@ -407,7 +407,7 @@ class Members_Ajax {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<?php esc_html_e( 'Website besuchen', 'elementor-eco' ); ?>
+							<?php esc_html_e( 'Visit Website', 'elementor-eco' ); ?>
 						</a>
 					<?php endif; ?>
 
@@ -418,7 +418,7 @@ class Members_Ajax {
 							data-member-id="<?php echo esc_attr( $member_id ); ?>"
 						>
 							<span aria-hidden="true">ⓘ</span>
-							<?php esc_html_e( 'Mehr Informationen', 'elementor-eco' ); ?>
+							<?php esc_html_e( 'More Information', 'elementor-eco' ); ?>
 						</button>
 					<?php endif; ?>
 				</div>
@@ -497,7 +497,7 @@ class Members_Ajax {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<?php esc_html_e( 'Website besuchen', 'elementor-eco' ); ?>
+						<?php esc_html_e( 'Visit Website', 'elementor-eco' ); ?>
 					</a>
 				</p>
 			<?php endif; ?>
@@ -530,7 +530,7 @@ class Members_Ajax {
 
 			<?php if ( $phone ) : ?>
 				<p>
-					<strong><?php esc_html_e( 'Tel.:', 'elementor-eco' ); ?></strong>
+					<strong><?php esc_html_e( 'Phone:', 'elementor-eco' ); ?></strong>
 					<a href="<?php echo esc_url( 'tel:' . self::clean_phone_link( $phone ) ); ?>">
 						<?php echo esc_html( $phone ); ?>
 					</a>
@@ -546,7 +546,7 @@ class Members_Ajax {
 
 			<?php if ( $email ) : ?>
 				<p>
-					<strong><?php esc_html_e( 'E-Mail:', 'elementor-eco' ); ?></strong>
+					<strong><?php esc_html_e( 'Email:', 'elementor-eco' ); ?></strong>
 					<a href="<?php echo esc_url( 'mailto:' . $email ); ?>">
 						<?php echo esc_html( antispambot( $email ) ); ?>
 					</a>

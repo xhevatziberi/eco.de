@@ -162,7 +162,7 @@
 			});
 		} else {
 			grid.innerHTML =
-				'<p class="eco-members-empty">Keine Mitglieder gefunden.</p>';
+				`<p class="eco-members-empty">${ecoMembersL10n.noMembers}</p>`;
 			grid.setAttribute("aria-busy", "false");
 		}
 	}
@@ -214,7 +214,7 @@
 
 			if (!result.success || !result.data) {
 				throw new Error(
-					result?.data?.message || "Members could not be loaded."
+					result?.data?.message || ecoMembersL10n.membersLoadError
 				);
 			}
 
@@ -226,8 +226,8 @@
 
 				status.textContent =
 					total === 1
-						? "1 Mitglied gefunden"
-						: `${total} Mitglieder gefunden`;
+						? ecoMembersL10n.oneMemberFound
+						: ecoMembersL10n.membersFound.replace("%d", total);
 			}
 
 			if (loadMoreButton) {
@@ -241,7 +241,7 @@
 			}
 
 			grid.innerHTML =
-				'<p class="eco-members-error">Die Mitglieder konnten nicht geladen werden. Bitte versuchen Sie es erneut.</p>';
+				`<p class="eco-members-error">${ecoMembersL10n.membersLoadError}</p>`;
 
 			grid.setAttribute("aria-busy", "false");
 
@@ -294,7 +294,7 @@
 
 			if (!result.success || !result.data) {
 				throw new Error(
-					result?.data?.message || "Member details could not be loaded."
+					result?.data?.message || ecoMembersL10n.memberDetailsLoadError
 				);
 			}
 
@@ -308,7 +308,7 @@
 		} catch (error) {
 			if (modalBody) {
 				modalBody.innerHTML =
-					'<p class="eco-members-error">Die Informationen konnten nicht geladen werden.</p>';
+					`<p class="eco-members-error">${ecoMembersL10n.memberDetailsLoadError}</p>`;
 			}
 
 			console.error("ECO Member details:", error);
@@ -337,8 +337,8 @@
 
 		if (status) {
 			status.textContent = loadAll
-				? "Alle Mitglieder werden geladen…"
-				: "Mitglieder werden geladen…";
+				? ecoMembersL10n.loadingAllMembers
+				: ecoMembersL10n.loadingMembers;
 		}
 
 		if (loadMoreButton) {
@@ -385,7 +385,7 @@
 
 		if (modalBody) {
 			modalBody.innerHTML =
-				'<div class="eco-member-modal-loading">Informationen werden geladen…</div>';
+				`<div class="eco-member-modal-loading">${ecoMembersL10n.loadingInformation}</div>`;
 		}
 
 		modal.classList.add("is-open");

@@ -21,8 +21,8 @@ if ( ! $show_area ) {
 	<div class="eco-event-container">
 		<div class="eco-event-registration__box">
 			<div class="eco-event-section-head">
-				<span><?php esc_html_e( 'Teilnahme', 'eco-theme' ); ?></span>
-				<h2><?php esc_html_e( 'Registrierung', 'eco-theme' ); ?></h2>
+				<span><?php esc_html_e( 'Participation', 'eco-theme' ); ?></span>
+				<h2><?php esc_html_e( 'Registration', 'eco-theme' ); ?></h2>
 			</div>
 
 			<?php if ( $intro ) : ?>
@@ -32,7 +32,7 @@ if ( ! $show_area ) {
 			<?php if ( $price || $max ) : ?>
 				<div class="eco-event-registration__facts">
 					<?php if ( $price ) : ?><span><?php echo esc_html( $price ); ?></span><?php endif; ?>
-					<?php if ( $max ) : ?><span><?php printf( esc_html__( 'Max. %s Teilnehmer', 'eco-theme' ), esc_html( $max ) ); ?></span><?php endif; ?>
+					<?php if ( $max ) : ?><span><?php printf( esc_html__( 'Max. %s participants', 'eco-theme' ), esc_html( $max ) ); ?></span><?php endif; ?>
 				</div>
 			<?php endif; ?>
 

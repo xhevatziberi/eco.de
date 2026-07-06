@@ -7,6 +7,8 @@
 	margin-bottom: 20px;
 	flex-wrap: wrap;
 	align-items: stretch;
+	border-radius: 10px;
+	overflow: hidden;
 }
 
 .eco-person-photo {

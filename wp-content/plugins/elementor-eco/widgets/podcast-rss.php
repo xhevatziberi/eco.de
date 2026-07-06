@@ -68,21 +68,21 @@ class PodcastRss extends Widget_Base {
 		$limit = intval($settings['limit']);
 
 		if (empty($rss_url)) {
-			echo '<p>No RSS feed URL provided.</p>';
+			esc_html_e( 'No RSS feed URL provided.', 'elementor-eco' );
 			return;
 		}
 
 		$rss = fetch_feed($rss_url);
 
 		if (is_wp_error($rss)) {
-			echo '<p>Failed to fetch RSS feed.</p>';
+			esc_html_e( 'Failed to fetch RSS feed.', 'elementor-eco' );
 			return;
 		}
 
 		$items = $rss->get_items(0, $limit);
 
 		if (empty($items)) {
-			echo '<p>No episodes found.</p>';
+			esc_html_e( 'No episodes found.', 'elementor-eco' );
 			return;
 		}
 
@@ -114,7 +114,7 @@ class PodcastRss extends Widget_Base {
                     </div>";
 
             if ($audio_url) {
-                echo "<button class=\"eco-podcast-play\" data-audio=\"{$audio_url}\" aria-label=\"Play episode\"><i class=\"fas fa-play\"></i></button>";
+                echo "<button class=\"eco-podcast-play\" data-audio=\"{$audio_url}\" aria-label=\"" . esc_attr__('Play episode', 'elementor-eco') . "\"><i class=\"fas fa-play\"></i></button>";
             }
 
             echo "</div>

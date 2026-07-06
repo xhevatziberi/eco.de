@@ -62,26 +62,6 @@ class Address extends Widget_Base {
 			]
 		);
 
-		// $this->add_control(
-		// 	'content',
-		// 	[
-		// 		'label' => __( 'Content', 'elementor-eco' ),
-		// 		'type' => Controls_Manager::TEXTAREA,
-		// 		'default' => __( 'Content' , 'elementor-eco' ),
-		// 	]
-		// );
-
-		// $this->add_control(
-		// 	'image',
-		// 	[
-		// 		'label' => __( 'Image', 'elementor-eco' ),
-		// 		'type' => Controls_Manager::MEDIA,
-		// 		'default' => [
-		// 			'url' => '',
-		// 		],
-		// 	]
-		// );
-
 		$this->add_control(
 			'list',
 			[

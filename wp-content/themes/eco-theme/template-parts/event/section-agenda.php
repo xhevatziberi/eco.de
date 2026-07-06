@@ -10,7 +10,7 @@ $legacy_items = eco_event_get_field( 'agenda', $post_id, [] );
 if ( ( empty( $agenda_days ) || ! is_array( $agenda_days ) ) && ! empty( $legacy_items ) && is_array( $legacy_items ) ) {
 	$agenda_days = [
 		[
-			'day_label'    => __( 'Tag 1', 'eco-theme' ),
+			'day_label'    => __( 'Day 1', 'eco-theme' ),
 			'day_date'     => eco_event_get_field( 'start_date', $post_id, '' ),
 			'agenda_items' => $legacy_items,
 		],
@@ -41,10 +41,10 @@ if ( empty( $valid_days ) ) {
 	<div class="eco-event-container eco-event-agenda__container">
 		<div class="eco-event-section-head eco-event-section-head--row">
 			<div>
-				<span><?php esc_html_e( 'Programm', 'eco-theme' ); ?></span>
+				<span><?php esc_html_e( 'Program', 'eco-theme' ); ?></span>
 				<h2><?php esc_html_e( 'Agenda', 'eco-theme' ); ?></h2>
 			</div>
-			<a class="eco-event-ical-link" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'iCal herunterladen', 'eco-theme' ); ?></a>
+			<a class="eco-event-ical-link" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'Download iCal', 'eco-theme' ); ?></a>
 		</div>
 
 		<?php if ( count( $valid_days ) > 1 ) : ?>
@@ -54,7 +54,7 @@ if ( empty( $valid_days ) ) {
 					$day       = $entry['day'];
 					$tab_id    = 'eco-event-agenda-tab-' . $post_id . '-' . $tab_index;
 					$panel_id  = 'eco-event-agenda-panel-' . $post_id . '-' . $tab_index;
-					$day_label = $day['day_label'] ?? sprintf( __( 'Tag %d', 'eco-theme' ), $tab_index + 1 );
+					$day_label = $day['day_label'] ?? sprintf( __( 'Day %d', 'eco-theme' ), $tab_index + 1 );
 					$day_date  = ! empty( $day['day_date'] ) ? eco_event_format_date( $day['day_date'] ) : '';
 					?>
 					<button class="eco-event-agenda-tabs__button<?php echo $tab_index === 0 ? ' is-active' : ''; ?>" id="<?php echo esc_attr( $tab_id ); ?>" type="button" role="tab" aria-selected="<?php echo $tab_index === 0 ? 'true' : 'false'; ?>" aria-controls="<?php echo esc_attr( $panel_id ); ?>" data-eco-agenda-tab="<?php echo esc_attr( $panel_id ); ?>">
@@ -71,7 +71,7 @@ if ( empty( $valid_days ) ) {
 			$items     = $day['agenda_items'] ?? [];
 			$panel_id  = 'eco-event-agenda-panel-' . $post_id . '-' . $panel_index;
 			$tab_id    = 'eco-event-agenda-tab-' . $post_id . '-' . $panel_index;
-			$day_label = $day['day_label'] ?? sprintf( __( 'Tag %d', 'eco-theme' ), $panel_index + 1 );
+			$day_label = $day['day_label'] ?? sprintf( __( 'Day %d', 'eco-theme' ), $panel_index + 1 );
 			$day_date  = ! empty( $day['day_date'] ) ? eco_event_format_date( $day['day_date'] ) : '';
 			?>
 			<div class="eco-event-agenda-panel<?php echo $panel_index === 0 ? ' is-active' : ''; ?>" id="<?php echo esc_attr( $panel_id ); ?>" role="tabpanel" aria-labelledby="<?php echo esc_attr( $tab_id ); ?>" <?php echo $panel_index === 0 ? '' : 'hidden'; ?>>

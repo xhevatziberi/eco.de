@@ -134,7 +134,7 @@ class PeopleVertical extends Widget_Base {
 		if (empty($items)) return;
 
 		$info_display = !empty($settings['info_display']) ? $settings['info_display'] : 'modal';
-		$info_label   = !empty($settings['info_label']) ? $settings['info_label'] : __('Mehr anzeigen', 'elementor-eco');
+		$info_label   = !empty($settings['info_label']) ? $settings['info_label'] : __('Show more', 'elementor-eco');
 
 		$ids = [];
 		foreach ($items as $it) {
@@ -215,15 +215,15 @@ class PeopleVertical extends Widget_Base {
 
 							<div class="eco-pv-info" hidden>
 								<?php if ($address): ?>
-									<div class="eco-pv-meta"><strong><?php _e('Adresse', 'elementor-eco'); ?>:</strong> <?php echo wp_kses_post((string) $address); ?></div>
+									<div class="eco-pv-meta"><strong><?php _e('Address', 'elementor-eco'); ?>:</strong> <?php echo wp_kses_post((string) $address); ?></div>
 								<?php endif; ?>
 
 								<?php if ($phone): ?>
-									<div class="eco-pv-meta"><strong><?php _e('Telefon', 'elementor-eco'); ?>:</strong> <?php echo esc_html($phone); ?></div>
+									<div class="eco-pv-meta"><strong><?php _e('Phone', 'elementor-eco'); ?>:</strong> <?php echo esc_html($phone); ?></div>
 								<?php endif; ?>
 
 								<?php if ($email): ?>
-									<div class="eco-pv-meta"><strong><?php _e('E-Mail', 'elementor-eco'); ?>:</strong> <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a></div>
+									<div class="eco-pv-meta"><strong><?php _e('Email', 'elementor-eco'); ?>:</strong> <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a></div>
 								<?php endif; ?>
 
 								<?php if ($facebook || $twitter || $linkedin || $xing): ?>

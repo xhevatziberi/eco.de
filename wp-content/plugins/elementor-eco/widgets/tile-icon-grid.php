@@ -336,7 +336,7 @@ class TileIconGrid extends Widget_Base {
 						<?php endif; ?>
 
 						<div class="eco-tile-icon-card__more">
-							<?php esc_html_e( 'Mehr erfahren', 'elementor-eco' ); ?>
+							<?php esc_html_e( 'Learn more', 'elementor-eco' ); ?>
 							<span aria-hidden="true">→</span>
 						</div>
 					</<?php echo esc_html( $tag ); ?>>

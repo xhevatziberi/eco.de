@@ -1,0 +1,202 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: ECO Search UI (SearchWP)\n"
+"POT-Creation-Date: 2026-07-06 16:45+0200\n"
+"PO-Revision-Date: 2026-07-06 17:01+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: eco-search.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: de_DE\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/class-eco-search-search.php:22
+msgid "News"
+msgstr "Aktuelles"
+
+#: includes/class-eco-search-search.php:23
+msgid "Other"
+msgstr "Sonstiges"
+
+#: includes/class-eco-search-search.php:24
+msgid "Events"
+msgstr "Veranstaltungen"
+
+#: includes/class-eco-search-search.php:25
+msgid "Podcasts"
+msgstr "Podcasts"
+
+#: includes/class-eco-search-search.php:26
+msgid "Press"
+msgstr "Presse"
+
+#: includes/class-eco-search-search.php:28
+msgid "Downloads"
+msgstr "Downloads"
+
+#: includes/class-eco-search-search.php:29
+msgid "Papers"
+msgstr "Paper"
+
+#: includes/class-eco-search-search.php:30
+msgid "Studies"
+msgstr "Studien"
+
+#: includes/class-eco-search-search.php:36
+msgid "Last 6 months"
+msgstr "Letzte 6 Monate"
+
+#: includes/class-eco-search-search.php:37
+msgid "Last 12 months"
+msgstr "Letzte 12 Monate"
+
+#: includes/class-eco-search-search.php:38
+msgid "Last 30 days"
+msgstr "Letzte 30 Tage"
+
+#: includes/class-eco-search-search.php:39
+msgid "All time"
+msgstr "Gesamter Zeitraum"
+
+#: includes/class-eco-search-settings.php:18
+#: includes/class-eco-search-settings.php:19
+#: includes/class-eco-search-settings.php:215
+msgid "ECO Search"
+msgstr "eco Search"
+
+#: includes/class-eco-search-settings.php:222
+msgid "Header quick topics"
+msgstr "Schnellthemen im Header"
+
+#: includes/class-eco-search-settings.php:223
+msgid ""
+"Select and reorder the topics that appear under the header search input."
+msgstr ""
+"Wählen und sortieren Sie die Themen, die unter dem Suchfeld im Header "
+"angezeigt werden."
+
+#: includes/class-eco-search-settings.php:226
+msgid "No topics selected yet. Add some below."
+msgstr "Noch keine Themen ausgewählt. Fügen Sie unten welche hinzu."
+
+#: includes/class-eco-search-settings.php:241
+msgid "Add topic…"
+msgstr "Thema hinzufügen…"
+
+#: includes/class-eco-search-settings.php:249
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: includes/class-eco-search-settings.php:253
+msgid "Save"
+msgstr "Speichern"
+
+#: includes/class-eco-search-shortcodes.php:26
+msgid "Search"
+msgstr "Suche"
+
+#: includes/class-eco-search-shortcodes.php:60
+#: includes/class-eco-search-shortcodes.php:76 templates/search-wrap.php:65
+msgid "Keyword"
+msgstr "Suchbegriff"
+
+#: includes/class-eco-search-shortcodes.php:91 templates/search-wrap.php:112
+msgid "Find"
+msgstr "Suchen"
+
+#: includes/class-eco-search-shortcodes.php:95
+msgid "Or pick a topic:"
+msgstr "Oder wählen Sie ein Thema:"
+
+#: includes/class-eco-search-shortcodes.php:97
+msgid "Quick topics"
+msgstr "Schnellthemen"
+
+#: includes/class-eco-search-taxonomy.php:15
+#: includes/class-eco-search-taxonomy.php:23 templates/search-wrap.php:72
+msgid "Topics"
+msgstr "Themen"
+
+#: includes/class-eco-search-taxonomy.php:16
+msgid "Topic"
+msgstr "Thema"
+
+#: includes/class-eco-search-taxonomy.php:17
+msgid "Search Topics"
+msgstr "Themen suchen"
+
+#: includes/class-eco-search-taxonomy.php:18 templates/search-wrap.php:74
+msgid "All Topics"
+msgstr "Alle Themen"
+
+#: includes/class-eco-search-taxonomy.php:19
+msgid "Edit Topic"
+msgstr "Thema bearbeiten"
+
+#: includes/class-eco-search-taxonomy.php:20
+msgid "Update Topic"
+msgstr "Thema aktualisieren"
+
+#: includes/class-eco-search-taxonomy.php:21
+msgid "Add New Topic"
+msgstr "Neues Thema hinzufügen"
+
+#: includes/class-eco-search-taxonomy.php:22
+msgid "New Topic Name"
+msgstr "Name des neuen Themas"
+
+#: templates/search-wrap.php:84
+msgid "Date"
+msgstr "Datum"
+
+#: templates/search-wrap.php:95
+msgid "Content"
+msgstr "Inhalt"
+
+#: templates/search-wrap.php:120
+msgid "Search results for"
+msgstr "Suchergebnisse für"
+
+#: templates/search-wrap.php:131
+#, php-format
+msgid "%s result"
+msgid_plural "%s results"
+msgstr[0] "%s Ergebnis"
+msgstr[1] "%s Ergebnisse"
+
+#: templates/search-wrap.php:173
+msgid "No results found."
+msgstr "Keine Ergebnisse gefunden."
+
+#: templates/search-wrap.php:195
+msgid "Prev"
+msgstr "Zurück"
+
+#: templates/search-wrap.php:208
+msgid "Next"
+msgstr "Weiter"
+
+#. Plugin Name of the plugin/theme
+msgid "ECO Search UI (SearchWP)"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Toggleable header search UI + custom SearchWP-powered search template with "
+"filters."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Batlab"
+msgstr ""

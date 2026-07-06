@@ -12,7 +12,7 @@ if ( empty( $impressions ) || ! is_array( $impressions ) ) {
 
 <section class="eco-event-section eco-event-gallery-section">
 	<div class="eco-event-container">
-		<h2 class="eco-event-simple-title"><?php esc_html_e( 'Impressionen', 'eco-theme' ); ?></h2>
+		<h2 class="eco-event-simple-title"><?php esc_html_e( 'Impressions', 'eco-theme' ); ?></h2>
 		<div class="eco-event-gallery">
 			<?php foreach ( array_slice( $impressions, 0, 6 ) as $image ) : ?>
 				<?php

@@ -46,7 +46,7 @@ class Plugin {
 	 * @access public
 	 */
 	public function widget_scripts() {
-		$version = '1.2.12';
+		$version = '1.2.13';
 		wp_register_script( 'eco-widget-page', plugins_url( basename( __DIR__ ) . '/assets/js/page.js' ), [ 'elementor-frontend' ], $version, true );
 
 		wp_register_style( 'eco-events-style', plugins_url( '/assets/css/events.css', __FILE__  ), [], $version );
@@ -55,8 +55,18 @@ class Plugin {
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			'nonce'   => wp_create_nonce( 'eco_events_nonce' ),
 		] );
-		wp_register_script( 'eco-members-script', plugins_url( '/assets/js/members.js', __FILE__ ), [ 'jquery' ], $version, true );
 		wp_register_style( 'eco-members-style', plugins_url( '/assets/css/members.css', __FILE__  ), [], $version );
+		wp_register_script( 'eco-members-script', plugins_url( '/assets/js/members.js', __FILE__ ), [ 'jquery' ], $version, true );
+		wp_localize_script( 'eco-members-script', 'ecoMembersL10n', [
+			'noMembers'              => __( 'No members found.', 'elementor-eco' ),
+			'membersLoadError'       => __( 'Members could not be loaded. Please try again.', 'elementor-eco' ),
+			'memberDetailsLoadError' => __( 'The information could not be loaded.', 'elementor-eco' ),
+			'loadingMembers'         => __( 'Loading members…', 'elementor-eco' ),
+			'loadingAllMembers'      => __( 'Loading all members…', 'elementor-eco' ),
+			'loadingInformation'     => __( 'Loading information…', 'elementor-eco' ),
+			'oneMemberFound'         => __( '1 member found', 'elementor-eco' ),
+			'membersFound'           => __( '%d members found', 'elementor-eco' ),
+		] );
 
 		wp_register_script( 'eco-people-script', plugins_url( '/assets/js/people.js', __FILE__ ), [ 'jquery' ], $version, true );
 		wp_register_style( 'eco-people-style', plugins_url( '/assets/css/people.css', __FILE__  ), [], $version );
@@ -78,30 +88,30 @@ class Plugin {
 
 		// Localization
 		wp_localize_script('eco-events-script', 'ecoEventsL10n', [
-			'loading_events'      => __('Lade Veranstaltungen...', 'elementor-eco'),
-			'loading_month'       => __('Lade Monatsübersicht...', 'elementor-eco'),
-			'no_events_month' => __('Keine Veranstaltungen in diesem Monat.', 'elementor-eco'),
-			'no_events_today' => __('Heute keine Veranstaltungen.', 'elementor-eco'),
-			'no_events'     => __('Keine Veranstaltungen gefunden.', 'elementor-eco'),
-			'error_loading'        => __('Fehler beim Laden der Veranstaltungen. Bitte später erneut versuchen.', 'elementor-eco'),
-			'monthOverview'=> __('Monatsübersicht', 'elementor-eco'),
-			'today'        => __('Heute', 'elementor-eco'),
-			'thisMonth'    => __('Diesen Monat', 'elementor-eco'),
-			'all'          => __('Alle', 'elementor-eco'),
-			'more_info'    => __('Mehr Infos', 'elementor-eco'),
-			'ticket_shop'  => __('Zum Ticketshop', 'elementor-eco'),
-			'past_event'   => __('Vergangene Veranstaltung', 'elementor-eco'),
+			'loading_events'      => __('Loading events...', 'elementor-eco'),
+			'loading_month'       => __('Loading month overview...', 'elementor-eco'),
+			'no_events_month' => __('No events this month.', 'elementor-eco'),
+			'no_events_today' => __('No events today.', 'elementor-eco'),
+			'no_events'     => __('No events found.', 'elementor-eco'),
+			'error_loading'        => __('Error loading events. Please try again later.', 'elementor-eco'),
+			'monthOverview'=> __('Month Overview', 'elementor-eco'),
+			'today'        => __('Today', 'elementor-eco'),
+			'thisMonth'    => __('This Month', 'elementor-eco'),
+			'all'          => __('All', 'elementor-eco'),
+			'more_info'    => __('More Info', 'elementor-eco'),
+			'ticket_shop'  => __('To Ticket Shop', 'elementor-eco'),
+			'past_event'   => __('Past Event', 'elementor-eco'),
 		]);
 
 		wp_register_script( 'eco-events-carousel-script', plugins_url( '/assets/js/events-carousel.js', __FILE__ ), [ 'jquery' ], $version, true );
 		wp_register_style( 'eco-events-carousel-style', plugins_url( '/assets/css/events-carousel.css', __FILE__  ), [], $version );
 		wp_localize_script('eco-events-carousel-script', 'ecoEventsCarousel', [
 			'ajaxurl' => admin_url('admin-ajax.php'),
-			'loading' => __('Lade Veranstaltungen...', 'elementor-eco'),
-			'more_info' => __('Mehr Infos', 'elementor-eco'),
-			'ticket_shop' => __('Zum Ticketshop', 'elementor-eco'),
-			'empty' => __('Keine Veranstaltungen gefunden.', 'elementor-eco'),
-			'error' => __('Fehler beim Laden.', 'elementor-eco'),
+			'loading' => __('Loading events...', 'elementor-eco'),
+			'more_info' => __('More Info', 'elementor-eco'),
+			'ticket_shop' => __('To Ticket Shop', 'elementor-eco'),
+			'empty' => __('No events found.', 'elementor-eco'),
+			'error' => __('Error loading events.', 'elementor-eco'),
 		]);
 
 		wp_register_script( 'eco-people-vertical-script', plugins_url( '/assets/js/people-vertical.js', __FILE__ ), [ 'jquery' ], $version, true );
@@ -115,7 +125,7 @@ class Plugin {
 			[
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => wp_create_nonce( 'eco_downloads_nonce' ),
-				'error'   => __( 'Fehler beim Laden der Downloads.', 'elementor-eco' ),
+				'error'   => __( 'Error loading downloads.', 'elementor-eco' ),
 			]
 		);
 		wp_register_style( 'eco-tile-icon-grid-style', plugins_url( '/assets/css/tile-icon-grid.css', __FILE__ ), [], $version );
@@ -170,9 +180,6 @@ class Plugin {
 	 * @access private
 	 */
 	private function include_widgets_files() {
-		// common
-		// require_once( __DIR__ . '/widgets/common/gallery.php' );
-		// require_once( __DIR__ . '/widgets/common/breadcrumbs.php' );
 		require_once( __DIR__ . '/widgets/common/address.php' );
 		require_once( __DIR__ . '/widgets/events.php' );
 		require_once( __DIR__ . '/widgets/members.php' );
@@ -210,8 +217,6 @@ class Plugin {
 		$this->include_widgets_files();
 
 		// Register Widgets
-		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Gallery() );
-		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Breadcrumbs() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Address() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\EventList() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Members() );

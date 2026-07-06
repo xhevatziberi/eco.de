@@ -23,7 +23,7 @@ class Shortcodes {
         $atts = shortcode_atts([
             'target' => 'eco-searchbar',
             'class'  => '',
-            'label'  => 'Search',
+            'label'  => esc_html__('Search', 'eco-search'),
         ], $atts, 'eco_search_toggle');
 
         $target = sanitize_html_class($atts['target']);
@@ -57,7 +57,7 @@ class Shortcodes {
     public static function search_bar_shortcode($atts = []) {
         $atts = shortcode_atts([
             'id'          => 'eco-searchbar',
-            'placeholder' => 'Keyword',
+            'placeholder' => esc_html__('Keyword', 'eco-search'),
         ], $atts, 'eco_search_bar');
 
         $id = sanitize_html_class($atts['id']);
@@ -72,7 +72,9 @@ class Shortcodes {
             <div class="eco-searchbar__inner">
                 <form class="eco-searchbar__form" method="get" action="<?php echo esc_url($action); ?>">
                     <div class="eco-searchbar__row">
-                        <label class="eco-sr-only" for="eco-searchbar-s">Keyword</label>
+                        <label class="eco-sr-only" for="eco-searchbar-s">
+                            <?php esc_html_e('Keyword', 'eco-search'); ?>
+                        </label>
 
                         <input
                             id="eco-searchbar-s"
@@ -86,13 +88,13 @@ class Shortcodes {
 
                         <input type="hidden" name="topic" value="<?php echo esc_attr($current_topic); ?>" />
 
-                        <button type="submit" class="eco-searchbar__btn">find</button>
+                        <button type="submit" class="eco-searchbar__btn"><?php esc_html_e('Find', 'eco-search'); ?></button>
                     </div>
 
                     <?php if (!empty($quick_topics)): ?>
-                        <div class="eco-searchbar__topics-hint">Or pick a topic:</div>
+                        <div class="eco-searchbar__topics-hint"><?php esc_html_e('Or pick a topic:', 'eco-search'); ?></div>
 
-                        <div class="eco-searchbar__topics" aria-label="Quick topics">
+                        <div class="eco-searchbar__topics" aria-label="<?php esc_attr_e('Quick topics', 'eco-search'); ?>">
                             <?php foreach ($quick_topics as $t): ?>
                                 <?php $is_active = ($current_topic === $t->slug); ?>
                                 <button

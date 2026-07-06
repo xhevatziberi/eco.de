@@ -14,8 +14,8 @@ if ( empty( $partner_groups ) ) {
 <section class="eco-event-section eco-event-partners">
 	<div class="eco-event-container">
 		<div class="eco-event-section-head">
-			<span><?php esc_html_e( 'Netzwerk', 'eco-theme' ); ?></span>
-			<h2><?php esc_html_e( 'Partner', 'eco-theme' ); ?></h2>
+			<span><?php esc_html_e( 'Network', 'eco-theme' ); ?></span>
+			<h2><?php esc_html_e( 'Partners', 'eco-theme' ); ?></h2>
 		</div>
 
 		<div class="eco-event-partner-groups">

@@ -332,13 +332,13 @@ class EventCalendarAjax {
 		</div>
 
 		<div class="eco-event-calendar__weekdays" aria-hidden="true">
-			<span><?php esc_html_e( 'Mo', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Di', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Mi', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Do', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Fr', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'Sa', 'elementor-eco' ); ?></span>
-			<span><?php esc_html_e( 'So', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Mon', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Tue', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Wed', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Thu', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Fri', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Sat', 'elementor-eco' ); ?></span>
+			<span><?php esc_html_e( 'Sun', 'elementor-eco' ); ?></span>
 		</div>
 
 		<div class="eco-event-calendar__days">
@@ -433,8 +433,8 @@ class EventCalendarAjax {
 	}
 
 	public static function render_empty_state( $settings ) {
-		$title = ! empty( $settings['empty_title'] ) ? $settings['empty_title'] : __( 'Keine Veranstaltungen gefunden', 'elementor-eco' );
-		$text  = ! empty( $settings['empty_text'] ) ? $settings['empty_text'] : __( 'Für diesen Zeitraum sind aktuell keine Veranstaltungen verfügbar.', 'elementor-eco' );
+		$title = ! empty( $settings['empty_title'] ) ? $settings['empty_title'] : __( 'No events found', 'elementor-eco' );
+		$text  = ! empty( $settings['empty_text'] ) ? $settings['empty_text'] : __( 'No events are currently available for this period.', 'elementor-eco' );
 
 		ob_start();
 		?>

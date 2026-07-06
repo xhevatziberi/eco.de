@@ -13,8 +13,8 @@ if ( empty( $faq ) || ! is_array( $faq ) ) {
 <section class="eco-event-section eco-event-faq">
 	<div class="eco-event-container">
 		<div class="eco-event-section-head">
-			<span><?php esc_html_e( 'Fragen', 'eco-theme' ); ?></span>
-			<h2><?php esc_html_e( 'Häufig gestellte Fragen', 'eco-theme' ); ?></h2>
+			<span><?php esc_html_e( 'Questions', 'eco-theme' ); ?></span>
+			<h2><?php esc_html_e( 'Frequently asked questions', 'eco-theme' ); ?></h2>
 		</div>
 
 		<div class="eco-event-faq__list">

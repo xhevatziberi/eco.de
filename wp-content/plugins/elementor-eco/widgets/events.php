@@ -206,7 +206,7 @@ class EventList extends Widget_Base {
 
 				<div class="calendar-filters">
 					<select id="category-select">
-						<option value=""><?php echo esc_html__( 'Alle', 'elementor-eco' ); ?></option>
+						<option value=""><?php echo esc_html__( 'All', 'elementor-eco' ); ?></option>
 						<?php
 						$categories = get_terms( array(
 							'taxonomy' => 'event-category',
@@ -226,7 +226,7 @@ class EventList extends Widget_Base {
 							'taxonomy' => 'event-tag',
 							'hide_empty' => false,
 						) );
-						echo '<span class="event-tag" data-tag="">' . esc_html__( 'Alle', 'elementor-eco' ) . '</span>';
+						echo '<span class="event-tag" data-tag="">' . esc_html__( 'All', 'elementor-eco' ) . '</span>';
 						foreach ( $tags as $tag ) {
 							echo '<span class="event-tag" data-tag="' . esc_attr( $tag->slug ) . '">' . esc_html( $tag->name ) . '</span>';
 						}
@@ -237,7 +237,7 @@ class EventList extends Widget_Base {
 				<div id="calendar-days"></div>
 
 				<div class="calendar-this-month">
-					<button id="this-month-button" class="event-this-month active"><?php _e('Monatsübersicht', 'elementor-eco'); ?></button>
+					<button id="this-month-button" class="event-this-month active"><?php _e('This Month', 'elementor-eco'); ?></button>
 				</div>
 
 				<div id="events"></div>
@@ -261,12 +261,12 @@ class EventList extends Widget_Base {
 				</div>
 
 				<div class="calendar-filters">
-				<label for="category-select">Filter by Category:</label>
+				<label for="category-select"><?php esc_html_e( 'Filter by Category:', 'elementor-eco' ); ?></label>
 				<select id="category-select">
-					<option value="">All Categories</option>
+					<option value=""><?php esc_html_e( 'All Categories', 'elementor-eco' ); ?></option>
 					<!-- Add categories dynamically or hardcoded -->
-					<option value="category-1">Category 1</option>
-					<option value="category-2">Category 2</option>
+					<option value="category-1"><?php esc_html_e( 'Category 1', 'elementor-eco' ); ?></option>
+					<option value="category-2"><?php esc_html_e( 'Category 2', 'elementor-eco' ); ?></option>
 				</select>
 				</div>
 

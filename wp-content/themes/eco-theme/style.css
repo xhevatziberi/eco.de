@@ -6,6 +6,7 @@ Description: Child theme for ECO based on Hello Elementor.
 Template: hello-elementor
 Version: 1.0.4
 Text Domain: eco-theme
+Domain Path: /languages
 */
 
 .page-header .entry-title {

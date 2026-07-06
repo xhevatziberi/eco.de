@@ -26,18 +26,18 @@ if ( ! $has_location ) {
 	<div class="eco-event-container eco-event-location__grid">
 		<div>
 			<div class="eco-event-section-head">
-				<span><?php esc_html_e( 'Ort', 'eco-theme' ); ?></span>
+				<span><?php esc_html_e( 'Place', 'eco-theme' ); ?></span>
 				<h2><?php esc_html_e( 'Location', 'eco-theme' ); ?></h2>
 			</div>
 
 			<div class="eco-event-location__box">
 				<?php if ( in_array( $mode, [ 'online', 'hybrid' ], true ) ) : ?>
-					<h3><?php echo esc_html( $mode === 'hybrid' ? __( 'Online Teilnahme', 'eco-theme' ) : __( 'Online Event', 'eco-theme' ) ); ?></h3>
+					<h3><?php echo esc_html( $mode === 'hybrid' ? __( 'Online Participation', 'eco-theme' ) : __( 'Online Event', 'eco-theme' ) ); ?></h3>
 					<?php if ( $platform ) : ?>
 						<p><?php echo esc_html( $platform ); ?></p>
 					<?php endif; ?>
 					<?php if ( $online_url ) : ?>
-						<a href="<?php echo esc_url( $online_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Online-Link öffnen', 'eco-theme' ); ?></a>
+						<a href="<?php echo esc_url( $online_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Open online link', 'eco-theme' ); ?></a>
 					<?php endif; ?>
 				<?php endif; ?>
 
@@ -49,7 +49,7 @@ if ( ! $has_location ) {
 						<?php echo esc_html( $country ); ?>
 					</p>
 					<?php if ( $maps_url ) : ?>
-						<a href="<?php echo esc_url( $maps_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Route planen', 'eco-theme' ); ?></a>
+						<a href="<?php echo esc_url( $maps_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Plan route', 'eco-theme' ); ?></a>
 					<?php endif; ?>
 				<?php endif; ?>
 

@@ -1,1986 +1,1907 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Elementor Eco\n"
+"Report-Msgid-Bugs-To: xhevat@batlab.mk\n"
 "POT-Creation-Date: 2026-07-06 15:43+0200\n"
-"PO-Revision-Date: 2026-07-06 14:50+0200\n"
+"PO-Revision-Date: 2026-07-06 16:22+0200\n"
 "Last-Translator: \n"
+"Language: de_DE\n"
 "Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: .\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: elementor-eco.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: languages\n"
-"X-Poedit-SearchPath-1: .\n"
+"X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #. translators: 1: Plugin name 2: Elementor
 #: elementor-eco.php:141
 #, php-format
 msgid "\"%1$s\" requires \"%2$s\" to be installed and activated."
-msgstr ""
+msgstr "\"%1$s\" erfordert, dass \"%2$s\" installiert und aktiviert ist."
 
 #. Plugin Name of the plugin/theme
 #: elementor-eco.php:142 elementor-eco.php:165 elementor-eco.php:189
 msgid "Elementor Eco"
-msgstr ""
+msgstr "Elementor Eco"
 
 #: elementor-eco.php:143 elementor-eco.php:166
 msgid "Elementor"
-msgstr ""
+msgstr "Elementor"
 
 #. translators: 1: Plugin name 2: Elementor 3: Required Elementor version
 #. translators: 1: Plugin name 2: PHP 3: Required PHP version
 #: elementor-eco.php:164 elementor-eco.php:188
 #, php-format
 msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
-msgstr ""
+msgstr "\"%1$s\" erfordert \"%2$s\" in Version %3$s oder höher."
 
 #: elementor-eco.php:190
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: inc/event-calendar-ajax.php:19
 msgid "Invalid request."
-msgstr ""
+msgstr "Ungültige Anfrage."
 
 #: inc/event-calendar-ajax.php:329
 msgid "Previous month"
-msgstr ""
+msgstr "Vorheriger Monat"
 
 #: inc/event-calendar-ajax.php:331
 msgid "Next month"
-msgstr ""
+msgstr "Nächster Monat"
 
 #: inc/event-calendar-ajax.php:335
 msgid "Mon"
-msgstr ""
+msgstr "Mo"
 
 #: inc/event-calendar-ajax.php:336
 msgid "Tue"
-msgstr ""
+msgstr "Di"
 
 #: inc/event-calendar-ajax.php:337
 msgid "Wed"
-msgstr ""
+msgstr "Mi"
 
 #: inc/event-calendar-ajax.php:338
 msgid "Thu"
-msgstr ""
+msgstr "Do"
 
 #: inc/event-calendar-ajax.php:339
 msgid "Fri"
-msgstr ""
+msgstr "Fr"
 
 #: inc/event-calendar-ajax.php:340
 msgid "Sat"
-msgstr ""
+msgstr "Sa"
 
 #: inc/event-calendar-ajax.php:341
 msgid "Sun"
-msgstr ""
+msgstr "So"
 
 #: inc/event-calendar-ajax.php:400
 msgid "Past"
-msgstr ""
+msgstr "Vergangen"
 
 #: inc/event-calendar-ajax.php:436
 msgid "No events found"
-msgstr ""
+msgstr "Keine Veranstaltungen gefunden"
 
 #: inc/event-calendar-ajax.php:437
 msgid "No events are currently available for this period."
-msgstr ""
+msgstr "Für diesen Zeitraum sind aktuell keine Veranstaltungen verfügbar."
 
-#: inc/event-calendar-ajax.php:467 inc/event-calendar-ajax.php:477
-#: widgets/content-cards.php:224
+#: inc/event-calendar-ajax.php:467 inc/event-calendar-ajax.php:477 widgets/content-cards.php:224
 msgid "Event"
-msgstr ""
+msgstr "Veranstaltung"
 
 #: inc/event-calendar-ajax.php:468
 msgid "eco Event"
-msgstr ""
+msgstr "eco Veranstaltung"
 
 #: inc/event-calendar-ajax.php:469
 msgid "Partner Event"
-msgstr ""
+msgstr "Partner Veranstaltung"
 
 #: inc/event-calendar-ajax.php:470
 msgid "Webinar"
-msgstr ""
+msgstr "Webinar"
 
 #: inc/event-calendar-ajax.php:471
 msgid "Workshop"
-msgstr ""
+msgstr "Workshop"
 
 #: inc/event-calendar-ajax.php:472
 msgid "Conference"
-msgstr ""
+msgstr "Konferenz"
 
-#: inc/event-calendar-ajax.php:473 widgets/featured-slider.php:64
-#: widgets/featured-slider.php:65
+#: inc/event-calendar-ajax.php:473 widgets/featured-slider.php:64 widgets/featured-slider.php:65
 msgid "Highlight"
-msgstr ""
+msgstr "Highlight"
 
 #: inc/event-calendar-ajax.php:474
 msgid "Training"
-msgstr ""
+msgstr "Training"
 
 #: inc/event-calendar-ajax.php:475
 msgid "Award"
-msgstr ""
+msgstr "Award"
 
 #: inc/event-calendar-ajax.php:486 inc/event-calendar-ajax.php:490
 msgid "Online"
-msgstr ""
+msgstr "Online"
 
 #: inc/event-calendar-ajax.php:490
 #, php-format
 msgid "Online / %s"
-msgstr ""
+msgstr "Online / %s"
 
 #: inc/members-ajax.php:193
 msgid "Invalid filter."
-msgstr ""
+msgstr "Ungültiger Filter."
 
 #: inc/members-ajax.php:221
 msgid "Member not found."
-msgstr ""
+msgstr "Mitglied nicht gefunden."
 
 #: inc/members-ajax.php:325 plugin.php:61
 msgid "No members found."
-msgstr ""
+msgstr "Keine Mitglieder gefunden."
 
 #: inc/members-ajax.php:410 inc/members-ajax.php:500
 msgid "Visit Website"
-msgstr ""
+msgstr "Website besuchen"
 
 #: inc/members-ajax.php:421 widgets/people.php:245 widgets/people.php:383
 msgid "More Information"
-msgstr ""
+msgstr "Mehr Informationen"
 
 #: inc/members-ajax.php:533
 msgid "Phone:"
-msgstr ""
+msgstr "Telefon:"
 
 #: inc/members-ajax.php:542
 msgid "Fax:"
-msgstr ""
+msgstr "Fax:"
 
 #: inc/members-ajax.php:549
 msgid "Email:"
-msgstr ""
+msgstr "E-Mail:"
 
 #: plugin.php:62
 msgid "Members could not be loaded. Please try again."
-msgstr ""
+msgstr "Die Mitglieder konnten nicht geladen werden. Bitte versuchen Sie es erneut."
 
 #: plugin.php:63
 msgid "The information could not be loaded."
-msgstr ""
+msgstr "Die Informationen konnten nicht geladen werden."
 
 #: plugin.php:64
 msgid "Loading members…"
-msgstr ""
+msgstr "Mitglieder werden geladen…"
 
 #: plugin.php:65
 msgid "Loading all members…"
-msgstr ""
+msgstr "Alle Mitglieder werden geladen…"
 
 #: plugin.php:66
 msgid "Loading information…"
-msgstr ""
+msgstr "Informationen werden geladen…"
 
 #: plugin.php:67
 msgid "1 member found"
-msgstr ""
+msgstr "1 Mitglied gefunden"
 
 #: plugin.php:68
 #, php-format
 msgid "%d members found"
-msgstr ""
+msgstr "%d Mitglieder gefunden"
 
 #: plugin.php:91 plugin.php:110 widgets/eco-events-carousel.php:146
 msgid "Loading events..."
-msgstr ""
+msgstr "Lade Veranstaltungen..."
 
 #: plugin.php:92
 msgid "Loading month overview..."
-msgstr ""
+msgstr "Lade Monatsübersicht..."
 
 #: plugin.php:93
 msgid "No events this month."
-msgstr ""
+msgstr "Keine Veranstaltungen in diesem Monat."
 
 #: plugin.php:94
 msgid "No events today."
-msgstr ""
+msgstr "Heute keine Veranstaltungen."
 
 #: plugin.php:95 plugin.php:113
 msgid "No events found."
-msgstr ""
+msgstr "Keine Veranstaltungen gefunden."
 
 #: plugin.php:96
 msgid "Error loading events. Please try again later."
-msgstr ""
+msgstr "Fehler beim Laden der Veranstaltungen. Bitte später erneut versuchen."
 
 #: plugin.php:97
 msgid "Month Overview"
-msgstr ""
+msgstr "Monatsübersicht"
 
 #: plugin.php:98
 msgid "Today"
-msgstr ""
+msgstr "Heute"
 
 #: plugin.php:99 widgets/events.php:240
 msgid "This Month"
-msgstr ""
+msgstr "Diesen Monat"
 
-#: plugin.php:100 widgets/content-cards.php:188 widgets/downloads.php:972
-#: widgets/events.php:209 widgets/events.php:229
+#: plugin.php:100 widgets/content-cards.php:188 widgets/downloads.php:972 widgets/events.php:209 widgets/events.php:229
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: plugin.php:101 plugin.php:111
 msgid "More Info"
-msgstr ""
+msgstr "Mehr Infos"
 
 #: plugin.php:102 plugin.php:112
 msgid "To Ticket Shop"
-msgstr ""
+msgstr "Zum Ticketshop"
 
 #: plugin.php:103
 msgid "Past Event"
-msgstr ""
+msgstr "Vergangene Veranstaltung"
 
 #: plugin.php:114
 msgid "Error loading events."
-msgstr ""
+msgstr "Fehler beim Laden der Veranstaltungen."
 
 #: plugin.php:128
 msgid "Error loading downloads."
-msgstr ""
+msgstr "Fehler beim Laden der Downloads."
 
 #: plugin.php:249
 msgid "Eco Widgets"
-msgstr ""
+msgstr "eco Widgets"
 
 #. Author of the plugin/theme
 #: plugin.php:271
 msgid "Eco"
-msgstr ""
+msgstr "eco"
 
 #: widgets/benefit-card.php:22
 msgid "Benefit Card"
-msgstr ""
+msgstr "Vorteilskarte"
 
-#: widgets/benefit-card.php:49 widgets/downloads.php:55
-#: widgets/event-calendar.php:43 widgets/eyebrow-heading.php:40
-#: widgets/number-box.php:39 widgets/people-vertical.php:38
-#: widgets/people.php:39 widgets/podcast-player.php:37
-#: widgets/testimonial-showcase.php:393
+#: widgets/benefit-card.php:49 widgets/downloads.php:55 widgets/event-calendar.php:43 widgets/eyebrow-heading.php:40 widgets/number-box.php:39
+#: widgets/people-vertical.php:38 widgets/people.php:39 widgets/podcast-player.php:37 widgets/testimonial-showcase.php:393
 msgid "Content"
-msgstr ""
+msgstr "Inhalt"
 
 #: widgets/benefit-card.php:56 widgets/eyebrow-heading.php:48
 msgid "Icon"
-msgstr ""
+msgstr "Icon"
 
 #: widgets/benefit-card.php:68 widgets/number-box.php:47
 msgid "Number"
-msgstr ""
+msgstr "Zahl"
 
 #: widgets/benefit-card.php:78 widgets/common/address.php:80
 msgid "Label"
-msgstr ""
+msgstr "Label"
 
 #: widgets/benefit-card.php:80
 msgid "Kompetenzgruppen"
-msgstr ""
+msgstr "Kompetenzgruppen"
 
-#: widgets/benefit-card.php:88 widgets/common/address.php:59
-#: widgets/common/address.php:61 widgets/common/address.php:73
-#: widgets/content-cards.php:144 widgets/downloads.php:62
-#: widgets/downloads.php:218 widgets/event-calendar.php:51
-#: widgets/event-calendar.php:236 widgets/events.php:60 widgets/events.php:62
-#: widgets/featured-slider.php:82 widgets/logo-grid.php:67
-#: widgets/member-carousel.php:109 widgets/members.php:55
-#: widgets/number-box.php:57 widgets/tile-feature-list.php:91
-#: widgets/tile-icon-grid.php:74
+#: widgets/benefit-card.php:88 widgets/common/address.php:59 widgets/common/address.php:61 widgets/common/address.php:73 widgets/content-cards.php:144
+#: widgets/downloads.php:62 widgets/downloads.php:218 widgets/event-calendar.php:51 widgets/event-calendar.php:236 widgets/events.php:60
+#: widgets/events.php:62 widgets/featured-slider.php:82 widgets/logo-grid.php:67 widgets/member-carousel.php:109 widgets/members.php:55
+#: widgets/number-box.php:57 widgets/tile-feature-list.php:91 widgets/tile-icon-grid.php:74
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: widgets/benefit-card.php:90
 msgid "Mitwirkung & fachlicher Austausch"
-msgstr ""
+msgstr "Mitwirkung & fachlicher Austausch"
 
 #: widgets/benefit-card.php:99
 msgid "Title HTML Tag"
-msgstr ""
+msgstr "Html-Tag für Titel"
 
 #: widgets/benefit-card.php:116
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: widgets/benefit-card.php:118
-msgid ""
-"Bringen Sie Ihre Expertise ein, gestalten Sie relevante Themen aktiv mit und "
-"tauschen Sie sich mit führenden Fachleuten der Internetwirtschaft aus."
-msgstr ""
+msgid "Bringen Sie Ihre Expertise ein, gestalten Sie relevante Themen aktiv mit und tauschen Sie sich mit führenden Fachleuten der Internetwirtschaft aus."
+msgstr "Bringen Sie Ihre Expertise ein, gestalten Sie relevante Themen aktiv mit und tauschen Sie sich mit führenden Fachleuten der Internetwirtschaft aus."
 
 #: widgets/benefit-card.php:125
 msgid "Link Text"
-msgstr ""
+msgstr "Linktext"
 
 #: widgets/benefit-card.php:127
 msgid "Kompetenzgruppen entdecken"
-msgstr ""
+msgstr "Kompetenzgruppen entdecken"
 
-#: widgets/benefit-card.php:135 widgets/benefit-card.php:528
-#: widgets/featured-slider.php:133 widgets/partner-logos.php:75
+#: widgets/benefit-card.php:135 widgets/benefit-card.php:528 widgets/featured-slider.php:133 widgets/partner-logos.php:75
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: widgets/benefit-card.php:150 widgets/testimonial-showcase.php:326
 msgid "Card"
-msgstr ""
+msgstr "Karte"
 
 #: widgets/benefit-card.php:158 widgets/testimonial-showcase.php:308
 msgid "Minimum Height"
-msgstr ""
+msgstr "Mindesthöhe"
 
-#: widgets/benefit-card.php:175 widgets/events.php:109
-#: widgets/member-carousel.php:258 widgets/partner-logos.php:179
-#: widgets/testimonial-showcase.php:346
+#: widgets/benefit-card.php:175 widgets/events.php:109 widgets/member-carousel.php:258 widgets/partner-logos.php:179 widgets/testimonial-showcase.php:346
 msgid "Padding"
-msgstr ""
+msgstr "Innenabstand"
 
-#: widgets/benefit-card.php:191 widgets/events.php:98
-#: widgets/member-carousel.php:274 widgets/partner-logos.php:195
+#: widgets/benefit-card.php:191 widgets/events.php:98 widgets/member-carousel.php:274 widgets/partner-logos.php:195
 msgid "Background Color"
-msgstr ""
+msgstr "Hintergrundfarbe"
 
-#: widgets/benefit-card.php:216 widgets/benefit-card.php:272
-#: widgets/partner-logos.php:219
+#: widgets/benefit-card.php:216 widgets/benefit-card.php:272 widgets/partner-logos.php:219
 msgid "Top Border Color"
-msgstr ""
+msgstr "Farbe der oberen Linie"
 
 #: widgets/benefit-card.php:228
 msgid "Top Border Width"
-msgstr ""
+msgstr "Breite der oberen Linie"
 
-#: widgets/benefit-card.php:242 widgets/content-cards.php:479
-#: widgets/downloads.php:378 widgets/event-calendar.php:293
-#: widgets/events.php:145 widgets/logo-grid.php:268
-#: widgets/member-carousel.php:298 widgets/partner-logos.php:231
-#: widgets/testimonial-showcase.php:367
+#: widgets/benefit-card.php:242 widgets/content-cards.php:479 widgets/downloads.php:378 widgets/event-calendar.php:293 widgets/events.php:145
+#: widgets/logo-grid.php:268 widgets/member-carousel.php:298 widgets/partner-logos.php:231 widgets/testimonial-showcase.php:367
 msgid "Border Radius"
-msgstr ""
+msgstr "Eckenradius"
 
 #: widgets/benefit-card.php:263
 msgid "Hover"
-msgstr ""
+msgstr "Hover"
 
 #: widgets/benefit-card.php:284
 msgid "Move Up"
-msgstr ""
+msgstr "Nach oben bewegen"
 
 #: widgets/benefit-card.php:302
 msgid "Icon & Number"
-msgstr ""
+msgstr "Icon & Zahl"
 
 #: widgets/benefit-card.php:310
 msgid "Space Below Icon Row"
-msgstr ""
+msgstr "Abstand unter der Icon-Zeile"
 
 #: widgets/benefit-card.php:324
 msgid "Icon Box Size"
-msgstr ""
+msgstr "Größe der Icon-Box"
 
 #: widgets/benefit-card.php:338 widgets/eyebrow-heading.php:202
 msgid "Icon Size"
-msgstr ""
+msgstr "Icon-Größe"
 
 #: widgets/benefit-card.php:353
 msgid "Icon Color"
-msgstr ""
+msgstr "Icon-Farbe"
 
 #: widgets/benefit-card.php:365
 msgid "Icon Background"
-msgstr ""
+msgstr "Icon-Hintergrund"
 
 #: widgets/benefit-card.php:377
 msgid "Icon Border Radius"
-msgstr ""
+msgstr "Eckenradius des Icons"
 
-#: widgets/benefit-card.php:390 widgets/number-box.php:108
-#: widgets/tile-feature-list.php:254
+#: widgets/benefit-card.php:390 widgets/number-box.php:108 widgets/tile-feature-list.php:254
 msgid "Number Color"
-msgstr ""
+msgstr "Farbe der Zahl"
 
-#: widgets/benefit-card.php:414 widgets/eyebrow-heading.php:58
-#: widgets/featured-slider.php:92 widgets/number-box.php:67
+#: widgets/benefit-card.php:414 widgets/eyebrow-heading.php:58 widgets/featured-slider.php:92 widgets/number-box.php:67
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: widgets/benefit-card.php:422
 msgid "Label Color"
-msgstr ""
+msgstr "Label-Farbe"
 
 #: widgets/benefit-card.php:442
 msgid "Label Bottom Spacing"
-msgstr ""
+msgstr "Abstand unter dem Label"
 
-#: widgets/benefit-card.php:456 widgets/content-cards.php:562
-#: widgets/featured-slider.php:342 widgets/number-box.php:120
-#: widgets/tile-feature-list.php:269
+#: widgets/benefit-card.php:456 widgets/content-cards.php:562 widgets/featured-slider.php:342 widgets/number-box.php:120 widgets/tile-feature-list.php:269
 msgid "Title Color"
-msgstr ""
+msgstr "Titelfarbe"
 
 #: widgets/benefit-card.php:476
 msgid "Title Bottom Spacing"
-msgstr ""
+msgstr "Abstand unter dem Titel"
 
 #: widgets/benefit-card.php:490 widgets/tile-feature-list.php:281
 msgid "Description Color"
-msgstr ""
+msgstr "Beschreibungsfarbe"
 
 #: widgets/benefit-card.php:510
 msgid "Description Bottom Spacing"
-msgstr ""
+msgstr "Abstand unter der Beschreibung"
 
-#: widgets/benefit-card.php:536 widgets/event-calendar.php:252
-#: widgets/events.php:87 widgets/eyebrow-heading.php:130
-#: widgets/member-carousel.php:374
+#: widgets/benefit-card.php:536 widgets/event-calendar.php:252 widgets/events.php:87 widgets/eyebrow-heading.php:130 widgets/member-carousel.php:374
 msgid "Color"
-msgstr ""
+msgstr "Farbe"
 
 #: widgets/benefit-card.php:548
 msgid "Hover Color"
-msgstr ""
+msgstr "Hover-Farbe"
 
 #: widgets/benefit-card.php:560
 msgid "Arrow Color"
-msgstr ""
+msgstr "Pfeilfarbe"
 
 #: widgets/common/address.php:26 widgets/people-vertical.php:218
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #: widgets/common/address.php:52 widgets/events.php:53 widgets/members.php:48
 msgid "Section Content"
-msgstr ""
+msgstr "Sektionsinhalt"
 
 #: widgets/common/address.php:68
 msgid "Repeater List"
-msgstr ""
+msgstr "Wiederholungsliste"
 
 #: widgets/common/address.php:75
 msgid "List Title"
-msgstr ""
+msgstr "Listentitel"
 
 #: widgets/common/address.php:82
 msgid "List Label"
-msgstr ""
+msgstr "Listenlabel"
 
 #: widgets/common/address.php:88
 msgid "Title #1"
-msgstr ""
+msgstr "Titel #1"
 
 #: widgets/content-cards.php:20
 msgid "ECO Content Cards"
-msgstr ""
+msgstr "eco Content Cards"
 
-#: widgets/content-cards.php:44 widgets/downloads.php:97
-#: widgets/logo-grid.php:43 widgets/member-carousel.php:42
-#: widgets/tile-feature-list.php:39 widgets/tile-icon-grid.php:38
+#: widgets/content-cards.php:44 widgets/downloads.php:97 widgets/logo-grid.php:43 widgets/member-carousel.php:42 widgets/tile-feature-list.php:39
+#: widgets/tile-icon-grid.php:38
 msgid "Query"
-msgstr ""
+msgstr "Abfrage"
 
 #: widgets/content-cards.php:52
 msgid "Post Types"
-msgstr ""
+msgstr "Inhaltstypen"
 
-#: widgets/content-cards.php:64 widgets/downloads.php:104
-#: widgets/tile-feature-list.php:47
+#: widgets/content-cards.php:64 widgets/downloads.php:104 widgets/tile-feature-list.php:47
 msgid "Query Source"
-msgstr ""
+msgstr "Abfragequelle"
 
 #: widgets/content-cards.php:68
 msgid "Manual / Widget Terms"
-msgstr ""
+msgstr "Manuelle / Widget-Terme"
 
 #: widgets/content-cards.php:69 widgets/downloads.php:109
 msgid "Current ACF Terms"
-msgstr ""
+msgstr "Aktuelle ACF-Terme"
 
 #: widgets/content-cards.php:70
 msgid "Current Taxonomy Term"
-msgstr ""
+msgstr "Aktueller Taxonomie-Term"
 
 #: widgets/content-cards.php:78
 msgid "Include Terms"
-msgstr ""
+msgstr "Terme einschließen"
 
 #: widgets/content-cards.php:83
 msgid "Optional. Works across posts, events, podcasts and press."
-msgstr ""
+msgstr "Optional. Funktioniert für Beiträge, Veranstaltungen, Podcasts und Presse."
 
 #: widgets/content-cards.php:93
 msgid "ACF Field Name(s)"
-msgstr ""
+msgstr "ACF-Feldname(n)"
 
 #: widgets/content-cards.php:97
-msgid ""
-"Comma-separated ACF taxonomy field names from the current post/CPT. Example: "
-"event_categories,event_tags"
-msgstr ""
+msgid "Comma-separated ACF taxonomy field names from the current post/CPT. Example: event_categories,event_tags"
+msgstr "Kommagetrennte ACF-Taxonomie-Feldnamen aus dem aktuellen Beitrag/CPT. Beispiel: event_categories,event_tags"
 
 #: widgets/content-cards.php:107
 msgid "Manual IDs"
-msgstr ""
+msgstr "Manuelle IDs"
 
 #: widgets/content-cards.php:110
 msgid "Optional. If filled, only these posts are shown."
-msgstr ""
+msgstr "Optional. Wenn ausgefüllt, werden nur diese Beiträge angezeigt."
 
 #: widgets/content-cards.php:117
 msgid "Posts Per Page"
-msgstr ""
+msgstr "Beiträge pro Seite"
 
 #: widgets/content-cards.php:128
 msgid "Offset"
-msgstr ""
+msgstr "Offset"
 
-#: widgets/content-cards.php:139 widgets/downloads.php:213
-#: widgets/logo-grid.php:62 widgets/member-carousel.php:103
-#: widgets/tile-feature-list.php:86 widgets/tile-icon-grid.php:69
+#: widgets/content-cards.php:139 widgets/downloads.php:213 widgets/logo-grid.php:62 widgets/member-carousel.php:103 widgets/tile-feature-list.php:86
+#: widgets/tile-icon-grid.php:69
 msgid "Order By"
-msgstr ""
+msgstr "Sortieren nach"
 
-#: widgets/content-cards.php:143 widgets/downloads.php:217
-#: widgets/featured-slider.php:103 widgets/logo-grid.php:68
-#: widgets/tile-feature-list.php:92 widgets/tile-icon-grid.php:75
+#: widgets/content-cards.php:143 widgets/downloads.php:217 widgets/featured-slider.php:103 widgets/logo-grid.php:68 widgets/tile-feature-list.php:92
+#: widgets/tile-icon-grid.php:75
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
-#: widgets/content-cards.php:145 widgets/downloads.php:219
-#: widgets/logo-grid.php:69 widgets/tile-feature-list.php:90
-#: widgets/tile-icon-grid.php:73
+#: widgets/content-cards.php:145 widgets/downloads.php:219 widgets/logo-grid.php:69 widgets/tile-feature-list.php:90 widgets/tile-icon-grid.php:73
 msgid "Menu Order"
-msgstr ""
+msgstr "Menü-Reihenfolge"
 
-#: widgets/content-cards.php:146 widgets/downloads.php:220
-#: widgets/logo-grid.php:66 widgets/member-carousel.php:110
+#: widgets/content-cards.php:146 widgets/downloads.php:220 widgets/logo-grid.php:66 widgets/member-carousel.php:110
 msgid "Random"
-msgstr ""
+msgstr "Zufällig"
 
 #: widgets/content-cards.php:147
 msgid "Event Start Date"
-msgstr ""
+msgstr "Startdatum der Veranstaltung"
 
 #: widgets/content-cards.php:148
 msgid "Manual Order"
-msgstr ""
+msgstr "Manuelle Reihenfolge"
 
-#: widgets/content-cards.php:156 widgets/downloads.php:228
-#: widgets/logo-grid.php:77 widgets/member-carousel.php:118
-#: widgets/tile-feature-list.php:104 widgets/tile-icon-grid.php:84
+#: widgets/content-cards.php:156 widgets/downloads.php:228 widgets/logo-grid.php:77 widgets/member-carousel.php:118 widgets/tile-feature-list.php:104
+#: widgets/tile-icon-grid.php:84
 msgid "Order"
-msgstr ""
+msgstr "Reihenfolge"
 
 #: widgets/content-cards.php:169
 msgid "Event Filter"
-msgstr ""
+msgstr "Veranstaltungsfilter"
 
 #: widgets/content-cards.php:173 widgets/event-calendar.php:65
 msgid "All Events"
-msgstr ""
+msgstr "Alle Veranstaltungen"
 
 #: widgets/content-cards.php:174
 msgid "Future Events Only"
-msgstr ""
+msgstr "Nur zukünftige Veranstaltungen"
 
 #: widgets/content-cards.php:175
 msgid "Past Events Only"
-msgstr ""
+msgstr "Nur vergangene Veranstaltungen"
 
 #: widgets/content-cards.php:177
 msgid "Only applies when querying events."
-msgstr ""
+msgstr "Gilt nur bei der Abfrage von Veranstaltungen."
 
 #: widgets/content-cards.php:184
 msgid "Highlight Filter"
-msgstr ""
+msgstr "Highlight-Filter"
 
 #: widgets/content-cards.php:189
 msgid "Highlighted only"
-msgstr ""
+msgstr "Nur hervorgehobene"
 
 #: widgets/content-cards.php:190
 msgid "Skip first highlight"
-msgstr ""
+msgstr "Erstes Highlight überspringen"
 
 #: widgets/content-cards.php:192
-msgid ""
-"Uses the ACF/SCF true/false field is_highlight. “Skip first highlight” "
-"excludes only the newest highlighted item matching this widget query."
+msgid "Uses the ACF/SCF true/false field is_highlight. “Skip first highlight” excludes only the newest highlighted item matching this widget query."
 msgstr ""
+"Verwendet das ACF/SCF-Wahr/Falsch-Feld is_highlight. „Erstes Highlight überspringen“ schließt nur das neueste hervorgehobene Element aus, das zu dieser "
+"Widget-Abfrage passt."
 
 #: widgets/content-cards.php:199
 msgid "Exclude Current Post"
-msgstr ""
+msgstr "Aktuellen Beitrag ausschließen"
 
 #: widgets/content-cards.php:211 widgets/downloads.php:248
 msgid "Display"
-msgstr ""
+msgstr "Anzeige"
 
 #: widgets/content-cards.php:219 widgets/content-cards.php:433
 msgid "Card Style"
-msgstr ""
+msgstr "Kartenstil"
 
 #: widgets/content-cards.php:223
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: widgets/content-cards.php:225
 msgid "Overlay / Highlight"
-msgstr ""
+msgstr "Overlay / Highlight"
 
 #: widgets/content-cards.php:226
 msgid "Featured Horizontal"
-msgstr ""
+msgstr "Horizontal hervorgehoben"
 
 #: widgets/content-cards.php:235
 msgid "Image Position"
-msgstr ""
+msgstr "Bildposition"
 
-#: widgets/content-cards.php:239 widgets/eyebrow-heading.php:154
-#: widgets/number-box.php:83 widgets/tile-feature-list.php:146
+#: widgets/content-cards.php:239 widgets/eyebrow-heading.php:154 widgets/number-box.php:83 widgets/tile-feature-list.php:146
 msgid "Left"
-msgstr ""
+msgstr "Links"
 
-#: widgets/content-cards.php:240 widgets/eyebrow-heading.php:162
-#: widgets/tile-feature-list.php:147
+#: widgets/content-cards.php:240 widgets/eyebrow-heading.php:162 widgets/tile-feature-list.php:147
 msgid "Right"
-msgstr ""
+msgstr "Rechts"
 
-#: widgets/content-cards.php:251 widgets/event-calendar.php:271
-#: widgets/logo-grid.php:103 widgets/member-carousel.php:144
-#: widgets/partner-logos.php:114 widgets/people-vertical.php:52
+#: widgets/content-cards.php:251 widgets/event-calendar.php:271 widgets/logo-grid.php:103 widgets/member-carousel.php:144 widgets/partner-logos.php:114
+#: widgets/people-vertical.php:52
 msgid "Columns"
-msgstr ""
+msgstr "Spalten"
 
-#: widgets/content-cards.php:267 widgets/event-calendar.php:137
-#: widgets/tile-feature-list.php:192
+#: widgets/content-cards.php:267 widgets/event-calendar.php:137 widgets/tile-feature-list.php:192
 msgid "Image Ratio"
-msgstr ""
+msgstr "Bildverhältnis"
 
 #: widgets/content-cards.php:283
 msgid "Badge Source"
-msgstr ""
+msgstr "Badge-Quelle"
 
 #: widgets/content-cards.php:287 widgets/testimonial-showcase.php:243
 msgid "Auto"
-msgstr ""
+msgstr "Automatisch"
 
 #: widgets/content-cards.php:288
 msgid "Post Type"
-msgstr ""
+msgstr "Inhaltstyp"
 
 #: widgets/content-cards.php:289
 msgid "First Term"
-msgstr ""
+msgstr "Erster Term"
 
 #: widgets/content-cards.php:290
 msgid "ACF Field"
-msgstr ""
+msgstr "ACF-Feld"
 
 #: widgets/content-cards.php:291
 msgid "Custom Text"
-msgstr ""
+msgstr "Eigener Text"
 
 #: widgets/content-cards.php:292
 msgid "Hide"
-msgstr ""
+msgstr "Ausblenden"
 
 #: widgets/content-cards.php:300
 msgid "Custom Badge Text"
-msgstr ""
+msgstr "Eigener Badge-Text"
 
 #: widgets/content-cards.php:312
 msgid "ACF Badge Field"
-msgstr ""
+msgstr "ACF-Badge-Feld"
 
 #: widgets/content-cards.php:325
 msgid "Show Image"
-msgstr ""
+msgstr "Bild anzeigen"
 
 #: widgets/content-cards.php:335
 msgid "Show Category"
-msgstr ""
+msgstr "Kategorie anzeigen"
 
 #: widgets/content-cards.php:345 widgets/event-calendar.php:111
 msgid "Show Excerpt"
-msgstr ""
+msgstr "Auszug anzeigen"
 
 #: widgets/content-cards.php:355 widgets/event-calendar.php:123
 msgid "Excerpt Length"
-msgstr ""
+msgstr "Länge des Auszugs"
 
 #: widgets/content-cards.php:369
 msgid "Show Date"
-msgstr ""
+msgstr "Datum anzeigen"
 
 #: widgets/content-cards.php:379
 msgid "Show Event Location"
-msgstr ""
+msgstr "Veranstaltungsort anzeigen"
 
 #: widgets/content-cards.php:389
 msgid "Link Full Card"
-msgstr ""
+msgstr "Ganze Karte verlinken"
 
 #: widgets/content-cards.php:401
 msgid "Ajax Load More"
-msgstr ""
+msgstr "Ajax „Mehr laden“"
 
 #: widgets/content-cards.php:409
 msgid "Enable Load More"
-msgstr ""
+msgstr "„Mehr laden“ aktivieren"
 
-#: widgets/content-cards.php:419 widgets/downloads.php:83
-#: widgets/featured-slider.php:123
+#: widgets/content-cards.php:419 widgets/downloads.php:83 widgets/featured-slider.php:123
 msgid "Button Text"
-msgstr ""
+msgstr "Button-Text"
 
 #: widgets/content-cards.php:421
 msgid "Weitere laden"
-msgstr ""
+msgstr "Weitere laden"
 
-#: widgets/content-cards.php:441 widgets/event-calendar.php:193
-#: widgets/eyebrow-heading.php:180 widgets/featured-slider.php:218
-#: widgets/logo-grid.php:178 widgets/number-box.php:144
-#: widgets/partner-logos.php:163
+#: widgets/content-cards.php:441 widgets/event-calendar.php:193 widgets/eyebrow-heading.php:180 widgets/featured-slider.php:218 widgets/logo-grid.php:178
+#: widgets/number-box.php:144 widgets/partner-logos.php:163
 msgid "Gap"
-msgstr ""
+msgstr "Abstand"
 
 #: widgets/content-cards.php:455 widgets/downloads.php:334
 msgid "Card Background"
-msgstr ""
+msgstr "Kartenhintergrund"
 
-#: widgets/content-cards.php:467 widgets/content-cards.php:641
-#: widgets/downloads.php:346 widgets/events.php:163 widgets/logo-grid.php:256
+#: widgets/content-cards.php:467 widgets/content-cards.php:641 widgets/downloads.php:346 widgets/events.php:163 widgets/logo-grid.php:256
 #: widgets/member-carousel.php:286 widgets/partner-logos.php:207
 msgid "Border Color"
-msgstr ""
+msgstr "Rahmenfarbe"
 
 #: widgets/content-cards.php:494
 msgid "Content Padding"
-msgstr ""
+msgstr "Innenabstand des Inhalts"
 
 #: widgets/content-cards.php:518
 msgid "Text Style"
-msgstr ""
+msgstr "Textstil"
 
 #: widgets/content-cards.php:526 widgets/featured-slider.php:306
 msgid "Badge Background"
-msgstr ""
+msgstr "Badge-Hintergrund"
 
 #: widgets/content-cards.php:538 widgets/featured-slider.php:318
 msgid "Badge Color"
-msgstr ""
+msgstr "Badge-Farbe"
 
 #: widgets/content-cards.php:550
 msgid "Category Color"
-msgstr ""
+msgstr "Kategoriefarbe"
 
 #: widgets/content-cards.php:574
 msgid "Excerpt Color"
-msgstr ""
+msgstr "Auszugsfarbe"
 
 #: widgets/content-cards.php:586
 msgid "Meta Color"
-msgstr ""
+msgstr "Metafarbe"
 
-#: widgets/content-cards.php:599 widgets/number-box.php:198
-#: widgets/tile-feature-list.php:382
+#: widgets/content-cards.php:599 widgets/number-box.php:198 widgets/tile-feature-list.php:382
 msgid "Title Typography"
-msgstr ""
+msgstr "Titel-Typografie"
 
 #: widgets/content-cards.php:608
 msgid "Excerpt Typography"
-msgstr ""
+msgstr "Auszug-Typografie"
 
 #: widgets/content-cards.php:618
 msgid "Load More Button"
-msgstr ""
+msgstr "„Mehr laden“-Button"
 
-#: widgets/content-cards.php:629 widgets/event-calendar.php:224
-#: widgets/featured-slider.php:354 widgets/number-box.php:132
+#: widgets/content-cards.php:629 widgets/event-calendar.php:224 widgets/featured-slider.php:354 widgets/number-box.php:132
 msgid "Text Color"
-msgstr ""
+msgstr "Textfarbe"
 
 #: widgets/content-cards.php:653 widgets/testimonial-showcase.php:334
 msgid "Background"
-msgstr ""
+msgstr "Hintergrund"
 
 #: widgets/content-cards.php:713
 msgid "Post Categories"
-msgstr ""
+msgstr "Beitragskategorien"
 
 #: widgets/content-cards.php:714
 msgid "Post Tags"
-msgstr ""
+msgstr "Beitrags-Schlagwörter"
 
 #: widgets/content-cards.php:715
 msgid "Event Categories"
-msgstr ""
+msgstr "Veranstaltungskategorien"
 
 #: widgets/content-cards.php:716
 msgid "Event Tags"
-msgstr ""
+msgstr "Veranstaltungs-Schlagwörter"
 
 #: widgets/content-cards.php:717
 msgid "Event Types"
-msgstr ""
+msgstr "Veranstaltungstypen"
 
 #: widgets/content-cards.php:718
 msgid "Podcast Categories"
-msgstr ""
+msgstr "Podcast-Kategorien"
 
 #: widgets/content-cards.php:719
 msgid "Press Categories"
-msgstr ""
+msgstr "Pressekategorien"
 
 #: widgets/content-cards.php:1479
 msgid "No content found"
-msgstr ""
+msgstr "Keine Inhalte gefunden"
 
 #: widgets/content-cards.php:1483
 msgid "No matching content is currently available for this section."
-msgstr ""
+msgstr "Für diesen Bereich sind aktuell keine passenden Inhalte verfügbar."
 
 #: widgets/content-cards.php:1554
 msgid "Load more"
-msgstr ""
+msgstr "Weitere laden"
 
 #: widgets/content-cards.php:1557
 msgid "Loading..."
-msgstr ""
+msgstr "Lädt..."
 
 #: widgets/downloads.php:21
 msgid "ECO Downloads"
-msgstr ""
+msgstr "eco Downloads"
 
 #: widgets/downloads.php:64
 msgid "Downloads"
-msgstr ""
+msgstr "Downloads"
 
 #: widgets/downloads.php:72
 msgid "Intro Text"
-msgstr ""
+msgstr "Intro-Text"
 
 #: widgets/downloads.php:85 widgets/downloads.php:851
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: widgets/downloads.php:108
 msgid "Manual Terms"
-msgstr ""
+msgstr "Manuelle Terme"
 
 #: widgets/downloads.php:117
 msgid "Download Categories"
-msgstr ""
+msgstr "Download-Kategorien"
 
 #: widgets/downloads.php:131
 msgid "Download Tags"
-msgstr ""
+msgstr "Download-Schlagwörter"
 
 #: widgets/downloads.php:145
 msgid "ACF Category Field Name"
-msgstr ""
+msgstr "ACF-Kategoriefeldname"
 
 #: widgets/downloads.php:159
 msgid "ACF Tag Field Name"
-msgstr ""
+msgstr "ACF-Schlagwortfeldname"
 
 #: widgets/downloads.php:173
 msgid "Category / Tag Relation"
-msgstr ""
+msgstr "Kategorie-/Schlagwort-Beziehung"
 
 #: widgets/downloads.php:177
 msgid "AND — match both"
-msgstr ""
+msgstr "UND — beide müssen passen"
 
 #: widgets/downloads.php:178
 msgid "OR — match either"
-msgstr ""
+msgstr "ODER — eines muss passen"
 
 #: widgets/downloads.php:180
 msgid "Within each taxonomy, any selected term can match."
-msgstr ""
+msgstr "Innerhalb jeder Taxonomie kann jeder ausgewählte Term passen."
 
 #: widgets/downloads.php:187
 msgid "When No Terms Are Selected"
-msgstr ""
+msgstr "Wenn keine Terme ausgewählt sind"
 
 #: widgets/downloads.php:191
 msgid "Show no downloads"
-msgstr ""
+msgstr "Keine Downloads anzeigen"
 
 #: widgets/downloads.php:192
 msgid "Show all downloads"
-msgstr ""
+msgstr "Alle Downloads anzeigen"
 
 #: widgets/downloads.php:194
-msgid ""
-"For template usage, “Show no downloads” prevents an unconfigured Tile from "
-"showing every download."
-msgstr ""
+msgid "For template usage, “Show no downloads” prevents an unconfigured Tile from showing every download."
+msgstr "Für die Verwendung in Templates verhindert „Keine Downloads anzeigen“, dass eine unkonfigurierte Kachel alle Downloads anzeigt."
 
 #: widgets/downloads.php:201
 msgid "Downloads Per Page"
-msgstr ""
+msgstr "Downloads pro Seite"
 
 #: widgets/downloads.php:232 widgets/member-carousel.php:123
 msgid "Ascending"
-msgstr ""
+msgstr "Aufsteigend"
 
 #: widgets/downloads.php:233 widgets/member-carousel.php:122
 msgid "Descending"
-msgstr ""
+msgstr "Absteigend"
 
 #: widgets/downloads.php:255
 msgid "Show Filter Bar"
-msgstr ""
+msgstr "Filterleiste anzeigen"
 
 #: widgets/downloads.php:265
 msgid "Filter Terms"
-msgstr ""
+msgstr "Terme filtern"
 
 #: widgets/downloads.php:269
 msgid "Categories only"
-msgstr ""
+msgstr "Nur Kategorien"
 
 #: widgets/downloads.php:270
 msgid "Tags only"
-msgstr ""
+msgstr "Nur Schlagwörter"
 
 #: widgets/downloads.php:271
 msgid "Categories and tags"
-msgstr ""
+msgstr "Kategorien und Schlagwörter"
 
 #: widgets/downloads.php:300
 msgid "Date Label"
-msgstr ""
+msgstr "Datumslabel"
 
 #: widgets/downloads.php:302 widgets/downloads.php:856
 msgid "Published"
-msgstr ""
+msgstr "Veröffentlicht"
 
-#: widgets/downloads.php:316 widgets/eyebrow-heading.php:122
-#: widgets/featured-slider.php:286 widgets/number-box.php:100
-#: widgets/tile-feature-list.php:210
+#: widgets/downloads.php:316 widgets/eyebrow-heading.php:122 widgets/featured-slider.php:286 widgets/number-box.php:100 widgets/tile-feature-list.php:210
 msgid "Style"
-msgstr ""
+msgstr "Stil"
 
-#: widgets/downloads.php:324 widgets/event-calendar.php:204
-#: widgets/testimonial-showcase.php:401 widgets/tile-feature-list.php:218
+#: widgets/downloads.php:324 widgets/event-calendar.php:204 widgets/testimonial-showcase.php:401 widgets/tile-feature-list.php:218
 msgid "Accent Color"
-msgstr ""
+msgstr "Akzentfarbe"
 
 #: widgets/downloads.php:327
-msgid ""
-"When empty, the current post ACF “color” field is used. Fallback: #e2001a."
-msgstr ""
+msgid "When empty, the current post ACF “color” field is used. Fallback: #e2001a."
+msgstr "Wenn leer, wird das ACF-Feld „color“ des aktuellen Beitrags verwendet. Fallback: #e2001a."
 
 #: widgets/downloads.php:358
 msgid "Card Padding"
-msgstr ""
+msgstr "Innenabstand der Karte"
 
 #: widgets/downloads.php:403
 msgid "Download Title Typography"
-msgstr ""
+msgstr "Download-Titel-Typografie"
 
 #: widgets/downloads.php:741
 msgid "No downloads found"
-msgstr ""
+msgstr "Keine Downloads gefunden"
 
 #: widgets/downloads.php:742
 msgid "No matching downloads are currently available for this section."
-msgstr ""
+msgstr "Für diesen Bereich sind aktuell keine passenden Downloads verfügbar."
 
 #: widgets/downloads.php:943
 msgid "Downloads pagination"
-msgstr ""
+msgstr "Download-Paginierung"
 
 #: widgets/downloads.php:952
 msgid "Previous"
-msgstr ""
+msgstr "Zurück"
 
 #: widgets/downloads.php:953
 msgid "Next"
-msgstr ""
+msgstr "Weiter"
 
 #: widgets/downloads.php:970
 msgid "Download filters"
-msgstr ""
+msgstr "Download-Filter"
 
 #: widgets/event-calendar.php:20
 msgid "eco Event Calendar"
-msgstr ""
+msgstr "eco Veranstaltungskalender"
 
 #: widgets/event-calendar.php:53
 msgid "Veranstaltungskalender"
-msgstr ""
+msgstr "Veranstaltungskalender"
 
 #: widgets/event-calendar.php:61
 msgid "Default Filter"
-msgstr ""
+msgstr "Standardfilter"
 
-#: widgets/event-calendar.php:66 widgets/event-calendar.php:161
-#: widgets/event-calendar.php:327
+#: widgets/event-calendar.php:66 widgets/event-calendar.php:161 widgets/event-calendar.php:327
 msgid "eco Events"
-msgstr ""
+msgstr "eco Veranstaltungen"
 
-#: widgets/event-calendar.php:67 widgets/event-calendar.php:162
-#: widgets/event-calendar.php:328
+#: widgets/event-calendar.php:67 widgets/event-calendar.php:162 widgets/event-calendar.php:328
 msgid "Partner Events"
-msgstr ""
+msgstr "Partnerveranstaltungen"
 
 #: widgets/event-calendar.php:68
 msgid "Past Events"
-msgstr ""
+msgstr "Vergangene Veranstaltungen"
 
 #: widgets/event-calendar.php:76
 msgid "Events Per Page"
-msgstr ""
+msgstr "Veranstaltungen pro Seite"
 
 #: widgets/event-calendar.php:87
 msgid "Show Filter"
-msgstr ""
+msgstr "Filter anzeigen"
 
-#: widgets/event-calendar.php:89 widgets/event-calendar.php:101
-#: widgets/event-calendar.php:113 widgets/eyebrow-heading.php:71
-#: widgets/logo-grid.php:158 widgets/people.php:61
-#: widgets/tile-feature-list.php:132 widgets/tile-feature-list.php:157
-#: widgets/tile-feature-list.php:182
+#: widgets/event-calendar.php:89 widgets/event-calendar.php:101 widgets/event-calendar.php:113 widgets/eyebrow-heading.php:71 widgets/logo-grid.php:158
+#: widgets/people.php:61 widgets/tile-feature-list.php:132 widgets/tile-feature-list.php:157 widgets/tile-feature-list.php:182
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
-#: widgets/event-calendar.php:90 widgets/event-calendar.php:102
-#: widgets/event-calendar.php:114 widgets/eyebrow-heading.php:72
-#: widgets/logo-grid.php:159 widgets/people.php:62
-#: widgets/tile-feature-list.php:133 widgets/tile-feature-list.php:158
-#: widgets/tile-feature-list.php:183
+#: widgets/event-calendar.php:90 widgets/event-calendar.php:102 widgets/event-calendar.php:114 widgets/eyebrow-heading.php:72 widgets/logo-grid.php:159
+#: widgets/people.php:62 widgets/tile-feature-list.php:133 widgets/tile-feature-list.php:158 widgets/tile-feature-list.php:183
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: widgets/event-calendar.php:99
 msgid "Show Load More"
-msgstr ""
+msgstr "„Mehr laden“ anzeigen"
 
 #: widgets/event-calendar.php:154
 msgid "Labels"
-msgstr ""
+msgstr "Labels"
 
 #: widgets/event-calendar.php:159
 msgid "Filter Placeholder"
-msgstr ""
+msgstr "Filter-Platzhalter"
 
 #: widgets/event-calendar.php:159 widgets/event-calendar.php:325
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: widgets/event-calendar.php:160
 msgid "All Events Label"
-msgstr ""
+msgstr "Label für alle Veranstaltungen"
 
 #: widgets/event-calendar.php:160 widgets/event-calendar.php:326
 msgid "Alle Veranstaltungen"
-msgstr ""
+msgstr "Alle Veranstaltungen"
 
 #: widgets/event-calendar.php:161
 msgid "eco Events Label"
-msgstr ""
+msgstr "Label für eco Veranstaltungen"
 
 #: widgets/event-calendar.php:162
 msgid "Partner Events Label"
-msgstr ""
+msgstr "Label für Partnerveranstaltungen"
 
 #: widgets/event-calendar.php:163
 msgid "Past Events Label"
-msgstr ""
+msgstr "Label für vergangene Veranstaltungen"
 
 #: widgets/event-calendar.php:163 widgets/event-calendar.php:329
 msgid "Vergangene Veranstaltungen"
-msgstr ""
+msgstr "Vergangene Veranstaltungen"
 
 #: widgets/event-calendar.php:164
 msgid "Load More Label"
-msgstr ""
+msgstr "Label für „Mehr laden“"
 
 #: widgets/event-calendar.php:164 widgets/event-calendar.php:348
 msgid "Weitere Veranstaltungen laden"
-msgstr ""
+msgstr "Weitere Veranstaltungen laden"
 
 #: widgets/event-calendar.php:165
 msgid "Empty Title"
-msgstr ""
+msgstr "Titel bei leerem Ergebnis"
 
 #: widgets/event-calendar.php:165
 msgid "Keine Veranstaltungen gefunden"
-msgstr ""
+msgstr "Keine Veranstaltungen gefunden"
 
 #: widgets/event-calendar.php:166
 msgid "Empty Text"
-msgstr ""
+msgstr "Text bei leerem Ergebnis"
 
 #: widgets/event-calendar.php:166
 msgid "Für diesen Zeitraum sind aktuell keine Veranstaltungen verfügbar."
-msgstr ""
+msgstr "Für diesen Zeitraum sind aktuell keine Veranstaltungen verfügbar."
 
-#: widgets/event-calendar.php:173 widgets/featured-slider.php:174
-#: widgets/logo-grid.php:95 widgets/partner-logos.php:106
-#: widgets/testimonial-showcase.php:232 widgets/testimonial-showcase.php:239
-#: widgets/tile-feature-list.php:122
+#: widgets/event-calendar.php:173 widgets/featured-slider.php:174 widgets/logo-grid.php:95 widgets/partner-logos.php:106
+#: widgets/testimonial-showcase.php:232 widgets/testimonial-showcase.php:239 widgets/tile-feature-list.php:122
 msgid "Layout"
-msgstr ""
+msgstr "Layout"
 
 #: widgets/event-calendar.php:181
 msgid "Calendar Width"
-msgstr ""
+msgstr "Kalenderbreite"
 
 #: widgets/event-calendar.php:214
 msgid "Heading Color"
-msgstr ""
+msgstr "Überschriftenfarbe"
 
 #: widgets/event-calendar.php:263
 msgid "Cards"
-msgstr ""
+msgstr "Karten"
 
 #: widgets/event-calendar.php:324
 msgid "Filter events"
-msgstr ""
+msgstr "Veranstaltungen filtern"
 
 #: widgets/events.php:26
 msgid "Event List"
-msgstr ""
+msgstr "Veranstaltungsliste"
 
 #: widgets/events.php:80
 msgid "Section Style"
-msgstr ""
+msgstr "Sektionsstil"
 
 #: widgets/events.php:127
 msgid "Margin"
-msgstr ""
+msgstr "Außenabstand"
 
 #: widgets/events.php:174
 msgid "Border Width"
-msgstr ""
+msgstr "Rahmenbreite"
 
 #: widgets/events.php:264
 msgid "Filter by Category:"
-msgstr ""
+msgstr "Nach Kategorie filtern:"
 
 #: widgets/events.php:266
 msgid "All Categories"
-msgstr ""
+msgstr "Alle Kategorien"
 
 #: widgets/events.php:268
 msgid "Category 1"
-msgstr ""
+msgstr "Kategorie 1"
 
 #: widgets/events.php:269
 msgid "Category 2"
-msgstr ""
+msgstr "Kategorie 2"
 
 #: widgets/eyebrow-heading.php:20
 msgid "ECO Eyebrow Heading"
-msgstr ""
+msgstr "ECO Eyebrow Heading"
 
 #: widgets/eyebrow-heading.php:51
 msgid "If empty, the widget will try to use the current post ACF field: icon."
-msgstr ""
+msgstr "Wenn leer, versucht das Widget, das ACF-Feld „icon“ des aktuellen Beitrags zu verwenden."
 
 #: widgets/eyebrow-heading.php:61
 msgid "Wir gestalten Netzpolitik"
-msgstr ""
+msgstr "Wir gestalten Netzpolitik"
 
 #: widgets/eyebrow-heading.php:62
-msgid ""
-"If empty, the widget will try to use the current post ACF field: "
-"eyebrow_label."
-msgstr ""
+msgid "If empty, the widget will try to use the current post ACF field: eyebrow_label."
+msgstr "Wenn leer, versucht das Widget, das ACF-Feld „eyebrow_label“ des aktuellen Beitrags zu verwenden."
 
 #: widgets/eyebrow-heading.php:69
 msgid "Fallback to ACF"
-msgstr ""
+msgstr "Fallback auf ACF"
 
 #: widgets/eyebrow-heading.php:81
 msgid "ACF Icon Field"
-msgstr ""
+msgstr "ACF-Icon-Feld"
 
 #: widgets/eyebrow-heading.php:94
 msgid "ACF Text Field"
-msgstr ""
+msgstr "ACF-Textfeld"
 
 #: widgets/eyebrow-heading.php:107
 msgid "ACF Color Field"
-msgstr ""
+msgstr "ACF-Farbfeld"
 
 #: widgets/eyebrow-heading.php:142
-msgid ""
-"If empty, the widget will try to use the current post ACF color field. Final "
-"fallback is #009fe3."
-msgstr ""
+msgid "If empty, the widget will try to use the current post ACF color field. Final fallback is #009fe3."
+msgstr "Wenn leer, versucht das Widget, das ACF-Farbfeld des aktuellen Beitrags zu verwenden. Letzter Fallback ist #009fe3."
 
 #: widgets/eyebrow-heading.php:149 widgets/number-box.php:78
 msgid "Alignment"
-msgstr ""
+msgstr "Ausrichtung"
 
 #: widgets/eyebrow-heading.php:158 widgets/number-box.php:87
 msgid "Center"
-msgstr ""
+msgstr "Zentriert"
 
 #: widgets/eyebrow-heading.php:226
 msgid "Line Width"
-msgstr ""
+msgstr "Linienbreite"
 
 #: widgets/eyebrow-heading.php:248
 msgid "Line Height"
-msgstr ""
+msgstr "Linienhöhe"
 
 #: widgets/eyebrow-heading.php:270
 msgid "Line Gap"
-msgstr ""
+msgstr "Linienabstand"
 
 #: widgets/eyebrow-heading.php:292
 msgid "Text Color Override"
-msgstr ""
+msgstr "Textfarbe überschreiben"
 
 #: widgets/eyebrow-heading.php:305
 msgid "Typography"
-msgstr ""
+msgstr "Typografie"
 
 #: widgets/featured-slider.php:20
 msgid "ECO Featured Slider"
-msgstr ""
+msgstr "ECO Featured Slider"
 
 #: widgets/featured-slider.php:44
 msgid "Slides"
-msgstr ""
+msgstr "Slides"
 
 #: widgets/featured-slider.php:54
 msgid "Image"
-msgstr ""
+msgstr "Bild"
 
 #: widgets/featured-slider.php:62
 msgid "Badge"
-msgstr ""
+msgstr "Badge"
 
 #: widgets/featured-slider.php:72
 msgid "Small Label"
-msgstr ""
+msgstr "Kleines Label"
 
 #: widgets/featured-slider.php:75
 msgid "Workshop, Award, Webinar..."
-msgstr ""
+msgstr "Workshop, Award, Webinar ..."
 
 #: widgets/featured-slider.php:84
 msgid "Data Center"
-msgstr ""
+msgstr "Data Center"
 
 #: widgets/featured-slider.php:95
 msgid "Short description"
-msgstr ""
+msgstr "Kurzbeschreibung"
 
 #: widgets/featured-slider.php:113
 msgid "Location"
-msgstr ""
+msgstr "Ort"
 
 #: widgets/featured-slider.php:126
 msgid "Jetzt anmelden"
-msgstr ""
+msgstr "Jetzt anmelden"
 
 #: widgets/featured-slider.php:145
 msgid "Items"
-msgstr ""
+msgstr "Elemente"
 
-#: widgets/featured-slider.php:182 widgets/member-carousel.php:187
-#: widgets/testimonial-showcase.php:182
+#: widgets/featured-slider.php:182 widgets/member-carousel.php:187 widgets/testimonial-showcase.php:182
 msgid "Autoplay"
-msgstr ""
+msgstr "Autoplay"
 
 #: widgets/featured-slider.php:192
 msgid "Interval"
-msgstr ""
+msgstr "Intervall"
 
 #: widgets/featured-slider.php:198 widgets/logo-grid.php:149
 msgid "In milliseconds."
-msgstr ""
+msgstr "In Millisekunden."
 
-#: widgets/featured-slider.php:208 widgets/member-carousel.php:167
-#: widgets/testimonial-showcase.php:162
+#: widgets/featured-slider.php:208 widgets/member-carousel.php:167 widgets/testimonial-showcase.php:162
 msgid "Show Dots"
-msgstr ""
+msgstr "Punkte anzeigen"
 
 #: widgets/featured-slider.php:240
 msgid "Desktop Height"
-msgstr ""
+msgstr "Desktop-Höhe"
 
 #: widgets/featured-slider.php:262
 msgid "Main Column Width"
-msgstr ""
+msgstr "Breite der Hauptspalte"
 
 #: widgets/featured-slider.php:294
 msgid "Overlay Color"
-msgstr ""
+msgstr "Overlay-Farbe"
 
 #: widgets/featured-slider.php:330
 msgid "Small Label Color"
-msgstr ""
+msgstr "Farbe des kleinen Labels"
 
 #: widgets/featured-slider.php:367
 msgid "Main Title Typography"
-msgstr ""
+msgstr "Typografie des Haupttitels"
 
 #: widgets/featured-slider.php:376
 msgid "Side Title Typography"
-msgstr ""
+msgstr "Typografie des Seitentitels"
 
 #: widgets/featured-slider.php:499
-#, php-format
+#, python-format, php-format
 msgid "Go to slide %d"
-msgstr ""
+msgstr "Zu Slide %d wechseln"
 
 #: widgets/logo-cloud.php:16
 msgid "Member Logo Cloud"
-msgstr ""
+msgstr "Mitglieder-Logo-Cloud"
 
 #: widgets/logo-grid.php:19
 msgid "Member Logo Grid"
-msgstr ""
+msgstr "Mitglieder-Logo-Grid"
 
 #: widgets/logo-grid.php:51
 msgid "Maximum Logos to Load"
-msgstr ""
+msgstr "Maximale Anzahl zu ladender Logos"
 
 #: widgets/logo-grid.php:119
 msgid "Rows"
-msgstr ""
+msgstr "Zeilen"
 
 #: widgets/logo-grid.php:130
 msgid "Change Interval"
-msgstr ""
+msgstr "Wechselintervall"
 
 #: widgets/logo-grid.php:136
 msgid "In milliseconds. Example: 6000 = 6 seconds."
-msgstr ""
+msgstr "In Millisekunden. Beispiel: 6000 = 6 Sekunden."
 
 #: widgets/logo-grid.php:143
 msgid "Animation Duration"
-msgstr ""
+msgstr "Animationsdauer"
 
 #: widgets/logo-grid.php:156 widgets/partner-logos.php:130
 msgid "Open Links in New Tab"
-msgstr ""
+msgstr "Links in neuem Tab öffnen"
 
 #: widgets/logo-grid.php:170
 msgid "Grid Style"
-msgstr ""
+msgstr "Rasterstil"
 
 #: widgets/logo-grid.php:200
 msgid "Cell Height"
-msgstr ""
+msgstr "Zellenhöhe"
 
 #: widgets/logo-grid.php:222
 msgid "Cell Padding"
-msgstr ""
+msgstr "Innenabstand der Zelle"
 
 #: widgets/logo-grid.php:244
 msgid "Cell Background"
-msgstr ""
+msgstr "Zellenhintergrund"
 
 #: widgets/logo-grid.php:291
 msgid "Box Shadow"
-msgstr ""
+msgstr "Box-Schatten"
 
 #: widgets/logo-grid.php:301
 msgid "Logo Style"
-msgstr ""
+msgstr "Logo-Stil"
 
 #: widgets/logo-grid.php:309
 msgid "Logo Max Width"
-msgstr ""
+msgstr "Maximale Logobreite"
 
 #: widgets/logo-grid.php:335
 msgid "Logo Max Height"
-msgstr ""
+msgstr "Maximale Logohöhe"
 
 #: widgets/logo-grid.php:357
 msgid "Logo Opacity"
-msgstr ""
+msgstr "Logo-Deckkraft"
 
 #: widgets/member-carousel.php:19
 msgid "Member Carousel"
-msgstr ""
+msgstr "Mitgliederkarussell"
 
 #: widgets/member-carousel.php:50
 msgid "Number of Members"
-msgstr ""
+msgstr "Anzahl der Mitglieder"
 
 #: widgets/member-carousel.php:62
 msgid "Member Categories"
-msgstr ""
+msgstr "Mitgliederkategorien"
 
 #: widgets/member-carousel.php:74
 msgid "Member Tags"
-msgstr ""
+msgstr "Mitglieder-Schlagwörter"
 
 #: widgets/member-carousel.php:86
 msgid "Category and Tag Relation"
-msgstr ""
+msgstr "Kategorie- und Schlagwort-Beziehung"
 
 #: widgets/member-carousel.php:90
 msgid "Match both"
-msgstr ""
+msgstr "Beide müssen passen"
 
 #: widgets/member-carousel.php:91
 msgid "Match either"
-msgstr ""
+msgstr "Eines muss passen"
 
 #: widgets/member-carousel.php:107
 msgid "Join Date"
-msgstr ""
+msgstr "Beitrittsdatum"
 
 #: widgets/member-carousel.php:108
 msgid "Published Date"
-msgstr ""
+msgstr "Veröffentlichungsdatum"
 
 #: widgets/member-carousel.php:136
 msgid "Carousel"
-msgstr ""
+msgstr "Karussell"
 
 #: widgets/member-carousel.php:157 widgets/testimonial-showcase.php:152
 msgid "Show Arrows"
-msgstr ""
+msgstr "Pfeile anzeigen"
 
 #: widgets/member-carousel.php:177
 msgid "Loop"
-msgstr ""
+msgstr "Loop"
 
 #: widgets/member-carousel.php:197 widgets/testimonial-showcase.php:192
 msgid "Autoplay Delay"
-msgstr ""
+msgstr "Autoplay-Verzögerung"
 
 #: widgets/member-carousel.php:212 widgets/testimonial-showcase.php:205
 msgid "Pause on Hover"
-msgstr ""
+msgstr "Bei Hover pausieren"
 
 #: widgets/member-carousel.php:225
 msgid "Open Website in New Tab"
-msgstr ""
+msgstr "Website in neuem Tab öffnen"
 
 #: widgets/member-carousel.php:237 widgets/partner-logos.php:155
 msgid "Boxes"
-msgstr ""
+msgstr "Boxen"
 
 #: widgets/member-carousel.php:245
 msgid "Space Between"
-msgstr ""
+msgstr "Abstand dazwischen"
 
 #: widgets/member-carousel.php:324 widgets/partner-logos.php:257
 msgid "Logos"
-msgstr ""
+msgstr "Logos"
 
 #: widgets/member-carousel.php:332 widgets/partner-logos.php:265
 msgid "Maximum Width"
-msgstr ""
+msgstr "Maximale Breite"
 
 #: widgets/member-carousel.php:348 widgets/partner-logos.php:281
 msgid "Maximum Height"
-msgstr ""
+msgstr "Maximale Höhe"
 
 #: widgets/member-carousel.php:366 widgets/testimonial-showcase.php:477
 msgid "Navigation"
-msgstr ""
+msgstr "Navigation"
 
 #: widgets/member-carousel.php:393
 msgid "No members found for the selected query."
-msgstr ""
+msgstr "Für die ausgewählte Abfrage wurden keine Mitglieder gefunden."
 
 #: widgets/member-carousel.php:440
 msgid "Previous members"
-msgstr ""
+msgstr "Vorherige Mitglieder"
 
 #: widgets/member-carousel.php:441
 msgid "Next members"
-msgstr ""
+msgstr "Nächste Mitglieder"
 
 #: widgets/members.php:25
 msgid "Members"
-msgstr ""
+msgstr "Mitglieder"
 
 #: widgets/members.php:57
 msgid "Unsere Mitglieder"
-msgstr ""
+msgstr "Unsere Mitglieder"
 
 #: widgets/members.php:104
 msgid "Mitglieder alphabetisch filtern"
-msgstr ""
+msgstr "Mitglieder alphabetisch filtern"
 
-#: widgets/members.php:139 widgets/partner-logos.php:308
-#: widgets/partner-logos.php:352 widgets/people-vertical.php:137
+#: widgets/members.php:139 widgets/partner-logos.php:308 widgets/partner-logos.php:352 widgets/people-vertical.php:137
 msgid "Show more"
-msgstr ""
+msgstr "Mehr anzeigen"
 
 #: widgets/members.php:157
 msgid "Close dialog"
-msgstr ""
+msgstr "Dialog schließen"
 
 #: widgets/members.php:203
 msgid "Members are loaded dynamically on the website."
-msgstr ""
+msgstr "Die Mitglieder werden auf der Website dynamisch geladen."
 
 #: widgets/number-box.php:19
 msgid "Number Box"
-msgstr ""
+msgstr "Zahlenbox"
 
 #: widgets/number-box.php:59
 msgid "Neutrale Plattform"
-msgstr ""
+msgstr "Neutrale Plattform"
 
 #: widgets/number-box.php:60
 msgid "Enter title"
-msgstr ""
+msgstr "Titel eingeben"
 
 #: widgets/number-box.php:69
-msgid ""
-"Wir bringen Mitglieder und Stakeholder der Wirtschaft in Gespräch mit "
-"Wissenschaft, Gesellschaft und Politik – auf Augenhöhe."
-msgstr ""
+msgid "Wir bringen Mitglieder und Stakeholder der Wirtschaft in Gespräch mit Wissenschaft, Gesellschaft und Politik – auf Augenhöhe."
+msgstr "Wir bringen Mitglieder und Stakeholder der Wirtschaft in Gespräch mit Wissenschaft, Gesellschaft und Politik – auf Augenhöhe."
 
 #: widgets/number-box.php:70
 msgid "Enter text"
-msgstr ""
+msgstr "Text eingeben"
 
 #: widgets/number-box.php:166
 msgid "Title/Text Spacing"
-msgstr ""
+msgstr "Abstand zwischen Titel und Text"
 
 #: widgets/number-box.php:189
 msgid "Number Typography"
-msgstr ""
+msgstr "Zahl-Typografie"
 
 #: widgets/number-box.php:207
 msgid "Text Typography"
-msgstr ""
+msgstr "Text-Typografie"
 
 #: widgets/partner-logos.php:21 widgets/partner-logos.php:86
 msgid "Partner Logos"
-msgstr ""
+msgstr "Partnerlogos"
 
 #: widgets/partner-logos.php:44
 msgid "Partners"
-msgstr ""
+msgstr "Partner"
 
 #: widgets/partner-logos.php:54 widgets/testimonial-showcase.php:81
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: widgets/partner-logos.php:56
 msgid "Partner name"
-msgstr ""
+msgstr "Partnername"
 
 #: widgets/partner-logos.php:64
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #: widgets/partner-logos.php:91
 msgid "Partner 1"
-msgstr ""
+msgstr "Partner 1"
 
 #: widgets/partner-logos.php:92
 msgid "Partner 2"
-msgstr ""
+msgstr "Partner 2"
 
 #: widgets/partner-logos.php:93
 msgid "Partner 3"
-msgstr ""
+msgstr "Partner 3"
 
 #: widgets/partner-logos.php:94
 msgid "Partner 4"
-msgstr ""
+msgstr "Partner 4"
 
 #: widgets/partner-logos.php:95
 msgid "Partner 5"
-msgstr ""
+msgstr "Partner 5"
 
 #: widgets/partner-logos.php:96
 msgid "Partner 6"
-msgstr ""
+msgstr "Partner 6"
 
 #: widgets/partner-logos.php:140
 msgid "Show More on Tablet/Mobile"
-msgstr ""
+msgstr "„Mehr anzeigen“ auf Tablet/Mobil anzeigen"
 
 #: widgets/partner-logos.php:142
 msgid "On"
-msgstr ""
+msgstr "Ein"
 
 #: widgets/partner-logos.php:143
 msgid "Off"
-msgstr ""
+msgstr "Aus"
 
 #: widgets/partner-logos.php:146
-msgid ""
-"On tablet and mobile, initially show two rows when more items are available."
-msgstr ""
+msgid "On tablet and mobile, initially show two rows when more items are available."
+msgstr "Auf Tablet und Mobilgeräten zunächst zwei Zeilen anzeigen, wenn weitere Elemente verfügbar sind."
 
 #: widgets/partner-logos.php:309
 msgid "Show less"
-msgstr ""
+msgstr "Weniger anzeigen"
 
 #: widgets/people-vertical.php:17
 msgid "People vertical"
-msgstr ""
+msgstr "Personen vertikal"
 
 #: widgets/people-vertical.php:42
 msgid "Info display"
-msgstr ""
+msgstr "Info-Anzeige"
 
 #: widgets/people-vertical.php:46
 msgid "Popup / Modal"
-msgstr ""
+msgstr "Popup / Modal"
 
 #: widgets/people-vertical.php:47
 msgid "Click to expand"
-msgstr ""
+msgstr "Zum Erweitern klicken"
 
 #: widgets/people-vertical.php:66
 msgid "Info button label"
-msgstr ""
+msgstr "Label des Info-Buttons"
 
 #: widgets/people-vertical.php:68
 msgid "Mehr anzeigen"
-msgstr ""
+msgstr "Mehr anzeigen"
 
 #: widgets/people-vertical.php:74
 msgid "Person"
-msgstr ""
+msgstr "Person"
 
 #: widgets/people-vertical.php:82 widgets/people.php:16
 msgid "People"
-msgstr ""
+msgstr "Personen"
 
 #: widgets/people-vertical.php:86
 msgid "Person ID:"
-msgstr ""
+msgstr "Person-ID:"
 
 #: widgets/people-vertical.php:222
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: widgets/people-vertical.php:226
 msgid "Email"
-msgstr ""
+msgstr "E-Mail"
 
 #: widgets/people-vertical.php:257
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #: widgets/people.php:46
 msgid "Select People"
-msgstr ""
+msgstr "Personen auswählen"
 
 #: widgets/people.php:59
 msgid "Auto-select from ACF when manual list is empty"
-msgstr ""
+msgstr "Automatisch aus ACF auswählen, wenn die manuelle Liste leer ist"
 
 #: widgets/people.php:71
 msgid "ACF field name"
-msgstr ""
+msgstr "ACF-Feldname"
 
 #: widgets/people.php:85
-msgid ""
-"<strong>Note:</strong> Manual selection has priority. ACF is only used if no "
-"people are selected above."
-msgstr ""
+msgid "<strong>Note:</strong> Manual selection has priority. ACF is only used if no people are selected above."
+msgstr "<strong>Hinweis:</strong> Die manuelle Auswahl hat Vorrang. ACF wird nur verwendet, wenn oben keine Personen ausgewählt sind."
 
 #: widgets/people.php:302
 msgid "More information"
-msgstr ""
+msgstr "Mehr Informationen"
 
 #: widgets/podcast-player.php:16
 msgid "Podcast Player"
-msgstr ""
+msgstr "Podcast-Player"
 
 #: widgets/podcast-rss.php:16
 msgid "Podcast RSS Feed"
-msgstr ""
+msgstr "Podcast-RSS-Feed"
 
 #: widgets/podcast-rss.php:37
 msgid "Feed Settings"
-msgstr ""
+msgstr "Feed-Einstellungen"
 
 #: widgets/podcast-rss.php:41
 msgid "RSS Feed URL"
-msgstr ""
+msgstr "RSS-Feed-URL"
 
 #: widgets/podcast-rss.php:48
 msgid "Section Title"
-msgstr ""
+msgstr "Sektionstitel"
 
 #: widgets/podcast-rss.php:50
 msgid "Latest Episodes"
-msgstr ""
+msgstr "Neueste Episoden"
 
 #: widgets/podcast-rss.php:54
 msgid "Number of Episodes"
-msgstr ""
+msgstr "Anzahl der Episoden"
 
 #: widgets/podcast-rss.php:71
 msgid "No RSS feed URL provided."
-msgstr ""
+msgstr "Keine RSS-Feed-URL angegeben."
 
 #: widgets/podcast-rss.php:78
 msgid "Failed to fetch RSS feed."
-msgstr ""
+msgstr "RSS-Feed konnte nicht abgerufen werden."
 
 #: widgets/podcast-rss.php:85
 msgid "No episodes found."
-msgstr ""
+msgstr "Keine Episoden gefunden."
 
 #: widgets/podcast-rss.php:117
 msgid "Play episode"
-msgstr ""
+msgstr "Episode abspielen"
 
 #: widgets/testimonial-showcase.php:22
 msgid "ECO Testimonial Showcase"
-msgstr ""
+msgstr "ECO Testimonial Showcase"
 
 #: widgets/testimonial-showcase.php:58 widgets/testimonial-showcase.php:120
 msgid "Testimonials"
-msgstr ""
+msgstr "Testimonials"
 
 #: widgets/testimonial-showcase.php:67
 msgid "Quote"
-msgstr ""
+msgstr "Zitat"
 
 #: widgets/testimonial-showcase.php:72 widgets/testimonial-showcase.php:127
-msgid ""
-"Wir sind Mitglied bei eco, weil uns das Netzwerk mit relevanten Kontakten, "
-"Fachwissen und einer starken gemeinsamen Stimme verbindet."
-msgstr ""
+msgid "Wir sind Mitglied bei eco, weil uns das Netzwerk mit relevanten Kontakten, Fachwissen und einer starken gemeinsamen Stimme verbindet."
+msgstr "Wir sind Mitglied bei eco, weil uns das Netzwerk mit relevanten Kontakten, Fachwissen und einer starken gemeinsamen Stimme verbindet."
 
 #: widgets/testimonial-showcase.php:84 widgets/testimonial-showcase.php:130
 msgid "Oliver Süme"
-msgstr ""
+msgstr "Oliver Süme"
 
 #: widgets/testimonial-showcase.php:91
 msgid "Position"
-msgstr ""
+msgstr "Position"
 
 #: widgets/testimonial-showcase.php:94 widgets/testimonial-showcase.php:131
 msgid "Vorstandsvorsitzender"
-msgstr ""
+msgstr "Vorstandsvorsitzender"
 
 #: widgets/testimonial-showcase.php:101
 msgid "Company"
-msgstr ""
+msgstr "Unternehmen"
 
 #: widgets/testimonial-showcase.php:104 widgets/testimonial-showcase.php:132
 msgid "eco e.V."
-msgstr ""
+msgstr "eco e.V."
 
 #: widgets/testimonial-showcase.php:111
 msgid "Portrait"
-msgstr ""
+msgstr "Porträt"
 
 #: widgets/testimonial-showcase.php:145
 msgid "Slider"
-msgstr ""
+msgstr "Slider"
 
 #: widgets/testimonial-showcase.php:172
 msgid "Infinite Loop"
-msgstr ""
+msgstr "Endlosschleife"
 
 #: widgets/testimonial-showcase.php:216
 msgid "Transition Speed"
-msgstr ""
+msgstr "Übergangsgeschwindigkeit"
 
 #: widgets/testimonial-showcase.php:247
 msgid "Horizontal"
-msgstr ""
+msgstr "Horizontal"
 
 #: widgets/testimonial-showcase.php:251
 msgid "Vertical"
-msgstr ""
+msgstr "Vertikal"
 
 #: widgets/testimonial-showcase.php:263
 msgid "Person Information"
-msgstr ""
+msgstr "Personeninformationen"
 
 #: widgets/testimonial-showcase.php:264
-msgid ""
-"On tablet and mobile, the information is always displayed outside the visual "
-"panel."
-msgstr ""
+msgid "On tablet and mobile, the information is always displayed outside the visual panel."
+msgstr "Auf Tablet und Mobilgeräten werden die Informationen immer außerhalb des visuellen Panels angezeigt."
 
 #: widgets/testimonial-showcase.php:268
 msgid "Inside Visual Panel"
-msgstr ""
+msgstr "Innerhalb des visuellen Panels"
 
 #: widgets/testimonial-showcase.php:269
 msgid "Outside Visual Panel"
-msgstr ""
+msgstr "Außerhalb des visuellen Panels"
 
 #: widgets/testimonial-showcase.php:277
 msgid "Portrait Width"
-msgstr ""
+msgstr "Porträtbreite"
 
 #: widgets/testimonial-showcase.php:294 widgets/tile-feature-list.php:315
 msgid "Column Gap"
-msgstr ""
+msgstr "Spaltenabstand"
 
 #: widgets/testimonial-showcase.php:413
 msgid "Quote Color"
-msgstr ""
+msgstr "Zitatfarbe"
 
 #: widgets/testimonial-showcase.php:433
 msgid "Name Color"
-msgstr ""
+msgstr "Namensfarbe"
 
 #: widgets/testimonial-showcase.php:453
 msgid "Position / Company Color"
-msgstr ""
+msgstr "Farbe für Position / Unternehmen"
 
 #: widgets/testimonial-showcase.php:650
 msgid "Previous testimonial"
-msgstr ""
+msgstr "Vorheriges Testimonial"
 
 #: widgets/testimonial-showcase.php:660
 msgid "Next testimonial"
-msgstr ""
+msgstr "Nächstes Testimonial"
 
 #: widgets/tile-feature-list.php:19
 msgid "Tile Feature List"
-msgstr ""
+msgstr "Tile Feature List"
 
 #: widgets/tile-feature-list.php:51
 msgid "Terms / All Tiles"
-msgstr ""
+msgstr "Terme / Alle Kacheln"
 
 #: widgets/tile-feature-list.php:52
 msgid "Child Tiles of Current Tile"
-msgstr ""
+msgstr "Unterkacheln der aktuellen Kachel"
 
 #: widgets/tile-feature-list.php:60 widgets/tile-icon-grid.php:46
 msgid "Terms"
-msgstr ""
+msgstr "Terme"
 
 #: widgets/tile-feature-list.php:65 widgets/tile-icon-grid.php:51
 msgid "Select one or more tile tags/categories. Leave empty to show all tiles."
-msgstr ""
+msgstr "Wählen Sie ein oder mehrere Kachel-Schlagwörter/Kategorien aus. Leer lassen, um alle Kacheln anzuzeigen."
 
 #: widgets/tile-feature-list.php:75 widgets/tile-icon-grid.php:58
 msgid "Number of Tiles"
-msgstr ""
+msgstr "Anzahl der Kacheln"
 
 #: widgets/tile-feature-list.php:93 widgets/tile-icon-grid.php:76
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: widgets/tile-feature-list.php:130
 msgid "Alternate Layout"
-msgstr ""
+msgstr "Alternierendes Layout"
 
 #: widgets/tile-feature-list.php:142
 msgid "First Image Position"
-msgstr ""
+msgstr "Position des ersten Bildes"
 
 #: widgets/tile-feature-list.php:155
 msgid "Show Number"
-msgstr ""
+msgstr "Zahl anzeigen"
 
 #: widgets/tile-feature-list.php:167
 msgid "Number Format"
-msgstr ""
+msgstr "Zahlenformat"
 
 #: widgets/tile-feature-list.php:170
 #, php-format
 msgid "Example: %02d gives 01, 02, 03. Use %d for 1, 2, 3."
-msgstr ""
+msgstr "Beispiel: %02d ergibt 01, 02, 03. Verwenden Sie %d für 1, 2, 3."
 
 #: widgets/tile-feature-list.php:180
 msgid "Link Items"
-msgstr ""
+msgstr "Elemente verlinken"
 
 #: widgets/tile-feature-list.php:230
 msgid "Placeholder Background"
-msgstr ""
+msgstr "Platzhalter-Hintergrund"
 
 #: widgets/tile-feature-list.php:242
 msgid "Placeholder Text Color"
-msgstr ""
+msgstr "Platzhalter-Textfarbe"
 
 #: widgets/tile-feature-list.php:293
 msgid "Row Gap"
-msgstr ""
+msgstr "Zeilenabstand"
 
 #: widgets/tile-feature-list.php:337
 msgid "Image Width"
-msgstr ""
+msgstr "Bildbreite"
 
 #: widgets/tile-feature-list.php:359
 msgid "Image Radius"
-msgstr ""
+msgstr "Bildradius"
 
 #: widgets/tile-feature-list.php:391
 msgid "Description Typography"
-msgstr ""
+msgstr "Beschreibungs-Typografie"
 
 #: widgets/tile-feature-list.php:403 widgets/tile-icon-grid.php:101
 msgid "Tile Tags"
-msgstr ""
+msgstr "Kachel-Schlagwörter"
 
 #: widgets/tile-feature-list.php:404 widgets/tile-icon-grid.php:102
 msgid "Tile Categories"
-msgstr ""
+msgstr "Kachel-Kategorien"
 
 #: widgets/tile-feature-list.php:577
 msgid "No topics found"
-msgstr ""
+msgstr "Keine Themen gefunden"
 
 #: widgets/tile-feature-list.php:581
 msgid "No matching topics are currently available for this section."
-msgstr ""
+msgstr "Für diesen Bereich sind aktuell keine passenden Themen verfügbar."
 
 #: widgets/tile-icon-grid.php:18
 msgid "Tile Icon Grid"
-msgstr ""
+msgstr "Tile Icon Grid"
 
 #: widgets/tile-icon-grid.php:339
 msgid "Learn more"
-msgstr ""
+msgstr "Mehr erfahren"
 
 #. Plugin URI of the plugin/theme
 msgid "#!"
-msgstr ""
+msgstr "#!"
 
 #. Description of the plugin/theme
 msgid "Elementor plugin with widgets for Eco website."
-msgstr ""
+msgstr "Elementor-Plugin mit Widgets für die Eco-Website."
 
 #. Author URI of the plugin/theme
 msgid "https://eco.de/"
-msgstr ""
+msgstr "https://eco.de/"
