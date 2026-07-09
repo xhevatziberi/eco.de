@@ -378,7 +378,7 @@ class EventCalendarAjax {
 		$title       = $title ? $title : get_the_title( $post_id );
 		$excerpt     = get_post_meta( $post_id, 'teaser_text', true );
 		$excerpt     = $excerpt ? $excerpt : get_the_excerpt( $post_id );
-		$category    = self::get_primary_term_name( $post_id, 'event-category' );
+		$category    = self::get_term_names( $post_id, 'event-category' );
 		$label       = self::get_event_label( $post_id );
 		$image_url   = self::get_event_card_image_url( $post_id );
 		$location    = self::get_event_location_label( $post_id );
@@ -506,6 +506,18 @@ class EventCalendarAjax {
 			return '';
 		}
 		return $terms[0]->name;
+	}
+
+	public static function get_term_names( $post_id, $taxonomy ) {
+		$terms = get_the_terms( $post_id, $taxonomy );
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
+			return '';
+		}
+
+		$names = wp_list_pluck( $terms, 'name' );
+		$names = array_filter( array_map( 'sanitize_text_field', $names ) );
+
+		return implode( ', ', $names );
 	}
 
 	public static function format_event_date( $ymd ) {

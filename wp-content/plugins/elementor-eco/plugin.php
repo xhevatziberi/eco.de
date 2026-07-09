@@ -1,6 +1,10 @@
 <?php
 namespace ElementorEco;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Plugin
  *
@@ -46,7 +50,7 @@ class Plugin {
 	 * @access public
 	 */
 	public function widget_scripts() {
-		$version = '1.2.14';
+		$version = \Elementor_Eco::VERSION;
 		wp_register_script( 'eco-widget-page', plugins_url( basename( __DIR__ ) . '/assets/js/page.js' ), [ 'elementor-frontend' ], $version, true );
 
 		wp_register_style( 'eco-events-style', plugins_url( '/assets/css/events.css', __FILE__  ), [], $version );

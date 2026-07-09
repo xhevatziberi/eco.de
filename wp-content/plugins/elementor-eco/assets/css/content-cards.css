@@ -107,9 +107,9 @@
 	margin-bottom: 10px;
 	color: #ff9d00;
 	font-size: 12px;
-	font-weight: 800;
+	font-weight: 700;
 	line-height: 1.2;
-	letter-spacing: 0.06em;
+	/* letter-spacing: -0.02em; */
 	text-transform: uppercase;
 }
 

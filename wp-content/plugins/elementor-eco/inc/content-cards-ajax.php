@@ -339,7 +339,7 @@ class ContentCardsAjax {
 		return get_permalink( $post_id );
 	}
 
-	private static function get_category_label( $post_id, $post_type ) {
+	private static function get_category_taxonomy( $post_type ) {
 		$map = [
 			'post'    => 'category',
 			'event'   => 'event-category',
@@ -347,19 +347,46 @@ class ContentCardsAjax {
 			'press'   => 'press-category',
 		];
 
-		$taxonomy = $map[ $post_type ] ?? 'category';
+		return $map[ $post_type ] ?? 'category';
+	}
+
+	private static function get_category_terms( $post_id, $post_type ) {
+		$taxonomy = self::get_category_taxonomy( $post_type );
 
 		if ( ! taxonomy_exists( $taxonomy ) ) {
-			return '';
+			return [];
 		}
 
 		$terms = get_the_terms( $post_id, $taxonomy );
 
 		if ( is_wp_error( $terms ) || empty( $terms ) ) {
+			return [];
+		}
+
+		return array_values( $terms );
+	}
+
+	private static function get_category_label( $post_id, $post_type ) {
+		$terms = self::get_category_terms( $post_id, $post_type );
+
+		if ( empty( $terms ) ) {
 			return '';
 		}
 
 		return $terms[0]->name;
+	}
+
+	private static function get_category_labels( $post_id, $post_type ) {
+		$terms = self::get_category_terms( $post_id, $post_type );
+
+		if ( empty( $terms ) ) {
+			return '';
+		}
+
+		$names = wp_list_pluck( $terms, 'name' );
+		$names = array_filter( array_map( 'sanitize_text_field', $names ) );
+
+		return implode( ', ', $names );
 	}
 
 	private static function get_badge_label( $post_id, $post_type, $settings ) {
@@ -511,7 +538,7 @@ class ContentCardsAjax {
 			$image_url   = self::get_image_url( $post_id, $post_type );
 			$link        = self::get_card_link( $post_id, $post_type );
 			$badge       = self::get_badge_label( $post_id, $post_type, $settings );
-			$category    = self::get_category_label( $post_id, $post_type );
+			$category    = self::get_category_labels( $post_id, $post_type );
 			$date        = self::get_date_label( $post_id, $post_type );
 			$location    = self::get_location_label( $post_id, $post_type );
 			$excerpt     = self::get_excerpt_text( $post_id, $post_type, ! empty( $settings['excerpt_length'] ) ? absint( $settings['excerpt_length'] ) : 22 );
