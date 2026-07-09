@@ -130,15 +130,16 @@ class EyebrowHeading extends Widget_Base {
                 'label'       => __( 'Color', 'elementor-eco' ),
                 'type'        => Controls_Manager::COLOR,
                 'default'     => '',
-                'selectors'   => [
-                    '{{WRAPPER}} .eco-eyebrow-heading' => '--eco-eyebrow-color: {{VALUE}}; color: {{VALUE}};',
-                    '{{WRAPPER}} .eco-eyebrow-heading__icon' => 'color: {{VALUE}};',
-                    '{{WRAPPER}} .eco-eyebrow-heading__icon i' => 'color: {{VALUE}};',
-                    '{{WRAPPER}} .eco-eyebrow-heading__icon svg' => 'color: {{VALUE}}; fill: {{VALUE}};',
-                    '{{WRAPPER}} .eco-eyebrow-heading__icon svg *' => 'fill: {{VALUE}}; stroke: {{VALUE}};',
-                    '{{WRAPPER}} .eco-eyebrow-heading__line' => 'background-color: {{VALUE}};',
-                    '{{WRAPPER}} .eco-eyebrow-heading__text' => 'color: {{VALUE}};',
-                ],
+                'selectors' => [
+					'{{WRAPPER}} .eco-eyebrow-heading' => '--eco-eyebrow-color: {{VALUE}}; color: {{VALUE}};',
+					'{{WRAPPER}} .eco-eyebrow-heading__icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .eco-eyebrow-heading__icon i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .eco-eyebrow-heading__icon svg' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .eco-eyebrow-heading__icon svg.lucide' => 'fill: none !important; stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .eco-eyebrow-heading__icon svg.lucide *' => 'fill: none !important; stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .eco-eyebrow-heading__line' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .eco-eyebrow-heading__text' => 'color: {{VALUE}};',
+				],
                 'description' => __( 'If empty, the widget will try to use the current post ACF color field. Final fallback is #009fe3.', 'elementor-eco' ),
             ]
         );
@@ -216,6 +217,7 @@ class EyebrowHeading extends Widget_Base {
 					'{{WRAPPER}} .eco-eyebrow-heading__icon' => 'font-size: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .eco-eyebrow-heading__icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .eco-eyebrow-heading__icon img' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .eco-eyebrow-heading__icon .eco-eyebrow-heading__image' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -384,101 +386,115 @@ class EyebrowHeading extends Widget_Base {
 		return $this->get_acf_value( $field_name, $post_id );
 	}
 
+	private function render_icon_url( $url ) {
+		if ( empty( $url ) || ! is_string( $url ) ) {
+			return;
+		}
+
+		if ( function_exists( 'eco_theme_render_icon_url' ) ) {
+			eco_theme_render_icon_url(
+				$url,
+				'eco-eyebrow-heading__svg',
+				'eco-eyebrow-heading__image'
+			);
+			return;
+		}
+
+		?>
+		<img class="eco-eyebrow-heading__image" src="<?php echo esc_url( $url ); ?>" alt="" loading="lazy">
+		<?php
+	}
+
 	private function render_acf_icon( $icon ) {
-        if ( empty( $icon ) ) {
-            return;
-        }
+		if ( empty( $icon ) ) {
+			return;
+		}
 
-        $type  = '';
-        $value = '';
+		$type  = '';
+		$value = '';
 
-        if ( is_string( $icon ) ) {
-            $value = trim( $icon );
-        } elseif ( is_array( $icon ) ) {
-            $type = ! empty( $icon['type'] ) && is_string( $icon['type'] )
-                ? sanitize_key( $icon['type'] )
-                : '';
+		if ( is_string( $icon ) ) {
+			$value = trim( $icon );
+		} elseif ( is_array( $icon ) ) {
+			$type = ! empty( $icon['type'] ) && is_string( $icon['type'] )
+				? sanitize_key( $icon['type'] )
+				: '';
 
-            if ( ! empty( $icon['value'] ) ) {
-                $value = $icon['value'];
-            } elseif ( ! empty( $icon['url'] ) ) {
-                $value = $icon['url'];
-            } elseif ( ! empty( $icon['class'] ) ) {
-                $value = $icon['class'];
-            }
-        }
+			if ( ! empty( $icon['value'] ) ) {
+				$value = $icon['value'];
+			} elseif ( ! empty( $icon['url'] ) ) {
+				$value = $icon['url'];
+			} elseif ( ! empty( $icon['class'] ) ) {
+				$value = $icon['class'];
+			}
+		}
 
-        if ( empty( $value ) ) {
-            return;
-        }
+		if ( empty( $value ) ) {
+			return;
+		}
 
-        /**
-         * Image attachment ID.
-         */
-        if ( is_numeric( $value ) ) {
-            $image_url = wp_get_attachment_image_url( absint( $value ), 'thumbnail' );
+		/**
+		 * Attachment ID.
+		 */
+		if ( is_numeric( $value ) ) {
+			$attachment_id = absint( $value );
+			$url           = wp_get_attachment_url( $attachment_id );
 
-            if ( $image_url ) {
-                ?>
-                <img src="<?php echo esc_url( $image_url ); ?>" alt="" loading="lazy">
-                <?php
-            }
+			if ( $url ) {
+				$this->render_icon_url( $url );
+			}
 
-            return;
-        }
+			return;
+		}
 
-        if ( is_array( $value ) ) {
-            if ( ! empty( $value['url'] ) ) {
-                ?>
-                <img src="<?php echo esc_url( $value['url'] ); ?>" alt="" loading="lazy">
-                <?php
-                return;
-            }
+		/**
+		 * Array value from ACF/Icon Picker/Media Library.
+		 */
+		if ( is_array( $value ) ) {
+			if ( ! empty( $value['url'] ) ) {
+				$this->render_icon_url( $value['url'] );
+				return;
+			}
 
-            if ( ! empty( $value['ID'] ) ) {
-                $image_url = wp_get_attachment_image_url( absint( $value['ID'] ), 'thumbnail' );
+			if ( ! empty( $value['ID'] ) ) {
+				$url = wp_get_attachment_url( absint( $value['ID'] ) );
 
-                if ( $image_url ) {
-                    ?>
-                    <img src="<?php echo esc_url( $image_url ); ?>" alt="" loading="lazy">
-                    <?php
-                }
+				if ( $url ) {
+					$this->render_icon_url( $url );
+				}
 
-                return;
-            }
-        }
+				return;
+			}
+		}
 
-        $value = trim( (string) $value );
+		$value = trim( (string) $value );
 
-        if ( empty( $value ) ) {
-            return;
-        }
+		if ( empty( $value ) ) {
+			return;
+		}
 
-        /**
-         * Image URL.
-         */
-        if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
-            ?>
-            <img src="<?php echo esc_url( $value ); ?>" alt="" loading="lazy">
-            <?php
-            return;
-        }
+		/**
+		 * Image/SVG URL.
+		 */
+		if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
+			$this->render_icon_url( $value );
+			return;
+		}
 
-        /**
-         * Dashicons.
-         * ACF may return "dashicons-admin-home" instead of "dashicons dashicons-admin-home".
-         */
-        if ( strpos( $value, 'dashicons-' ) === 0 ) {
-            $value = 'dashicons ' . $value;
-        }
+		/**
+		 * Dashicons.
+		 */
+		if ( strpos( $value, 'dashicons-' ) === 0 ) {
+			$value = 'dashicons ' . $value;
+		}
 
-        /**
-         * Font Awesome / Elementor / custom icon class.
-         */
-        ?>
-        <i class="<?php echo esc_attr( $value ); ?>" aria-hidden="true"></i>
-        <?php
-    }
+		/**
+		 * Font Awesome / Elementor / custom icon class.
+		 */
+		?>
+		<i class="<?php echo esc_attr( $value ); ?>" aria-hidden="true"></i>
+		<?php
+	}
 
 	private function has_elementor_icon( $settings ) {
 		return ! empty( $settings['icon'] ) && is_array( $settings['icon'] ) && ! empty( $settings['icon']['value'] );

@@ -15,7 +15,9 @@ $is_past   = eco_event_is_past( $post_id );
 
 <section class="eco-event-hero eco-event-hero--small">
 	<div class="eco-event-container eco-event-back-wrap">
-		<a class="eco-event-back" href="<?php echo esc_url( home_url( '/events/' ) ); ?>"><?php esc_html_e( 'Back to all events', 'eco-theme' ); ?></a>
+		<a class="eco-event-back eco-icon eco-icon-arrow-left" href="<?php echo esc_url( home_url( '/events/' ) ); ?>">
+			<?php esc_html_e( 'Back to all events', 'eco-theme' ); ?>
+		</a>
 	</div>
 
 	<div class="eco-event-container eco-event-hero__grid">
@@ -44,19 +46,19 @@ $is_past   = eco_event_is_past( $post_id );
 			<?php endif; ?>
 
 			<div class="eco-event-info-box">
-				<?php if ( $date_line ) : ?><span class="eco-event-info-box__item eco-icon-calendar"><?php echo esc_html( $date_line ); ?></span><?php endif; ?>
+				<?php if ( $date_line ) : ?><span class="eco-event-info-box__item eco-icon eco-icon-calendar"><?php echo esc_html( $date_line ); ?></span><?php endif; ?>
 				<?php if ( eco_event_get_field( 'start_time', $post_id, '' ) || eco_event_get_field( 'end_time', $post_id, '' ) ) : ?>
-					<span class="eco-event-info-box__item eco-icon-clock"><?php echo esc_html( trim( eco_event_get_field( 'start_time', $post_id, '' ) . ( eco_event_get_field( 'end_time', $post_id, '' ) ? ' – ' . eco_event_get_field( 'end_time', $post_id, '' ) : '' ) ) ); ?></span>
+					<span class="eco-event-info-box__item eco-icon eco-icon-clock"><?php echo esc_html( trim( eco_event_get_field( 'start_time', $post_id, '' ) . ( eco_event_get_field( 'end_time', $post_id, '' ) ? ' – ' . eco_event_get_field( 'end_time', $post_id, '' ) : '' ) ) ); ?></span>
 				<?php endif; ?>
-				<?php if ( $location ) : ?><span class="eco-event-info-box__item eco-icon-location"><?php echo esc_html( $location ); ?></span><?php endif; ?>
-				<?php if ( eco_event_get_field( 'max_participants', $post_id, '' ) ) : ?><span class="eco-event-info-box__item eco-icon-users"><?php printf( esc_html__( 'Max. %s participants', 'eco-theme' ), esc_html( eco_event_get_field( 'max_participants', $post_id, '' ) ) ); ?></span><?php endif; ?>
+				<?php if ( $location ) : ?><span class="eco-event-info-box__item eco-icon eco-icon-map-pin"><?php echo esc_html( $location ); ?></span><?php endif; ?>
+				<?php if ( eco_event_get_field( 'max_participants', $post_id, '' ) ) : ?><span class="eco-event-info-box__item eco-icon eco-icon-users"><?php printf( esc_html__( 'Max. %s participants', 'eco-theme' ), esc_html( eco_event_get_field( 'max_participants', $post_id, '' ) ) ); ?></span><?php endif; ?>
 			</div>
 
 			<div class="eco-event-hero__buttons">
 				<?php if ( $button ) : ?>
-					<a class="eco-event-button eco-event-button--wide" href="<?php echo esc_url( $button['url'] ); ?>" <?php echo ! empty( $button['target'] ) ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $button['label'] ); ?></a>
+					<a class="eco-event-button eco-event-button--wide eco-icon eco-icon-arrow-right" href="<?php echo esc_url( $button['url'] ); ?>" <?php echo ! empty( $button['target'] ) ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $button['label'] ); ?></a>
 				<?php endif; ?>
-				<a class="eco-event-button eco-event-button--wide" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'iCal', 'eco-theme' ); ?></a>
+				<a class="eco-event-button eco-event-button--wide eco-icon eco-icon-calendar-check" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'iCal', 'eco-theme' ); ?></a>
 			</div>
 		</div>
 	</div>

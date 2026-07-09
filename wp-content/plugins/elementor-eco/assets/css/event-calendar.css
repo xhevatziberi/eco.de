@@ -20,16 +20,6 @@
 	text-decoration: none;
 }
 
-.eco-event-calendar svg {
-	width: 1em;
-	height: 1em;
-	fill: none;
-	stroke: currentColor;
-	stroke-width: 1.8;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-}
-
 .eco-event-calendar .eco-event-calendar__header {
 	display: flex;
 	align-items: flex-start;
@@ -241,7 +231,6 @@
 .eco-event-calendar .eco-event-calendar-card__image {
 	position: relative;
 	width: 100%;
-	/* background: #111; */
 	overflow: hidden;
 }
 
@@ -251,9 +240,17 @@
 	padding-top: 56.25%;
 }
 
-.eco-event-calendar .eco-event-calendar-card__image--4-3::before { padding-top: 75%; }
-.eco-event-calendar .eco-event-calendar-card__image--3-2::before { padding-top: 66.666%; }
-.eco-event-calendar .eco-event-calendar-card__image--1-1::before { padding-top: 100%; }
+.eco-event-calendar .eco-event-calendar-card__image--4-3::before {
+	padding-top: 75%;
+}
+
+.eco-event-calendar .eco-event-calendar-card__image--3-2::before {
+	padding-top: 66.666%;
+}
+
+.eco-event-calendar .eco-event-calendar-card__image--1-1::before {
+	padding-top: 100%;
+}
 
 .eco-event-calendar .eco-event-calendar-card__image img {
 	position: absolute;
@@ -334,15 +331,11 @@
 	line-height: 1.3;
 }
 
-.eco-event-calendar .eco-event-calendar-card__meta span {
+.eco-event-calendar .eco-event-calendar-card__meta-item {
+	--eco-icon-size: 17px;
 	display: inline-flex;
 	align-items: center;
 	gap: 7px;
-}
-
-.eco-event-calendar .eco-event-calendar-card__meta svg {
-	font-size: 17px;
-	color: currentColor;
 }
 
 .eco-event-calendar .eco-event-calendar-empty {
@@ -365,6 +358,11 @@
 	background: color-mix(in srgb, var(--eco-event-calendar-accent) 20%, white);
 	color: var(--eco-event-calendar-accent);
 	font-size: 25px;
+}
+
+.eco-event-calendar .eco-event-calendar-empty__icon .eco-icon {
+	--eco-icon-size: 25px;
+	gap: 0;
 }
 
 .eco-event-calendar .eco-event-calendar-empty h3 {

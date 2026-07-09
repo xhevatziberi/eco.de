@@ -414,10 +414,15 @@ class EventCalendarAjax {
 
 				<div class="eco-event-calendar-card__meta">
 					<?php if ( $date_label ) : ?>
-						<span><?php echo self::icon_svg( 'calendar' ); ?> <?php echo esc_html( $date_label ); ?></span>
+						<span class="eco-event-calendar-card__meta-item eco-icon eco-icon-calendar">
+							<?php echo esc_html( $date_label ); ?>
+						</span>
 					<?php endif; ?>
+
 					<?php if ( $location ) : ?>
-						<span><?php echo self::icon_svg( 'location' ); ?> <?php echo esc_html( $location ); ?></span>
+						<span class="eco-event-calendar-card__meta-item eco-icon eco-icon-map-pin">
+							<?php echo esc_html( $location ); ?>
+						</span>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -439,7 +444,9 @@ class EventCalendarAjax {
 		ob_start();
 		?>
 		<div class="eco-event-calendar-empty">
-			<div class="eco-event-calendar-empty__icon" aria-hidden="true"><?php echo self::icon_svg( 'calendar' ); ?></div>
+			<div class="eco-event-calendar-empty__icon" aria-hidden="true">
+				<span class="eco-icon eco-icon-calendar"></span>
+			</div>
 			<h3><?php echo esc_html( $title ); ?></h3>
 			<p><?php echo esc_html( $text ); ?></p>
 		</div>
@@ -525,12 +532,5 @@ class EventCalendarAjax {
 
 	public static function ymd_to_date( $ymd ) {
 		return substr( $ymd, 0, 4 ) . '-' . substr( $ymd, 4, 2 ) . '-' . substr( $ymd, 6, 2 );
-	}
-
-	public static function icon_svg( $icon ) {
-		if ( $icon === 'location' ) {
-			return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.1 7-12a7 7 0 0 0-14 0c0 6.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>';
-		}
-		return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>';
 	}
 }

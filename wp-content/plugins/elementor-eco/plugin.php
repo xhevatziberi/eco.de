@@ -46,7 +46,7 @@ class Plugin {
 	 * @access public
 	 */
 	public function widget_scripts() {
-		$version = '1.2.13';
+		$version = '1.2.14';
 		wp_register_script( 'eco-widget-page', plugins_url( basename( __DIR__ ) . '/assets/js/page.js' ), [ 'elementor-frontend' ], $version, true );
 
 		wp_register_style( 'eco-events-style', plugins_url( '/assets/css/events.css', __FILE__  ), [], $version );
@@ -147,6 +147,8 @@ class Plugin {
 
 		wp_register_style( 'eco-featured-slider-style', plugins_url( '/assets/css/featured-slider.css', __FILE__ ), [], $version );
 		wp_register_script( 'eco-featured-slider-script', plugins_url( '/assets/js/featured-slider.js', __FILE__ ), [], $version, true );
+		wp_register_style( 'eco-featured-slider-v2-style', plugins_url( '/assets/css/featured-slider-v2.css', __FILE__ ), [], $version );
+		wp_register_script( 'eco-featured-slider-v2-script', plugins_url( '/assets/js/featured-slider-v2.js', __FILE__ ), [], $version, true );
 
 		wp_register_style( 'eco-tile-feature-list-style', plugins_url( '/assets/css/tile-feature-list.css', __FILE__ ), [], $version );
 
@@ -195,6 +197,7 @@ class Plugin {
 		require_once( __DIR__ . '/widgets/logo-grid.php' );
 		require_once( __DIR__ . '/widgets/content-cards.php' );
 		require_once( __DIR__ . '/widgets/featured-slider.php' );
+		require_once( __DIR__ . '/widgets/featured-slider-v2.php' );
 		require_once( __DIR__ . '/widgets/tile-feature-list.php' );
 		require_once( __DIR__ . '/widgets/eyebrow-heading.php' );
 		require_once( __DIR__ . '/widgets/event-calendar.php' );
@@ -232,6 +235,7 @@ class Plugin {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\LogoGrid() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\ContentCards() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedSlider() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\FeaturedSliderV2() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\TileFeatureList() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\EyebrowHeading() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\EventCalendar() );

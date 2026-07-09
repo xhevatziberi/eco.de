@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $post_id   = get_the_ID();
 $type      = eco_event_get_field( 'registration_type', $post_id, 'external' );
 $intro     = eco_event_get_field( 'registration_intro', $post_id, '' );
-$pretix    = eco_event_get_field( 'pretix_shortcode', $post_id, '' );
+$pretix    = eco_event_get_pretix_shortcode( $post_id );
 $price     = eco_event_get_field( 'price_info', $post_id, '' );
 $max       = eco_event_get_field( 'max_participants', $post_id, '' );
 $is_past   = eco_event_is_past( $post_id );

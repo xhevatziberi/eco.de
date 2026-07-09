@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'ECO_VERSION', '2.0.0' );
+define( 'ECO_VERSION', '2.0.1' );
 
 function eco_theme_load_textdomain() {
 	load_child_theme_textdomain( 'eco-theme', get_stylesheet_directory() . '/languages' );
@@ -18,6 +18,7 @@ add_action( 'after_setup_theme', 'eco_theme_load_textdomain' );
 
 function eco_child_scripts_styles() {
 	wp_enqueue_style( 'eco-fonts', get_stylesheet_directory_uri() . '/assets/css/ecofonts.css', [], ECO_VERSION );
+	wp_enqueue_style( 'eco-breadcrumbs', get_stylesheet_directory_uri() . '/assets/css/breadcrumbs.css', [], ECO_VERSION );
 	wp_enqueue_style( 'eco-child-style', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor-theme-style'], ECO_VERSION );
 	wp_enqueue_script( 'eco-sienna', get_stylesheet_directory_uri() . '/assets/js/sienna.min.js', [], ECO_VERSION, [ 'in_footer' => true, 'strategy' => 'defer' ] );
 
@@ -33,3 +34,5 @@ include_once( get_stylesheet_directory() . '/inc/hide-internal-elementor-templat
 require_once get_stylesheet_directory() . '/inc/admin-post-featured-image-column.php';
 include_once( get_stylesheet_directory() . '/inc/tile-redirect.php' );
 require_once get_stylesheet_directory() . '/inc/event-helpers.php';
+require_once get_stylesheet_directory() . '/inc/breadcrumbs.php';
+require_once get_stylesheet_directory() . '/inc/icon-helpers.php';

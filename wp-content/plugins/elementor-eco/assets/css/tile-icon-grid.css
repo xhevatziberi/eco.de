@@ -34,18 +34,54 @@
 	color: #e6007e;
 }
 
+/* Dashicons fallback */
 .eco-tile-icon-grid .eco-tile-icon-card__icon .dashicons {
 	width: auto;
 	height: auto;
 	font-size: 38px;
 	line-height: 1;
+	color: currentColor;
 }
 
-.eco-tile-icon-grid .eco-tile-icon__image {
+/* PNG/JPG/WebP image icons + inline SVG icons */
+.eco-tile-icon-grid .eco-tile-icon__image,
+.eco-tile-icon-grid .eco-tile-icon__svg,
+.eco-tile-icon-grid .eco-tile-icon-card__icon > svg {
 	display: block;
 	width: 40px;
 	height: 40px;
+}
+
+/* Raster image icons */
+.eco-tile-icon-grid .eco-tile-icon__image {
 	object-fit: contain;
+}
+
+/* Inline SVG icons */
+.eco-tile-icon-grid .eco-tile-icon__svg,
+.eco-tile-icon-grid .eco-tile-icon-card__icon > svg {
+	color: currentColor;
+	fill: none;
+	stroke: currentColor;
+}
+
+/* Lucide / outline SVG children */
+.eco-tile-icon-grid .eco-tile-icon__svg *,
+.eco-tile-icon-grid .eco-tile-icon-card__icon > svg * {
+	fill: none;
+	stroke: currentColor;
+}
+
+/* Custom icon-font fallback, if used */
+.eco-tile-icon-grid .eco-tile-icon__custom {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	font-size: 40px;
+	line-height: 1;
+	color: currentColor;
 }
 
 .eco-tile-icon-grid .eco-tile-icon-card__title {

@@ -1436,15 +1436,13 @@ class ContentCards extends Widget_Base {
 					<?php if ( $show_date || ( $show_location && ! empty( $location ) ) ) : ?>
 						<div class="eco-content-card__meta">
 							<?php if ( $show_date && ! empty( $date ) ) : ?>
-								<span class="eco-content-card__meta-item">
-									<span class="eco-content-card__meta-icon">📅</span>
+								<span class="eco-content-card__meta-item eco-icon eco-icon-calendar">
 									<?php echo esc_html( $date ); ?>
 								</span>
 							<?php endif; ?>
 
 							<?php if ( $show_location && ! empty( $location ) ) : ?>
-								<span class="eco-content-card__meta-item">
-									<span class="eco-content-card__meta-icon">📍</span>
+								<span class="eco-content-card__meta-item eco-icon eco-icon-map-pin">
 									<?php echo esc_html( $location ); ?>
 								</span>
 							<?php endif; ?>

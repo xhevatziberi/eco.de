@@ -24,17 +24,21 @@
 .eco-eyebrow-heading__icon svg {
 	display: block;
 	color: inherit;
-	fill: currentColor;
 }
 
-.eco-eyebrow-heading__icon svg {
+.eco-eyebrow-heading__icon svg,
+.eco-eyebrow-heading__icon .eco-eyebrow-heading__svg {
 	width: 1em;
 	height: 1em;
+	color: currentColor;
+	fill: none !important;
+	stroke: currentColor !important;
 }
 
-.eco-eyebrow-heading__icon svg * {
-	fill: currentColor;
-	stroke: currentColor;
+.eco-eyebrow-heading__icon svg *,
+.eco-eyebrow-heading__icon .eco-eyebrow-heading__svg * {
+	fill: none !important;
+	stroke: currentColor !important;
 }
 
 .eco-eyebrow-heading__icon img {

@@ -250,6 +250,45 @@ function eco_event_get_title( $post_id = null ): string {
 	return $title ?: get_the_title( $post_id );
 }
 
+function eco_event_get_pretix_code( $post_id = null ): string {
+	$post_id = $post_id ?: get_the_ID();
+
+	$value = eco_event_get_field( 'pretix_shortcode', $post_id, '' );
+	$value = is_string( $value ) ? trim( $value ) : '';
+
+	if ( $value === '' ) {
+		return '';
+	}
+
+	// Backwards compatibility: if an old full shortcode was saved, extract the code from the shop_url.
+	if ( preg_match( '#pretix\.eu/eco/([^/"\']+)/?#i', $value, $matches ) ) {
+		$value = $matches[1];
+	}
+
+	// Backwards compatibility: if someone pasted only a Pretix URL, still extract the code.
+	if ( preg_match( '#^https?://pretix\.eu/eco/([^/"\']+)/?#i', $value, $matches ) ) {
+		$value = $matches[1];
+	}
+
+	// Keep only a safe Pretix event slug.
+	$value = sanitize_title( $value );
+
+	return $value;
+}
+
+function eco_event_get_pretix_shortcode( $post_id = null ): string {
+	$code = eco_event_get_pretix_code( $post_id );
+
+	if ( $code === '' ) {
+		return '';
+	}
+
+	return sprintf(
+		'[pretix_widget shop_url="https://pretix.eu/eco/%s/"]',
+		esc_attr( $code )
+	);
+}
+
 function eco_event_get_registration_button( $post_id = null ): array {
 	$post_id = $post_id ?: get_the_ID();
 
@@ -260,7 +299,7 @@ function eco_event_get_registration_button( $post_id = null ): array {
 	$type  = eco_event_get_field( 'registration_type', $post_id, 'external' );
 	$label = eco_event_get_field( 'registration_button_label', $post_id, '' ) ?: __( 'Register now', 'eco-theme' );
 
-	if ( $type === 'pretix' && eco_event_get_field( 'pretix_shortcode', $post_id, '' ) ) {
+	if ( $type === 'pretix' && eco_event_get_pretix_code( $post_id ) ) {
 		return [
 			'url'    => '#registration',
 			'label'  => $label,

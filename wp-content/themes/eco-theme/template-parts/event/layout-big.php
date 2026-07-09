@@ -20,7 +20,9 @@ $is_past   = eco_event_is_past( $post_id );
 	<div class="eco-event-hero__overlay"></div>
 
 	<div class="eco-event-container eco-event-hero__inner">
-		<a class="eco-event-back eco-event-back--light" href="<?php echo esc_url( home_url( '/events/' ) ); ?>"><?php esc_html_e( 'Back to all events', 'eco-theme' ); ?></a>
+		<a class="eco-event-back eco-event-back--light eco-icon eco-icon-arrow-left" href="<?php echo esc_url( home_url( '/events/' ) ); ?>">
+			<?php esc_html_e( 'Back to all events', 'eco-theme' ); ?>
+		</a>
 
 		<div class="eco-event-hero__content">
 			<?php if ( $label || $is_past ) : ?>
@@ -35,15 +37,15 @@ $is_past   = eco_event_is_past( $post_id );
 			<?php if ( $teaser ) : ?><p class="eco-event-teaser"><?php echo esc_html( $teaser ); ?></p><?php endif; ?>
 
 			<div class="eco-event-meta eco-event-meta--hero">
-				<?php if ( $date_line ) : ?><span class="eco-icon-calendar"><?php echo esc_html( $date_line ); ?></span><?php endif; ?>
-				<?php if ( $location ) : ?><span class="eco-icon-location"><?php echo esc_html( $location ); ?></span><?php endif; ?>
+				<?php if ( $date_line ) : ?><span class="eco-icon eco-icon-calendar"><?php echo esc_html( $date_line ); ?></span><?php endif; ?>
+				<?php if ( $location ) : ?><span class="eco-icon eco-icon-map-pin"><?php echo esc_html( $location ); ?></span><?php endif; ?>
 			</div>
 
 			<div class="eco-event-hero__buttons">
 				<?php if ( $button ) : ?>
-					<a class="eco-event-button" href="<?php echo esc_url( $button['url'] ); ?>" <?php echo ! empty( $button['target'] ) ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $button['label'] ); ?></a>
+					<a class="eco-event-button eco-icon eco-icon-arrow-right" href="<?php echo esc_url( $button['url'] ); ?>" <?php echo ! empty( $button['target'] ) ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $button['label'] ); ?></a>
 				<?php endif; ?>
-				<a class="eco-event-button eco-event-button--ghost eco-event-button--light" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'iCal', 'eco-theme' ); ?></a>
+				<a class="eco-event-button eco-event-button--ghost eco-event-button--light eco-icon eco-icon-calendar-check" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'iCal', 'eco-theme' ); ?></a>
 			</div>
 		</div>
 	</div>

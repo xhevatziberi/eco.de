@@ -258,6 +258,15 @@ class TileIconGrid extends Widget_Base {
 		$url = $this->get_icon_url_from_value( $value );
 
 		if ( ! empty( $url ) ) {
+			if ( function_exists( 'eco_theme_render_icon_url' ) ) {
+				return eco_theme_render_icon_url(
+					$url,
+					'eco-tile-icon__svg',
+					'eco-tile-icon__image',
+					false
+				);
+			}
+
 			return '<img class="eco-tile-icon__image" src="' . esc_url( $url ) . '" alt="" loading="lazy">';
 		}
 

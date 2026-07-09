@@ -44,7 +44,7 @@ if ( empty( $valid_days ) ) {
 				<span><?php esc_html_e( 'Program', 'eco-theme' ); ?></span>
 				<h2><?php esc_html_e( 'Agenda', 'eco-theme' ); ?></h2>
 			</div>
-			<a class="eco-event-ical-link" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'Download iCal', 'eco-theme' ); ?></a>
+			<a class="eco-event-ical-link eco-icon eco-icon-calendar-check" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'Download iCal', 'eco-theme' ); ?></a>
 		</div>
 
 		<?php if ( count( $valid_days ) > 1 ) : ?>
@@ -98,7 +98,7 @@ if ( empty( $valid_days ) ) {
 						$speakers = eco_event_normalize_posts( $item['speakers'] ?? [] );
 						?>
 						<article class="eco-event-agenda-item eco-event-agenda-item--<?php echo esc_attr( $style ); ?>" <?php echo $color ? 'style="--eco-event-accent:' . esc_attr( $color ) . ';"' : ''; ?>>
-							<div class="eco-event-agenda-item__time eco-icon-clock">
+							<div class="eco-event-agenda-item__time eco-icon eco-icon-clock">
 								<?php echo esc_html( $time && $end_time ? $time . ' – ' . $end_time : $time ); ?>
 							</div>
 							<div class="eco-event-agenda-item__content">
@@ -107,9 +107,11 @@ if ( empty( $valid_days ) ) {
 								<?php if ( ! empty( $speakers ) || $location ) : ?>
 									<div class="eco-event-agenda-meta">
 										<?php foreach ( $speakers as $speaker_id ) : ?>
-											<span class="eco-icon-user"><?php echo esc_html( get_the_title( $speaker_id ) ); ?></span>
+											<span class="eco-icon eco-icon-user"><?php echo esc_html( get_the_title( $speaker_id ) ); ?></span>
 										<?php endforeach; ?>
-										<?php if ( $location ) : ?><span class="eco-icon-location"><?php echo esc_html( $location ); ?></span><?php endif; ?>
+										<?php if ( $location ) : ?>
+											<span class="eco-icon eco-icon-map-pin"><?php echo esc_html( $location ); ?></span>
+										<?php endif; ?>
 									</div>
 								<?php endif; ?>
 							</div>
