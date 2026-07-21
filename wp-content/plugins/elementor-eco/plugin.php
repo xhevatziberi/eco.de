@@ -175,6 +175,8 @@ class Plugin {
 		wp_register_script( 'eco-testimonial-showcase', plugins_url( '/assets/js/testimonial-showcase.js', __FILE__ ), [ 'jquery' ], $version, true );
 
 		wp_register_style( 'eco-benefit-card-style', plugins_url( '/assets/css/benefit-card.css', __FILE__ ), [], $version );
+
+		wp_register_style( 'eco-logo-gallery-style', plugins_url( '/assets/css/logo-gallery.css', __FILE__ ), [], $version );
 	}
 
 	/**
@@ -209,6 +211,8 @@ class Plugin {
 		require_once( __DIR__ . '/widgets/member-carousel.php' );
 		require_once( __DIR__ . '/widgets/testimonial-showcase.php' );
 		require_once( __DIR__ . '/widgets/benefit-card.php' );
+		require_once( __DIR__ . '/widgets/logo-gallery.php' );
+		require_once( __DIR__ . '/widgets/acf-wpforms.php' );
 	}
 
 	/**
@@ -247,6 +251,8 @@ class Plugin {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\MemberCarousel() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\TestimonialShowcase() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\BenefitCard() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\LogoGallery() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\AcfWpforms() );
 	}
 
 	function add_elementor_widget_categories( $elements_manager ) {

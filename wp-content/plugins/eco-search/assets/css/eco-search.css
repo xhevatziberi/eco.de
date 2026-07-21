@@ -314,6 +314,12 @@ body #eco-search-scope .eco-search__page {
   border-radius: 6px;
 }
 
+body #eco-search-scope .eco-search__page.eco-search__page--nav {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 15px;
+}
+
 body #eco-search-scope .eco-search__page.is-active {
   border-color: #c40018;
   color: #c40018;

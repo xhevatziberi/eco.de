@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eco Theme\n"
-"POT-Creation-Date: 2026-07-06 18:37+0200\n"
-"PO-Revision-Date: 2026-07-06 18:38+0200\n"
+"POT-Creation-Date: 2026-07-21 11:42+0200\n"
+"PO-Revision-Date: 2026-07-21 11:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -25,6 +25,10 @@ msgstr ""
 #: inc/admin-post-featured-image-column.php:35
 msgid "Image"
 msgstr "Bild"
+
+#: inc/breadcrumbs.php:37
+msgid "Breadcrumbs"
+msgstr "Breadcrumbs"
 
 #: inc/event-helpers.php:217 inc/event-helpers.php:222
 msgid "Online"
@@ -70,7 +74,7 @@ msgstr "Training"
 msgid "Award"
 msgstr "Award"
 
-#: inc/event-helpers.php:261
+#: inc/event-helpers.php:300
 msgid "Register now"
 msgstr "Jetzt anmelden"
 
@@ -86,22 +90,22 @@ msgstr "Diese Seite ist nicht verfügbar."
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: template-parts/event/layout-big.php:23
-#: template-parts/event/layout-small.php:18
+#: template-parts/event/layout-big.php:24
+#: template-parts/event/layout-small.php:19
 msgid "Back to all events"
 msgstr "Zurück zu allen Veranstaltungen"
 
-#: template-parts/event/layout-big.php:29
-#: template-parts/event/layout-small.php:35
+#: template-parts/event/layout-big.php:31
+#: template-parts/event/layout-small.php:37
 msgid "Past Event"
 msgstr "Vergangene Veranstaltung"
 
-#: template-parts/event/layout-big.php:46
-#: template-parts/event/layout-small.php:59
+#: template-parts/event/layout-big.php:48
+#: template-parts/event/layout-small.php:61
 msgid "iCal"
 msgstr "iCal"
 
-#: template-parts/event/layout-small.php:52
+#: template-parts/event/layout-small.php:54
 #: template-parts/event/section-registration.php:35
 #, php-format
 msgid "Max. %s participants"

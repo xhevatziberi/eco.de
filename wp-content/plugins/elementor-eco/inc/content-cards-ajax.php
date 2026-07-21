@@ -17,7 +17,7 @@ class ContentCardsAjax {
 			? array_map( 'sanitize_key', $settings['post_types'] )
 			: [ 'post' ];
 
-		$allowed_post_types = [ 'post', 'event', 'podcast', 'press' ];
+		$allowed_post_types = [ 'post', 'event', 'podcast', 'press', 'study' ];
 		$post_types         = array_values( array_intersect( $post_types, $allowed_post_types ) );
 
 		if ( empty( $post_types ) ) {
@@ -345,6 +345,7 @@ class ContentCardsAjax {
 			'event'   => 'event-category',
 			'podcast' => 'podcast-category',
 			'press'   => 'press-category',
+			'study'   => 'study-category',
 		];
 
 		return $map[ $post_type ] ?? 'category';
@@ -446,6 +447,7 @@ class ContentCardsAjax {
 			'event'   => 'Event',
 			'podcast' => 'Podcast',
 			'press'   => 'Presse',
+			'study'   => 'Study',
 		];
 
 		return $labels[ $post_type ] ?? ucfirst( $post_type );

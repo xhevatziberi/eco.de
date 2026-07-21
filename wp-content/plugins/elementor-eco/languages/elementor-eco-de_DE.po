@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Elementor eco\n"
 "Report-Msgid-Bugs-To: xhevat@batlab.mk\n"
-"POT-Creation-Date: 2026-07-06 19:34+0200\n"
-"PO-Revision-Date: 2026-07-06 19:35+0200\n"
+"POT-Creation-Date: 2026-07-21 11:44+0200\n"
+"PO-Revision-Date: 2026-07-21 11:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -93,57 +93,58 @@ msgstr "So"
 msgid "Past"
 msgstr "Vergangen"
 
-#: inc/event-calendar-ajax.php:436
+#: inc/event-calendar-ajax.php:441
 msgid "No events found"
 msgstr "Keine Veranstaltungen gefunden"
 
-#: inc/event-calendar-ajax.php:437
+#: inc/event-calendar-ajax.php:442
 msgid "No events are currently available for this period."
 msgstr "Für diesen Zeitraum sind aktuell keine Veranstaltungen verfügbar."
 
-#: inc/event-calendar-ajax.php:467 inc/event-calendar-ajax.php:477
+#: inc/event-calendar-ajax.php:474 inc/event-calendar-ajax.php:484
 #: widgets/content-cards.php:224
 msgid "Event"
 msgstr "Veranstaltung"
 
-#: inc/event-calendar-ajax.php:468
+#: inc/event-calendar-ajax.php:475
 msgid "eco Event"
 msgstr "eco Veranstaltung"
 
-#: inc/event-calendar-ajax.php:469
+#: inc/event-calendar-ajax.php:476
 msgid "Partner Event"
 msgstr "Partner Veranstaltung"
 
-#: inc/event-calendar-ajax.php:470
+#: inc/event-calendar-ajax.php:477
 msgid "Webinar"
 msgstr "Webinar"
 
-#: inc/event-calendar-ajax.php:471
+#: inc/event-calendar-ajax.php:478
 msgid "Workshop"
 msgstr "Workshop"
 
-#: inc/event-calendar-ajax.php:472
+#: inc/event-calendar-ajax.php:479
 msgid "Conference"
 msgstr "Konferenz"
 
-#: inc/event-calendar-ajax.php:473 widgets/featured-slider.php:64
+#: inc/event-calendar-ajax.php:480 widgets/featured-slider-v2.php:177
+#: widgets/featured-slider-v2.php:178 widgets/featured-slider.php:64
 #: widgets/featured-slider.php:65
 msgid "Highlight"
 msgstr "Highlight"
 
-#: inc/event-calendar-ajax.php:474
+#: inc/event-calendar-ajax.php:481
 msgid "Training"
 msgstr "Training"
 
-#: inc/event-calendar-ajax.php:475
+#: inc/event-calendar-ajax.php:482
 msgid "Award"
 msgstr "Award"
 
-#: inc/event-calendar-ajax.php:486 inc/event-calendar-ajax.php:490
+#: inc/event-calendar-ajax.php:493 inc/event-calendar-ajax.php:497
 msgid "Online"
 msgstr "Online"
 
-#: inc/event-calendar-ajax.php:490
+#: inc/event-calendar-ajax.php:497
 #, php-format
 msgid "Online / %s"
 msgstr "Online / %s"
@@ -156,7 +157,7 @@ msgstr "Ungültiger Filter."
 msgid "Member not found."
 msgstr "Mitglied nicht gefunden."
 
-#: inc/members-ajax.php:325 plugin.php:61
+#: inc/members-ajax.php:325 plugin.php:65
 msgid "No members found."
 msgstr "Keine Mitglieder gefunden."
 
@@ -180,107 +181,149 @@ msgstr "Fax:"
 msgid "Email:"
 msgstr "E-Mail:"
 
-#: plugin.php:62
+#: plugin.php:66
 msgid "Members could not be loaded. Please try again."
 msgstr ""
 "Die Mitglieder konnten nicht geladen werden. Bitte versuchen Sie es erneut."
 
-#: plugin.php:63
+#: plugin.php:67
 msgid "The information could not be loaded."
 msgstr "Die Informationen konnten nicht geladen werden."
 
-#: plugin.php:64
+#: plugin.php:68
 msgid "Loading members…"
 msgstr "Mitglieder werden geladen…"
 
-#: plugin.php:65
+#: plugin.php:69
 msgid "Loading all members…"
 msgstr "Alle Mitglieder werden geladen…"
 
-#: plugin.php:66
+#: plugin.php:70
 msgid "Loading information…"
 msgstr "Informationen werden geladen…"
 
-#: plugin.php:67
+#: plugin.php:71
 msgid "1 member found"
 msgstr "1 Mitglied gefunden"
 
-#: plugin.php:68
+#: plugin.php:72
 #, php-format
 msgid "%d members found"
 msgstr "%d Mitglieder gefunden"
 
-#: plugin.php:91 plugin.php:110 widgets/eco-events-carousel.php:146
+#: plugin.php:95 plugin.php:114 widgets/eco-events-carousel.php:146
 msgid "Loading events..."
 msgstr "Lade Veranstaltungen..."
 
-#: plugin.php:92
+#: plugin.php:96
 msgid "Loading month overview..."
 msgstr "Lade Monatsübersicht..."
 
-#: plugin.php:93
+#: plugin.php:97
 msgid "No events this month."
 msgstr "Keine Veranstaltungen in diesem Monat."
 
-#: plugin.php:94
+#: plugin.php:98
 msgid "No events today."
 msgstr "Heute keine Veranstaltungen."
 
-#: plugin.php:95 plugin.php:113
+#: plugin.php:99 plugin.php:117
 msgid "No events found."
 msgstr "Keine Veranstaltungen gefunden."
 
-#: plugin.php:96
+#: plugin.php:100
 msgid "Error loading events. Please try again later."
 msgstr "Fehler beim Laden der Veranstaltungen. Bitte später erneut versuchen."
 
-#: plugin.php:97
+#: plugin.php:101
 msgid "Month Overview"
 msgstr "Monatsübersicht"
 
-#: plugin.php:98
+#: plugin.php:102
 msgid "Today"
 msgstr "Heute"
 
-#: plugin.php:99 widgets/events.php:240
+#: plugin.php:103 widgets/events.php:240
 msgid "This Month"
 msgstr "Diesen Monat"
 
-#: plugin.php:100 widgets/content-cards.php:188 widgets/downloads.php:972
+#: plugin.php:104 widgets/content-cards.php:188 widgets/downloads.php:972
 #: widgets/events.php:209 widgets/events.php:229
 msgid "All"
 msgstr "Alle"
 
-#: plugin.php:101 plugin.php:111
+#: plugin.php:105 plugin.php:115
 msgid "More Info"
 msgstr "Mehr Infos"
 
-#: plugin.php:102 plugin.php:112
+#: plugin.php:106 plugin.php:116
 msgid "To Ticket Shop"
 msgstr "Zum Ticketshop"
 
-#: plugin.php:103
+#: plugin.php:107
 msgid "Past Event"
 msgstr "Vergangene Veranstaltung"
 
-#: plugin.php:114
+#: plugin.php:118
 msgid "Error loading events."
 msgstr "Fehler beim Laden der Veranstaltungen."
 
-#: plugin.php:128
+#: plugin.php:132
 msgid "Error loading downloads."
 msgstr "Fehler beim Laden der Downloads."
 
-#: plugin.php:249
+#: plugin.php:263
 #, fuzzy
 msgid "eco Widgets"
 msgstr "eco Widgets"
 
 #. Author of the plugin/theme
-#: plugin.php:271
+#: plugin.php:285
 #, fuzzy
 msgid "eco"
 msgstr "eco"
+
+#: widgets/acf-wpforms.php:18
+msgid "ACF WPForms"
+msgstr ""
+
+#: widgets/acf-wpforms.php:33
+msgid "Form"
+msgstr ""
+
+#: widgets/acf-wpforms.php:41
+#, fuzzy
+#| msgid "ACF Field Name(s)"
+msgid "ACF Field Name"
+msgstr "ACF-Feldname(n)"
+
+#: widgets/acf-wpforms.php:45
+msgid "Enter the ACF/SCF field name that stores the selected WPForms form."
+msgstr ""
+
+#: widgets/acf-wpforms.php:52
+#, fuzzy
+#| msgid "Show Filter"
+msgid "Show Form Title"
+msgstr "Filter anzeigen"
+
+#: widgets/acf-wpforms.php:62
+#, fuzzy
+#| msgid "Short description"
+msgid "Show Form Description"
+msgstr "Kurzbeschreibung"
+
+#: widgets/acf-wpforms.php:72
+#, fuzzy
+#| msgid "Fallback to ACF"
+msgid "Fallback Form ID"
+msgstr "Fallback auf ACF"
+
+#: widgets/acf-wpforms.php:76
+msgid ""
+"Optional. Used only when the ACF field is empty, which is useful for "
+"Elementor template previews."
+msgstr ""
 
 #: widgets/benefit-card.php:22
 msgid "Benefit Card"
@@ -295,6 +338,7 @@ msgid "Content"
 msgstr "Inhalt"
 
 #: widgets/benefit-card.php:56 widgets/eyebrow-heading.php:48
+#: widgets/logo-gallery.php:58
 msgid "Icon"
 msgstr "Icon"
 
@@ -315,10 +359,11 @@ msgstr "Kompetenzgruppen"
 #: widgets/content-cards.php:144 widgets/downloads.php:62
 #: widgets/downloads.php:218 widgets/event-calendar.php:51
 #: widgets/event-calendar.php:236 widgets/events.php:60 widgets/events.php:62
-#: widgets/featured-slider.php:82 widgets/logo-grid.php:67
-#: widgets/member-carousel.php:109 widgets/members.php:55
-#: widgets/number-box.php:57 widgets/tile-feature-list.php:91
-#: widgets/tile-icon-grid.php:74
+#: widgets/featured-slider-v2.php:73 widgets/featured-slider-v2.php:195
+#: widgets/featured-slider.php:82 widgets/logo-gallery.php:48
+#: widgets/logo-grid.php:67 widgets/member-carousel.php:109
+#: widgets/members.php:55 widgets/number-box.php:57
+#: widgets/tile-feature-list.php:91 widgets/tile-icon-grid.php:74
 msgid "Title"
 msgstr "Titel"
 
@@ -351,7 +396,8 @@ msgid "Kompetenzgruppen entdecken"
 msgstr "Kompetenzgruppen entdecken"
 
 #: widgets/benefit-card.php:135 widgets/benefit-card.php:528
-#: widgets/featured-slider.php:133 widgets/partner-logos.php:75
+#: widgets/featured-slider-v2.php:246 widgets/featured-slider.php:133
+#: widgets/partner-logos.php:75
 msgid "Link"
 msgstr "Link"
 
@@ -364,30 +410,31 @@ msgid "Minimum Height"
 msgstr "Mindesthöhe"
 
 #: widgets/benefit-card.php:175 widgets/events.php:109
-#: widgets/member-carousel.php:258 widgets/partner-logos.php:179
-#: widgets/testimonial-showcase.php:346
+#: widgets/logo-gallery.php:269 widgets/member-carousel.php:258
+#: widgets/partner-logos.php:179 widgets/testimonial-showcase.php:346
 msgid "Padding"
 msgstr "Innenabstand"
 
 #: widgets/benefit-card.php:191 widgets/events.php:98
+#: widgets/featured-slider-v2.php:385 widgets/logo-gallery.php:289
 #: widgets/member-carousel.php:274 widgets/partner-logos.php:195
 msgid "Background Color"
 msgstr "Hintergrundfarbe"
 
 #: widgets/benefit-card.php:216 widgets/benefit-card.php:272
-#: widgets/partner-logos.php:219
+#: widgets/logo-gallery.php:330 widgets/partner-logos.php:219
 msgid "Top Border Color"
 msgstr "Farbe der oberen Linie"
 
-#: widgets/benefit-card.php:228
+#: widgets/benefit-card.php:228 widgets/logo-gallery.php:314
 msgid "Top Border Width"
 msgstr "Breite der oberen Linie"
 
 #: widgets/benefit-card.php:242 widgets/content-cards.php:479
 #: widgets/downloads.php:378 widgets/event-calendar.php:293
-#: widgets/events.php:145 widgets/logo-grid.php:268
-#: widgets/member-carousel.php:298 widgets/partner-logos.php:231
-#: widgets/testimonial-showcase.php:367
+#: widgets/events.php:145 widgets/logo-gallery.php:342
+#: widgets/logo-grid.php:268 widgets/member-carousel.php:298
+#: widgets/partner-logos.php:231 widgets/testimonial-showcase.php:367
 msgid "Border Radius"
 msgstr "Eckenradius"
 
@@ -411,7 +458,8 @@ msgstr "Abstand unter der Icon-Zeile"
 msgid "Icon Box Size"
 msgstr "Größe der Icon-Box"
 
-#: widgets/benefit-card.php:338 widgets/eyebrow-heading.php:202
+#: widgets/benefit-card.php:338 widgets/eyebrow-heading.php:203
+#: widgets/logo-gallery.php:204
 msgid "Icon Size"
 msgstr "Icon-Größe"
 
@@ -433,6 +481,7 @@ msgid "Number Color"
 msgstr "Farbe der Zahl"
 
 #: widgets/benefit-card.php:414 widgets/eyebrow-heading.php:58
+#: widgets/featured-slider-v2.php:95 widgets/featured-slider-v2.php:205
 #: widgets/featured-slider.php:92 widgets/number-box.php:67
 msgid "Text"
 msgstr "Text"
@@ -465,7 +514,7 @@ msgstr "Abstand unter der Beschreibung"
 
 #: widgets/benefit-card.php:536 widgets/event-calendar.php:252
 #: widgets/events.php:87 widgets/eyebrow-heading.php:130
-#: widgets/member-carousel.php:374
+#: widgets/logo-gallery.php:222 widgets/member-carousel.php:374
 msgid "Color"
 msgstr "Farbe"
 
@@ -538,7 +587,9 @@ msgid "Include Terms"
 msgstr "Terme einschließen"
 
 #: widgets/content-cards.php:83
-msgid "Optional. Works across posts, events, podcasts and press."
+#, fuzzy
+#| msgid "Optional. Works across posts, events, podcasts and press."
+msgid "Optional. Works across posts, events, podcasts, press and studies."
 msgstr ""
 "Optional. Funktioniert für Beiträge, Veranstaltungen, Podcasts und Presse."
 
@@ -577,8 +628,9 @@ msgid "Order By"
 msgstr "Sortieren nach"
 
 #: widgets/content-cards.php:143 widgets/downloads.php:217
-#: widgets/featured-slider.php:103 widgets/logo-grid.php:68
-#: widgets/tile-feature-list.php:92 widgets/tile-icon-grid.php:75
+#: widgets/featured-slider-v2.php:216 widgets/featured-slider.php:103
+#: widgets/logo-grid.php:68 widgets/tile-feature-list.php:92
+#: widgets/tile-icon-grid.php:75
 msgid "Date"
 msgstr "Datum"
 
@@ -676,12 +728,12 @@ msgstr "Horizontal hervorgehoben"
 msgid "Image Position"
 msgstr "Bildposition"
 
-#: widgets/content-cards.php:239 widgets/eyebrow-heading.php:154
+#: widgets/content-cards.php:239 widgets/eyebrow-heading.php:155
 #: widgets/number-box.php:83 widgets/tile-feature-list.php:146
 msgid "Left"
 msgstr "Links"
 
-#: widgets/content-cards.php:240 widgets/eyebrow-heading.php:162
+#: widgets/content-cards.php:240 widgets/eyebrow-heading.php:163
 #: widgets/tile-feature-list.php:147
 msgid "Right"
 msgstr "Rechts"
@@ -770,7 +822,7 @@ msgid "Enable Load More"
 msgstr "„Mehr laden“ aktivieren"
 
 #: widgets/content-cards.php:419 widgets/downloads.php:83
-#: widgets/featured-slider.php:123
+#: widgets/featured-slider-v2.php:236 widgets/featured-slider.php:123
 msgid "Button Text"
 msgstr "Button-Text"
 
@@ -779,7 +831,7 @@ msgid "Weitere laden"
 msgstr "Weitere laden"
 
 #: widgets/content-cards.php:441 widgets/event-calendar.php:193
-#: widgets/eyebrow-heading.php:180 widgets/featured-slider.php:218
+#: widgets/eyebrow-heading.php:181 widgets/featured-slider.php:218
 #: widgets/logo-grid.php:178 widgets/number-box.php:144
 #: widgets/partner-logos.php:163
 msgid "Gap"
@@ -790,7 +842,8 @@ msgid "Card Background"
 msgstr "Kartenhintergrund"
 
 #: widgets/content-cards.php:467 widgets/content-cards.php:641
-#: widgets/downloads.php:346 widgets/events.php:163 widgets/logo-grid.php:256
+#: widgets/downloads.php:346 widgets/events.php:163
+#: widgets/logo-gallery.php:301 widgets/logo-grid.php:256
 #: widgets/member-carousel.php:286 widgets/partner-logos.php:207
 msgid "Border Color"
 msgstr "Rahmenfarbe"
@@ -803,11 +856,13 @@ msgstr "Innenabstand des Inhalts"
 msgid "Text Style"
 msgstr "Textstil"
 
-#: widgets/content-cards.php:526 widgets/featured-slider.php:306
+#: widgets/content-cards.php:526 widgets/featured-slider-v2.php:447
+#: widgets/featured-slider.php:306
 msgid "Badge Background"
 msgstr "Badge-Hintergrund"
 
-#: widgets/content-cards.php:538 widgets/featured-slider.php:318
+#: widgets/content-cards.php:538 widgets/featured-slider-v2.php:457
+#: widgets/featured-slider.php:318
 msgid "Badge Color"
 msgstr "Badge-Farbe"
 
@@ -837,7 +892,8 @@ msgid "Load More Button"
 msgstr "„Mehr laden“-Button"
 
 #: widgets/content-cards.php:629 widgets/event-calendar.php:224
-#: widgets/featured-slider.php:354 widgets/number-box.php:132
+#: widgets/featured-slider-v2.php:408 widgets/featured-slider.php:354
+#: widgets/number-box.php:132
 msgid "Text Color"
 msgstr "Textfarbe"
 
@@ -873,19 +929,25 @@ msgstr "Podcast-Kategorien"
 msgid "Press Categories"
 msgstr "Pressekategorien"
 
-#: widgets/content-cards.php:1482
+#: widgets/content-cards.php:720
+#, fuzzy
+#| msgid "Post Categories"
+msgid "Study Categories"
+msgstr "Beitragskategorien"
+
+#: widgets/content-cards.php:1510
 msgid "No content found"
 msgstr "Keine Inhalte gefunden"
 
-#: widgets/content-cards.php:1486
+#: widgets/content-cards.php:1514
 msgid "No matching content is currently available for this section."
 msgstr "Für diesen Bereich sind aktuell keine passenden Inhalte verfügbar."
 
-#: widgets/content-cards.php:1557
+#: widgets/content-cards.php:1585
 msgid "Load more"
 msgstr "Weitere laden"
 
-#: widgets/content-cards.php:1560
+#: widgets/content-cards.php:1588
 msgid "Loading..."
 msgstr "Lädt..."
 
@@ -1009,7 +1071,8 @@ msgid "Style"
 msgstr "Stil"
 
 #: widgets/downloads.php:324 widgets/event-calendar.php:204
-#: widgets/testimonial-showcase.php:401 widgets/tile-feature-list.php:218
+#: widgets/featured-slider-v2.php:395 widgets/testimonial-showcase.php:401
+#: widgets/tile-feature-list.php:218
 msgid "Accent Color"
 msgstr "Akzentfarbe"
 
@@ -1166,7 +1229,8 @@ msgstr "Text bei leerem Ergebnis"
 msgid "Für diesen Zeitraum sind aktuell keine Veranstaltungen verfügbar."
 msgstr "Für diesen Zeitraum sind aktuell keine Veranstaltungen verfügbar."
 
-#: widgets/event-calendar.php:173 widgets/featured-slider.php:174
+#: widgets/event-calendar.php:173 widgets/featured-slider-v2.php:285
+#: widgets/featured-slider.php:174 widgets/logo-gallery.php:136
 #: widgets/logo-grid.php:95 widgets/partner-logos.php:106
 #: widgets/testimonial-showcase.php:232 widgets/testimonial-showcase.php:239
 #: widgets/tile-feature-list.php:122
@@ -1260,7 +1324,7 @@ msgstr "ACF-Textfeld"
 msgid "ACF Color Field"
 msgstr "ACF-Farbfeld"
 
-#: widgets/eyebrow-heading.php:142
+#: widgets/eyebrow-heading.php:143
 msgid ""
 "If empty, the widget will try to use the current post ACF color field. Final "
 "fallback is #009fe3."
@@ -1268,33 +1332,239 @@ msgstr ""
 "Wenn leer, versucht das Widget, das ACF-Farbfeld des aktuellen Beitrags zu "
 "verwenden. Letzter Fallback ist #009fe3."
 
-#: widgets/eyebrow-heading.php:149 widgets/number-box.php:78
+#: widgets/eyebrow-heading.php:150 widgets/number-box.php:78
 msgid "Alignment"
 msgstr "Ausrichtung"
 
-#: widgets/eyebrow-heading.php:158 widgets/number-box.php:87
+#: widgets/eyebrow-heading.php:159 widgets/number-box.php:87
 msgid "Center"
 msgstr "Zentriert"
 
-#: widgets/eyebrow-heading.php:226
+#: widgets/eyebrow-heading.php:228
 msgid "Line Width"
 msgstr "Linienbreite"
 
-#: widgets/eyebrow-heading.php:248
+#: widgets/eyebrow-heading.php:250
 msgid "Line Height"
 msgstr "Linienhöhe"
 
-#: widgets/eyebrow-heading.php:270
+#: widgets/eyebrow-heading.php:272
 msgid "Line Gap"
 msgstr "Linienabstand"
 
-#: widgets/eyebrow-heading.php:292
+#: widgets/eyebrow-heading.php:294
 msgid "Text Color Override"
 msgstr "Textfarbe überschreiben"
 
-#: widgets/eyebrow-heading.php:305
+#: widgets/eyebrow-heading.php:307
 msgid "Typography"
 msgstr "Typografie"
+
+#: widgets/featured-slider-v2.php:21
+#, fuzzy
+msgid "eco Featured Slider v2"
+msgstr "eco Featured Slider"
+
+#: widgets/featured-slider-v2.php:44
+#, fuzzy
+#| msgid "Slides"
+msgid "Hero Slide"
+msgstr "Slides"
+
+#: widgets/featured-slider-v2.php:52
+msgid "Show Hero Slide"
+msgstr ""
+
+#: widgets/featured-slider-v2.php:62
+msgid "Kicker"
+msgstr ""
+
+#: widgets/featured-slider-v2.php:64
+msgid "Seit 1995 gestalten wir das Internet"
+msgstr ""
+
+#: widgets/featured-slider-v2.php:75
+msgid "Die Stimme der Internetwirtschaft"
+msgstr ""
+
+#: widgets/featured-slider-v2.php:84
+#, fuzzy
+#| msgid "Link Text"
+msgid "Lead Text"
+msgstr "Linktext"
+
+#: widgets/featured-slider-v2.php:86
+msgid ""
+"Mit rund 1.000 Mitgliedsunternehmen aus über 70 Ländern ist eco der führende "
+"Verband der Internetwirtschaft in Europa."
+msgstr ""
+
+#: widgets/featured-slider-v2.php:97
+msgid ""
+"Wir fördern neue Technologien, Infrastrukturen und Märkte – und setzen uns "
+"für ein freies, sicheres und leistungsstarkes Internet ein."
+msgstr ""
+
+#: widgets/featured-slider-v2.php:106
+#, fuzzy
+#| msgid "Button Text"
+msgid "Primary Button Text"
+msgstr "Button-Text"
+
+#: widgets/featured-slider-v2.php:108
+#, fuzzy
+#| msgid "Unsere Mitglieder"
+msgid "Mitglied werden"
+msgstr "Unsere Mitglieder"
+
+#: widgets/featured-slider-v2.php:116
+msgid "Primary Button Link"
+msgstr ""
+
+#: widgets/featured-slider-v2.php:126
+#, fuzzy
+#| msgid "Button Text"
+msgid "Secondary Button Text"
+msgstr "Button-Text"
+
+#: widgets/featured-slider-v2.php:128
+#, fuzzy
+#| msgid "Mehr anzeigen"
+msgid "Mehr erfahren"
+msgstr "Mehr anzeigen"
+
+#: widgets/featured-slider-v2.php:136
+msgid "Secondary Button Link"
+msgstr ""
+
+#: widgets/featured-slider-v2.php:146 widgets/featured-slider-v2.php:167
+#: widgets/featured-slider.php:54
+msgid "Image"
+msgstr "Bild"
+
+#: widgets/featured-slider-v2.php:157
+#, fuzzy
+#| msgid "Card Style"
+msgid "Card Slides"
+msgstr "Kartenstil"
+
+#: widgets/featured-slider-v2.php:175 widgets/featured-slider.php:62
+msgid "Badge"
+msgstr "Badge"
+
+#: widgets/featured-slider-v2.php:185 widgets/featured-slider.php:72
+msgid "Small Label"
+msgstr "Kleines Label"
+
+#: widgets/featured-slider-v2.php:188 widgets/featured-slider.php:75
+msgid "Workshop, Award, Webinar..."
+msgstr "Workshop, Award, Webinar ..."
+
+#: widgets/featured-slider-v2.php:197 widgets/featured-slider.php:84
+msgid "Data Center"
+msgstr "Data Center"
+
+#: widgets/featured-slider-v2.php:208 widgets/featured-slider.php:95
+msgid "Short description"
+msgstr "Kurzbeschreibung"
+
+#: widgets/featured-slider-v2.php:226 widgets/featured-slider.php:113
+msgid "Location"
+msgstr "Ort"
+
+#: widgets/featured-slider-v2.php:239 widgets/featured-slider.php:126
+msgid "Jetzt anmelden"
+msgstr "Jetzt anmelden"
+
+#: widgets/featured-slider-v2.php:256 widgets/featured-slider.php:145
+msgid "Items"
+msgstr "Elemente"
+
+#: widgets/featured-slider-v2.php:293 widgets/featured-slider.php:182
+#: widgets/member-carousel.php:187 widgets/testimonial-showcase.php:182
+msgid "Autoplay"
+msgstr "Autoplay"
+
+#: widgets/featured-slider-v2.php:303 widgets/featured-slider.php:192
+msgid "Interval"
+msgstr "Intervall"
+
+#: widgets/featured-slider-v2.php:309 widgets/featured-slider.php:198
+#: widgets/logo-grid.php:149
+msgid "In milliseconds."
+msgstr "In Millisekunden."
+
+#: widgets/featured-slider-v2.php:317 widgets/featured-slider.php:208
+#: widgets/member-carousel.php:167 widgets/testimonial-showcase.php:162
+msgid "Show Dots"
+msgstr "Punkte anzeigen"
+
+#: widgets/featured-slider-v2.php:327
+#, fuzzy
+#| msgid "Card"
+msgid "Card Gap"
+msgstr "Karte"
+
+#: widgets/featured-slider-v2.php:339 widgets/featured-slider.php:240
+msgid "Desktop Height"
+msgstr "Desktop-Höhe"
+
+#: widgets/featured-slider-v2.php:351
+#, fuzzy
+#| msgid "Main Column Width"
+msgid "Cards Main Column Width"
+msgstr "Breite der Hauptspalte"
+
+#: widgets/featured-slider-v2.php:363
+#, fuzzy
+#| msgid "Image Width"
+msgid "Hero Image Width"
+msgstr "Bildbreite"
+
+#: widgets/featured-slider-v2.php:377
+#, fuzzy
+#| msgid "Logo Style"
+msgid "Hero Style"
+msgstr "Logo-Stil"
+
+#: widgets/featured-slider-v2.php:419
+#, fuzzy
+#| msgid "Title Typography"
+msgid "Hero Title Typography"
+msgstr "Titel-Typografie"
+
+#: widgets/featured-slider-v2.php:429
+#, fuzzy
+#| msgid "Card Style"
+msgid "Cards Style"
+msgstr "Kartenstil"
+
+#: widgets/featured-slider-v2.php:437 widgets/featured-slider.php:294
+msgid "Overlay Color"
+msgstr "Overlay-Farbe"
+
+#: widgets/featured-slider-v2.php:467
+#, fuzzy
+#| msgid "Text Color"
+msgid "Cards Text Color"
+msgstr "Textfarbe"
+
+#: widgets/featured-slider-v2.php:478
+#, fuzzy
+#| msgid "Main Title Typography"
+msgid "Main Card Title Typography"
+msgstr "Typografie des Haupttitels"
+
+#: widgets/featured-slider-v2.php:487
+#, fuzzy
+#| msgid "Side Title Typography"
+msgid "Side Card Title Typography"
+msgstr "Typografie des Seitentitels"
+
+#: widgets/featured-slider-v2.php:675 widgets/featured-slider.php:499
+#, php-format
+msgid "Go to slide %d"
+msgstr "Zu Slide %d wechseln"
 
 #: widgets/featured-slider.php:20
 #, fuzzy
@@ -1305,71 +1575,9 @@ msgstr "eco Featured Slider"
 msgid "Slides"
 msgstr "Slides"
 
-#: widgets/featured-slider.php:54
-msgid "Image"
-msgstr "Bild"
-
-#: widgets/featured-slider.php:62
-msgid "Badge"
-msgstr "Badge"
-
-#: widgets/featured-slider.php:72
-msgid "Small Label"
-msgstr "Kleines Label"
-
-#: widgets/featured-slider.php:75
-msgid "Workshop, Award, Webinar..."
-msgstr "Workshop, Award, Webinar ..."
-
-#: widgets/featured-slider.php:84
-msgid "Data Center"
-msgstr "Data Center"
-
-#: widgets/featured-slider.php:95
-msgid "Short description"
-msgstr "Kurzbeschreibung"
-
-#: widgets/featured-slider.php:113
-msgid "Location"
-msgstr "Ort"
-
-#: widgets/featured-slider.php:126
-msgid "Jetzt anmelden"
-msgstr "Jetzt anmelden"
-
-#: widgets/featured-slider.php:145
-msgid "Items"
-msgstr "Elemente"
-
-#: widgets/featured-slider.php:182 widgets/member-carousel.php:187
-#: widgets/testimonial-showcase.php:182
-msgid "Autoplay"
-msgstr "Autoplay"
-
-#: widgets/featured-slider.php:192
-msgid "Interval"
-msgstr "Intervall"
-
-#: widgets/featured-slider.php:198 widgets/logo-grid.php:149
-msgid "In milliseconds."
-msgstr "In Millisekunden."
-
-#: widgets/featured-slider.php:208 widgets/member-carousel.php:167
-#: widgets/testimonial-showcase.php:162
-msgid "Show Dots"
-msgstr "Punkte anzeigen"
-
-#: widgets/featured-slider.php:240
-msgid "Desktop Height"
-msgstr "Desktop-Höhe"
-
 #: widgets/featured-slider.php:262
 msgid "Main Column Width"
 msgstr "Breite der Hauptspalte"
-
-#: widgets/featured-slider.php:294
-msgid "Overlay Color"
-msgstr "Overlay-Farbe"
 
 #: widgets/featured-slider.php:330
 msgid "Small Label Color"
@@ -1383,14 +1591,131 @@ msgstr "Typografie des Haupttitels"
 msgid "Side Title Typography"
 msgstr "Typografie des Seitentitels"
 
-#: widgets/featured-slider.php:499
-#, php-format
-msgid "Go to slide %d"
-msgstr "Zu Slide %d wechseln"
-
 #: widgets/logo-cloud.php:16
 msgid "Member Logo Cloud"
 msgstr "Mitglieder-Logo-Cloud"
+
+#: widgets/logo-gallery.php:21
+#, fuzzy
+#| msgid "Logo Style"
+msgid "Logo Gallery"
+msgstr "Logo-Stil"
+
+#: widgets/logo-gallery.php:40 widgets/logo-gallery.php:162
+msgid "Header"
+msgstr ""
+
+#: widgets/logo-gallery.php:50
+msgid "Eine Studie von"
+msgstr ""
+
+#: widgets/logo-gallery.php:72
+#, fuzzy
+#| msgid "Image"
+msgid "Images"
+msgstr "Bild"
+
+#: widgets/logo-gallery.php:80
+#, fuzzy
+#| msgid "Badge Source"
+msgid "Image Source"
+msgstr "Badge-Quelle"
+
+#: widgets/logo-gallery.php:84
+#, fuzzy
+#| msgid "Elementor eco"
+msgid "Elementor Gallery"
+msgstr "Elementor eco"
+
+#: widgets/logo-gallery.php:85
+#, fuzzy
+#| msgid "ACF Badge Field"
+msgid "ACF Gallery Field"
+msgstr "ACF-Badge-Feld"
+
+#: widgets/logo-gallery.php:93
+#, fuzzy
+#| msgid "Show Image"
+msgid "Choose Images"
+msgstr "Bild anzeigen"
+
+#: widgets/logo-gallery.php:105
+#, fuzzy
+#| msgid "ACF Category Field Name"
+msgid "ACF Gallery Field Name"
+msgstr "ACF-Kategoriefeldname"
+
+#: widgets/logo-gallery.php:108
+msgid ""
+"Enter the ACF field name, not the field label. The gallery is read from the "
+"current post used by the Elementor template."
+msgstr ""
+
+#: widgets/logo-gallery.php:118
+msgid "WordPress Image Size"
+msgstr ""
+
+#: widgets/logo-gallery.php:122
+msgid "Thumbnail"
+msgstr ""
+
+#: widgets/logo-gallery.php:123
+msgid "Medium"
+msgstr ""
+
+#: widgets/logo-gallery.php:124
+msgid "Medium Large"
+msgstr ""
+
+#: widgets/logo-gallery.php:125
+msgid "Large"
+msgstr ""
+
+#: widgets/logo-gallery.php:126
+msgid "Full"
+msgstr ""
+
+#: widgets/logo-gallery.php:144
+#, fuzzy
+#| msgid "Columns"
+msgid "Grid Columns"
+msgstr "Spalten"
+
+#: widgets/logo-gallery.php:170
+#, fuzzy
+#| msgid "Download Title Typography"
+msgid "Icon and Title Gap"
+msgstr "Download-Titel-Typografie"
+
+#: widgets/logo-gallery.php:187
+#, fuzzy
+#| msgid "Label Bottom Spacing"
+msgid "Bottom Spacing"
+msgstr "Abstand unter dem Label"
+
+#: widgets/logo-gallery.php:244 widgets/member-carousel.php:237
+#: widgets/partner-logos.php:155
+msgid "Boxes"
+msgstr "Boxen"
+
+#: widgets/logo-gallery.php:252 widgets/member-carousel.php:245
+msgid "Space Between"
+msgstr "Abstand dazwischen"
+
+#: widgets/logo-gallery.php:372 widgets/member-carousel.php:324
+#: widgets/partner-logos.php:257
+msgid "Logos"
+msgstr "Logos"
+
+#: widgets/logo-gallery.php:380 widgets/member-carousel.php:332
+#: widgets/partner-logos.php:265
+msgid "Maximum Width"
+msgstr "Maximale Breite"
+
+#: widgets/logo-gallery.php:397 widgets/member-carousel.php:348
+#: widgets/partner-logos.php:281
+msgid "Maximum Height"
+msgstr "Maximale Höhe"
 
 #: widgets/logo-grid.php:19
 msgid "Member Logo Grid"
@@ -1515,26 +1840,6 @@ msgstr "Bei Hover pausieren"
 #: widgets/member-carousel.php:225
 msgid "Open Website in New Tab"
 msgstr "Website in neuem Tab öffnen"
-
-#: widgets/member-carousel.php:237 widgets/partner-logos.php:155
-msgid "Boxes"
-msgstr "Boxen"
-
-#: widgets/member-carousel.php:245
-msgid "Space Between"
-msgstr "Abstand dazwischen"
-
-#: widgets/member-carousel.php:324 widgets/partner-logos.php:257
-msgid "Logos"
-msgstr "Logos"
-
-#: widgets/member-carousel.php:332 widgets/partner-logos.php:265
-msgid "Maximum Width"
-msgstr "Maximale Breite"
-
-#: widgets/member-carousel.php:348 widgets/partner-logos.php:281
-msgid "Maximum Height"
-msgstr "Maximale Höhe"
 
 #: widgets/member-carousel.php:366 widgets/testimonial-showcase.php:477
 msgid "Navigation"
@@ -2008,7 +2313,7 @@ msgstr "Für diesen Bereich sind aktuell keine passenden Themen verfügbar."
 msgid "Tile Icon Grid"
 msgstr "Tile Icon Grid"
 
-#: widgets/tile-icon-grid.php:339
+#: widgets/tile-icon-grid.php:348
 msgid "Learn more"
 msgstr "Mehr erfahren"
 

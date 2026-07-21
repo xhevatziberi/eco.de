@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'ECO_VERSION', '2.0.1' );
+define( 'ECO_VERSION', '2.0.2' );
 
 function eco_theme_load_textdomain() {
 	load_child_theme_textdomain( 'eco-theme', get_stylesheet_directory() . '/languages' );
@@ -20,12 +20,15 @@ function eco_child_scripts_styles() {
 	wp_enqueue_style( 'eco-fonts', get_stylesheet_directory_uri() . '/assets/css/ecofonts.css', [], ECO_VERSION );
 	wp_enqueue_style( 'eco-breadcrumbs', get_stylesheet_directory_uri() . '/assets/css/breadcrumbs.css', [], ECO_VERSION );
 	wp_enqueue_style( 'eco-child-style', get_stylesheet_directory_uri() . '/style.css', ['hello-elementor-theme-style'], ECO_VERSION );
-	wp_enqueue_script( 'eco-sienna', get_stylesheet_directory_uri() . '/assets/js/sienna.min.js', [], ECO_VERSION, [ 'in_footer' => true, 'strategy' => 'defer' ] );
 
 	if ( is_singular( 'event' ) ) {
 		wp_enqueue_style( 'eco-event-single', get_stylesheet_directory_uri() . '/assets/css/event-single.css', [], ECO_VERSION );
 	}
 
+	$is_elementor_editor = ( isset( $_GET['elementor-preview'] ) || ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->editor->is_edit_mode() ) );
+	if ( ! $is_elementor_editor ) {
+		wp_enqueue_script( 'eco-sienna', get_stylesheet_directory_uri() . '/assets/js/sienna.min.js', [], ECO_VERSION, [ 'in_footer' => true, 'strategy' => 'defer' ] );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'eco_child_scripts_styles', 20 );
 
@@ -36,3 +39,5 @@ include_once( get_stylesheet_directory() . '/inc/tile-redirect.php' );
 require_once get_stylesheet_directory() . '/inc/event-helpers.php';
 require_once get_stylesheet_directory() . '/inc/breadcrumbs.php';
 require_once get_stylesheet_directory() . '/inc/icon-helpers.php';
+require_once get_stylesheet_directory() . '/inc/admin-menu.php';
+require_once get_stylesheet_directory() . '/inc/elementor-template-restrictions.php';

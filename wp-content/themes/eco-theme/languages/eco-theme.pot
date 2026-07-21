@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: eco Theme\n"
-"POT-Creation-Date: 2026-07-06 18:37+0200\n"
+"POT-Creation-Date: 2026-07-21 11:42+0200\n"
 "PO-Revision-Date: 2026-07-06 17:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -24,6 +24,10 @@ msgstr ""
 #: inc/admin-post-featured-image-column.php:28
 #: inc/admin-post-featured-image-column.php:35
 msgid "Image"
+msgstr ""
+
+#: inc/breadcrumbs.php:37
+msgid "Breadcrumbs"
 msgstr ""
 
 #: inc/event-helpers.php:217 inc/event-helpers.php:222
@@ -70,7 +74,7 @@ msgstr ""
 msgid "Award"
 msgstr ""
 
-#: inc/event-helpers.php:261
+#: inc/event-helpers.php:300
 msgid "Register now"
 msgstr ""
 
@@ -86,22 +90,22 @@ msgstr ""
 msgid "Page not found"
 msgstr ""
 
-#: template-parts/event/layout-big.php:23
-#: template-parts/event/layout-small.php:18
+#: template-parts/event/layout-big.php:24
+#: template-parts/event/layout-small.php:19
 msgid "Back to all events"
 msgstr ""
 
-#: template-parts/event/layout-big.php:29
-#: template-parts/event/layout-small.php:35
+#: template-parts/event/layout-big.php:31
+#: template-parts/event/layout-small.php:37
 msgid "Past Event"
 msgstr ""
 
-#: template-parts/event/layout-big.php:46
-#: template-parts/event/layout-small.php:59
+#: template-parts/event/layout-big.php:48
+#: template-parts/event/layout-small.php:61
 msgid "iCal"
 msgstr ""
 
-#: template-parts/event/layout-small.php:52
+#: template-parts/event/layout-small.php:54
 #: template-parts/event/section-registration.php:35
 #, php-format
 msgid "Max. %s participants"

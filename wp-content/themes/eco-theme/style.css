@@ -4,10 +4,20 @@ Theme URI: https://eco.de
 Author: Batlab
 Description: Child theme for eco.
 Template: hello-elementor
-Version: 2.0.1
+Version: 2.0.2
 Text Domain: eco-theme
 Domain Path: /languages
 */
+
+/* local temp */
+.otgs-development-site-front-end {
+  display: none !important;
+}
+
+main {
+  /* keep footer at bottom of the screen */
+  min-height: 50vh;
+}
 
 .page-header .entry-title {
   display: none !important;

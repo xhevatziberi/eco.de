@@ -80,7 +80,7 @@ class ContentCards extends Widget_Base {
 				'multiple'    => true,
 				'label_block' => true,
 				'options'     => $this->get_taxonomy_term_options(),
-				'description' => __( 'Optional. Works across posts, events, podcasts and press.', 'elementor-eco' ),
+				'description' => __( 'Optional. Works across posts, events, podcasts, press and studies.', 'elementor-eco' ),
 				'condition'   => [
 					'query_source' => 'manual',
 				],
@@ -665,7 +665,7 @@ class ContentCards extends Widget_Base {
 	private function get_available_post_types() {
 		$options = [];
 
-		foreach ( [ 'post', 'event', 'podcast', 'press' ] as $post_type ) {
+		foreach ( [ 'post', 'event', 'podcast', 'press', 'study' ] as $post_type ) {
 			$obj = get_post_type_object( $post_type );
 
 			if ( $obj ) {
@@ -681,7 +681,7 @@ class ContentCards extends Widget_Base {
 
 		$query = new \WP_Query(
 			[
-				'post_type'      => [ 'post', 'event', 'podcast', 'press' ],
+				'post_type'      => [ 'post', 'event', 'podcast', 'press', 'study' ],
 				'post_status'    => 'publish',
 				'posts_per_page' => 150,
 				'orderby'        => 'date',
@@ -717,6 +717,7 @@ class ContentCards extends Widget_Base {
 			'event-type'       => __( 'Event Types', 'elementor-eco' ),
 			'podcast-category' => __( 'Podcast Categories', 'elementor-eco' ),
 			'press-category'   => __( 'Press Categories', 'elementor-eco' ),
+			'study-category'   => __( 'Study Categories', 'elementor-eco' ),
 		];
 
 		foreach ( $taxonomies as $taxonomy => $label ) {
@@ -748,7 +749,7 @@ class ContentCards extends Widget_Base {
 			? array_map( 'sanitize_key', $settings['post_types'] )
 			: [ 'post' ];
 
-		$allowed_post_types = [ 'post', 'event', 'podcast', 'press' ];
+		$allowed_post_types = [ 'post', 'event', 'podcast', 'press', 'study' ];
 		$post_types         = array_values( array_intersect( $post_types, $allowed_post_types ) );
 
 		if ( empty( $post_types ) ) {
@@ -1200,6 +1201,7 @@ class ContentCards extends Widget_Base {
 			'event'   => 'event-category',
 			'podcast' => 'podcast-category',
 			'press'   => 'press-category',
+			'study'   => 'study-category',
 		];
 
 		return $map[ $post_type ] ?? 'category';
@@ -1301,6 +1303,7 @@ class ContentCards extends Widget_Base {
 			'event'   => 'Event',
 			'podcast' => 'Podcast',
 			'press'   => 'Presse',
+			'study'   => 'Study',
 		];
 
 		return $labels[ $post_type ] ?? ucfirst( $post_type );

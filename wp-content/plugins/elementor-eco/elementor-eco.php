@@ -3,7 +3,7 @@
  * Plugin Name: Elementor eco
  * Description: Elementor plugin with widgets for eco website.
  * Plugin URI:  #!
- * Version:     1.2.16
+ * Version:     1.2.17
  * Elementor tested up to: 3.15.0
  * Author:      eco
  * Author URI:  https://eco.de/
@@ -32,7 +32,7 @@ final class Elementor_Eco {
 	 * @since 1.2.0
 	 * @var string The plugin version.
 	 */
-	const VERSION = '1.2.16';
+	const VERSION = '1.2.17';
 
 	/**
 	 * Minimum Elementor Version
