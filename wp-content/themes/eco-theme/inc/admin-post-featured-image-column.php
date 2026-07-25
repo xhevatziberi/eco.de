@@ -67,14 +67,5 @@ foreach (eco_featured_image_admin_post_types() as $post_type) {
  * Make image column narrow.
  */
 add_action('admin_head-edit.php', function () {
-    echo '<style>
-        .column-featured_image {
-            width: 70px;
-            text-align: center;
-        }
-
-        .column-featured_image img {
-            display: inline-block;
-        }
-    </style>';
+    echo '<style></style>';
 });

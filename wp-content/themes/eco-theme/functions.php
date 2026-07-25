@@ -41,3 +41,4 @@ require_once get_stylesheet_directory() . '/inc/breadcrumbs.php';
 require_once get_stylesheet_directory() . '/inc/icon-helpers.php';
 require_once get_stylesheet_directory() . '/inc/admin-menu.php';
 require_once get_stylesheet_directory() . '/inc/elementor-template-restrictions.php';
+require_once get_stylesheet_directory() . '/inc/admin-styles.php';

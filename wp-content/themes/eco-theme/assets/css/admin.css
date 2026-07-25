@@ -1,0 +1,38 @@
+/**
+ * WordPress admin list-table styles.
+ */
+
+/* Private posts/pages. */
+.wp-list-table tr.status-private .column-title,
+.wp-list-table tr.status-private .column-title a {
+	color: #d63638;
+}
+
+/* Draft posts/pages. */
+.wp-list-table tr.status-draft .column-title,
+.wp-list-table tr.status-draft .column-title a {
+	color: #d97706;
+}
+
+/* Pending review. */
+.wp-list-table tr.status-pending .column-title,
+.wp-list-table tr.status-pending .column-title a {
+	color: #8b5cf6;
+}
+
+/* Optional: make the status visually clearer. */
+.wp-list-table tr.status-private .column-title strong,
+.wp-list-table tr.status-draft .column-title strong,
+.wp-list-table tr.status-pending .column-title strong {
+	font-weight: 700;
+}
+
+/* Featured image column. Make image column narrow. */
+.column-featured_image {
+    width: 70px;
+    text-align: center;
+}
+
+.column-featured_image img {
+    display: inline-block;
+}

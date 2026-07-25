@@ -92,6 +92,54 @@ class TileIconGrid extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'empty_state_section',
+			[
+				'label' => __( 'Empty State', 'elementor-eco' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'show_empty_state',
+			[
+				'label'        => __( 'Show Empty State', 'elementor-eco' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'elementor-eco' ),
+				'label_off'    => __( 'Hide', 'elementor-eco' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'empty_state_title',
+			[
+				'label'       => __( 'Title', 'elementor-eco' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => __( 'No topics found', 'elementor-eco' ),
+				'label_block' => true,
+				'condition'   => [
+					'show_empty_state' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'empty_state_text',
+			[
+				'label'       => __( 'Text', 'elementor-eco' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'default'     => __( 'No matching topics are currently available for this section.', 'elementor-eco' ),
+				'rows'        => 3,
+				'condition'   => [
+					'show_empty_state' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	private function get_tile_term_options() {
@@ -229,6 +277,61 @@ class TileIconGrid extends Widget_Base {
 		return (bool) get_field( 'disable_tile_page', $post_id );
 	}
 
+	private function get_valid_hex_color( $color ) {
+		if ( is_string( $color ) && preg_match( '/^#([A-Fa-f0-9]{3}){1,2}$/', trim( $color ) ) ) {
+			return trim( $color );
+		}
+
+		return '';
+	}
+
+	private function get_empty_state_accent_color() {
+		$context_post_id = get_queried_object_id();
+
+		if ( $context_post_id && get_post_type( $context_post_id ) === 'tile' ) {
+			$color = function_exists( 'get_field' ) ? get_field( 'color', $context_post_id ) : '';
+			$color = $this->get_valid_hex_color( $color );
+
+			if ( $color ) {
+				return $color;
+			}
+		}
+
+		return '#e2001a';
+	}
+
+	private function render_empty_state( $settings = [] ) {
+		if ( 'yes' !== ( $settings['show_empty_state'] ?? 'yes' ) ) {
+			return;
+		}
+
+		$title        = ! empty( $settings['empty_state_title'] )
+			? $settings['empty_state_title']
+			: __( 'No topics found', 'elementor-eco' );
+		$text         = ! empty( $settings['empty_state_text'] )
+			? $settings['empty_state_text']
+			: __( 'No matching topics are currently available for this section.', 'elementor-eco' );
+		$accent_color = $this->get_empty_state_accent_color();
+		?>
+		<div class="eco-empty-state eco-tile-icon-grid__empty" style="--eco-empty-state-accent: <?php echo esc_attr( $accent_color ); ?>;">
+			<div class="eco-empty-state__icon" aria-hidden="true">
+				<svg viewBox="0 0 24 24">
+					<path d="M12 5v14"></path>
+					<path d="M5 12h14"></path>
+				</svg>
+			</div>
+
+			<h3 class="eco-empty-state__title">
+				<?php echo esc_html( $title ); ?>
+			</h3>
+
+			<p class="eco-empty-state__text">
+				<?php echo esc_html( $text ); ?>
+			</p>
+		</div>
+		<?php
+	}
+
 	private function render_icon( $icon ) {
 		if ( empty( $icon ) ) {
 			return '';
@@ -302,6 +405,7 @@ class TileIconGrid extends Widget_Base {
 		$query = new \WP_Query( $args );
 
 		if ( ! $query->have_posts() ) {
+			$this->render_empty_state( $settings );
 			return;
 		}
 
