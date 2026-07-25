@@ -1,0 +1,166 @@
+/* ==========================================
+   eco Header Actions
+   Normalizes the search, language, and menu controls
+   ========================================== */
+
+/* Shared clickable area */
+body .eco-search-toggle,
+.eco-language-switcher__trigger,
+.eco-header-icon-trigger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 36px;
+	width: 36px;
+	height: 36px;
+	min-width: 36px;
+	min-height: 36px;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	background: transparent;
+	color: #000;
+	font: inherit;
+	line-height: 1 !important;
+	text-align: center;
+	vertical-align: middle;
+	box-shadow: none;
+	cursor: pointer;
+	appearance: none;
+	-webkit-appearance: none;
+	transition:
+		color 0.2s ease,
+		background-color 0.2s ease,
+		border-color 0.2s ease,
+		transform 0.2s ease;
+}
+
+/* Prevent theme button styles from changing dimensions */
+body .eco-search-toggle:hover,
+body .eco-search-toggle:focus,
+.eco-language-switcher__trigger:hover,
+.eco-language-switcher__trigger:focus,
+.eco-header-icon-trigger:hover,
+.eco-header-icon-trigger:focus {
+	border: 0;
+	background: transparent;
+	color: #e2001a;
+	box-shadow: none;
+	text-decoration: none;
+	outline: none;
+}
+
+/* Visible keyboard focus */
+body .eco-search-toggle:focus-visible,
+.eco-language-switcher__trigger:focus-visible,
+.eco-header-icon-trigger:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+/* Shared visible icon wrappers */
+body .eco-search-toggle .eco-search-ico--search,
+.eco-language-switcher__icon,
+.eco-header-icon-trigger__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 22px;
+	width: 22px;
+	height: 22px;
+	line-height: 1;
+	pointer-events: none;
+}
+
+/* Search close icon must remain hidden until search is open */
+body .eco-search-toggle .eco-search-ico--close {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 22px;
+	width: 22px;
+	height: 22px;
+	line-height: 1;
+	pointer-events: none;
+}
+
+body.eco-search-open .eco-search-toggle .eco-search-ico--search {
+	display: none;
+}
+
+body.eco-search-open .eco-search-toggle .eco-search-ico--close {
+	display: flex;
+}
+
+/* Shared SVG sizing */
+body .eco-search-toggle svg,
+.eco-language-switcher__icon svg,
+.eco-header-icon-trigger__icon svg {
+	display: block;
+	flex: 0 0 22px;
+	width: 22px;
+	height: 22px;
+	margin: 0;
+	padding: 0;
+	fill: none;
+	color: inherit;
+}
+
+/* Search SVGs use fill-based paths */
+body .eco-search-toggle svg {
+	fill: currentColor;
+}
+
+/* Lucide-style SVGs use strokes */
+.eco-language-switcher__icon svg,
+.eco-header-icon-trigger__icon svg {
+	stroke: currentColor;
+}
+
+/* Keep the language switcher compact */
+.eco-language-switcher,
+.eco-language-switcher-wrap {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+}
+
+.eco-language-switcher__trigger {
+	gap: 0;
+}
+
+/* Normalize the custom menu trigger wrapper */
+.elementor-widget-eco-header-icon-trigger,
+.elementor-widget-eco-header-icon-trigger > .elementor-widget-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	height: auto;
+	line-height: 1;
+}
+
+/* Preserve the class used by the menu JavaScript */
+.the-menu-trigger {
+	line-height: 1;
+}
+
+/* Avoid accidental image or SVG overflow */
+.eco-language-switcher__icon img,
+.eco-header-icon-trigger__icon img {
+	display: block;
+	width: 22px;
+	height: 22px;
+	object-fit: contain;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	body .eco-search-toggle,
+	.eco-language-switcher__trigger,
+	.eco-header-icon-trigger {
+		transition: none;
+	}
+}

@@ -4,7 +4,7 @@ Theme URI: https://eco.de
 Author: Batlab
 Description: Child theme for eco.
 Template: hello-elementor
-Version: 2.0.2
+Version: 2.0.6
 Text Domain: eco-theme
 Domain Path: /languages
 */
@@ -89,9 +89,22 @@ input[type="checkbox"] {
 
 .wpforms-field-gdpr-checkbox .wpforms-field-label-inline,
 .datenschutz-text label {
-    font-size: 0.7em !important;
-    color: #666 !important;
+    /* font-size: 0.7em !important;
+    color: #666 !important; */
+}
 
+.wpforms-field.smaller label.wpforms-field-label-inline {
+    font-size: 0.8rem !important;
+}
+.wpforms-form button[type=submit] {
+    background-color: #e2001a !important;
+    border-color: #e2001a !important;
+    color: #fff !important;
+    transition: background 0.3s ease-in-out;
+}
+
+.wpforms-form button[type=submit]:hover {
+    background-color: #c30101 !important;
 }
 
 @media (max-width: 768px) {

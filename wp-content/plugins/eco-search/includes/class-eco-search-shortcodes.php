@@ -40,12 +40,12 @@ class Shortcodes {
             data-eco-search-target="<?php echo esc_attr($target); ?>"
         >
             <span class="eco-search-ico eco-search-ico--search" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="22" height="22">
+                <svg viewBox="0 0 24 24" width="24" height="24">
                     <path d="M10.5 3a7.5 7.5 0 105.02 13.09l3.2 3.2a1 1 0 001.42-1.41l-3.2-3.2A7.5 7.5 0 0010.5 3zm0 2a5.5 5.5 0 110 11 5.5 5.5 0 010-11z"></path>
                 </svg>
             </span>
             <span class="eco-search-ico eco-search-ico--close" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="22" height="22">
+                <svg viewBox="0 0 24 24" width="24" height="24">
                     <path d="M18.3 5.7a1 1 0 00-1.4 0L12 10.6 7.1 5.7a1 1 0 10-1.4 1.4l4.9 4.9-4.9 4.9a1 1 0 101.4 1.4l4.9-4.9 4.9 4.9a1 1 0 001.4-1.4L13.4 12l4.9-4.9a1 1 0 000-1.4z"></path>
                 </svg>
             </span>

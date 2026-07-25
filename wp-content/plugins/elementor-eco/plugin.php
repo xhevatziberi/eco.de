@@ -177,6 +177,10 @@ class Plugin {
 		wp_register_style( 'eco-benefit-card-style', plugins_url( '/assets/css/benefit-card.css', __FILE__ ), [], $version );
 
 		wp_register_style( 'eco-logo-gallery-style', plugins_url( '/assets/css/logo-gallery.css', __FILE__ ), [], $version );
+
+		wp_register_style( 'eco-header-actions-style', plugins_url( '/assets/css/header-actions.css', __FILE__ ), [], $version );
+		wp_register_style( 'eco-language-switcher-style', plugins_url( '/assets/css/language-switcher.css', __FILE__ ), [], $version );
+		wp_register_script( 'eco-language-switcher-script', plugins_url( '/assets/js/language-switcher.js', __FILE__ ), [], $version, true );
 	}
 
 	/**
@@ -213,6 +217,8 @@ class Plugin {
 		require_once( __DIR__ . '/widgets/benefit-card.php' );
 		require_once( __DIR__ . '/widgets/logo-gallery.php' );
 		require_once( __DIR__ . '/widgets/acf-wpforms.php' );
+		require_once( __DIR__ . '/widgets/language-switcher.php' );
+		require_once( __DIR__ . '/widgets/header-icon-trigger.php' );
 	}
 
 	/**
@@ -253,6 +259,8 @@ class Plugin {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\BenefitCard() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\LogoGallery() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\AcfWpforms() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\LanguageSwitcher() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\HeaderIconTrigger() );
 	}
 
 	function add_elementor_widget_categories( $elements_manager ) {

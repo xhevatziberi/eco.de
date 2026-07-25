@@ -84,6 +84,12 @@ class Members extends Widget_Base {
 			: [];
 
 		$first_letter = ! empty( $letters ) ? reset( $letters ) : '';
+
+		$current_language = apply_filters( 'wpml_current_language', null );
+
+		if ( ! is_string( $current_language ) || '' === $current_language ) {
+			$current_language = determine_locale();
+		}
 		?>
 		<section
 			id="<?php echo esc_attr( $widget_id ); ?>"
@@ -91,6 +97,7 @@ class Members extends Widget_Base {
 			data-ajax-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( \ElementorEco\Members_Ajax::NONCE_ACTION ) ); ?>"
 			data-initial-letter="<?php echo esc_attr( $first_letter ); ?>"
+			data-language="<?php echo esc_attr( $current_language ); ?>"
 		>
 			<?php if ( ! empty( $settings['title'] ) ) : ?>
 				<h2 class="eco-member-list__title">

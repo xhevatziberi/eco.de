@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Elementor eco\n"
 "Report-Msgid-Bugs-To: xhevat@batlab.mk\n"
 "POT-Creation-Date: 2026-07-21 11:44+0200\n"
-"PO-Revision-Date: 2026-07-21 11:46+0200\n"
+"PO-Revision-Date: 2026-07-24 18:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -930,10 +930,8 @@ msgid "Press Categories"
 msgstr "Pressekategorien"
 
 #: widgets/content-cards.php:720
-#, fuzzy
-#| msgid "Post Categories"
 msgid "Study Categories"
-msgstr "Beitragskategorien"
+msgstr "Studienkategorien"
 
 #: widgets/content-cards.php:1510
 msgid "No content found"
@@ -1361,15 +1359,12 @@ msgid "Typography"
 msgstr "Typografie"
 
 #: widgets/featured-slider-v2.php:21
-#, fuzzy
 msgid "eco Featured Slider v2"
-msgstr "eco Featured Slider"
+msgstr "eco Featured Slider v2"
 
 #: widgets/featured-slider-v2.php:44
-#, fuzzy
-#| msgid "Slides"
 msgid "Hero Slide"
-msgstr "Slides"
+msgstr "Hero Slide"
 
 #: widgets/featured-slider-v2.php:52
 msgid "Show Hero Slide"
@@ -1500,10 +1495,8 @@ msgid "Show Dots"
 msgstr "Punkte anzeigen"
 
 #: widgets/featured-slider-v2.php:327
-#, fuzzy
-#| msgid "Card"
 msgid "Card Gap"
-msgstr "Karte"
+msgstr ""
 
 #: widgets/featured-slider-v2.php:339 widgets/featured-slider.php:240
 msgid "Desktop Height"
@@ -1596,10 +1589,8 @@ msgid "Member Logo Cloud"
 msgstr "Mitglieder-Logo-Cloud"
 
 #: widgets/logo-gallery.php:21
-#, fuzzy
-#| msgid "Logo Style"
 msgid "Logo Gallery"
-msgstr "Logo-Stil"
+msgstr ""
 
 #: widgets/logo-gallery.php:40 widgets/logo-gallery.php:162
 msgid "Header"
@@ -1676,10 +1667,8 @@ msgid "Full"
 msgstr ""
 
 #: widgets/logo-gallery.php:144
-#, fuzzy
-#| msgid "Columns"
 msgid "Grid Columns"
-msgstr "Spalten"
+msgstr ""
 
 #: widgets/logo-gallery.php:170
 #, fuzzy

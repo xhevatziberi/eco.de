@@ -117,8 +117,14 @@ class Members_Ajax {
 	public static function get_available_letters() {
 		global $wpdb;
 
-		$version   = self::get_cache_version();
-		$cache_key = 'eco_member_letters_' . $version;
+		$version  = self::get_cache_version();
+		$language = self::get_current_language();
+
+		$cache_key = sprintf(
+			'eco_member_letters_%s_%s',
+			$language,
+			$version
+		);
 		$letters   = get_transient( $cache_key );
 
 		if ( false !== $letters && is_array( $letters ) ) {
@@ -179,6 +185,8 @@ class Members_Ajax {
 	public static function ajax_load_members() {
 		check_ajax_referer( self::NONCE_ACTION, 'nonce' );
 
+		self::set_request_language();
+
 		$letter = isset( $_POST['letter'] )
 			? self::sanitize_letter( wp_unslash( $_POST['letter'] ) )
 			: '';
@@ -207,6 +215,8 @@ class Members_Ajax {
 	public static function ajax_load_member_details() {
 		check_ajax_referer( self::NONCE_ACTION, 'nonce' );
 
+		self::set_request_language();
+
 		$member_id = isset( $_POST['member_id'] )
 			? absint( $_POST['member_id'] )
 			: 0;
@@ -224,9 +234,12 @@ class Members_Ajax {
 			);
 		}
 
-		$version   = self::get_cache_version();
+		$version  = self::get_cache_version();
+		$language = self::get_current_language();
+
 		$cache_key = sprintf(
-			'eco_member_details_%d_%s',
+			'eco_member_details_%s_%d_%s',
+			$language,
 			$member_id,
 			$version
 		);
@@ -250,10 +263,13 @@ class Members_Ajax {
 	 * Get member-card HTML.
 	 */
 	private static function get_members_html( $letter, $load_all ) {
-		$version   = self::get_cache_version();
-		$mode      = $load_all ? 'all' : 'initial';
+		$version  = self::get_cache_version();
+		$mode     = $load_all ? 'all' : 'initial';
+		$language = self::get_current_language();
+
 		$cache_key = sprintf(
-			'eco_members_%s_%s_%s',
+			'eco_members_%s_%s_%s_%s',
+			$language,
 			strtolower( $letter ),
 			$mode,
 			$version
@@ -578,6 +594,34 @@ class Members_Ajax {
 		}
 
 		return get_post_meta( $post_id, $field_name, true );
+	}
+
+	/**
+	 * Switch WPML to the language sent by the frontend.
+	 */
+	private static function set_request_language() {
+		$language = isset( $_POST['language'] )
+			? sanitize_key( wp_unslash( $_POST['language'] ) )
+			: '';
+
+		if ( '' === $language ) {
+			return;
+		}
+
+		do_action( 'wpml_switch_language', $language );
+	}
+
+	/**
+	 * Return the current language for cache separation.
+	 */
+	private static function get_current_language() {
+		$language = apply_filters( 'wpml_current_language', null );
+
+		if ( is_string( $language ) && '' !== $language ) {
+			return sanitize_key( $language );
+		}
+
+		return sanitize_key( determine_locale() );
 	}
 
 	/**

@@ -28,6 +28,7 @@
 		const ajaxUrl = root.dataset.ajaxUrl;
 		const nonce = root.dataset.nonce;
 		const initialLetter = root.dataset.initialLetter || "";
+		const language = root.dataset.language || "";
 
 		const grid = root.querySelector(SELECTORS.grid);
 		const status = root.querySelector(SELECTORS.status);
@@ -71,6 +72,7 @@
 					loadMoreButton,
 					ajaxUrl,
 					nonce,
+					language,
 					letter,
 					loadAll: false,
 					getCurrentRequest: () => currentRequest,
@@ -93,6 +95,7 @@
 				loadMoreButton,
 				ajaxUrl,
 				nonce,
+				language,
 				letter: currentLetter,
 				loadAll: true,
 				getCurrentRequest: () => currentRequest,
@@ -123,6 +126,7 @@
 			loadMemberDetails({
 				ajaxUrl,
 				nonce,
+				language,
 				memberId,
 				modalTitle,
 				modalBody
@@ -153,6 +157,7 @@
 				loadMoreButton,
 				ajaxUrl,
 				nonce,
+				language,
 				letter: initialLetter,
 				loadAll: false,
 				getCurrentRequest: () => currentRequest,
@@ -175,6 +180,7 @@
 			loadMoreButton,
 			ajaxUrl,
 			nonce,
+			language,
 			letter,
 			loadAll,
 			getCurrentRequest,
@@ -195,6 +201,7 @@
 		const formData = new FormData();
 		formData.append("action", "eco_load_members");
 		formData.append("nonce", nonce);
+		formData.append("language", language);
 		formData.append("letter", letter);
 		formData.append("load_all", loadAll ? "1" : "0");
 
@@ -269,6 +276,7 @@
 		const {
 			ajaxUrl,
 			nonce,
+			language,
 			memberId,
 			modalTitle,
 			modalBody
@@ -277,6 +285,7 @@
 		const formData = new FormData();
 		formData.append("action", "eco_load_member_details");
 		formData.append("nonce", nonce);
+		formData.append("language", language);
 		formData.append("member_id", memberId);
 
 		try {

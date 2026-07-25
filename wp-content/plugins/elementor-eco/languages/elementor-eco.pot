@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Elementor eco\n"
-"POT-Creation-Date: 2026-07-21 11:44+0200\n"
+"POT-Creation-Date: 2026-07-24 18:18+0200\n"
 "PO-Revision-Date: 2026-07-06 14:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -270,12 +270,12 @@ msgstr ""
 msgid "Error loading downloads."
 msgstr ""
 
-#: plugin.php:263
+#: plugin.php:271
 msgid "eco Widgets"
 msgstr ""
 
 #. Author of the plugin/theme
-#: plugin.php:285
+#: plugin.php:293
 msgid "eco"
 msgstr ""
 
@@ -326,7 +326,7 @@ msgid "Content"
 msgstr ""
 
 #: widgets/benefit-card.php:56 widgets/eyebrow-heading.php:48
-#: widgets/logo-gallery.php:58
+#: widgets/header-icon-trigger.php:50 widgets/logo-gallery.php:58
 msgid "Icon"
 msgstr ""
 
@@ -396,8 +396,9 @@ msgid "Minimum Height"
 msgstr ""
 
 #: widgets/benefit-card.php:175 widgets/events.php:109
-#: widgets/logo-gallery.php:269 widgets/member-carousel.php:258
-#: widgets/partner-logos.php:179 widgets/testimonial-showcase.php:346
+#: widgets/language-switcher.php:279 widgets/logo-gallery.php:269
+#: widgets/member-carousel.php:258 widgets/partner-logos.php:179
+#: widgets/testimonial-showcase.php:346
 msgid "Padding"
 msgstr ""
 
@@ -418,13 +419,14 @@ msgstr ""
 
 #: widgets/benefit-card.php:242 widgets/content-cards.php:479
 #: widgets/downloads.php:378 widgets/event-calendar.php:293
-#: widgets/events.php:145 widgets/logo-gallery.php:342
+#: widgets/events.php:145 widgets/language-switcher.php:331
+#: widgets/language-switcher.php:386 widgets/logo-gallery.php:342
 #: widgets/logo-grid.php:268 widgets/member-carousel.php:298
 #: widgets/partner-logos.php:231 widgets/testimonial-showcase.php:367
 msgid "Border Radius"
 msgstr ""
 
-#: widgets/benefit-card.php:263
+#: widgets/benefit-card.php:263 widgets/header-icon-trigger.php:153
 msgid "Hover"
 msgstr ""
 
@@ -445,11 +447,13 @@ msgid "Icon Box Size"
 msgstr ""
 
 #: widgets/benefit-card.php:338 widgets/eyebrow-heading.php:203
+#: widgets/header-icon-trigger.php:106 widgets/language-switcher.php:250
 #: widgets/logo-gallery.php:204
 msgid "Icon Size"
 msgstr ""
 
-#: widgets/benefit-card.php:353
+#: widgets/benefit-card.php:353 widgets/header-icon-trigger.php:128
+#: widgets/header-icon-trigger.php:159
 msgid "Icon Color"
 msgstr ""
 
@@ -500,6 +504,7 @@ msgstr ""
 
 #: widgets/benefit-card.php:536 widgets/event-calendar.php:252
 #: widgets/events.php:87 widgets/eyebrow-heading.php:130
+#: widgets/language-switcher.php:300 widgets/language-switcher.php:310
 #: widgets/logo-gallery.php:222 widgets/member-carousel.php:374
 msgid "Color"
 msgstr ""
@@ -706,11 +711,13 @@ msgid "Image Position"
 msgstr ""
 
 #: widgets/content-cards.php:239 widgets/eyebrow-heading.php:155
+#: widgets/language-switcher.php:182 widgets/language-switcher.php:218
 #: widgets/number-box.php:83 widgets/tile-feature-list.php:146
 msgid "Left"
 msgstr ""
 
 #: widgets/content-cards.php:240 widgets/eyebrow-heading.php:163
+#: widgets/language-switcher.php:183 widgets/language-switcher.php:220
 #: widgets/tile-feature-list.php:147
 msgid "Right"
 msgstr ""
@@ -750,7 +757,9 @@ msgstr ""
 msgid "Custom Text"
 msgstr ""
 
-#: widgets/content-cards.php:292
+#: widgets/content-cards.php:292 widgets/language-switcher.php:68
+#: widgets/language-switcher.php:80 widgets/language-switcher.php:92
+#: widgets/language-switcher.php:131
 msgid "Hide"
 msgstr ""
 
@@ -870,11 +879,14 @@ msgstr ""
 
 #: widgets/content-cards.php:629 widgets/event-calendar.php:224
 #: widgets/featured-slider-v2.php:408 widgets/featured-slider.php:354
-#: widgets/number-box.php:132
+#: widgets/language-switcher.php:358 widgets/number-box.php:132
 msgid "Text Color"
 msgstr ""
 
-#: widgets/content-cards.php:653 widgets/testimonial-showcase.php:334
+#: widgets/content-cards.php:653 widgets/header-icon-trigger.php:140
+#: widgets/header-icon-trigger.php:170 widgets/language-switcher.php:304
+#: widgets/language-switcher.php:314 widgets/language-switcher.php:354
+#: widgets/testimonial-showcase.php:334
 msgid "Background"
 msgstr ""
 
@@ -1037,8 +1049,8 @@ msgid "Published"
 msgstr ""
 
 #: widgets/downloads.php:316 widgets/eyebrow-heading.php:122
-#: widgets/featured-slider.php:286 widgets/number-box.php:100
-#: widgets/tile-feature-list.php:210
+#: widgets/featured-slider.php:286 widgets/header-icon-trigger.php:84
+#: widgets/number-box.php:100 widgets/tile-feature-list.php:210
 msgid "Style"
 msgstr ""
 
@@ -1121,6 +1133,7 @@ msgstr ""
 
 #: widgets/event-calendar.php:89 widgets/event-calendar.php:101
 #: widgets/event-calendar.php:113 widgets/eyebrow-heading.php:71
+#: widgets/language-switcher.php:142 widgets/language-switcher.php:155
 #: widgets/logo-grid.php:158 widgets/people.php:61
 #: widgets/tile-feature-list.php:132 widgets/tile-feature-list.php:157
 #: widgets/tile-feature-list.php:182
@@ -1129,6 +1142,7 @@ msgstr ""
 
 #: widgets/event-calendar.php:90 widgets/event-calendar.php:102
 #: widgets/event-calendar.php:114 widgets/eyebrow-heading.php:72
+#: widgets/language-switcher.php:143 widgets/language-switcher.php:156
 #: widgets/logo-grid.php:159 widgets/people.php:62
 #: widgets/tile-feature-list.php:133 widgets/tile-feature-list.php:158
 #: widgets/tile-feature-list.php:183
@@ -1295,11 +1309,13 @@ msgid ""
 "fallback is #009fe3."
 msgstr ""
 
-#: widgets/eyebrow-heading.php:150 widgets/number-box.php:78
+#: widgets/eyebrow-heading.php:150 widgets/language-switcher.php:214
+#: widgets/number-box.php:78
 msgid "Alignment"
 msgstr ""
 
-#: widgets/eyebrow-heading.php:159 widgets/number-box.php:87
+#: widgets/eyebrow-heading.php:159 widgets/language-switcher.php:219
+#: widgets/number-box.php:87
 msgid "Center"
 msgstr ""
 
@@ -1518,6 +1534,179 @@ msgstr ""
 
 #: widgets/featured-slider.php:376
 msgid "Side Title Typography"
+msgstr ""
+
+#: widgets/header-icon-trigger.php:19
+msgid "eco Header Icon Trigger"
+msgstr ""
+
+#: widgets/header-icon-trigger.php:42 widgets/language-switcher.php:206
+msgid "Trigger"
+msgstr ""
+
+#: widgets/header-icon-trigger.php:62
+msgid "Accessible Label"
+msgstr ""
+
+#: widgets/header-icon-trigger.php:64 widgets/header-icon-trigger.php:65
+#: widgets/header-icon-trigger.php:199
+msgid "Open menu"
+msgstr ""
+
+#: widgets/header-icon-trigger.php:72
+msgid "Additional Trigger Class"
+msgstr ""
+
+#: widgets/header-icon-trigger.php:75
+msgid "The class “the-menu-trigger” is always included."
+msgstr ""
+
+#: widgets/header-icon-trigger.php:92
+msgid "Button Size"
+msgstr ""
+
+#: widgets/header-icon-trigger.php:122 widgets/language-switcher.php:298
+msgid "Normal"
+msgstr ""
+
+#: widgets/language-switcher.php:22
+msgid "eco Language Switcher"
+msgstr ""
+
+#: widgets/language-switcher.php:45
+msgid "Language Switcher"
+msgstr ""
+
+#: widgets/language-switcher.php:53
+msgid "Trigger Icon"
+msgstr ""
+
+#: widgets/language-switcher.php:65
+msgid "Show Current Language Name"
+msgstr ""
+
+#: widgets/language-switcher.php:67 widgets/language-switcher.php:79
+#: widgets/language-switcher.php:91 widgets/language-switcher.php:130
+msgid "Show"
+msgstr ""
+
+#: widgets/language-switcher.php:77
+msgid "Show Current Language Flag"
+msgstr ""
+
+#: widgets/language-switcher.php:89
+msgid "Show Dropdown Arrow"
+msgstr ""
+
+#: widgets/language-switcher.php:101
+msgid "Language Name Format"
+msgstr ""
+
+#: widgets/language-switcher.php:105
+msgid "Native name (Deutsch / English)"
+msgstr ""
+
+#: widgets/language-switcher.php:106
+msgid "Translated name"
+msgstr ""
+
+#: widgets/language-switcher.php:107
+msgid "Language code (DE / EN)"
+msgstr ""
+
+#: widgets/language-switcher.php:115
+msgid "Uppercase Language Code"
+msgstr ""
+
+#: widgets/language-switcher.php:128
+msgid "Show Flags in Dropdown"
+msgstr ""
+
+#: widgets/language-switcher.php:140
+msgid "Hide Missing Translations"
+msgstr ""
+
+#: widgets/language-switcher.php:146
+msgid ""
+"Languages without a translation for the current page will not be listed."
+msgstr ""
+
+#: widgets/language-switcher.php:153
+msgid "Hide Current Language from Dropdown"
+msgstr ""
+
+#: widgets/language-switcher.php:165
+msgid "Dropdown Position"
+msgstr ""
+
+#: widgets/language-switcher.php:169
+msgid "Below"
+msgstr ""
+
+#: widgets/language-switcher.php:170
+msgid "Above"
+msgstr ""
+
+#: widgets/language-switcher.php:178
+msgid "Dropdown Alignment"
+msgstr ""
+
+#: widgets/language-switcher.php:191
+msgid "Native Select Breakpoint"
+msgstr ""
+
+#: widgets/language-switcher.php:197
+msgid ""
+"At or below this viewport width, the trigger opens the device’s native "
+"language select."
+msgstr ""
+
+#: widgets/language-switcher.php:236
+msgid "Minimum Size"
+msgstr ""
+
+#: widgets/language-switcher.php:265
+msgid "Content Gap"
+msgstr ""
+
+#: widgets/language-switcher.php:308
+msgid "Hover / Open"
+msgstr ""
+
+#: widgets/language-switcher.php:343
+msgid "Dropdown"
+msgstr ""
+
+#: widgets/language-switcher.php:349
+msgid "Minimum Width"
+msgstr ""
+
+#: widgets/language-switcher.php:362
+msgid "Hover Text Color"
+msgstr ""
+
+#: widgets/language-switcher.php:366
+msgid "Hover Background"
+msgstr ""
+
+#: widgets/language-switcher.php:370
+msgid "Current Language Color"
+msgstr ""
+
+#: widgets/language-switcher.php:375
+msgid "Item Padding"
+msgstr ""
+
+#: widgets/language-switcher.php:380
+msgid "Flag Width"
+msgstr ""
+
+#: widgets/language-switcher.php:413
+msgid "WPML must be active to display the language switcher."
+msgstr ""
+
+#: widgets/language-switcher.php:456 widgets/language-switcher.php:482
+msgid "Choose language"
 msgstr ""
 
 #: widgets/logo-cloud.php:16
