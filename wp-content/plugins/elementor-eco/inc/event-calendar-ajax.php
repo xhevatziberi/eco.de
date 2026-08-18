@@ -231,7 +231,7 @@ class EventCalendarAjax {
 		$args = [
 			'post_type'              => 'event',
 			'post_status'            => 'publish',
-			'posts_per_page'         => 300,
+			'posts_per_page'         => -1,
 			'orderby'                => 'meta_value_num',
 			'meta_key'               => 'start_date',
 			'order'                  => 'ASC',
@@ -370,6 +370,91 @@ class EventCalendarAjax {
 		return ob_get_clean();
 	}
 
+
+	private static function normalize_hex_color( $color ) {
+		if ( ! is_string( $color ) || ! preg_match( '/^#([A-Fa-f0-9]{3}){1,2}$/', trim( $color ) ) ) {
+			return '';
+		}
+
+		$color = strtolower( trim( $color ) );
+
+		if ( strlen( $color ) === 4 ) {
+			$color = sprintf(
+				'#%1$s%1$s%2$s%2$s%3$s%3$s',
+				$color[1],
+				$color[2],
+				$color[3]
+			);
+		}
+
+		return $color;
+	}
+
+	private static function get_relative_luminance( $color ) {
+		$color = self::normalize_hex_color( $color );
+
+		if ( ! $color ) {
+			return 0.0;
+		}
+
+		$channels = [
+			hexdec( substr( $color, 1, 2 ) ) / 255,
+			hexdec( substr( $color, 3, 2 ) ) / 255,
+			hexdec( substr( $color, 5, 2 ) ) / 255,
+		];
+
+		foreach ( $channels as &$channel ) {
+			$channel = $channel <= 0.04045
+				? $channel / 12.92
+				: pow( ( $channel + 0.055 ) / 1.055, 2.4 );
+		}
+		unset( $channel );
+
+		return ( 0.2126 * $channels[0] ) + ( 0.7152 * $channels[1] ) + ( 0.0722 * $channels[2] );
+	}
+
+	private static function get_contrast_ratio( $foreground, $background ) {
+		$foreground_luminance = self::get_relative_luminance( $foreground );
+		$background_luminance = self::get_relative_luminance( $background );
+
+		$lighter = max( $foreground_luminance, $background_luminance );
+		$darker  = min( $foreground_luminance, $background_luminance );
+
+		return ( $lighter + 0.05 ) / ( $darker + 0.05 );
+	}
+
+	private static function get_event_badge_colors( $post_id ) {
+		$layout = get_post_meta( $post_id, 'event_layout', true );
+		$layout = 'big' === $layout ? 'big' : 'small';
+
+		$accent = self::normalize_hex_color( get_post_meta( $post_id, 'event_color', true ) );
+		$accent = $accent ?: ( 'big' === $layout ? '#e2001a' : '#c2cf00' );
+
+		$content_choice = get_post_meta( $post_id, 'event_content_color', true );
+
+		if ( 'light' === $content_choice ) {
+			$content = '#ffffff';
+		} elseif ( 'dark' === $content_choice ) {
+			$content = '#111111';
+		} else {
+			$dark  = '#111111';
+			$light = '#ffffff';
+
+			$content = self::get_contrast_ratio( $light, $accent ) >= self::get_contrast_ratio( $dark, $accent )
+				? $light
+				: $dark;
+		}
+
+		return [
+			'accent'  => $accent,
+			'content' => $content,
+		];
+	}
+
+	private static function is_members_only( $post_id ) {
+		return (bool) get_post_meta( $post_id, 'members_only', true );
+	}
+
 	public static function render_event_card( $event, $settings, $echo = true ) {
 		$post_id     = absint( $event['post_id'] ?? 0 );
 		$occurrence  = $event['occurrence'] ?? [];
@@ -384,6 +469,13 @@ class EventCalendarAjax {
 		$location    = self::get_event_location_label( $post_id );
 		$date_label  = self::format_event_date( $occurrence['start_date'] ?? '' );
 		$ratio       = $settings['image_ratio'] ?? '16-9';
+		$members_only = self::is_members_only( $post_id );
+		$badge_colors = self::get_event_badge_colors( $post_id );
+		$badge_style  = sprintf(
+			'--eco-event-card-accent: %s; --eco-event-card-accent-contrast: %s;',
+			$badge_colors['accent'],
+			$badge_colors['content']
+		);
 
 		ob_start();
 		?>
@@ -393,8 +485,15 @@ class EventCalendarAjax {
 					<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" loading="lazy">
 				<?php endif; ?>
 
-				<?php if ( $label ) : ?>
-					<span class="eco-event-calendar-card__badge"><?php echo esc_html( $label ); ?></span>
+				<?php if ( $label || $members_only ) : ?>
+					<div class="eco-event-calendar-card__badges" style="<?php echo esc_attr( $badge_style ); ?>">
+						<?php if ( $label ) : ?>
+							<span class="eco-event-calendar-card__badge"><?php echo esc_html( $label ); ?></span>
+						<?php endif; ?>
+						<?php if ( $members_only ) : ?>
+							<span class="eco-event-calendar-card__badge eco-event-calendar-card__badge--members"><?php esc_html_e( 'Members Only', 'elementor-eco' ); ?></span>
+						<?php endif; ?>
+					</div>
 				<?php endif; ?>
 				<?php if ( $is_past ) : ?>
 					<span class="eco-event-calendar-card__past-badge"><?php esc_html_e( 'Past', 'elementor-eco' ); ?></span>

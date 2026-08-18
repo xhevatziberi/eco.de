@@ -234,3 +234,7 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Batlab"
 msgstr ""
+
+#: event members-only badge
+msgid "Members Only"
+msgstr "Nur für Mitglieder"

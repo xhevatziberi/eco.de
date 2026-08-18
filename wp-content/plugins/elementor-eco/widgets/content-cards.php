@@ -1309,6 +1309,10 @@ class ContentCards extends Widget_Base {
 		return $labels[ $post_type ] ?? ucfirst( $post_type );
 	}
 
+	private static function is_event_members_only( $post_id, $post_type ) {
+		return 'event' === $post_type && (bool) self::get_field_value( 'members_only', $post_id );
+	}
+
 	private static function get_date_label( $post_id, $post_type ) {
 		if ( $post_type === 'event' ) {
 			$start_date = self::get_field_value( 'start_date', $post_id );
@@ -1396,6 +1400,7 @@ class ContentCards extends Widget_Base {
 			$image_url   = self::get_image_url( $post_id, $post_type );
 			$link        = self::get_card_link( $post_id, $post_type );
 			$badge       = self::get_badge_label( $post_id, $post_type, $settings );
+			$members_only = self::is_event_members_only( $post_id, $post_type );
 			$category    = self::get_category_labels( $post_id, $post_type );
 			$date        = self::get_date_label( $post_id, $post_type );
 			$location    = self::get_location_label( $post_id, $post_type );
@@ -1432,19 +1437,26 @@ class ContentCards extends Widget_Base {
 					<div class="eco-content-card__image eco-content-card__image--<?php echo esc_attr( $image_ratio ); ?>">
 						<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy">
 
-						<?php if ( $badge_on_image && ! empty( $badge ) ) : ?>
-							<span class="eco-content-card__badge"><?php echo esc_html( $badge ); ?></span>
+						<?php if ( $badge_on_image && ( ! empty( $badge ) || $members_only ) ) : ?>
+							<div class="eco-content-card__badges">
+								<?php if ( ! empty( $badge ) ) : ?><span class="eco-content-card__badge"><?php echo esc_html( $badge ); ?></span><?php endif; ?>
+								<?php if ( $members_only ) : ?><span class="eco-content-card__badge eco-content-card__badge--members"><?php esc_html_e( 'Members Only', 'elementor-eco' ); ?></span><?php endif; ?>
+							</div>
 						<?php endif; ?>
 					</div>
-				<?php elseif ( ! empty( $badge ) ) : ?>
-					<span class="eco-content-card__badge eco-content-card__badge--inline"><?php echo esc_html( $badge ); ?></span>
+				<?php elseif ( ! empty( $badge ) || $members_only ) : ?>
+					<div class="eco-content-card__badges eco-content-card__badges--inline">
+						<?php if ( ! empty( $badge ) ) : ?><span class="eco-content-card__badge"><?php echo esc_html( $badge ); ?></span><?php endif; ?>
+						<?php if ( $members_only ) : ?><span class="eco-content-card__badge eco-content-card__badge--members"><?php esc_html_e( 'Members Only', 'elementor-eco' ); ?></span><?php endif; ?>
+					</div>
 				<?php endif; ?>
 
 				<div class="eco-content-card__body">
-					<?php if ( ! $badge_on_image && ! empty( $badge ) ) : ?>
-						<span class="eco-content-card__badge eco-content-card__badge--featured">
-							<?php echo esc_html( $badge ); ?>
-						</span>
+					<?php if ( ! $badge_on_image && ( ! empty( $badge ) || $members_only ) ) : ?>
+						<div class="eco-content-card__badges eco-content-card__badges--featured">
+							<?php if ( ! empty( $badge ) ) : ?><span class="eco-content-card__badge"><?php echo esc_html( $badge ); ?></span><?php endif; ?>
+							<?php if ( $members_only ) : ?><span class="eco-content-card__badge eco-content-card__badge--members"><?php esc_html_e( 'Members Only', 'elementor-eco' ); ?></span><?php endif; ?>
+						</div>
 					<?php endif; ?>
 
 					<?php if ( $show_category && ! empty( $category ) ) : ?>

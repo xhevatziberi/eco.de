@@ -3,7 +3,7 @@
  * Plugin Name: Elementor eco
  * Description: Elementor plugin with widgets for eco website.
  * Plugin URI:  #!
- * Version:     1.2.20
+ * Version:     1.2.21
  * Elementor tested up to: 3.15.0
  * Author:      eco
  * Author URI:  https://eco.de/

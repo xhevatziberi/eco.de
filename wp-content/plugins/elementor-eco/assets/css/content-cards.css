@@ -90,6 +90,40 @@
 	line-height: 1;
 }
 
+.eco-content-card__badges {
+	position: absolute;
+	top: 14px;
+	left: 14px;
+	z-index: 3;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+	max-width: calc(100% - 28px);
+}
+
+.eco-content-card__badges .eco-content-card__badge {
+	position: static;
+}
+
+.eco-content-card__badges--inline,
+.eco-content-card__badges--featured {
+	position: static;
+	align-self: flex-start;
+	max-width: 100%;
+}
+
+.eco-content-card__badges--inline {
+	margin: 18px 18px 0;
+}
+
+.eco-content-card__badges--featured {
+	margin-bottom: 12px;
+}
+
+.eco-content-card__badge--members {
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
 .eco-content-card__badge--inline {
 	position: static;
 	align-self: flex-start;

@@ -51,10 +51,12 @@ if ( isset( $_GET['elementor-preview'] ) ) {
 while ( have_posts() ) :
 	the_post();
 
-	$layout = eco_event_get_field( 'event_layout', get_the_ID(), 'small' );
-	$layout = $layout === 'big' ? 'big' : 'small';
+	$layout         = eco_event_get_field( 'event_layout', get_the_ID(), 'small' );
+	$layout         = $layout === 'big' ? 'big' : 'small';
+	$accent_color   = eco_event_get_color( get_the_ID(), $layout );
+	$content_color  = eco_event_get_contrast_color( get_the_ID(), $accent_color );
 	?>
-	<main id="primary" class="eco-event-single eco-event-single--<?php echo esc_attr( $layout ); ?>" style="--eco-event-accent: <?php echo esc_attr( eco_event_get_color() ); ?>;">
+	<main id="primary" class="eco-event-single eco-event-single--<?php echo esc_attr( $layout ); ?>" style="--eco-event-accent: <?php echo esc_attr( $accent_color ); ?>; --eco-event-accent-contrast: <?php echo esc_attr( $content_color ); ?>;">
 		<?php get_template_part( 'template-parts/event/layout', $layout ); ?>
 	</main>
 	<?php

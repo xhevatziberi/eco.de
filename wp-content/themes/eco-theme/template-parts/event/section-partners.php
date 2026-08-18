@@ -22,7 +22,7 @@ if ( empty( $partner_groups ) ) {
 			<?php foreach ( $partner_groups as $group ) : ?>
 				<?php
 				$heading  = $group['heading'] ?? '';
-				$color    = $group['color'] ?? '#000000';
+				$color    = $group['color'] ?? '';
 				$partners = $group['partners'] ?? [];
 
 				if ( empty( $partners ) ) {
@@ -30,7 +30,7 @@ if ( empty( $partner_groups ) ) {
 				}
 				?>
 
-				<div class="eco-event-partner-group" style="--eco-partner-tier-color: <?php echo esc_attr( $color ); ?>;">
+				<div class="eco-event-partner-group"<?php echo $color ? ' style="--eco-partner-tier-color: ' . esc_attr( $color ) . ';"' : ''; ?>>
 					<?php if ( $heading ) : ?>
 						<div class="eco-event-partner-group__head">
 							<span class="eco-event-partner-group__line" aria-hidden="true"></span>

@@ -265,29 +265,42 @@
 	transform: scale(1.04);
 }
 
-.eco-event-calendar .eco-event-calendar-card__badge,
-.eco-event-calendar .eco-event-calendar-card__past-badge {
+.eco-event-calendar .eco-event-calendar-card__badges {
 	position: absolute;
 	top: 16px;
 	left: 16px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+	max-width: calc(100% - 104px);
+	z-index: 2;
+}
+
+.eco-event-calendar .eco-event-calendar-card__badge,
+.eco-event-calendar .eco-event-calendar-card__past-badge {
 	display: inline-flex;
 	align-items: center;
 	min-height: 28px;
 	padding: 5px 12px;
 	border-radius: 999px;
-	background: var(--eco-event-calendar-accent);
-	color: #111;
+	background: var(--eco-event-card-accent, var(--eco-event-calendar-accent));
+	color: var(--eco-event-card-accent-contrast, #111);
 	font-size: 13px;
 	font-weight: 800;
 	line-height: 1;
-	z-index: 2;
+}
+
+.eco-event-calendar .eco-event-calendar-card__badge--members {
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--eco-event-card-accent-contrast, #111) 30%, transparent);
 }
 
 .eco-event-calendar .eco-event-calendar-card__past-badge {
-	left: auto;
+	position: absolute;
+	top: 16px;
 	right: 16px;
 	background: rgba(29,29,31,.82);
 	color: #fff;
+	z-index: 2;
 }
 
 .eco-event-calendar .eco-event-calendar-card__body {

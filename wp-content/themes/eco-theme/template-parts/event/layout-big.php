@@ -11,6 +11,7 @@ $location  = eco_event_get_location_line( $post_id );
 $teaser    = eco_event_get_field( 'teaser_text', $post_id, '' );
 $button    = eco_event_get_registration_button( $post_id );
 $is_past   = eco_event_is_past( $post_id );
+$members_only = eco_event_is_members_only( $post_id );
 ?>
 
 <section class="eco-event-hero eco-event-hero--big">
@@ -25,9 +26,10 @@ $is_past   = eco_event_is_past( $post_id );
 		</a>
 
 		<div class="eco-event-hero__content">
-			<?php if ( $label || $is_past ) : ?>
+			<?php if ( $label || $members_only || $is_past ) : ?>
 				<div class="eco-event-eyebrow">
 					<?php if ( $label ) : ?><span class="eco-event-badge"><?php echo esc_html( $label ); ?></span><?php endif; ?>
+					<?php if ( $members_only ) : ?><span class="eco-event-badge eco-event-badge--members"><?php echo esc_html( eco_event_get_members_only_label() ); ?></span><?php endif; ?>
 					<?php if ( $is_past ) : ?><span class="eco-event-badge eco-event-badge--muted"><?php esc_html_e( 'Past Event', 'eco-theme' ); ?></span><?php endif; ?>
 				</div>
 			<?php endif; ?>

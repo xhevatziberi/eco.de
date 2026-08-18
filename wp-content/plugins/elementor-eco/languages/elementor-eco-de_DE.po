@@ -2318,3 +2318,7 @@ msgstr "Elementor-Plugin mit Widgets für die eco-Website."
 #. Author URI of the plugin/theme
 msgid "https://eco.de/"
 msgstr "https://eco.de/"
+
+#: event members-only badge
+msgid "Members Only"
+msgstr "Nur für Mitglieder"

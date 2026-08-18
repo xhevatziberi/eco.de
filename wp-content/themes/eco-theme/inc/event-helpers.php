@@ -23,10 +23,107 @@ function eco_event_is_valid_hex( $color ): bool {
 	return is_string( $color ) && (bool) preg_match( '/^#([A-Fa-f0-9]{3}){1,2}$/', trim( $color ) );
 }
 
-function eco_event_get_color( $post_id = null ): string {
-	$color = eco_event_get_field( 'event_color', $post_id, '' );
+function eco_event_normalize_hex( $color ): string {
+	if ( ! eco_event_is_valid_hex( $color ) ) {
+		return '';
+	}
 
-	return eco_event_is_valid_hex( $color ) ? trim( $color ) : '#c2cf00';
+	$color = strtolower( trim( $color ) );
+
+	if ( strlen( $color ) === 4 ) {
+		$color = sprintf(
+			'#%1$s%1$s%2$s%2$s%3$s%3$s',
+			$color[1],
+			$color[2],
+			$color[3]
+		);
+	}
+
+	return $color;
+}
+
+function eco_event_get_default_color( $layout = 'small' ): string {
+	return 'big' === $layout ? '#e2001a' : '#c2cf00';
+}
+
+function eco_event_get_color( $post_id = null, $layout = null ): string {
+	$post_id = $post_id ?: get_the_ID();
+	$color   = eco_event_normalize_hex( eco_event_get_field( 'event_color', $post_id, '' ) );
+
+	if ( $color ) {
+		return $color;
+	}
+
+	if ( null === $layout ) {
+		$layout = eco_event_get_field( 'event_layout', $post_id, 'small' );
+	}
+
+	return eco_event_get_default_color( 'big' === $layout ? 'big' : 'small' );
+}
+
+function eco_event_get_relative_luminance( string $color ): float {
+	$color = eco_event_normalize_hex( $color );
+
+	if ( ! $color ) {
+		return 0.0;
+	}
+
+	$channels = [
+		hexdec( substr( $color, 1, 2 ) ) / 255,
+		hexdec( substr( $color, 3, 2 ) ) / 255,
+		hexdec( substr( $color, 5, 2 ) ) / 255,
+	];
+
+	foreach ( $channels as &$channel ) {
+		$channel = $channel <= 0.04045
+			? $channel / 12.92
+			: pow( ( $channel + 0.055 ) / 1.055, 2.4 );
+	}
+	unset( $channel );
+
+	return ( 0.2126 * $channels[0] ) + ( 0.7152 * $channels[1] ) + ( 0.0722 * $channels[2] );
+}
+
+function eco_event_get_contrast_ratio( string $foreground, string $background ): float {
+	$foreground_luminance = eco_event_get_relative_luminance( $foreground );
+	$background_luminance = eco_event_get_relative_luminance( $background );
+
+	$lighter = max( $foreground_luminance, $background_luminance );
+	$darker  = min( $foreground_luminance, $background_luminance );
+
+	return ( $lighter + 0.05 ) / ( $darker + 0.05 );
+}
+
+function eco_event_get_contrast_color( $post_id = null, $accent_color = '' ): string {
+	$post_id = $post_id ?: get_the_ID();
+	$choice  = eco_event_get_field( 'event_content_color', $post_id, 'automatic' );
+
+	if ( 'light' === $choice ) {
+		return '#ffffff';
+	}
+
+	if ( 'dark' === $choice ) {
+		return '#111111';
+	}
+
+	$accent_color = eco_event_normalize_hex( $accent_color ?: eco_event_get_color( $post_id ) );
+
+	$dark  = '#111111';
+	$light = '#ffffff';
+
+	return eco_event_get_contrast_ratio( $light, $accent_color ) >= eco_event_get_contrast_ratio( $dark, $accent_color )
+		? $light
+		: $dark;
+}
+
+function eco_event_is_members_only( $post_id = null ): bool {
+	$post_id = $post_id ?: get_the_ID();
+
+	return (bool) eco_event_get_field( 'members_only', $post_id, false );
+}
+
+function eco_event_get_members_only_label(): string {
+	return __( 'Members Only', 'eco-theme' );
 }
 
 function eco_event_get_image_url( string $field = 'hero_image', $post_id = null, string $size = 'large' ): string {
@@ -457,7 +554,11 @@ function eco_event_get_partner_tier_color( $type ): string {
 	$colors = eco_event_get_partner_tier_colors();
 	$type   = is_string( $type ) ? trim( $type ) : '';
 
-	return $colors[ $type ] ?? $colors['other'];
+	if ( '' === $type ) {
+		return '';
+	}
+
+	return $colors[ $type ] ?? '';
 }
 
 function eco_event_normalize_image_url( $image, string $size = 'medium' ): string {
@@ -513,7 +614,7 @@ function eco_event_get_partner_groups( $post_id = null ): array {
 
 	foreach ( $groups as $group ) {
 		$heading    = trim( (string) ( $group['heading'] ?? '' ) );
-		$color_type = $group['color_type'] ?? 'other';
+		$color_type = trim( (string) ( $group['color_type'] ?? '' ) );
 		$partners   = [];
 
 		$members = $group['members'] ?? [];

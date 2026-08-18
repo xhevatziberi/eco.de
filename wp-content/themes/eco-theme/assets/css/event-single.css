@@ -238,6 +238,10 @@
 	letter-spacing: 0.04em;
 }
 
+.eco-event-single .eco-event-badge--members {
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--eco-event-accent-contrast) 32%, transparent);
+}
+
 .eco-event-single .eco-event-badge--muted {
 	background: rgba(255, 255, 255, 0.18);
 	color: inherit;
@@ -706,7 +710,7 @@
 }
 
 .eco-event-single .eco-event-partner-group {
-	--eco-partner-tier-color: #000;
+	--eco-partner-tier-color: #d7d7da;
 }
 
 .eco-event-single .eco-event-partner-group__head {
