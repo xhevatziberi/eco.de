@@ -18,32 +18,22 @@ document.addEventListener('DOMContentLoaded', () => {
 			return;
 		}
 
-		const displayCount = Math.max(1, parseInt(grid.dataset.displayCount || '6', 10));
-        const rows = Math.max(1, parseInt(grid.dataset.rows || '3', 10));
+		const rows = Math.max(1, parseInt(grid.dataset.rows || '3', 10));
 		const interval = Math.max(1500, parseInt(grid.dataset.interval || '6000', 10));
 		const duration = Math.max(100, parseInt(grid.dataset.duration || '550', 10));
 		const openNewTab = grid.dataset.openNewTab === 'yes';
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const stagger = reducedMotion ? 0 : 45;
+		const effectiveDuration = reducedMotion ? 0 : duration;
 
-		let pool = shuffle([...logos]);
+		let pool = shuffle(logos);
 		let pointer = 0;
+		let currentDisplayCount = 0;
+		let isAnimating = false;
+		let resizeTimer = null;
 
 		grid.style.setProperty('--eco-logo-grid-duration', `${duration}ms`);
-
-        function updateGridMinHeight() {
-            const firstItem = grid.querySelector('.eco-logo-grid__item');
-
-            if (!firstItem) {
-                return;
-            }
-
-            const styles = window.getComputedStyle(grid);
-            const rowGap = parseFloat(styles.rowGap || styles.gap || 0);
-            const itemHeight = firstItem.offsetHeight;
-
-            const minHeight = (itemHeight * rows) + (rowGap * (rows - 1));
-
-            grid.style.setProperty('--eco-logo-grid-min-height', `${minHeight}px`);
-        }
+		grid.style.setProperty('--eco-logo-grid-rows', rows);
 
 		function shuffle(array) {
 			const copied = [...array];
@@ -56,25 +46,37 @@ document.addEventListener('DOMContentLoaded', () => {
 			return copied;
 		}
 
-		function getNextSet() {
-			if (pool.length <= displayCount) {
-				return shuffle([...pool]).slice(0, displayCount);
-			}
+		function getActiveColumns() {
+			const styles = window.getComputedStyle(grid);
+			const value = parseInt(styles.getPropertyValue('--eco-logo-grid-columns'), 10);
 
-			if (pointer + displayCount > pool.length) {
-				pool = shuffle([...logos]);
-				pointer = 0;
-			}
-
-			const set = pool.slice(pointer, pointer + displayCount);
-			pointer += displayCount;
-
-			return set;
+			return Number.isFinite(value) && value > 0 ? value : 1;
 		}
 
-		function createLogoItem(item, index) {
+		function getDisplayCount() {
+			return Math.max(1, getActiveColumns() * rows);
+		}
+
+		function takeNextLogos(count) {
+			const next = [];
+
+			while (next.length < count && logos.length) {
+				if (pointer >= pool.length) {
+					pool = shuffle(logos);
+					pointer = 0;
+				}
+
+				next.push(pool[pointer]);
+				pointer += 1;
+			}
+
+			return next;
+		}
+
+		function createLogoItem(item) {
 			const hasUrl = item.url && item.url !== '#';
 			const element = document.createElement(hasUrl ? 'a' : 'div');
+			const img = document.createElement('img');
 
 			element.className = 'eco-logo-grid__item';
 
@@ -87,53 +89,138 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			}
 
-			const img = document.createElement('img');
-
 			img.className = 'eco-logo-grid__logo';
 			img.src = item.logo;
 			img.alt = item.title || '';
-			img.loading = 'lazy';
+			img.decoding = 'async';
 
 			element.appendChild(img);
-
-			setTimeout(() => {
-				element.classList.add('is-visible');
-			}, 70 * index);
 
 			return element;
 		}
 
-		function renderSet() {
-			const currentItems = grid.querySelectorAll('.eco-logo-grid__item');
+		function ensureSlots(count) {
+			const slots = Array.from(grid.querySelectorAll('.eco-logo-grid__slot'));
 
-			currentItems.forEach((item, index) => {
+			if (slots.length < count) {
+				for (let i = slots.length; i < count; i++) {
+					const slot = document.createElement('div');
+					slot.className = 'eco-logo-grid__slot';
+					grid.appendChild(slot);
+				}
+			} else if (slots.length > count) {
+				for (let i = slots.length - 1; i >= count; i--) {
+					slots[i].remove();
+				}
+			}
+		}
+
+		function showItem(item) {
+			if (reducedMotion) {
+				item.classList.add('is-visible');
+				return;
+			}
+
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					item.classList.add('is-visible');
+				});
+			});
+		}
+
+		function populateInitialSet() {
+			const count = getDisplayCount();
+			const nextSet = takeNextLogos(count);
+
+			ensureSlots(count);
+			currentDisplayCount = count;
+
+			const slots = grid.querySelectorAll('.eco-logo-grid__slot');
+
+			slots.forEach((slot, index) => {
+				const itemData = nextSet[index];
+
+				if (!itemData) {
+					return;
+				}
+
+				const item = createLogoItem(itemData);
+				slot.replaceChildren(item);
+
+				setTimeout(() => showItem(item), stagger * index);
+			});
+		}
+
+		function rotateSet() {
+			if (isAnimating) {
+				return;
+			}
+
+			const count = getDisplayCount();
+
+			if (count !== currentDisplayCount) {
+				populateInitialSet();
+				return;
+			}
+
+			if (logos.length <= count) {
+				return;
+			}
+
+			isAnimating = true;
+
+			const nextSet = takeNextLogos(count);
+			const slots = grid.querySelectorAll('.eco-logo-grid__slot');
+			let lastCompletion = 0;
+
+			slots.forEach((slot, index) => {
+				const currentItem = slot.querySelector('.eco-logo-grid__item');
+				const itemData = nextSet[index];
+				const delay = stagger * index;
+				const completion = delay + effectiveDuration;
+
+				lastCompletion = Math.max(lastCompletion, completion);
+
 				setTimeout(() => {
-					item.classList.remove('is-visible');
-					item.classList.add('is-leaving');
-				}, 45 * index);
+					if (currentItem) {
+						currentItem.classList.remove('is-visible');
+						currentItem.classList.add('is-leaving');
+					}
+				}, delay);
+
+				setTimeout(() => {
+					if (!itemData) {
+						slot.replaceChildren();
+						return;
+					}
+
+					const nextItem = createLogoItem(itemData);
+					slot.replaceChildren(nextItem);
+					showItem(nextItem);
+				}, completion);
 			});
 
-			const waitTime = currentItems.length ? duration + currentItems.length * 45 : 0;
-
 			setTimeout(() => {
-				const nextSet = getNextSet();
-
-				grid.innerHTML = '';
-
-				nextSet.forEach((item, index) => {
-					grid.appendChild(createLogoItem(item, index));
-				});
-
-                requestAnimationFrame(updateGridMinHeight);
-			}, waitTime);
+				isAnimating = false;
+			}, lastCompletion + 50);
 		}
 
-		renderSet();
+		populateInitialSet();
 
-		if (logos.length > displayCount) {
-			setInterval(renderSet, interval);
+		if (logos.length > 1) {
+			window.setInterval(rotateSet, interval);
 		}
 
-        window.addEventListener('resize', updateGridMinHeight);
+		window.addEventListener('resize', () => {
+			window.clearTimeout(resizeTimer);
+
+			resizeTimer = window.setTimeout(() => {
+				const count = getDisplayCount();
+
+				if (count !== currentDisplayCount) {
+					populateInitialSet();
+				}
+			}, 150);
+		});
 	});
 });

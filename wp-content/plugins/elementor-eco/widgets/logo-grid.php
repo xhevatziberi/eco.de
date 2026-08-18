@@ -48,11 +48,11 @@ class LogoGrid extends Widget_Base {
 		$this->add_control(
 			'max_logos',
 			[
-				'label'   => __( 'Maximum Logos to Load', 'elementor-eco' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 64,
-				'min'     => 1,
-				'max'     => 300,
+				'label'       => __( 'Maximum Logos to Load', 'elementor-eco' ),
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => 0,
+				'min'         => 0,
+				'description' => __( 'Set to 0 to load all available member logos.', 'elementor-eco' ),
 			]
 		);
 
@@ -189,7 +189,7 @@ class LogoGrid extends Widget_Base {
 					'unit' => 'px',
 				],
 				'selectors' => [
-					'{{WRAPPER}} .eco-logo-grid' => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .eco-logo-grid' => '--eco-logo-grid-gap: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -211,7 +211,7 @@ class LogoGrid extends Widget_Base {
 					'unit' => 'px',
 				],
 				'selectors' => [
-					'{{WRAPPER}} .eco-logo-grid__item' => 'min-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .eco-logo-grid' => '--eco-logo-grid-cell-height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -380,12 +380,15 @@ class LogoGrid extends Widget_Base {
 		$orderby         = ! empty( $settings['orderby'] ) && in_array( $settings['orderby'], $orderby_allowed, true )
 			? $settings['orderby']
 			: 'rand';
+		$max_logos       = isset( $settings['max_logos'] ) ? absint( $settings['max_logos'] ) : 0;
 
 		$args = [
-			'post_type'      => 'member',
-			'post_status'    => 'publish',
-			'posts_per_page' => ! empty( $settings['max_logos'] ) ? absint( $settings['max_logos'] ) : 64,
-			'orderby'        => $orderby,
+			'post_type'              => 'member',
+			'post_status'            => 'publish',
+			'posts_per_page'         => $max_logos > 0 ? $max_logos : -1,
+			'orderby'                => $orderby,
+			'no_found_rows'          => true,
+			'update_post_term_cache' => false,
 		];
 
 		if ( $orderby !== 'rand' ) {
@@ -429,23 +432,15 @@ class LogoGrid extends Widget_Base {
 			return;
 		}
 
-		$columns       = ! empty( $settings['columns'] ) ? absint( $settings['columns'] ) : 2;
-        $rows          = ! empty( $settings['rows'] ) ? absint( $settings['rows'] ) : 3;
-        $display_count = max( 1, $columns * $rows );
+		$columns           = ! empty( $settings['columns'] ) ? absint( $settings['columns'] ) : 2;
+		$rows              = ! empty( $settings['rows'] ) ? absint( $settings['rows'] ) : 3;
+		$display_count     = max( 1, $columns * $rows );
 		$change_interval    = ! empty( $settings['change_interval'] ) ? absint( $settings['change_interval'] ) : 6000;
 		$animation_duration = ! empty( $settings['animation_duration'] ) ? absint( $settings['animation_duration'] ) : 550;
 		$open_new_tab       = ! empty( $settings['open_new_tab'] ) && $settings['open_new_tab'] === 'yes';
 
 		?>
-		<div
-            class="eco-logo-grid"
-            data-logos="<?php echo esc_attr( wp_json_encode( $logos ) ); ?>"
-            data-display-count="<?php echo esc_attr( $display_count ); ?>"
-            data-rows="<?php echo esc_attr( $rows ); ?>"
-            data-interval="<?php echo esc_attr( $change_interval ); ?>"
-            data-duration="<?php echo esc_attr( $animation_duration ); ?>"
-            data-open-new-tab="<?php echo esc_attr( $open_new_tab ? 'yes' : 'no' ); ?>"
-        ></div>
+		<div class="eco-logo-grid" style="--eco-logo-grid-rows: <?php echo esc_attr( $rows ); ?>;" data-logos="<?php echo esc_attr( wp_json_encode( $logos ) ); ?>" data-display-count="<?php echo esc_attr( $display_count ); ?>" data-rows="<?php echo esc_attr( $rows ); ?>" data-interval="<?php echo esc_attr( $change_interval ); ?>" data-duration="<?php echo esc_attr( $animation_duration ); ?>" data-open-new-tab="<?php echo esc_attr( $open_new_tab ? 'yes' : 'no' ); ?>"></div>
 		<?php
 	}
 }

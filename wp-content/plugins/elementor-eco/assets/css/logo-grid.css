@@ -1,20 +1,30 @@
 .eco-logo-grid {
 	--eco-logo-grid-columns: 2;
+	--eco-logo-grid-rows: 3;
+	--eco-logo-grid-cell-height: 80px;
+	--eco-logo-grid-gap: 24px;
 
 	display: grid;
 	grid-template-columns: repeat(var(--eco-logo-grid-columns), minmax(0, 1fr));
-	gap: 24px;
+	gap: var(--eco-logo-grid-gap);
 	width: 100%;
-    align-content: start;
-    min-height: var(--eco-logo-grid-min-height, auto);
+	min-height: var(--eco-logo-grid-cell-height);
+	align-content: start;
+}
+
+.eco-logo-grid__slot {
+	height: var(--eco-logo-grid-cell-height);
+	min-width: 0;
 }
 
 .eco-logo-grid__item {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 80px;
+	width: 100%;
+	height: 100%;
 	padding: 18px;
+	box-sizing: border-box;
 	background: #ffffff;
 	border: 1px solid #eeeeee;
 	border-radius: 2px;
@@ -53,8 +63,9 @@
 	object-fit: contain;
 }
 
-@media (max-width: 767px) {
-	.eco-logo-grid {
-		--eco-logo-grid-columns: 1;
+@media (prefers-reduced-motion: reduce) {
+	.eco-logo-grid__item {
+		transform: none;
+		transition: none;
 	}
 }

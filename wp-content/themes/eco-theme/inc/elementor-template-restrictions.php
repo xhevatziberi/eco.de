@@ -2,7 +2,7 @@
 /**
  * Elementor template restrictions.
  *
- * Only the user with the username "eco_admin" may edit or delete
+ * Only users with special site-structure access may edit or delete
  * Elementor templates.
  *
  * Other users may still edit regular posts and pages with Elementor.
@@ -22,18 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return bool
  */
 function eco_user_can_manage_elementor_templates( $user_id = null ) {
-	if ( null === $user_id ) {
-		$user_id = get_current_user_id();
-	}
-
-	$user = get_userdata( $user_id );
-
-	return $user instanceof WP_User
-		&& 'eco_admin' === $user->user_login;
+	return eco_user_has_special_access( $user_id );
 }
 
 /**
- * Prevent every user except "eco_admin" from editing or deleting
+ * Prevent users without special access from editing or deleting
  * Elementor templates.
  *
  * Elementor templates use the "elementor_library" post type.
@@ -135,7 +128,7 @@ add_action(
 );
 
 /**
- * Hide the Elementor Templates menu for every user except "eco_admin".
+ * Hide the Elementor Templates menu from users without special access.
  */
 function eco_hide_elementor_templates_admin_menu() {
 	if ( eco_user_can_manage_elementor_templates() ) {
@@ -151,7 +144,7 @@ add_action(
 );
 
 /**
- * Remove Elementor template row actions for every user except "eco_admin".
+ * Remove Elementor template row actions from users without special access.
  *
  * @param array   $actions Post row actions.
  * @param WP_Post $post    Current post.
