@@ -1,8 +1,9 @@
 .eco-tile-icon-grid {
+	--eco-tile-icon-grid-color: #E2001A;
 	display: grid;
 	grid-template-columns: repeat(5, minmax(0, 1fr));
 	background: #ffffff;
-	border-top: 4px solid #e6007e;
+	border-top: 4px solid var(--eco-tile-icon-grid-color);
 }
 
 .eco-tile-icon-grid .eco-tile-icon-card {
@@ -31,7 +32,7 @@
 	justify-content: flex-start;
 	min-height: 42px;
 	margin-bottom: 18px;
-	color: #e6007e;
+	color: var(--eco-tile-icon-grid-color);
 }
 
 /* Dashicons fallback */
@@ -86,7 +87,7 @@
 
 .eco-tile-icon-grid .eco-tile-icon-card__title {
 	margin: 0 0 10px;
-	color: #e6007e;
+	color: var(--eco-tile-icon-grid-color);
 	font-size: 20px;
 	font-weight: 700;
 	line-height: 1.25;
@@ -106,7 +107,7 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
-	color: #e6007e;
+	color: var(--eco-tile-icon-grid-color);
 	font-size: 16px;
 	font-weight: 700;
 	line-height: 1.2;

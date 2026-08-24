@@ -148,6 +148,11 @@ Please contact Monotype with any questions regarding Web Fonts: http://www.fonts
   -webkit-mask-image: url("/wp-content/themes/eco-theme/assets/icons/lucide/arrow-left.svg");
 }
 
+.eco-icon-user::before {
+  mask-image: url("/wp-content/themes/eco-theme/assets/icons/lucide/user.svg");
+  -webkit-mask-image: url("/wp-content/themes/eco-theme/assets/icons/lucide/user.svg");
+}
+
 .eco-icon-users::before {
 	mask-image: url("/wp-content/themes/eco-theme/assets/icons/lucide/users.svg");
 	-webkit-mask-image: url("/wp-content/themes/eco-theme/assets/icons/lucide/users.svg");

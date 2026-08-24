@@ -140,6 +140,31 @@ class TileIconGrid extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'style_section',
+			[
+				'label' => __( 'Style', 'elementor-eco' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'accent_color',
+			[
+				'label'     => __( 'Accent Color', 'elementor-eco' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#E2001A',
+				'dynamic'   => [
+					'active' => true,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .eco-tile-icon-grid' => '--eco-tile-icon-grid-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	private function get_tile_term_options() {

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'ECO_VERSION', '2.0.4' );
+define( 'ECO_VERSION', '2.0.7' );
 
 function eco_theme_load_textdomain() {
 	load_child_theme_textdomain( 'eco-theme', get_stylesheet_directory() . '/languages' );

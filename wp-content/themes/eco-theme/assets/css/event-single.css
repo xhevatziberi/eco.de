@@ -10,6 +10,7 @@
 	--eco-event-pink-soft: #fff2f8;
 	--eco-event-lime-soft: #f3f8aa;
 	--eco-event-red: #e2001a;
+	--eco-event-gray-soft: #f7f8fb;
 	--eco-event-radius: 14px;
 	--eco-event-container: 1280px;
 
@@ -372,7 +373,7 @@
 
 .eco-event-single--small .eco-event-intro,
 .eco-event-single--small .eco-event-people--speakers {
-	background: var(--eco-event-lime-soft);
+	/* background: var(--eco-event-lime-soft); */
 }
 
 .eco-event-single .eco-event-two-col,
@@ -452,7 +453,7 @@
 .eco-event-single .eco-event-gallery img:first-child { grid-row: span 2; }
 
 /* Agenda */
-.eco-event-single .eco-event-agenda { background: #f7f8fb; }
+.eco-event-single .eco-event-agenda { background: var(--eco-event-gray-soft); }
 .eco-event-single .eco-event-agenda__container { max-width: 860px; }
 
 .eco-event-single .eco-event-agenda-tabs {
@@ -679,7 +680,7 @@
 }
 
 .eco-event-single--small .eco-event-registration__box {
-	background: var(--eco-event-lime-soft);
+	background: var(--eco-event-gray-soft);
 	color: var(--eco-event-dark);
 }
 
