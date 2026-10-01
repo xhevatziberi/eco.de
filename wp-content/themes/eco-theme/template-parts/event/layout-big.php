@@ -53,13 +53,18 @@ $members_only = eco_event_is_members_only( $post_id );
 	</div>
 </section>
 
-<?php eco_event_the_content_area(); ?>
+<?php eco_event_render_elementor_content_at( 'after_hero', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'intro' ); ?>
+<?php eco_event_render_elementor_content_at( 'after_intro', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'gallery' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'people', [ 'type' => 'speakers' ] ); ?>
 <?php get_template_part( 'template-parts/event/section', 'agenda' ); ?>
+<?php eco_event_render_elementor_content_at( 'after_agenda', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'location' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'faq' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'partners' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'people', [ 'type' => 'contacts' ] ); ?>
+<?php eco_event_render_elementor_content_at( 'before_registration', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'registration' ); ?>
+<?php eco_event_render_elementor_content_at( 'after_registration', $post_id ); ?>
+<?php get_template_part( 'template-parts/event/section', 'series' ); ?>
