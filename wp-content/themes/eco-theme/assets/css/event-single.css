@@ -941,9 +941,10 @@
 
 	.eco-event-single .eco-event-hero__grid,
 	.eco-event-single--small .eco-event-hero__grid,
+	.eco-event-single .eco-event-hero--small .eco-event-hero__grid,
 	.eco-event-single .eco-event-two-col,
 	.eco-event-single .eco-event-location__grid {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 	}
 
 	.eco-event-single .eco-event-people-grid,
