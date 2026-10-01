@@ -19,6 +19,24 @@ function eco_event_get_field( string $field, $post_id = null, $default = null ) 
 	return ( $value !== null && $value !== '' && $value !== false ) ? $value : $default;
 }
 
+function eco_event_get_boolean_field( string $field, $post_id = null, bool $default = false ): bool {
+	$post_id = $post_id ?: get_the_ID();
+
+	if ( function_exists( 'get_field' ) ) {
+		$value = get_field( $field, $post_id );
+
+		if ( null === $value || '' === $value ) {
+			return $default;
+		}
+
+		return (bool) $value;
+	}
+
+	$value = get_post_meta( $post_id, $field, true );
+
+	return '' === $value ? $default : (bool) $value;
+}
+
 function eco_event_is_valid_hex( $color ): bool {
 	return is_string( $color ) && (bool) preg_match( '/^#([A-Fa-f0-9]{3}){1,2}$/', trim( $color ) );
 }
@@ -789,7 +807,7 @@ function eco_event_get_series_sort_timestamp( $post_id, bool $include_past = fal
 function eco_event_get_series_events( $post_id = null ): array {
 	$post_id = $post_id ?: get_the_ID();
 
-	if ( ! $post_id || ! (bool) eco_event_get_field( 'show_event_series', $post_id, true ) ) {
+	if ( ! $post_id || ! eco_event_get_boolean_field( 'show_event_series', $post_id, true ) ) {
 		return [];
 	}
 
