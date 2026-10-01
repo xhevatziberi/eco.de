@@ -22,19 +22,19 @@ function eco_event_get_field( string $field, $post_id = null, $default = null ) 
 function eco_event_get_boolean_field( string $field, $post_id = null, bool $default = false ): bool {
 	$post_id = $post_id ?: get_the_ID();
 
-	if ( function_exists( 'get_field' ) ) {
-		$value = get_field( $field, $post_id );
-
-		if ( null === $value || '' === $value ) {
-			return $default;
-		}
-
-		return (bool) $value;
+	if ( metadata_exists( 'post', $post_id, $field ) ) {
+		return (bool) get_post_meta( $post_id, $field, true );
 	}
 
-	$value = get_post_meta( $post_id, $field, true );
+	if ( function_exists( 'get_field_object' ) ) {
+		$field_object = get_field_object( $field, $post_id, false, false );
 
-	return '' === $value ? $default : (bool) $value;
+		if ( is_array( $field_object ) && array_key_exists( 'default_value', $field_object ) ) {
+			return (bool) $field_object['default_value'];
+		}
+	}
+
+	return $default;
 }
 
 function eco_event_is_valid_hex( $color ): bool {
