@@ -104,14 +104,6 @@
 			return;
 		}
 
-		if (typeof instance.updateSize === 'function') {
-			instance.updateSize();
-		}
-
-		if (typeof instance.updateSlides === 'function') {
-			instance.updateSlides();
-		}
-
 		instance.update();
 
 		if (
@@ -120,49 +112,6 @@
 		) {
 			instance.updateAutoHeight(0);
 		}
-	}
-
-	function scheduleResponsiveUpdate(root) {
-		if (!root) {
-			return;
-		}
-
-		if (root.ecoTestimonialResizeFrame) {
-			window.cancelAnimationFrame(
-				root.ecoTestimonialResizeFrame
-			);
-		}
-
-		root.ecoTestimonialResizeFrame =
-			window.requestAnimationFrame(function () {
-				updateAutoLayout(root);
-
-				const instance =
-					root.ecoTestimonialShowcaseSwiper;
-
-				if (!isUsableInstance(instance)) {
-					return;
-				}
-
-				updateInstanceHeight(instance);
-
-				/*
-				 * Run once more after the browser has applied the breakpoint
-				 * layout. This fixes stale Swiper auto-height values when a
-				 * desktop viewport is resized directly to tablet/mobile.
-				 */
-				root.ecoTestimonialResizeFrame =
-					window.requestAnimationFrame(function () {
-						if (
-							root.ecoTestimonialShowcaseSwiper !== instance ||
-							!isUsableInstance(instance)
-						) {
-							return;
-						}
-
-						updateInstanceHeight(instance);
-					});
-			});
 	}
 
 	function storeInstance(root, instance) {
@@ -189,13 +138,11 @@
 						return;
 					}
 
-					scheduleResponsiveUpdate(root);
+					updateInstanceHeight(instance);
 				},
 				{ once: true }
 			);
 		});
-
-		scheduleResponsiveUpdate(root);
 	}
 
 	function createSwiper(root, config) {
@@ -276,37 +223,29 @@
 	}
 
 	function attachResizeObserver(root) {
-		if ('ResizeObserver' in window) {
-			if (root.ecoTestimonialResizeObserver) {
-				root.ecoTestimonialResizeObserver.disconnect();
-			}
+		if (!('ResizeObserver' in window)) {
+			return;
+		}
 
-			root.ecoTestimonialResizeObserver =
-				new ResizeObserver(function () {
-					scheduleResponsiveUpdate(root);
-				});
+		if (root.ecoTestimonialResizeObserver) {
+			root.ecoTestimonialResizeObserver.disconnect();
+		}
 
-			root.ecoTestimonialResizeObserver.observe(root);
+		root.ecoTestimonialResizeObserver =
+			new ResizeObserver(function () {
+				updateAutoLayout(root);
 
-			root.querySelectorAll(
-				'.eco-testimonial-showcase__card'
-			).forEach(function (card) {
-				root.ecoTestimonialResizeObserver.observe(card);
+				const instance =
+					root.ecoTestimonialShowcaseSwiper;
+
+				if (!isUsableInstance(instance)) {
+					return;
+				}
+
+				updateInstanceHeight(instance);
 			});
-		}
 
-		if (!root.ecoTestimonialWindowResizeHandler) {
-			root.ecoTestimonialWindowResizeHandler =
-				function () {
-					scheduleResponsiveUpdate(root);
-				};
-
-			window.addEventListener(
-				'resize',
-				root.ecoTestimonialWindowResizeHandler,
-				{ passive: true }
-			);
-		}
+		root.ecoTestimonialResizeObserver.observe(root);
 	}
 
 	function initWidget(root) {
