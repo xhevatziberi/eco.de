@@ -160,7 +160,7 @@
 							return;
 						}
 
-						scheduleResponsiveUpdate(root);
+						updateInstanceHeight(instance);
 					});
 			});
 	}
@@ -189,7 +189,7 @@
 						return;
 					}
 
-					updateInstanceHeight(instance);
+					scheduleResponsiveUpdate(root);
 				},
 				{ once: true }
 			);
