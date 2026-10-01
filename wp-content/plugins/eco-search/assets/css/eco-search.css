@@ -494,6 +494,10 @@ body #eco-search-scope mark.eco-hl {
   body #eco-search-scope .eco-card__title { font-size: 18px; }
 }
 @media (max-width: 520px) {
+  body #eco-search-scope .eco-search__filters {
+    grid-template-columns: 1fr;
+  }
+
   body #eco-search-scope .eco-card { grid-template-columns: 1fr; }
   body #eco-search-scope .eco-card__media { width: 100%; height: 160px; }
 }
