@@ -4,7 +4,7 @@ Theme URI: https://eco.de
 Author: Batlab
 Description: Child theme for eco.
 Template: hello-elementor
-Version: 2.0.7
+Version: 2.0.8
 Text Domain: eco-theme
 Domain Path: /languages
 */
@@ -31,6 +31,10 @@ nav.elementor-nav-menu--main .elementor-sub-item:hover,
 nav.elementor-nav-menu--main .elementor-sub-item:focus {
   background-color: #c30101;
   color: #fff;
+}
+
+.elementor-nav-menu .sub-arrow {
+  padding-left: 3px;
 }
 
 .pagetitle .elementor-icon-box-title:before {
@@ -150,4 +154,48 @@ input[type="checkbox"] {
 .postcontent h6 {
   font-size: 16px;
   line-height: 20px;
+}
+
+/* Header CTA buttons: keep the desktop labels, use only the configured icon on phones. */
+@media (max-width: 767px) {
+  .eco-header-cta .elementor-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0 !important;
+  }
+
+  .eco-header-cta .elementor-button-content-wrapper {
+    gap: 0 !important;
+  }
+
+  .eco-header-cta .elementor-button-text {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .eco-header-cta .elementor-button-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 !important;
+  }
+
+  .eco-header-cta .elementor-button-icon svg {
+    width: 18px;
+    height: 18px;
+  }
 }

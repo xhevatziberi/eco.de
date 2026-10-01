@@ -16,19 +16,41 @@ add_action( 'template_redirect', function () {
 
 	$post = get_post( $post_id );
 
-	if ( ! $post || $post->post_type !== 'tile' ) {
+	if ( ! $post || 'tile' !== $post->post_type ) {
 		return;
 	}
 
 	$disabled = false;
+	$link     = '';
 
 	if ( function_exists( 'get_field' ) ) {
-		$disabled = get_field( 'disable_tile_page', $post_id );
+		$disabled = (bool) get_field( 'disable_tile_page', $post_id );
+		$link     = get_field( 'link', $post_id );
 	} else {
-		$disabled = get_post_meta( $post_id, 'disable_tile_page', true );
+		$disabled = (bool) get_post_meta( $post_id, 'disable_tile_page', true );
+		$link     = get_post_meta( $post_id, 'link', true );
 	}
 
-	if ( empty( $disabled ) ) {
+	if ( is_array( $link ) && ! empty( $link['url'] ) ) {
+		$link = $link['url'];
+	}
+
+	$link = is_string( $link ) ? trim( $link ) : '';
+
+	if ( $link ) {
+		$scheme = wp_parse_url( $link, PHP_URL_SCHEME );
+
+		if ( in_array( strtolower( (string) $scheme ), [ 'http', 'https' ], true ) ) {
+			$current_url = get_permalink( $post_id );
+
+			if ( ! $current_url || untrailingslashit( $current_url ) !== untrailingslashit( $link ) ) {
+				wp_redirect( esc_url_raw( $link ), 302, 'eco Tile Redirect' ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+				exit;
+			}
+		}
+	}
+
+	if ( ! $disabled ) {
 		return;
 	}
 

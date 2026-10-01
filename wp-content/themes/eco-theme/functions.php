@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'ECO_VERSION', '2.0.7' );
+define( 'ECO_VERSION', '2.0.8' );
 
 function eco_theme_load_textdomain() {
 	load_child_theme_textdomain( 'eco-theme', get_stylesheet_directory() . '/languages' );
@@ -41,5 +41,6 @@ require_once get_stylesheet_directory() . '/inc/breadcrumbs.php';
 require_once get_stylesheet_directory() . '/inc/icon-helpers.php';
 require_once get_stylesheet_directory() . '/inc/admin-access.php';
 require_once get_stylesheet_directory() . '/inc/admin-menu.php';
+require_once get_stylesheet_directory() . '/inc/event-taxonomy-admin.php';
 require_once get_stylesheet_directory() . '/inc/elementor-template-restrictions.php';
 require_once get_stylesheet_directory() . '/inc/admin-styles.php';

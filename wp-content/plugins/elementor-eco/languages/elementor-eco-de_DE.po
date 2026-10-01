@@ -929,6 +929,10 @@ msgstr "Podcast-Kategorien"
 msgid "Press Categories"
 msgstr "Pressekategorien"
 
+#: inc/content-cards-ajax.php widgets/content-cards.php
+msgid "Study"
+msgstr "Studie"
+
 #: widgets/content-cards.php:720
 msgid "Study Categories"
 msgstr "Studienkategorien"

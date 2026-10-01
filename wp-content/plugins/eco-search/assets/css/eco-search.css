@@ -485,15 +485,36 @@ body #eco-search-scope mark.eco-hl {
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  body #eco-search-scope .eco-search__inner {
+    padding-inline: 20px;
+  }
+}
+
 @media (max-width: 820px) {
   body #eco-search-scope .eco-search__filters {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
+
+  body #eco-search-scope .eco-search__filter--types,
+  body #eco-search-scope .eco-search__filter--submit {
+    grid-column: 1 / -1;
+  }
+
   body #eco-search-scope .eco-card { grid-template-columns: 120px 1fr; }
   body #eco-search-scope .eco-card__media { width: 120px; height: 84px; }
   body #eco-search-scope .eco-card__title { font-size: 18px; }
 }
+
 @media (max-width: 520px) {
+  body #eco-search-scope .eco-search__inner {
+    padding-inline: 14px;
+  }
+
+  body #eco-search-scope .eco-search__filters {
+    gap: 12px 10px;
+  }
+
   body #eco-search-scope .eco-card { grid-template-columns: 1fr; }
   body #eco-search-scope .eco-card__media { width: 100%; height: 160px; }
 }

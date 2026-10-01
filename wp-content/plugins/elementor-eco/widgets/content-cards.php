@@ -1303,7 +1303,7 @@ class ContentCards extends Widget_Base {
 			'event'   => 'Event',
 			'podcast' => 'Podcast',
 			'press'   => 'Presse',
-			'study'   => 'Study',
+			'study'   => __( 'Study', 'elementor-eco' ),
 		];
 
 		return $labels[ $post_type ] ?? ucfirst( $post_type );

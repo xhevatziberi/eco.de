@@ -19,6 +19,24 @@ function eco_event_get_field( string $field, $post_id = null, $default = null ) 
 	return ( $value !== null && $value !== '' && $value !== false ) ? $value : $default;
 }
 
+function eco_event_get_boolean_field( string $field, $post_id = null, bool $default = false ): bool {
+	$post_id = $post_id ?: get_the_ID();
+
+	if ( metadata_exists( 'post', $post_id, $field ) ) {
+		return (bool) get_post_meta( $post_id, $field, true );
+	}
+
+	if ( function_exists( 'get_field_object' ) ) {
+		$field_object = get_field_object( $field, $post_id, false, false );
+
+		if ( is_array( $field_object ) && array_key_exists( 'default_value', $field_object ) ) {
+			return (bool) $field_object['default_value'];
+		}
+	}
+
+	return $default;
+}
+
 function eco_event_is_valid_hex( $color ): bool {
 	return is_string( $color ) && (bool) preg_match( '/^#([A-Fa-f0-9]{3}){1,2}$/', trim( $color ) );
 }
@@ -686,4 +704,193 @@ function eco_event_get_partner_groups( $post_id = null ): array {
 	}
 
 	return $normalized_groups;
+}
+
+/**
+ * Return the configured position for the free-form Elementor event content.
+ */
+function eco_event_get_elementor_content_position( $post_id = null ): string {
+	$post_id = $post_id ?: get_the_ID();
+
+	$allowed = [
+		'after_hero',
+		'after_intro',
+		'after_agenda',
+		'before_registration',
+		'after_registration',
+	];
+
+	$position = (string) eco_event_get_field( 'elementor_content_position', $post_id, 'after_agenda' );
+
+	return in_array( $position, $allowed, true ) ? $position : 'after_agenda';
+}
+
+/**
+ * Render the free-form Elementor event content once, at the selected position.
+ */
+function eco_event_render_elementor_content_at( string $position, $post_id = null ): void {
+	static $rendered = [];
+
+	$post_id = $post_id ?: get_the_ID();
+
+	if ( ! $post_id || isset( $rendered[ $post_id ] ) ) {
+		return;
+	}
+
+	if ( eco_event_get_elementor_content_position( $post_id ) !== $position ) {
+		return;
+	}
+
+	$rendered[ $post_id ] = true;
+	eco_event_the_content_area();
+}
+
+/**
+ * Return Event Series terms assigned to an event.
+ *
+ * @return WP_Term[]
+ */
+function eco_event_get_series_terms( $post_id = null ): array {
+	$post_id = $post_id ?: get_the_ID();
+
+	if ( ! $post_id || ! taxonomy_exists( 'event-series' ) ) {
+		return [];
+	}
+
+	$terms = wp_get_post_terms( $post_id, 'event-series' );
+
+	return is_wp_error( $terms ) ? [] : $terms;
+}
+
+/**
+ * Choose the date used to order an event inside a series.
+ *
+ * Upcoming-only lists use the next still-active occurrence. Lists that
+ * include past events use the first occurrence so ASC/DESC stays chronological.
+ */
+function eco_event_get_series_sort_timestamp( $post_id, bool $include_past = false ): int {
+	$occurrences = eco_event_get_occurrences( $post_id );
+
+	if ( empty( $occurrences ) ) {
+		return PHP_INT_MAX;
+	}
+
+	if ( $include_past ) {
+		$first = reset( $occurrences );
+		$start = $first['start'] ?? null;
+
+		return $start instanceof DateTimeInterface ? $start->getTimestamp() : PHP_INT_MAX;
+	}
+
+	$now = new DateTimeImmutable( 'now', wp_timezone() );
+
+	foreach ( $occurrences as $occurrence ) {
+		$end   = $occurrence['end'] ?? null;
+		$start = $occurrence['start'] ?? null;
+
+		if ( $end instanceof DateTimeInterface && $end >= $now && $start instanceof DateTimeInterface ) {
+			return $start->getTimestamp();
+		}
+	}
+
+	$last  = end( $occurrences );
+	$start = $last['start'] ?? null;
+
+	return $start instanceof DateTimeInterface ? $start->getTimestamp() : PHP_INT_MAX;
+}
+
+/**
+ * Return related events from the same Event Series.
+ *
+ * The current event is excluded. Upcoming events are shown by default.
+ */
+function eco_event_get_series_events( $post_id = null ): array {
+	$post_id = $post_id ?: get_the_ID();
+
+	if ( ! $post_id || ! eco_event_get_boolean_field( 'show_event_series', $post_id, true ) ) {
+		return [];
+	}
+
+	$terms = eco_event_get_series_terms( $post_id );
+
+	if ( empty( $terms ) ) {
+		return [];
+	}
+
+	$term_ids = array_values(
+		array_filter(
+			array_map(
+				static function ( $term ) {
+					return $term instanceof WP_Term ? (int) $term->term_id : 0;
+				},
+				$terms
+			)
+		)
+	);
+
+	if ( empty( $term_ids ) ) {
+		return [];
+	}
+
+	$query = new WP_Query(
+		[
+			'post_type'              => 'event',
+			'post_status'            => 'publish',
+			'posts_per_page'         => -1,
+			'fields'                 => 'ids',
+			'post__not_in'           => [ $post_id ],
+			'no_found_rows'          => true,
+			'ignore_sticky_posts'    => true,
+			'tax_query'              => [
+				[
+					'taxonomy' => 'event-series',
+					'field'    => 'term_id',
+					'terms'    => $term_ids,
+				],
+			],
+		]
+	);
+
+	$include_past = (bool) eco_event_get_field( 'event_series_include_past', $post_id, false );
+	$order        = strtoupper( (string) eco_event_get_field( 'event_series_order', $post_id, 'ASC' ) );
+	$order        = 'DESC' === $order ? 'DESC' : 'ASC';
+	$max_events   = absint( eco_event_get_field( 'event_series_max', $post_id, 3 ) );
+	$max_events   = max( 1, min( 12, $max_events ?: 3 ) );
+
+	$events = [];
+
+	foreach ( $query->posts as $event_id ) {
+		if ( ! $include_past && eco_event_is_past( $event_id ) ) {
+			continue;
+		}
+
+		$events[] = [
+			'id'        => (int) $event_id,
+			'timestamp' => eco_event_get_series_sort_timestamp( $event_id, $include_past ),
+		];
+	}
+
+	usort(
+		$events,
+		static function ( $a, $b ) use ( $order ) {
+			$comparison = ( $a['timestamp'] ?? PHP_INT_MAX ) <=> ( $b['timestamp'] ?? PHP_INT_MAX );
+
+			if ( 0 === $comparison ) {
+				$comparison = ( $a['id'] ?? 0 ) <=> ( $b['id'] ?? 0 );
+			}
+
+			return 'DESC' === $order ? -$comparison : $comparison;
+		}
+	);
+
+	$events = array_slice( $events, 0, $max_events );
+
+	return array_values(
+		array_map(
+			static function ( $event ) {
+				return (int) $event['id'];
+			},
+			$events
+		)
+	);
 }
