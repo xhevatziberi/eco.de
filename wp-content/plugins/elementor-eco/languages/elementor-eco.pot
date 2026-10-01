@@ -918,6 +918,10 @@ msgstr ""
 msgid "Press Categories"
 msgstr ""
 
+#: inc/content-cards-ajax.php widgets/content-cards.php
+msgid "Study"
+msgstr ""
+
 #: widgets/content-cards.php:720
 msgid "Study Categories"
 msgstr ""
