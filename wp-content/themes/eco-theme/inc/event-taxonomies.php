@@ -196,7 +196,7 @@ function eco_migrate_event_display_taxonomies(): void {
 			'post_status'      => 'any',
 			'posts_per_page'   => -1,
 			'fields'           => 'ids',
-			'suppress_filters' => false,
+			'suppress_filters' => true,
 		]
 	);
 
