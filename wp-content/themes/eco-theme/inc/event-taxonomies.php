@@ -216,6 +216,24 @@ function eco_migrate_event_display_taxonomies(): void {
 
 		if ( empty( $current_format ) && isset( $legacy_format_map[ $legacy_value ] ) ) {
 			wp_set_object_terms( $event_id, $legacy_format_map[ $legacy_value ], 'event-format', false );
+
+			/*
+			 * Legacy event_label could only store one value. When that value was
+			 * actually a format (for example Webinar), derive a sensible visible
+			 * Event Label from Event Source so existing events gain the new two-badge
+			 * structure without manual cleanup.
+			 */
+			if ( empty( $current_labels ) && taxonomy_exists( 'event-source' ) ) {
+				$source_slugs = wp_get_object_terms( $event_id, 'event-source', [ 'fields' => 'slugs' ] );
+
+				if ( ! is_wp_error( $source_slugs ) ) {
+					if ( in_array( 'eco-event', $source_slugs, true ) ) {
+						wp_set_object_terms( $event_id, 'eco-event', 'event-label', false );
+					} elseif ( in_array( 'partner-event', $source_slugs, true ) ) {
+						wp_set_object_terms( $event_id, 'partner-event', 'event-label', false );
+					}
+				}
+			}
 		}
 	}
 
