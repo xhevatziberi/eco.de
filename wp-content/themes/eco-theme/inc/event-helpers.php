@@ -429,7 +429,7 @@ function eco_event_get_title( $post_id = null ): string {
 function eco_event_get_google_maps_embed_url( $post_id = null ): string {
 	$post_id = $post_id ?: get_the_ID();
 
-	$parts = array_filter(
+	$location_parts = array_filter(
 		array_map(
 			'trim',
 			[
@@ -439,16 +439,21 @@ function eco_event_get_google_maps_embed_url( $post_id = null ): string {
 					(string) eco_event_get_field( 'zip_plz', $post_id, '' ) . ' ' .
 					(string) eco_event_get_field( 'city', $post_id, '' )
 				),
-				(string) eco_event_get_field( 'country', $post_id, '' ),
 			]
 		)
 	);
 
-	if ( empty( $parts ) ) {
+	if ( empty( $location_parts ) ) {
 		return '';
 	}
 
-	return 'https://www.google.com/maps?q=' . rawurlencode( implode( ', ', $parts ) ) . '&output=embed';
+	$country = trim( (string) eco_event_get_field( 'country', $post_id, '' ) );
+
+	if ( $country ) {
+		$location_parts[] = $country;
+	}
+
+	return 'https://www.google.com/maps?q=' . rawurlencode( implode( ', ', $location_parts ) ) . '&output=embed';
 }
 
 function eco_event_get_section_heading( string $section, $post_id = null ): array {
