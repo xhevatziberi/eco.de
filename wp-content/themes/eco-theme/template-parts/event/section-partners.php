@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $post_id        = get_the_ID();
 $partner_groups = eco_event_get_partner_groups( $post_id );
+$heading        = eco_event_get_section_heading( 'partners', $post_id );
 
 if ( empty( $partner_groups ) ) {
 	return;
@@ -14,27 +15,35 @@ if ( empty( $partner_groups ) ) {
 <section class="eco-event-section eco-event-partners">
 	<div class="eco-event-container">
 		<div class="eco-event-section-head">
-			<span><?php esc_html_e( 'Network', 'eco-theme' ); ?></span>
-			<h2><?php esc_html_e( 'Partners', 'eco-theme' ); ?></h2>
+			<?php if ( $heading['eyebrow'] ) : ?>
+				<span><?php echo esc_html( $heading['eyebrow'] ); ?></span>
+			<?php endif; ?>
+			<?php if ( $heading['title'] ) : ?>
+				<h2><?php echo esc_html( $heading['title'] ); ?></h2>
+			<?php endif; ?>
 		</div>
 
 		<div class="eco-event-partner-groups">
 			<?php foreach ( $partner_groups as $group ) : ?>
 				<?php
-				$heading  = $group['heading'] ?? '';
-				$color    = $group['color'] ?? '';
-				$partners = $group['partners'] ?? [];
+				$group_heading = $group['heading'] ?? '';
+				$color         = $group['color'] ?? '';
+				$logo_size     = $group['logo_size'] ?? 'normal';
+				$partners      = $group['partners'] ?? [];
 
 				if ( empty( $partners ) ) {
 					continue;
 				}
 				?>
 
-				<div class="eco-event-partner-group"<?php echo $color ? ' style="--eco-partner-tier-color: ' . esc_attr( $color ) . ';"' : ''; ?>>
-					<?php if ( $heading ) : ?>
+				<div
+					class="eco-event-partner-group eco-event-partner-group--<?php echo esc_attr( $logo_size ); ?>"
+					<?php echo $color ? 'style="--eco-partner-tier-color: ' . esc_attr( $color ) . ';"' : ''; ?>
+				>
+					<?php if ( $group_heading ) : ?>
 						<div class="eco-event-partner-group__head">
 							<span class="eco-event-partner-group__line" aria-hidden="true"></span>
-							<h3><?php echo esc_html( $heading ); ?></h3>
+							<h3><?php echo esc_html( $group_heading ); ?></h3>
 						</div>
 					<?php endif; ?>
 
