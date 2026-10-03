@@ -617,6 +617,7 @@ class ContentCardsAjax {
 				<?php elseif ( ! empty( $badge ) || ! empty( $format ) || $members_only ) : ?>
 					<div class="eco-content-card__badges eco-content-card__badges--inline">
 						<?php if ( ! empty( $badge ) ) : ?><span class="eco-content-card__badge"><?php echo esc_html( $badge ); ?></span><?php endif; ?>
+						<?php if ( ! empty( $format ) ) : ?><span class="eco-content-card__badge eco-content-card__badge--format"><?php echo esc_html( $format ); ?></span><?php endif; ?>
 						<?php if ( $members_only ) : ?><span class="eco-content-card__badge eco-content-card__badge--members"><?php esc_html_e( 'Members Only', 'elementor-eco' ); ?></span><?php endif; ?>
 					</div>
 				<?php endif; ?>
