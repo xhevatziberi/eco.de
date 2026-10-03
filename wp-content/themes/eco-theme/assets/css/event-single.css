@@ -647,6 +647,10 @@
 	box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
 }
 
+.eco-event-single .eco-event-person[hidden] {
+	display: none !important;
+}
+
 .eco-event-single .eco-event-person--speaker { display: block; }
 
 .eco-event-single--small .eco-event-person--speaker,
