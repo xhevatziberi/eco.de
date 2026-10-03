@@ -16,7 +16,7 @@ $description  = eco_event_get_field( 'location_description', $post_id, '' );
 $platform     = eco_event_get_field( 'online_platform', $post_id, '' );
 $online_url   = eco_event_get_field( 'online_url', $post_id, '' );
 $show_map     = eco_event_get_boolean_field( 'show_google_map', $post_id, false );
-$map_embed    = $show_map ? eco_event_get_google_maps_embed_url( $post_id ) : '';
+$map_embed    = $show_map && in_array( $mode, [ 'onsite', 'hybrid' ], true ) ? eco_event_get_google_maps_embed_url( $post_id ) : '';
 $heading      = eco_event_get_section_heading( 'location', $post_id );
 $has_location = $name || $street || $zip || $city || $country || $platform || $description || $image || $map_embed;
 
@@ -53,7 +53,7 @@ $grid_columns  = 1 + $media_columns;
 
 				<?php if ( in_array( $mode, [ 'onsite', 'hybrid' ], true ) && ( $name || $city || $street || $zip ) ) : ?>
 					<?php if ( $name || $city ) : ?>
-						<h3><?php echo esc_html( eco_event_get_location_place( $post_id ) ); ?></h3>
+						<h3><?php echo esc_html( $name ?: $city ); ?></h3>
 					<?php endif; ?>
 					<p>
 						<?php echo esc_html( $street ); ?><?php echo $street ? '<br>' : ''; ?>
