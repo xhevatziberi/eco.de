@@ -292,6 +292,51 @@ function eco_event_format_time( $time ): string {
 	return $time !== '' ? $time : '';
 }
 
+function eco_event_format_occurrence_date( array $occurrence ): string {
+	$start_date = eco_event_format_date( $occurrence['start_date'] ?? '' );
+	$end_date   = eco_event_format_date( $occurrence['end_date'] ?? ( $occurrence['start_date'] ?? '' ) );
+
+	if ( $start_date && $end_date && $start_date !== $end_date ) {
+		return sprintf( '%s – %s', $start_date, $end_date );
+	}
+
+	return $start_date;
+}
+
+function eco_event_format_occurrence_time( array $occurrence, $post_id = null ): string {
+	$post_id = $post_id ?: get_the_ID();
+
+	if ( eco_event_get_boolean_field( 'all_day_event', $post_id, false ) ) {
+		return '';
+	}
+
+	$start_time = eco_event_format_time( $occurrence['start_time'] ?? '' );
+	$end_time   = eco_event_format_time( $occurrence['end_time'] ?? '' );
+
+	if ( $start_time && $end_time ) {
+		return sprintf( '%s – %s', $start_time, $end_time );
+	}
+
+	return $start_time;
+}
+
+function eco_event_get_occurrence_display_items( $post_id = null ): array {
+	$post_id     = $post_id ?: get_the_ID();
+	$occurrences = eco_event_get_occurrences( $post_id );
+	$items       = [];
+
+	foreach ( $occurrences as $index => $occurrence ) {
+		$items[] = [
+			'label'      => trim( (string) ( $occurrence['label'] ?? '' ) ),
+			'date'       => eco_event_format_occurrence_date( $occurrence ),
+			'time'       => eco_event_format_occurrence_time( $occurrence, $post_id ),
+			'is_primary' => 0 === $index,
+		];
+	}
+
+	return $items;
+}
+
 function eco_event_get_date_line( $post_id = null ): string {
 	$occurrences = eco_event_get_occurrences( $post_id );
 
@@ -322,40 +367,56 @@ function eco_event_get_date_line( $post_id = null ): string {
 	return trim( $first_date . ( $time_line ? ', ' . $time_line : '' ) );
 }
 
-function eco_event_get_location_line( $post_id = null ): string {
+function eco_event_get_location_place( $post_id = null ): string {
 	$post_id       = $post_id ?: get_the_ID();
-	$mode          = eco_event_get_field( 'event_mode', $post_id, 'onsite' );
-	$location_name = eco_event_get_field( 'location_name', $post_id, '' );
-	$city          = eco_event_get_field( 'city', $post_id, '' );
+	$location_name = trim( (string) eco_event_get_field( 'location_name', $post_id, '' ) );
+	$city          = trim( (string) eco_event_get_field( 'city', $post_id, '' ) );
 
-	if ( $mode === 'online' ) {
-		return __( 'Online', 'eco-theme' );
-	}
-
-	if ( $mode === 'hybrid' ) {
-		$place = $city ?: $location_name;
-		return $place ? sprintf( '%s + %s', __( 'Online', 'eco-theme' ), $place ) : __( 'Hybrid', 'eco-theme' );
+	if ( $location_name && $city ) {
+		return sprintf( '%s, %s', $location_name, $city );
 	}
 
 	return $location_name ?: $city;
 }
 
+function eco_event_get_location_line( $post_id = null ): string {
+	$post_id = $post_id ?: get_the_ID();
+	$mode    = eco_event_get_field( 'event_mode', $post_id, 'onsite' );
+	$place   = eco_event_get_location_place( $post_id );
+
+	if ( 'online' === $mode ) {
+		return __( 'Online', 'eco-theme' );
+	}
+
+	if ( 'hybrid' === $mode ) {
+		return $place ? sprintf( '%s + %s', __( 'Online', 'eco-theme' ), $place ) : __( 'Hybrid', 'eco-theme' );
+	}
+
+	return $place;
+}
+
+function eco_event_get_first_term_name( string $taxonomy, $post_id = null ): string {
+	$post_id = $post_id ?: get_the_ID();
+
+	if ( ! $post_id || ! taxonomy_exists( $taxonomy ) ) {
+		return '';
+	}
+
+	$terms = wp_get_post_terms( $post_id, $taxonomy );
+
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return '';
+	}
+
+	return sanitize_text_field( $terms[0]->name );
+}
+
 function eco_event_get_label( $post_id = null ): string {
-	$labels = [
-		'event'         => __( 'Event', 'eco-theme' ),
-		'eco_event'     => __( 'eco Event', 'eco-theme' ),
-		'partner_event' => __( 'Partner Event', 'eco-theme' ),
-		'webinar'       => __( 'Webinar', 'eco-theme' ),
-		'workshop'      => __( 'Workshop', 'eco-theme' ),
-		'conference'    => __( 'Conference', 'eco-theme' ),
-		'highlight'     => __( 'Highlight', 'eco-theme' ),
-		'training'      => __( 'Training', 'eco-theme' ),
-		'award'         => __( 'Award', 'eco-theme' ),
-	];
+	return eco_event_get_first_term_name( 'event-label', $post_id );
+}
 
-	$value = eco_event_get_field( 'event_label', $post_id, '' );
-
-	return $labels[ $value ] ?? '';
+function eco_event_get_format( $post_id = null ): string {
+	return eco_event_get_first_term_name( 'event-format', $post_id );
 }
 
 function eco_event_get_title( $post_id = null ): string {
@@ -363,6 +424,96 @@ function eco_event_get_title( $post_id = null ): string {
 	$title   = eco_event_get_field( 'teaser_title', $post_id, '' );
 
 	return $title ?: get_the_title( $post_id );
+}
+
+function eco_event_get_google_maps_embed_url( $post_id = null ): string {
+	$post_id = $post_id ?: get_the_ID();
+
+	$parts = array_filter(
+		array_map(
+			'trim',
+			[
+				(string) eco_event_get_field( 'location_name', $post_id, '' ),
+				(string) eco_event_get_field( 'street', $post_id, '' ),
+				trim(
+					(string) eco_event_get_field( 'zip_plz', $post_id, '' ) . ' ' .
+					(string) eco_event_get_field( 'city', $post_id, '' )
+				),
+				(string) eco_event_get_field( 'country', $post_id, '' ),
+			]
+		)
+	);
+
+	if ( empty( $parts ) ) {
+		return '';
+	}
+
+	return 'https://www.google.com/maps?q=' . rawurlencode( implode( ', ', $parts ) ) . '&output=embed';
+}
+
+function eco_event_get_section_heading( string $section, $post_id = null ): array {
+	$post_id = $post_id ?: get_the_ID();
+
+	$defaults = [
+		'intro' => [
+			'eyebrow' => '',
+			'title'   => __( 'About the event', 'eco-theme' ),
+		],
+		'partners' => [
+			'eyebrow' => __( 'Network', 'eco-theme' ),
+			'title'   => __( 'Partners', 'eco-theme' ),
+		],
+		'impressions' => [
+			'eyebrow' => '',
+			'title'   => __( 'Impressions', 'eco-theme' ),
+		],
+		'speakers' => [
+			'eyebrow' => __( 'People', 'eco-theme' ),
+			'title'   => __( 'Speakers', 'eco-theme' ),
+		],
+		'agenda' => [
+			'eyebrow' => __( 'Program', 'eco-theme' ),
+			'title'   => __( 'Agenda', 'eco-theme' ),
+		],
+		'location' => [
+			'eyebrow' => __( 'Place', 'eco-theme' ),
+			'title'   => __( 'Location', 'eco-theme' ),
+		],
+		'registration' => [
+			'eyebrow' => __( 'Participation', 'eco-theme' ),
+			'title'   => __( 'Registration', 'eco-theme' ),
+		],
+		'faq' => [
+			'eyebrow' => __( 'Questions', 'eco-theme' ),
+			'title'   => __( 'Frequently asked questions', 'eco-theme' ),
+		],
+		'contacts' => [
+			'eyebrow' => __( 'Contact', 'eco-theme' ),
+			'title'   => __( 'Your Contacts', 'eco-theme' ),
+		],
+		'series' => [
+			'eyebrow' => '',
+			'title'   => '',
+		],
+	];
+
+	$default = $defaults[ $section ] ?? [ 'eyebrow' => '', 'title' => '' ];
+
+	$eyebrow = trim( (string) eco_event_get_field( $section . '_section_eyebrow', $post_id, '' ) );
+	$title   = trim( (string) eco_event_get_field( $section . '_section_title', $post_id, '' ) );
+
+	if ( 'series' === $section ) {
+		$legacy_series_heading = trim( (string) eco_event_get_field( 'event_series_heading', $post_id, '' ) );
+
+		if ( '' === $title && '' !== $legacy_series_heading ) {
+			$title = $legacy_series_heading;
+		}
+	}
+
+	return [
+		'eyebrow' => '' !== $eyebrow ? $eyebrow : $default['eyebrow'],
+		'title'   => '' !== $title ? $title : $default['title'],
+	];
 }
 
 function eco_event_get_pretix_code( $post_id = null ): string {
@@ -633,6 +784,8 @@ function eco_event_get_partner_groups( $post_id = null ): array {
 	foreach ( $groups as $group ) {
 		$heading    = trim( (string) ( $group['heading'] ?? '' ) );
 		$color_type = trim( (string) ( $group['color_type'] ?? '' ) );
+		$logo_size  = trim( (string) ( $group['logo_size'] ?? 'normal' ) );
+		$logo_size  = in_array( $logo_size, [ 'large', 'normal', 'small' ], true ) ? $logo_size : 'normal';
 		$partners   = [];
 
 		$members = $group['members'] ?? [];
@@ -699,6 +852,7 @@ function eco_event_get_partner_groups( $post_id = null ): array {
 			'heading'    => $heading,
 			'color_type' => $color_type,
 			'color'      => eco_event_get_partner_tier_color( $color_type ),
+			'logo_size'  => $logo_size,
 			'partners'   => $partners,
 		];
 	}
