@@ -3,14 +3,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$post_id   = get_the_ID();
-$image     = eco_event_get_image_url( 'hero_image', $post_id, 'full' );
-$label     = eco_event_get_label( $post_id );
-$date_line = eco_event_get_date_line( $post_id );
-$location  = eco_event_get_location_line( $post_id );
-$teaser    = eco_event_get_field( 'teaser_text', $post_id, '' );
-$button    = eco_event_get_registration_button( $post_id );
-$is_past   = eco_event_is_past( $post_id );
+$post_id      = get_the_ID();
+$image        = eco_event_get_image_url( 'hero_image', $post_id, 'full' );
+$label        = eco_event_get_label( $post_id );
+$format       = eco_event_get_format( $post_id );
+$occurrences  = eco_event_get_occurrence_display_items( $post_id );
+$location     = eco_event_get_location_line( $post_id );
+$teaser       = eco_event_get_field( 'teaser_text', $post_id, '' );
+$button       = eco_event_get_registration_button( $post_id );
+$is_past      = eco_event_is_past( $post_id );
 $members_only = eco_event_is_members_only( $post_id );
 ?>
 
@@ -26,9 +27,10 @@ $members_only = eco_event_is_members_only( $post_id );
 		</a>
 
 		<div class="eco-event-hero__content">
-			<?php if ( $label || $members_only || $is_past ) : ?>
+			<?php if ( $label || $format || $members_only || $is_past ) : ?>
 				<div class="eco-event-eyebrow">
 					<?php if ( $label ) : ?><span class="eco-event-badge"><?php echo esc_html( $label ); ?></span><?php endif; ?>
+					<?php if ( $format ) : ?><span class="eco-event-badge eco-event-badge--format"><?php echo esc_html( $format ); ?></span><?php endif; ?>
 					<?php if ( $members_only ) : ?><span class="eco-event-badge eco-event-badge--members"><?php echo esc_html( eco_event_get_members_only_label() ); ?></span><?php endif; ?>
 					<?php if ( $is_past ) : ?><span class="eco-event-badge eco-event-badge--muted"><?php esc_html_e( 'Past Event', 'eco-theme' ); ?></span><?php endif; ?>
 				</div>
@@ -38,10 +40,25 @@ $members_only = eco_event_is_members_only( $post_id );
 
 			<?php if ( $teaser ) : ?><p class="eco-event-teaser"><?php echo esc_html( $teaser ); ?></p><?php endif; ?>
 
-			<div class="eco-event-meta eco-event-meta--hero">
-				<?php if ( $date_line ) : ?><span class="eco-icon eco-icon-calendar"><?php echo esc_html( $date_line ); ?></span><?php endif; ?>
-				<?php if ( $location ) : ?><span class="eco-icon eco-icon-map-pin"><?php echo esc_html( $location ); ?></span><?php endif; ?>
-			</div>
+			<?php if ( ! empty( $occurrences ) || $location ) : ?>
+				<div class="eco-event-meta eco-event-meta--hero">
+					<?php foreach ( $occurrences as $occurrence ) : ?>
+						<?php
+						$line = trim( $occurrence['date'] . ( $occurrence['time'] ? ', ' . $occurrence['time'] : '' ) );
+						?>
+						<?php if ( $line ) : ?>
+							<span class="eco-event-meta__occurrence eco-icon eco-icon-calendar">
+								<?php if ( $occurrence['label'] ) : ?><strong><?php echo esc_html( $occurrence['label'] ); ?>:</strong><?php endif; ?>
+								<?php echo esc_html( $line ); ?>
+							</span>
+						<?php endif; ?>
+					<?php endforeach; ?>
+
+					<?php if ( $location ) : ?>
+						<span class="eco-icon eco-icon-map-pin"><?php echo esc_html( $location ); ?></span>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
 
 			<div class="eco-event-hero__buttons">
 				<?php if ( $button ) : ?>
@@ -56,15 +73,15 @@ $members_only = eco_event_is_members_only( $post_id );
 <?php eco_event_render_elementor_content_at( 'after_hero', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'intro' ); ?>
 <?php eco_event_render_elementor_content_at( 'after_intro', $post_id ); ?>
+<?php get_template_part( 'template-parts/event/section', 'partners' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'gallery' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'people', [ 'type' => 'speakers' ] ); ?>
 <?php get_template_part( 'template-parts/event/section', 'agenda' ); ?>
 <?php eco_event_render_elementor_content_at( 'after_agenda', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'location' ); ?>
-<?php get_template_part( 'template-parts/event/section', 'faq' ); ?>
-<?php get_template_part( 'template-parts/event/section', 'partners' ); ?>
-<?php get_template_part( 'template-parts/event/section', 'people', [ 'type' => 'contacts' ] ); ?>
 <?php eco_event_render_elementor_content_at( 'before_registration', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'registration' ); ?>
 <?php eco_event_render_elementor_content_at( 'after_registration', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'series' ); ?>
+<?php get_template_part( 'template-parts/event/section', 'faq' ); ?>
+<?php get_template_part( 'template-parts/event/section', 'people', [ 'type' => 'contacts' ] ); ?>
