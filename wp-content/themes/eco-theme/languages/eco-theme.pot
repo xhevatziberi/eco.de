@@ -233,3 +233,83 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Batlab"
 msgstr ""
+
+#: event adjustments 2
+msgid "Event Labels"
+msgstr ""
+
+#: event adjustments 2
+msgid "Event Label"
+msgstr ""
+
+#: event adjustments 2
+msgid "All Event Labels"
+msgstr ""
+
+#: event adjustments 2
+msgid "Edit Event Label"
+msgstr ""
+
+#: event adjustments 2
+msgid "Update Event Label"
+msgstr ""
+
+#: event adjustments 2
+msgid "Add New Event Label"
+msgstr ""
+
+#: event adjustments 2
+msgid "New Event Label Name"
+msgstr ""
+
+#: event adjustments 2
+msgid "Search Event Labels"
+msgstr ""
+
+#: event adjustments 2
+msgid "Event Formats"
+msgstr ""
+
+#: event adjustments 2
+msgid "Event Format"
+msgstr ""
+
+#: event adjustments 2
+msgid "All Event Formats"
+msgstr ""
+
+#: event adjustments 2
+msgid "Edit Event Format"
+msgstr ""
+
+#: event adjustments 2
+msgid "Update Event Format"
+msgstr ""
+
+#: event adjustments 2
+msgid "Add New Event Format"
+msgstr ""
+
+#: event adjustments 2
+msgid "New Event Format Name"
+msgstr ""
+
+#: event adjustments 2
+msgid "Search Event Formats"
+msgstr ""
+
+#: event adjustments 2
+msgid "View Flickr album"
+msgstr ""
+
+#: event adjustments 2
+msgid "More"
+msgstr ""
+
+#: event adjustments 2
+msgid "Show less"
+msgstr ""
+
+#: event adjustments 2
+msgid "Google Map"
+msgstr ""
