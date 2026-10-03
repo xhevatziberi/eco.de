@@ -12,10 +12,15 @@ if ( empty( $events ) ) {
 
 $terms       = eco_event_get_series_terms( $post_id );
 $series_name = ! empty( $terms ) && $terms[0] instanceof WP_Term ? $terms[0]->name : '';
-$heading     = trim( (string) eco_event_get_field( 'event_series_heading', $post_id, '' ) );
-$heading     = $heading ?: $series_name;
+$heading     = eco_event_get_section_heading( 'series', $post_id );
+$title       = $heading['title'] ?: $series_name;
+$eyebrow     = $heading['eyebrow'];
 
-if ( ! $heading ) {
+if ( ! $eyebrow && $series_name && $title !== $series_name ) {
+	$eyebrow = $series_name;
+}
+
+if ( ! $title ) {
 	return;
 }
 ?>
@@ -23,18 +28,19 @@ if ( ! $heading ) {
 <section class="eco-event-section eco-event-series">
 	<div class="eco-event-container">
 		<div class="eco-event-section-head">
-			<?php if ( $series_name && $heading !== $series_name ) : ?>
-				<span><?php echo esc_html( $series_name ); ?></span>
+			<?php if ( $eyebrow ) : ?>
+				<span><?php echo esc_html( $eyebrow ); ?></span>
 			<?php endif; ?>
-			<h2><?php echo esc_html( $heading ); ?></h2>
+			<h2><?php echo esc_html( $title ); ?></h2>
 		</div>
 
 		<div class="eco-event-series__grid">
 			<?php foreach ( $events as $event_id ) : ?>
 				<?php
-				$title          = eco_event_get_title( $event_id );
+				$event_title    = eco_event_get_title( $event_id );
 				$image          = eco_event_get_image_url( 'card_image', $event_id, 'large' );
 				$label          = eco_event_get_label( $event_id );
+				$format         = eco_event_get_format( $event_id );
 				$date_line      = eco_event_get_date_line( $event_id );
 				$location       = eco_event_get_location_line( $event_id );
 				$is_past        = eco_event_is_past( $event_id );
@@ -50,15 +56,18 @@ if ( ! $heading ) {
 				>
 					<?php if ( $image ) : ?>
 						<div class="eco-event-series-card__media">
-							<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $title ); ?>" loading="lazy">
+							<img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $event_title ); ?>" loading="lazy">
 						</div>
 					<?php endif; ?>
 
 					<div class="eco-event-series-card__body">
-						<?php if ( $label || $members_only || $is_past ) : ?>
+						<?php if ( $label || $format || $members_only || $is_past ) : ?>
 							<div class="eco-event-series-card__badges">
 								<?php if ( $label ) : ?>
 									<span class="eco-event-series-card__badge"><?php echo esc_html( $label ); ?></span>
+								<?php endif; ?>
+								<?php if ( $format ) : ?>
+									<span class="eco-event-series-card__badge eco-event-series-card__badge--format"><?php echo esc_html( $format ); ?></span>
 								<?php endif; ?>
 								<?php if ( $members_only ) : ?>
 									<span class="eco-event-series-card__badge"><?php echo esc_html( eco_event_get_members_only_label() ); ?></span>
@@ -69,7 +78,7 @@ if ( ! $heading ) {
 							</div>
 						<?php endif; ?>
 
-						<h3 class="eco-event-series-card__title"><?php echo esc_html( $title ); ?></h3>
+						<h3 class="eco-event-series-card__title"><?php echo esc_html( $event_title ); ?></h3>
 
 						<?php if ( $date_line || $location ) : ?>
 							<div class="eco-event-series-card__meta">
