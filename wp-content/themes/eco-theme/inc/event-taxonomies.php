@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 function eco_register_event_display_taxonomies(): void {
 	$common = [
 		'object_type'        => [ 'event' ],
-		'public'             => false,
+		'public'             => true,
 		'publicly_queryable' => false,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
