@@ -238,3 +238,83 @@ msgstr ""
 #: event members-only badge
 msgid "Members Only"
 msgstr "Nur für Mitglieder"
+
+#: event adjustments 2
+msgid "Event Labels"
+msgstr "Event-Labels"
+
+#: event adjustments 2
+msgid "Event Label"
+msgstr "Event-Label"
+
+#: event adjustments 2
+msgid "All Event Labels"
+msgstr "Alle Event-Labels"
+
+#: event adjustments 2
+msgid "Edit Event Label"
+msgstr "Event-Label bearbeiten"
+
+#: event adjustments 2
+msgid "Update Event Label"
+msgstr "Event-Label aktualisieren"
+
+#: event adjustments 2
+msgid "Add New Event Label"
+msgstr "Neues Event-Label hinzufügen"
+
+#: event adjustments 2
+msgid "New Event Label Name"
+msgstr "Name des neuen Event-Labels"
+
+#: event adjustments 2
+msgid "Search Event Labels"
+msgstr "Event-Labels suchen"
+
+#: event adjustments 2
+msgid "Event Formats"
+msgstr "Event-Formate"
+
+#: event adjustments 2
+msgid "Event Format"
+msgstr "Event-Format"
+
+#: event adjustments 2
+msgid "All Event Formats"
+msgstr "Alle Event-Formate"
+
+#: event adjustments 2
+msgid "Edit Event Format"
+msgstr "Event-Format bearbeiten"
+
+#: event adjustments 2
+msgid "Update Event Format"
+msgstr "Event-Format aktualisieren"
+
+#: event adjustments 2
+msgid "Add New Event Format"
+msgstr "Neues Event-Format hinzufügen"
+
+#: event adjustments 2
+msgid "New Event Format Name"
+msgstr "Name des neuen Event-Formats"
+
+#: event adjustments 2
+msgid "Search Event Formats"
+msgstr "Event-Formate suchen"
+
+#: event adjustments 2
+msgid "View Flickr album"
+msgstr "Flickr-Album ansehen"
+
+#: event adjustments 2
+msgid "More"
+msgstr "Mehr anzeigen"
+
+#: event adjustments 2
+msgid "Show less"
+msgstr "Weniger anzeigen"
+
+#: event adjustments 2
+msgid "Google Map"
+msgstr "Google Maps"
