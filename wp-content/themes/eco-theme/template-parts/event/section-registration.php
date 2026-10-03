@@ -10,7 +10,8 @@ $pretix    = eco_event_get_pretix_shortcode( $post_id );
 $price     = eco_event_get_field( 'price_info', $post_id, '' );
 $max       = eco_event_get_field( 'max_participants', $post_id, '' );
 $is_past   = eco_event_is_past( $post_id );
-$show_area = ! $is_past && ( $intro || $price || $max || ( $type === 'pretix' && $pretix ) );
+$heading   = eco_event_get_section_heading( 'registration', $post_id );
+$show_area = ! $is_past && ( $intro || $price || $max || ( 'pretix' === $type && $pretix ) );
 
 if ( ! $show_area ) {
 	return;
@@ -21,8 +22,12 @@ if ( ! $show_area ) {
 	<div class="eco-event-container">
 		<div class="eco-event-registration__box">
 			<div class="eco-event-section-head">
-				<span><?php esc_html_e( 'Participation', 'eco-theme' ); ?></span>
-				<h2><?php esc_html_e( 'Registration', 'eco-theme' ); ?></h2>
+				<?php if ( $heading['eyebrow'] ) : ?>
+					<span><?php echo esc_html( $heading['eyebrow'] ); ?></span>
+				<?php endif; ?>
+				<?php if ( $heading['title'] ) : ?>
+					<h2><?php echo esc_html( $heading['title'] ); ?></h2>
+				<?php endif; ?>
 			</div>
 
 			<?php if ( $intro ) : ?>
@@ -36,7 +41,7 @@ if ( ! $show_area ) {
 				</div>
 			<?php endif; ?>
 
-			<?php if ( $type === 'pretix' && $pretix ) : ?>
+			<?php if ( 'pretix' === $type && $pretix ) : ?>
 				<div class="eco-event-pretix">
 					<?php echo do_shortcode( $pretix ); ?>
 				</div>
