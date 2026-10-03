@@ -567,7 +567,7 @@ class ContentCardsAjax {
 			$image_url   = self::get_image_url( $post_id, $post_type );
 			$link        = self::get_card_link( $post_id, $post_type );
 			$badge        = self::get_badge_label( $post_id, $post_type, $settings );
-			$format       = self::get_event_format_label( $post_id, $post_type );
+			$format       = ( $settings['badge_source'] ?? 'auto' ) === 'hide' ? '' : self::get_event_format_label( $post_id, $post_type );
 			$members_only = self::is_event_members_only( $post_id, $post_type );
 			$category    = self::get_category_labels( $post_id, $post_type );
 			$date        = self::get_date_label( $post_id, $post_type );
