@@ -3,7 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$faq = eco_event_get_field( 'faq', get_the_ID(), [] );
+$post_id = get_the_ID();
+$faq     = eco_event_get_field( 'faq', $post_id, [] );
+$heading = eco_event_get_section_heading( 'faq', $post_id );
 
 if ( empty( $faq ) || ! is_array( $faq ) ) {
 	return;
@@ -13,8 +15,12 @@ if ( empty( $faq ) || ! is_array( $faq ) ) {
 <section class="eco-event-section eco-event-faq">
 	<div class="eco-event-container">
 		<div class="eco-event-section-head">
-			<span><?php esc_html_e( 'Questions', 'eco-theme' ); ?></span>
-			<h2><?php esc_html_e( 'Frequently asked questions', 'eco-theme' ); ?></h2>
+			<?php if ( $heading['eyebrow'] ) : ?>
+				<span><?php echo esc_html( $heading['eyebrow'] ); ?></span>
+			<?php endif; ?>
+			<?php if ( $heading['title'] ) : ?>
+				<h2><?php echo esc_html( $heading['title'] ); ?></h2>
+			<?php endif; ?>
 		</div>
 
 		<div class="eco-event-faq__list">
