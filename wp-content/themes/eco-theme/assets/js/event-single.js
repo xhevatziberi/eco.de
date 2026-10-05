@@ -27,7 +27,29 @@
 		});
 	}
 
+	function initSpeakerToggle(root) {
+		var button = root.querySelector('[data-eco-speakers-toggle]');
+		if (!button) return;
+
+		var extraSpeakers = root.querySelectorAll('.eco-event-person--extra');
+		if (!extraSpeakers.length) return;
+
+		button.addEventListener('click', function () {
+			var willExpand = button.getAttribute('aria-expanded') !== 'true';
+
+			extraSpeakers.forEach(function (speaker) {
+				speaker.hidden = !willExpand;
+			});
+
+			button.setAttribute('aria-expanded', willExpand ? 'true' : 'false');
+			button.textContent = willExpand
+				? button.getAttribute('data-less-label')
+				: button.getAttribute('data-more-label');
+		});
+	}
+
 	document.addEventListener('DOMContentLoaded', function () {
 		document.querySelectorAll('.eco-event-agenda').forEach(initAgendaTabs);
+		document.querySelectorAll('.eco-event-people--speakers').forEach(initSpeakerToggle);
 	});
 })();

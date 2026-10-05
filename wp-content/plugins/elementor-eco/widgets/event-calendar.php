@@ -64,7 +64,7 @@ class EventCalendar extends Widget_Base {
 				'options' => [
 					'all'           => __( 'All Events', 'elementor-eco' ),
 					'eco-event'     => __( 'eco Events', 'elementor-eco' ),
-					'partner-event' => __( 'Partner Events', 'elementor-eco' ),
+					'partner-event' => __( 'Partnerevents', 'elementor-eco' ),
 					'past'          => __( 'Past Events', 'elementor-eco' ),
 				],
 			]
@@ -159,7 +159,7 @@ class EventCalendar extends Widget_Base {
 		$this->add_control( 'filter_placeholder', [ 'label' => __( 'Filter Placeholder', 'elementor-eco' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Filter', 'elementor-eco' ) ] );
 		$this->add_control( 'filter_all_label', [ 'label' => __( 'All Events Label', 'elementor-eco' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Alle Veranstaltungen', 'elementor-eco' ) ] );
 		$this->add_control( 'filter_eco_label', [ 'label' => __( 'eco Events Label', 'elementor-eco' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'eco Events', 'elementor-eco' ) ] );
-		$this->add_control( 'filter_partner_label', [ 'label' => __( 'Partner Events Label', 'elementor-eco' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Partner Events', 'elementor-eco' ) ] );
+		$this->add_control( 'filter_partner_label', [ 'label' => __( 'Partnerevents Label', 'elementor-eco' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Partnerevents', 'elementor-eco' ) ] );
 		$this->add_control( 'filter_past_label', [ 'label' => __( 'Past Events Label', 'elementor-eco' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Vergangene Veranstaltungen', 'elementor-eco' ) ] );
 		$this->add_control( 'load_more_label', [ 'label' => __( 'Load More Label', 'elementor-eco' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Weitere Veranstaltungen laden', 'elementor-eco' ) ] );
 		$this->add_control( 'empty_title', [ 'label' => __( 'Empty Title', 'elementor-eco' ), 'type' => Controls_Manager::TEXT, 'default' => __( 'Keine Veranstaltungen gefunden', 'elementor-eco' ) ] );
@@ -325,7 +325,7 @@ class EventCalendar extends Widget_Base {
 							<option value="" disabled selected><?php echo esc_html( $settings['filter_placeholder'] ?? __( 'Filter', 'elementor-eco' ) ); ?></option>
 							<option value="all" <?php selected( $source, 'all' ); ?>><?php echo esc_html( $settings['filter_all_label'] ?? __( 'Alle Veranstaltungen', 'elementor-eco' ) ); ?></option>
 							<option value="eco-event" <?php selected( $source, 'eco-event' ); ?>><?php echo esc_html( $settings['filter_eco_label'] ?? __( 'eco Events', 'elementor-eco' ) ); ?></option>
-							<option value="partner-event" <?php selected( $source, 'partner-event' ); ?>><?php echo esc_html( $settings['filter_partner_label'] ?? __( 'Partner Events', 'elementor-eco' ) ); ?></option>
+							<option value="partner-event" <?php selected( $source, 'partner-event' ); ?>><?php echo esc_html( $settings['filter_partner_label'] ?? __( 'Partnerevents', 'elementor-eco' ) ); ?></option>
 							<option value="past" <?php selected( $source, 'past' ); ?>><?php echo esc_html( $settings['filter_past_label'] ?? __( 'Vergangene Veranstaltungen', 'elementor-eco' ) ); ?></option>
 						</select>
 					</div>

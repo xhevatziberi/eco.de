@@ -465,6 +465,7 @@ class EventCalendarAjax {
 		$excerpt     = $excerpt ? $excerpt : get_the_excerpt( $post_id );
 		$category    = self::get_term_names( $post_id, 'event-category' );
 		$label       = self::get_event_label( $post_id );
+		$format      = self::get_event_format( $post_id );
 		$image_url   = self::get_event_card_image_url( $post_id );
 		$location    = self::get_event_location_label( $post_id );
 		$date_label  = self::format_event_date( $occurrence['start_date'] ?? '' );
@@ -485,10 +486,13 @@ class EventCalendarAjax {
 					<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" loading="lazy">
 				<?php endif; ?>
 
-				<?php if ( $label || $members_only ) : ?>
+				<?php if ( $label || $format || $members_only ) : ?>
 					<div class="eco-event-calendar-card__badges" style="<?php echo esc_attr( $badge_style ); ?>">
 						<?php if ( $label ) : ?>
 							<span class="eco-event-calendar-card__badge"><?php echo esc_html( $label ); ?></span>
+						<?php endif; ?>
+						<?php if ( $format ) : ?>
+							<span class="eco-event-calendar-card__badge eco-event-calendar-card__badge--format"><?php echo esc_html( $format ); ?></span>
 						<?php endif; ?>
 						<?php if ( $members_only ) : ?>
 							<span class="eco-event-calendar-card__badge eco-event-calendar-card__badge--members"><?php esc_html_e( 'Members Only', 'elementor-eco' ); ?></span>
@@ -568,19 +572,11 @@ class EventCalendarAjax {
 	}
 
 	public static function get_event_label( $post_id ) {
-		$label = get_post_meta( $post_id, 'event_label', true );
-		$map = [
-			'event'         => __( 'Event', 'elementor-eco' ),
-			'eco_event'     => __( 'eco Event', 'elementor-eco' ),
-			'partner_event' => __( 'Partner Event', 'elementor-eco' ),
-			'webinar'       => __( 'Webinar', 'elementor-eco' ),
-			'workshop'      => __( 'Workshop', 'elementor-eco' ),
-			'conference'    => __( 'Conference', 'elementor-eco' ),
-			'highlight'     => __( 'Highlight', 'elementor-eco' ),
-			'training'      => __( 'Training', 'elementor-eco' ),
-			'award'         => __( 'Award', 'elementor-eco' ),
-		];
-		return $map[ $label ] ?? ( $label ? ucwords( str_replace( [ '_', '-' ], ' ', $label ) ) : __( 'Event', 'elementor-eco' ) );
+		return self::get_primary_term_name( $post_id, 'event-label' );
+	}
+
+	public static function get_event_format( $post_id ) {
+		return self::get_primary_term_name( $post_id, 'event-format' );
 	}
 
 	public static function get_event_location_label( $post_id ) {

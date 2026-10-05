@@ -2326,3 +2326,11 @@ msgstr "https://eco.de/"
 #: event members-only badge
 msgid "Members Only"
 msgstr "Nur für Mitglieder"
+
+#: widgets/event-calendar.php
+msgid "Partnerevents"
+msgstr "Partnerevents"
+
+#: widgets/event-calendar.php
+msgid "Partnerevents Label"
+msgstr "Partnerevents-Label"

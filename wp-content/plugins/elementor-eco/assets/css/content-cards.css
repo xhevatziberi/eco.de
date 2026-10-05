@@ -124,6 +124,16 @@
 	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
+.eco-content-card__badge--format {
+	background: #fff !important;
+	color: #8aa000;
+	box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.eco-content-card--overlay .eco-content-card__badge--format {
+	background: rgba(255, 255, 255, 0.92) !important;
+}
+
 .eco-content-card__badge--inline {
 	position: static;
 	align-self: flex-start;

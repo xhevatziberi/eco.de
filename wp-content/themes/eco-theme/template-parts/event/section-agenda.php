@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $post_id      = get_the_ID();
+$heading      = eco_event_get_section_heading( 'agenda', $post_id );
 $agenda_days  = eco_event_get_field( 'agenda_days', $post_id, [] );
 $legacy_items = eco_event_get_field( 'agenda', $post_id, [] );
 
@@ -41,8 +42,12 @@ if ( empty( $valid_days ) ) {
 	<div class="eco-event-container eco-event-agenda__container">
 		<div class="eco-event-section-head eco-event-section-head--row">
 			<div>
-				<span><?php esc_html_e( 'Program', 'eco-theme' ); ?></span>
-				<h2><?php esc_html_e( 'Agenda', 'eco-theme' ); ?></h2>
+				<?php if ( $heading['eyebrow'] ) : ?>
+					<span><?php echo esc_html( $heading['eyebrow'] ); ?></span>
+				<?php endif; ?>
+				<?php if ( $heading['title'] ) : ?>
+					<h2><?php echo esc_html( $heading['title'] ); ?></h2>
+				<?php endif; ?>
 			</div>
 			<a class="eco-event-ical-link eco-icon eco-icon-calendar-check" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'Download iCal', 'eco-theme' ); ?></a>
 		</div>
@@ -107,7 +112,13 @@ if ( empty( $valid_days ) ) {
 								<?php if ( ! empty( $speakers ) || $location ) : ?>
 									<div class="eco-event-agenda-meta">
 										<?php foreach ( $speakers as $speaker_id ) : ?>
-											<span class="eco-icon eco-icon-user"><?php echo esc_html( get_the_title( $speaker_id ) ); ?></span>
+											<?php $speaker_image = get_the_post_thumbnail_url( $speaker_id, 'thumbnail' ); ?>
+											<span class="eco-event-agenda-speaker">
+												<?php if ( $speaker_image ) : ?>
+													<img src="<?php echo esc_url( $speaker_image ); ?>" alt="" loading="lazy">
+												<?php endif; ?>
+												<span><?php echo esc_html( get_the_title( $speaker_id ) ); ?></span>
+											</span>
 										<?php endforeach; ?>
 										<?php if ( $location ) : ?>
 											<span class="eco-icon eco-icon-map-pin"><?php echo esc_html( $location ); ?></span>

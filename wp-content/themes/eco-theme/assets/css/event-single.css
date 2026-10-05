@@ -248,6 +248,12 @@
 	color: inherit;
 }
 
+.eco-event-single .eco-event-badge--format {
+	background: transparent;
+	color: inherit;
+	box-shadow: inset 0 0 0 1px currentColor;
+}
+
 .eco-event-single .eco-event-title {
 	margin: 0;
 	color: var(--eco-event-dark);
@@ -308,6 +314,23 @@
 	color: var(--eco-event-text);
 	font-size: 16px;
 	font-weight: 750;
+}
+
+.eco-event-single .eco-event-info-box__occurrence {
+	display: grid;
+	gap: 8px;
+	padding-top: 14px;
+	border-top: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+.eco-event-single .eco-event-info-box__occurrence-label {
+	color: var(--eco-event-dark);
+	font-size: 13px;
+	font-weight: 850;
+}
+
+.eco-event-single .eco-event-meta__occurrence strong {
+	margin-right: 2px;
 }
 
 .eco-event-single .eco-event-hero__buttons {
@@ -386,6 +409,25 @@
 	align-items: start;
 }
 
+.eco-event-single .eco-event-two-col--single {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.eco-event-single .eco-event-two-col--single .eco-event-intro__text {
+	max-width: none;
+}
+
+.eco-event-single .eco-event-section-head--intro {
+	margin-bottom: 16px;
+}
+
+.eco-event-single .eco-event-section-head--intro .eco-event-intro__title {
+	margin-bottom: 0;
+	font-size: 20px;
+	line-height: 1.35;
+	letter-spacing: 0;
+}
+
 .eco-event-single .eco-event-intro__text { max-width: 700px; }
 
 .eco-event-single .eco-event-benefits,
@@ -453,6 +495,11 @@
 }
 
 .eco-event-single .eco-event-gallery img:first-child { grid-row: span 2; }
+
+.eco-event-single .eco-event-gallery__actions {
+	display: flex;
+	margin-top: 24px;
+}
 
 /* Agenda */
 .eco-event-single .eco-event-agenda { background: var(--eco-event-gray-soft); }
@@ -557,6 +604,21 @@
 	font-weight: 750;
 }
 
+.eco-event-single .eco-event-agenda-meta .eco-event-agenda-speaker {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 5px 10px 5px 5px;
+}
+
+.eco-event-single .eco-event-agenda-speaker img {
+	flex: 0 0 auto;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
 /* People */
 .eco-event-single .eco-event-people--speakers { background: #fff; }
 
@@ -583,6 +645,10 @@
 	border-radius: 10px;
 	background: #fff;
 	box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+}
+
+.eco-event-single .eco-event-person[hidden] {
+	display: none !important;
 }
 
 .eco-event-single .eco-event-person--speaker { display: block; }
@@ -645,6 +711,31 @@
 	text-decoration: none;
 }
 
+.eco-event-single .eco-event-people__toggle-wrap {
+	display: flex;
+	justify-content: center;
+	margin-top: 28px;
+}
+
+.eco-event-single .eco-event-people__toggle {
+	appearance: none;
+	padding: 11px 20px;
+	border: 1px solid var(--eco-event-accent);
+	border-radius: 999px;
+	background: transparent;
+	color: var(--eco-event-dark);
+	cursor: pointer;
+	font: inherit;
+	font-size: 14px;
+	font-weight: 800;
+}
+
+.eco-event-single .eco-event-people__toggle:hover,
+.eco-event-single .eco-event-people__toggle:focus-visible {
+	background: var(--eco-event-accent);
+	color: var(--eco-event-accent-contrast);
+}
+
 /* Location */
 .eco-event-single .eco-event-location { background: #fff; }
 
@@ -659,6 +750,28 @@
 	width: 100%;
 	aspect-ratio: 4 / 3;
 	object-fit: cover;
+}
+
+.eco-event-single .eco-event-location__grid--columns-1 {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.eco-event-single .eco-event-location__grid--columns-3 {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 28px;
+}
+
+.eco-event-single .eco-event-location__map {
+	overflow: hidden;
+	border-radius: 12px;
+	background: var(--eco-event-soft);
+}
+
+.eco-event-single .eco-event-location__map iframe {
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	border: 0;
 }
 
 .eco-event-single .eco-event-location__box { background: var(--eco-event-soft); }
@@ -743,6 +856,22 @@
 	display: grid;
 	grid-template-columns: repeat(6, minmax(0, 1fr));
 	gap: 14px;
+}
+
+.eco-event-single .eco-event-partner-group--large .eco-event-logo-grid {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.eco-event-single .eco-event-partner-group--small .eco-event-logo-grid {
+	grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.eco-event-single .eco-event-partner-group--large .eco-event-logo {
+	padding: 28px;
+}
+
+.eco-event-single .eco-event-partner-group--small .eco-event-logo {
+	padding: 14px;
 }
 
 .eco-event-single .eco-event-logo {
@@ -885,6 +1014,12 @@
 	color: var(--eco-event-muted);
 }
 
+.eco-event-single .eco-event-series-card__badge--format {
+	background: transparent;
+	color: var(--eco-event-series-accent);
+	box-shadow: inset 0 0 0 1px var(--eco-event-series-accent);
+}
+
 .eco-event-single .eco-event-series-card__title {
 	margin: 0;
 	color: var(--eco-event-dark);
@@ -957,6 +1092,22 @@
 	.eco-event-single .eco-event-logo-grid {
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
+
+	.eco-event-single .eco-event-partner-group--large .eco-event-logo-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.eco-event-single .eco-event-partner-group--small .eco-event-logo-grid {
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+	}
+
+	.eco-event-single .eco-event-location__grid--columns-3 {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.eco-event-single .eco-event-section-head--intro .eco-event-intro__title {
+		font-size: 15px;
+	}
 	.eco-event-single .eco-event-series__grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
@@ -989,6 +1140,11 @@
 	.eco-event-single .eco-event-richtext h2,
 	.eco-event-single .eco-event-simple-title {
 		font-size: clamp(26px, 8vw, 34px);
+	}
+
+	.eco-event-single .eco-event-section-head--intro .eco-event-intro__title {
+		font-size: 14px;
+		line-height: 1.4;
 	}
 
 	.eco-event-single .eco-event-hero--big,
@@ -1040,6 +1196,11 @@
 	.eco-event-single .eco-event-logo-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 10px;
+	}
+
+	.eco-event-single .eco-event-partner-group--large .eco-event-logo-grid,
+	.eco-event-single .eco-event-partner-group--small .eco-event-logo-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 	.eco-event-single .eco-event-series__grid {
 		grid-template-columns: 1fr;

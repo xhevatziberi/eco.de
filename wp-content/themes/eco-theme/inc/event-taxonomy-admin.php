@@ -2,8 +2,8 @@
 /**
  * Event taxonomy admin UI.
  *
- * Event Source and Event Series are edited through SCF fields in the
- * Event Options panel. Hide the duplicate native WordPress taxonomy
+ * Event Source, Event Series, Event Label and Event Format are edited through
+ * SCF fields in the Event Options panel. Hide the duplicate native WordPress taxonomy
  * controls so editors do not have two competing inputs for the same terms.
  *
  * Quick Edit and the taxonomy management screens remain available.
@@ -19,6 +19,10 @@ defined( 'ABSPATH' ) || exit;
 function eco_hide_duplicate_event_taxonomy_meta_boxes(): void {
 	remove_meta_box( 'event-sourcediv', 'event', 'side' );
 	remove_meta_box( 'event-seriesdiv', 'event', 'side' );
+	remove_meta_box( 'event-labeldiv', 'event', 'side' );
+	remove_meta_box( 'tagsdiv-event-label', 'event', 'side' );
+	remove_meta_box( 'event-formatdiv', 'event', 'side' );
+	remove_meta_box( 'tagsdiv-event-format', 'event', 'side' );
 }
 add_action(
 	'add_meta_boxes_event',
@@ -53,6 +57,8 @@ wp.domReady(function () {
 
 	editPostStore.removeEditorPanel('taxonomy-panel-event-source');
 	editPostStore.removeEditorPanel('taxonomy-panel-event-series');
+	editPostStore.removeEditorPanel('taxonomy-panel-event-label');
+	editPostStore.removeEditorPanel('taxonomy-panel-event-format');
 });
 JS;
 
