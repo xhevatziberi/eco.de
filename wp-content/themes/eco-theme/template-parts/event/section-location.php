@@ -3,22 +3,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$post_id      = get_the_ID();
-$mode         = eco_event_get_field( 'event_mode', $post_id, 'onsite' );
-$name         = eco_event_get_field( 'location_name', $post_id, '' );
-$street       = eco_event_get_field( 'street', $post_id, '' );
-$zip          = eco_event_get_field( 'zip_plz', $post_id, '' );
-$city         = eco_event_get_field( 'city', $post_id, '' );
-$country      = eco_event_get_field( 'country', $post_id, '' );
-$maps_url     = eco_event_get_field( 'maps_url', $post_id, '' );
-$image        = eco_event_get_image_url( 'location_image', $post_id, 'large' );
-$description  = eco_event_get_field( 'location_description', $post_id, '' );
-$platform     = eco_event_get_field( 'online_platform', $post_id, '' );
-$online_url   = eco_event_get_field( 'online_url', $post_id, '' );
-$show_map     = eco_event_get_boolean_field( 'show_google_map', $post_id, false );
-$map_embed    = $show_map && in_array( $mode, [ 'onsite', 'hybrid' ], true ) ? eco_event_get_google_maps_embed_url( $post_id ) : '';
-$heading      = eco_event_get_section_heading( 'location', $post_id );
-$has_location = $name || $street || $zip || $city || $country || $platform || $description || $image || $map_embed;
+$post_id     = get_the_ID();
+$mode        = eco_event_get_field( 'event_mode', $post_id, 'onsite' );
+$name        = eco_event_get_field( 'location_name', $post_id, '' );
+$street      = eco_event_get_field( 'street', $post_id, '' );
+$zip         = eco_event_get_field( 'zip_plz', $post_id, '' );
+$city        = eco_event_get_field( 'city', $post_id, '' );
+$country     = eco_event_get_field( 'country', $post_id, '' );
+$maps_url    = eco_event_get_field( 'maps_url', $post_id, '' );
+$image       = eco_event_get_image_url( 'location_image', $post_id, 'large' );
+$description = eco_event_get_field( 'location_description', $post_id, '' );
+$show_map    = eco_event_get_boolean_field( 'show_google_map', $post_id, false );
+$heading     = eco_event_get_section_heading( 'location', $post_id );
+
+// The Location section is only for a physical venue.
+// Online participation is communicated by Event Mode / Event Format elsewhere.
+if ( 'online' === $mode ) {
+	return;
+}
+
+$has_physical_venue = $name || $street || $zip || $city;
+
+// Hybrid events only get this section when they also have a real on-site venue.
+if ( 'hybrid' === $mode && ! $has_physical_venue ) {
+	return;
+}
+
+$map_embed = $show_map && $has_physical_venue ? eco_event_get_google_maps_embed_url( $post_id ) : '';
+
+// Do not let the default Country field alone create an otherwise empty Location section.
+$has_location = $has_physical_venue || $description || $image || $map_embed;
 
 if ( ! $has_location ) {
 	return;
@@ -41,17 +55,7 @@ $grid_columns  = 1 + $media_columns;
 			</div>
 
 			<div class="eco-event-location__box">
-				<?php if ( in_array( $mode, [ 'online', 'hybrid' ], true ) ) : ?>
-					<h3><?php echo esc_html( 'hybrid' === $mode ? __( 'Online Participation', 'eco-theme' ) : __( 'Online Event', 'eco-theme' ) ); ?></h3>
-					<?php if ( $platform ) : ?>
-						<p><?php echo esc_html( $platform ); ?></p>
-					<?php endif; ?>
-					<?php if ( $online_url ) : ?>
-						<a href="<?php echo esc_url( $online_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Open online link', 'eco-theme' ); ?></a>
-					<?php endif; ?>
-				<?php endif; ?>
-
-				<?php if ( in_array( $mode, [ 'onsite', 'hybrid' ], true ) && ( $name || $city || $street || $zip ) ) : ?>
+				<?php if ( $has_physical_venue ) : ?>
 					<?php if ( $name || $city ) : ?>
 						<h3><?php echo esc_html( $name ?: $city ); ?></h3>
 					<?php endif; ?>
