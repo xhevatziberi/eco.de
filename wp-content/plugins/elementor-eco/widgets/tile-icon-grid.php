@@ -457,7 +457,7 @@ class TileIconGrid extends Widget_Base {
 				?>
 				<article class="eco-tile-icon-card<?php echo $tile_page_disabled ? ' eco-tile-icon-card--disabled' : ''; ?>">
 					<<?php echo esc_html( $tag ); ?> class="eco-tile-icon-card__link"<?php echo ! $tile_page_disabled ? ' href="' . esc_url( $link ) . '"' : ''; ?>>
-						<?php if ( ! empty( $icon ) ) : ?>
+						<?php if ( ! empty( $icon['value'] ) ) : ?>
 							<div class="eco-tile-icon-card__icon">
 								<?php echo $this->render_icon( $icon ); ?>
 							</div>
