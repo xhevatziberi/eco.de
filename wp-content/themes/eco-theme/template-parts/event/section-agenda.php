@@ -38,7 +38,7 @@ if ( empty( $valid_days ) ) {
 }
 ?>
 
-<section class="eco-event-section eco-event-agenda">
+<section id="agenda" class="eco-event-section eco-event-agenda">
 	<div class="eco-event-container eco-event-agenda__container">
 		<div class="eco-event-section-head eco-event-section-head--row">
 			<div>
