@@ -1394,11 +1394,14 @@ class ContentCards extends Widget_Base {
 		}
 
 		if ( $post_type === 'event' ) {
-			$teaser = self::get_field_value( 'teaser_short_description', $post_id );
+			$teaser = self::get_field_value( 'teaser_text', $post_id );
 
 			if ( ! empty( $teaser ) && is_string( $teaser ) ) {
 				return wp_trim_words( wp_strip_all_tags( $teaser ), $length );
 			}
+
+			// Event cards must not fall back to Elementor/post content.
+			return '';
 		}
 
 		$excerpt = get_the_excerpt( $post_id );
