@@ -32,6 +32,15 @@ function eco_child_scripts_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'eco_child_scripts_styles', 20 );
 
+
+function eco_allow_svg_uploads( $mimes, $user ) {
+    if ( $user && user_can( $user, 'manage_options' ) ) {
+        $mimes['svg'] = 'image/svg+xml';
+    }
+    return $mimes;
+}
+add_filter( 'upload_mimes', 'eco_allow_svg_uploads', 10, 2 );
+
 require_once get_stylesheet_directory() . '/inc/fonts.php';
 include_once( get_stylesheet_directory() . '/inc/hide-internal-elementor-templates.php' );
 require_once get_stylesheet_directory() . '/inc/admin-post-featured-image-column.php';
