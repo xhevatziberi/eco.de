@@ -593,6 +593,40 @@ function eco_event_get_registration_button( $post_id = null ): array {
 	return [];
 }
 
+function eco_event_has_agenda( $post_id = null ): bool {
+	$post_id = $post_id ?: get_the_ID();
+
+	$agenda_days = eco_event_get_field( 'agenda_days', $post_id, [] );
+
+	if ( is_array( $agenda_days ) ) {
+		foreach ( $agenda_days as $day ) {
+			$items = $day['agenda_items'] ?? [];
+
+			if ( ! is_array( $items ) ) {
+				continue;
+			}
+
+			foreach ( $items as $item ) {
+				if ( ! empty( trim( (string) ( $item['title'] ?? '' ) ) ) ) {
+					return true;
+				}
+			}
+		}
+	}
+
+	$legacy_items = eco_event_get_field( 'agenda', $post_id, [] );
+
+	if ( is_array( $legacy_items ) ) {
+		foreach ( $legacy_items as $item ) {
+			if ( ! empty( trim( (string) ( $item['title'] ?? '' ) ) ) ) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 function eco_event_the_content_area() {
 	$content = trim( get_the_content() );
 
