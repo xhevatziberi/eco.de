@@ -13,6 +13,7 @@ $teaser       = eco_event_get_field( 'teaser_text', $post_id, '' );
 $button       = eco_event_get_registration_button( $post_id );
 $is_past      = eco_event_is_past( $post_id );
 $members_only = eco_event_is_members_only( $post_id );
+$has_agenda    = eco_event_has_agenda( $post_id );
 ?>
 
 <section class="eco-event-hero eco-event-hero--small">
@@ -86,6 +87,9 @@ $members_only = eco_event_is_members_only( $post_id );
 				<?php if ( $button ) : ?>
 					<a class="eco-event-button eco-event-button--wide eco-icon eco-icon-arrow-right" href="<?php echo esc_url( $button['url'] ); ?>" <?php echo ! empty( $button['target'] ) ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $button['label'] ); ?></a>
 				<?php endif; ?>
+				<?php if ( $has_agenda ) : ?>
+					<a class="eco-event-button eco-event-button--wide eco-event-button--ghost" href="#agenda"><?php esc_html_e( 'Agenda', 'eco-theme' ); ?></a>
+				<?php endif; ?>
 				<a class="eco-event-button eco-event-button--wide eco-icon eco-icon-calendar-check" href="<?php echo esc_url( eco_event_get_ical_url( $post_id ) ); ?>"><?php esc_html_e( 'iCal', 'eco-theme' ); ?></a>
 			</div>
 		</div>
@@ -95,11 +99,11 @@ $members_only = eco_event_is_members_only( $post_id );
 <?php eco_event_render_elementor_content_at( 'after_hero', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'intro' ); ?>
 <?php eco_event_render_elementor_content_at( 'after_intro', $post_id ); ?>
-<?php get_template_part( 'template-parts/event/section', 'partners' ); ?>
-<?php get_template_part( 'template-parts/event/section', 'gallery' ); ?>
-<?php get_template_part( 'template-parts/event/section', 'people', [ 'type' => 'speakers' ] ); ?>
 <?php get_template_part( 'template-parts/event/section', 'agenda' ); ?>
 <?php eco_event_render_elementor_content_at( 'after_agenda', $post_id ); ?>
+<?php get_template_part( 'template-parts/event/section', 'people', [ 'type' => 'speakers' ] ); ?>
+<?php get_template_part( 'template-parts/event/section', 'partners' ); ?>
+<?php get_template_part( 'template-parts/event/section', 'gallery' ); ?>
 <?php get_template_part( 'template-parts/event/section', 'location' ); ?>
 <?php eco_event_render_elementor_content_at( 'before_registration', $post_id ); ?>
 <?php get_template_part( 'template-parts/event/section', 'registration' ); ?>
