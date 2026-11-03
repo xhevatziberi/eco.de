@@ -1,38 +1,95 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const buttons = document.querySelectorAll('.eco-podcast-play');
-	let currentAudio = null;
-	let currentButton = null;
+	document.querySelectorAll('.eco-podcast-rss').forEach(root => {
+		const buttons = root.querySelectorAll('.eco-podcast-play');
 
-	buttons.forEach(button => {
-		button.addEventListener('click', () => {
-			const audioSrc = button.dataset.audio;
+		if (!buttons.length) {
+			return;
+		}
 
-			// Pause and reset previously playing audio
-			if (currentAudio && currentAudio !== button.audioElement) {
-				currentAudio.pause();
-				currentAudio.currentTime = 0;
-				currentButton.innerHTML = '<i class="fas fa-play"></i>';
+		// Keep one reusable Audio instance per RSS widget.
+		// This avoids leaving multiple MP3 range requests open when switching episodes.
+		const audio = new Audio();
+		audio.preload = 'none';
+
+		let currentButton = null;
+		let currentSrc = '';
+
+		const setButtonState = (button, state) => {
+			if (!button) {
+				return;
 			}
 
-			if (!button.audioElement) {
-				const audio = new Audio(audioSrc);
-				button.audioElement = audio;
+			button.innerHTML = state === 'pause'
+				? '<i class="fas fa-pause"></i>'
+				: '<i class="fas fa-play"></i>';
+		};
 
-				audio.addEventListener('ended', () => {
-					button.innerHTML = '<i class="fas fa-play"></i>';
-				});
-			}
+		const resetCurrentButton = () => {
+			setButtonState(currentButton, 'play');
+		};
 
-			currentAudio = button.audioElement;
-			currentButton = button;
+		audio.addEventListener('ended', () => {
+			resetCurrentButton();
+			audio.currentTime = 0;
+		});
 
-			if (button.audioElement.paused) {
-				button.audioElement.play();
-				button.innerHTML = '<i class="fas fa-pause"></i>';
-			} else {
-				button.audioElement.pause();
-				button.innerHTML = '<i class="fas fa-play"></i>';
-			}
+		audio.addEventListener('error', () => {
+			resetCurrentButton();
+
+			// Release a failed source so the next click starts with a clean request.
+			audio.removeAttribute('src');
+			audio.load();
+
+			currentButton = null;
+			currentSrc = '';
+		});
+
+		buttons.forEach(button => {
+			button.addEventListener('click', async () => {
+				const audioSrc = button.dataset.audio;
+
+				if (!audioSrc) {
+					return;
+				}
+
+				const isCurrentEpisode = currentButton === button && currentSrc === audioSrc;
+
+				if (isCurrentEpisode && !audio.paused) {
+					audio.pause();
+					setButtonState(button, 'play');
+					return;
+				}
+
+				if (!isCurrentEpisode) {
+					audio.pause();
+					resetCurrentButton();
+
+					currentButton = button;
+					currentSrc = audioSrc;
+
+					// Replacing the source and calling load() aborts the previous
+					// media request before starting the newly selected episode.
+					audio.src = audioSrc;
+					audio.load();
+				}
+
+				try {
+					await audio.play();
+
+					if (currentButton === button && currentSrc === audioSrc) {
+						setButtonState(button, 'pause');
+					}
+				} catch (error) {
+					if (currentButton === button && currentSrc === audioSrc) {
+						setButtonState(button, 'play');
+					}
+
+					// AbortError is expected when the user quickly switches episodes.
+					if (!error || error.name !== 'AbortError') {
+						console.warn('Podcast playback failed.', error);
+					}
+				}
+			});
 		});
 	});
 });
