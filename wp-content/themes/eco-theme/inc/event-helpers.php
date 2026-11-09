@@ -168,14 +168,16 @@ function eco_event_get_image_url( string $field = 'hero_image', $post_id = null,
 		return esc_url_raw( $image );
 	}
 
-	if ( $field === 'hero_image' ) {
-		$url = eco_event_get_image_url( 'card_image', $post_id, $size );
-		if ( $url ) {
-			return $url;
-		}
+	if ( 'hero_image' === $field ) {
+		return eco_event_get_image_url( 'card_image', $post_id, $size );
 	}
 
-	return get_the_post_thumbnail_url( $post_id, $size ) ?: '';
+	if ( 'card_image' === $field ) {
+		return get_the_post_thumbnail_url( $post_id, $size ) ?: '';
+	}
+
+	// Location and other dedicated images must only use their own field.
+	return '';
 }
 
 function eco_event_parse_datetime( $date, $time = '', $end_of_day = false ): ?DateTimeImmutable {
