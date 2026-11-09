@@ -261,20 +261,14 @@ class Search {
 
         $base = home_url('/');
 
-        $args = [];
-
-        if ($merged['s'] !== '') {
-            $args['s'] = $merged['s'];
-        }
-
-        if (!empty($merged['topic'])) {
-            $args['topic'] = $merged['topic'];
-        }
-
-        // omit default date to keep URLs clean
-        if (!empty($merged['date']) && $merged['date'] !== '6m') {
-            $args['date'] = $merged['date'];
-        }
+        // Keep the complete search state in pagination links. In particular,
+        // the empty s= parameter is required so WordPress continues treating
+        // /?pg=2 as a search request instead of falling back to the homepage.
+        $args = [
+            's'     => (string) ($merged['s'] ?? ''),
+            'topic' => (string) ($merged['topic'] ?? ''),
+            'date'  => (string) ($merged['date'] ?? '6m'),
+        ];
 
         // omit pg=1
         $pg = (int) ($merged['pg'] ?? 1);
@@ -282,18 +276,19 @@ class Search {
             $args['pg'] = $pg;
         }
 
-        $url = add_query_arg($args, $base);
-
-        // Keep types only when user specified them
-        if (!empty($merged['types'])) {
-            foreach ((array) $merged['types'] as $t) {
-                $t = sanitize_key($t);
-                if ($t) {
-                    $url = add_query_arg('types[]', $t, $url);
-                }
+        // Keep selected content types as a real query-string array.
+        $types = [];
+        foreach ((array) ($merged['types'] ?? []) as $t) {
+            $t = sanitize_key($t);
+            if ($t) {
+                $types[] = $t;
             }
         }
 
-        return $url;
+        if ($types) {
+            $args['types'] = array_values(array_unique($types));
+        }
+
+        return add_query_arg($args, $base);
     }
 }
